@@ -1,0 +1,2363 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apostila de Estudo - Lista 9: Sistemas de EDOs Lineares de 1ª Ordem (CM314 - UFPR)</title>
+    <!-- KaTeX for crisp, fast math rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '\\[', right: '\\]', display: true},
+                {left: '\\(', right: '\\)', display: false}
+            ],
+            throwOnError: false
+        });"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --primary: #0f766e;
+            --primary-light: #ccfbf1;
+            --primary-border: #5eead4;
+            --accent: #0d9488;
+            --accent-light: #ccfbf1;
+            --accent-border: #5eead4;
+            --warn: #b45309;
+            --warn-light: #fef3c7;
+            --warn-border: #fcd34d;
+            --prereq-bg: #f3e8ff;
+            --prereq-border: #c084fc;
+            --prereq-text: #581c87;
+            --code-bg: #0f172a;
+            --code-row-even: #f8fafc;
+            --code-row-odd: #ffffff;
+            --comment-color: #047857;
+            --comment-bg: #ecfdf5;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.6;
+            font-size: 13.5px;
+            padding: 20px;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 32px 36px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Portal Navigation Bar */
+        .portal-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f0fdfa;
+            border: 1px solid #99f6e4;
+            border-radius: 8px;
+            padding: 9px 14px;
+            margin-bottom: 18px;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #115e59;
+        }
+
+        .portal-nav a {
+            color: #0f766e;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .portal-nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Cover / Header */
+        .doc-header {
+            background: linear-gradient(135deg, #0f766e 0%, #0f172a 100%);
+            color: #ffffff;
+            padding: 28px 32px;
+            border-radius: 12px;
+            margin-bottom: 26px;
+            border-left: 8px solid #2dd4bf;
+        }
+
+        .doc-header .badge-course {
+            display: inline-block;
+            background: rgba(45, 212, 191, 0.18);
+            color: #99f6e4;
+            font-weight: 700;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(45, 212, 191, 0.45);
+        }
+
+        .doc-header h1 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            line-height: 1.25;
+        }
+
+        .doc-header .subtitle {
+            font-size: 13.5px;
+            color: #cbd5e1;
+            margin-bottom: 16px;
+        }
+
+        .header-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 12px;
+            color: #e2e8f0;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 12px;
+        }
+
+        /* Legend Box */
+        .legend-box {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-bottom: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+            font-size: 12.5px;
+        }
+
+        .legend-title {
+            font-weight: 700;
+            color: #1e293b;
+            margin-right: 4px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #ffffff;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            font-weight: 500;
+        }
+
+        /* Checklist Section */
+        .checklist-card {
+            background: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+        }
+
+        .chk-topic {
+            break-inside: avoid;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 14px;
+        }
+
+        .checklist-card h2 {
+            font-size: 17px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 8px;
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .chk-topic-title {
+            font-weight: 700;
+            color: #0f172a;
+            font-size: 13px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .chk-sublist {
+            list-style: none;
+            padding-left: 20px;
+            font-size: 12px;
+            color: #475569;
+        }
+
+        .chk-sublist li {
+            margin-bottom: 3px;
+            position: relative;
+        }
+
+        .chk-sublist li::before {
+            content: "☐";
+            position: absolute;
+            left: -16px;
+            color: #64748b;
+            font-weight: bold;
+        }
+
+        /* Topic Header Banner */
+        .topic-section {
+            margin-top: 34px;
+            margin-bottom: 28px;
+        }
+
+        .topic-banner {
+            background: linear-gradient(90deg, #0f766e 0%, #0d9488 100%);
+            color: #ffffff;
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            break-after: avoid;
+        }
+
+        .topic-banner h2 {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .topic-banner .topic-range {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* Theory, Prereq & Raio-X Boxes */
+        .theory-box {
+            background: #eff6ff;
+            border-left: 5px solid #2563eb;
+            border-top: 1px solid #bfdbfe;
+            border-right: 1px solid #bfdbfe;
+            border-bottom: 1px solid #bfdbfe;
+            border-radius: 0 8px 8px 0;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+        }
+
+        .theory-box h3 {
+            color: #1e3a8a;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theory-box p, .theory-box ul, .theory-box ol {
+            margin-bottom: 8px;
+            color: #1e293b;
+        }
+
+        .theory-box ul, .theory-box ol {
+            padding-left: 22px;
+        }
+
+        .prereq-box {
+            background: var(--prereq-bg);
+            border-left: 5px solid #9333ea;
+            border-top: 1px solid #e9d5ff;
+            border-right: 1px solid #e9d5ff;
+            border-bottom: 1px solid #e9d5ff;
+            border-radius: 0 8px 8px 0;
+            padding: 15px 20px;
+            margin-bottom: 16px;
+            break-inside: avoid;
+        }
+
+        .prereq-box h3 {
+            color: var(--prereq-text);
+            font-size: 14.5px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prereq-box ul, .prereq-box ol {
+            padding-left: 22px;
+        }
+
+        .raiox-box {
+            background: #f0fdfa;
+            border: 1px solid #99f6e4;
+            border-left: 5px solid #0f766e;
+            border-radius: 0 8px 8px 0;
+            padding: 12px 16px;
+            margin-bottom: 14px;
+            break-inside: avoid;
+        }
+
+        .raiox-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: #115e59;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .raiox-box p {
+            margin: 0;
+            font-size: 12.6px;
+            color: #1e293b;
+            line-height: 1.55;
+        }
+
+        .errata-alert {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-left: 5px solid #dc2626;
+            border-radius: 0 8px 8px 0;
+            padding: 10px 14px;
+            margin-top: 8px;
+            margin-bottom: 10px;
+            font-size: 12.4px;
+            color: #7f1d1d;
+            break-inside: avoid;
+        }
+
+        /* Formula Table */
+        .formula-card {
+            background: #ffffff;
+            border: 2px solid #0f766e;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            break-inside: avoid;
+        }
+
+        .formula-card-header {
+            background: #0f766e;
+            color: #ffffff;
+            padding: 8px 16px;
+            font-weight: 700;
+            font-size: 13.5px;
+        }
+
+        .formula-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12.8px;
+        }
+
+        .formula-table th {
+            background: #f0fdfa;
+            color: #115e59;
+            text-align: left;
+            padding: 8px 12px;
+            border-bottom: 1px solid #99f6e4;
+            font-weight: 700;
+        }
+
+        .formula-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: middle;
+        }
+
+        .formula-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Exercise Card */
+        .exercise-card {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            margin-bottom: 22px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+
+        .exercise-header {
+            background: #f1f5f9;
+            padding: 12px 18px;
+            border-bottom: 1px solid #cbd5e1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            break-after: avoid;
+        }
+
+        .exercise-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: #0f172a;
+            display: block;
+        }
+
+        .badge-type {
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+
+        .badge-star {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #f59e0b;
+        }
+
+        .badge-book {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #60a5fa;
+        }
+
+        .badge-extra {
+            background: #ffedd5;
+            color: #9a3412;
+            border: 1px solid #fb923c;
+        }
+
+        .exercise-body {
+            padding: 16px 18px;
+        }
+
+        .enunciado-geral {
+            background: #f8fafc;
+            border-left: 4px solid #64748b;
+            padding: 10px 14px;
+            margin-bottom: 14px;
+            font-weight: 500;
+            color: #1e293b;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .subitem-block {
+            margin-top: 14px;
+            margin-bottom: 16px;
+        }
+
+        .subitem-enunciado {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-left: 4px solid #2563eb;
+            padding: 8px 14px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #1e3a8a;
+            break-after: avoid;
+        }
+
+        /* Code-Style Resolution Table */
+        .code-resolution {
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            background: #ffffff;
+        }
+
+        .code-header {
+            background: #1e293b;
+            color: #cbd5e1;
+            padding: 6px 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            break-after: avoid;
+        }
+
+        .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .dot.red { background: #ef4444; }
+        .dot.yellow { background: #f59e0b; }
+        .dot.green { background: #10b981; }
+        .code-title { margin-left: 6px; font-weight: 500; color: #94a3b8; }
+
+        .step-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .step-row {
+            border-bottom: 1px solid #e2e8f0;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .step-row:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .step-row:last-child {
+            border-bottom: none;
+        }
+
+        .line-num {
+            width: 38px;
+            min-width: 38px;
+            text-align: right;
+            padding: 8px 8px 8px 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #64748b;
+            background: #f1f5f9;
+            border-right: 2px solid #cbd5e1;
+            vertical-align: middle;
+            user-select: none;
+        }
+
+        .step-math {
+            width: 54%;
+            padding: 8px 12px;
+            vertical-align: middle;
+            font-size: 13px;
+            color: #0f172a;
+            overflow-x: auto;
+        }
+
+        .step-comment {
+            width: 44%;
+            padding: 8px 12px;
+            vertical-align: middle;
+            font-family: 'Inter', sans-serif;
+            font-size: 12.2px;
+            color: #065f46;
+            background: rgba(236, 253, 245, 0.55);
+            border-left: 1px dashed #6ee7b7;
+            line-height: 1.45;
+        }
+
+        .comment-prefix {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: #059669;
+            margin-right: 4px;
+        }
+
+        .final-answer {
+            background: #ecfdf5;
+            border: 1.5px solid #10b981;
+            border-radius: 6px;
+            padding: 8px 14px;
+            font-weight: 600;
+            color: #065f46;
+            font-size: 13px;
+            margin-top: 6px;
+            break-inside: avoid;
+        }
+
+        /* Recapitulation Box */
+        .recap-box {
+            background: #fffbeb;
+            border: 2px solid #f59e0b;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            break-inside: avoid;
+        }
+
+        .recap-box h3 {
+            color: #b45309;
+            font-size: 15.5px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .recap-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .recap-card {
+            background: #ffffff;
+            border: 1px solid #fde68a;
+            border-radius: 6px;
+            padding: 10px 12px;
+            font-size: 12.5px;
+        }
+
+        .recap-card > strong:first-child {
+            color: #92400e;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Print optimization */
+        @page {
+            size: A4 portrait;
+            margin: 12mm 10mm 12mm 10mm;
+        }
+
+        @media print {
+            .portal-nav {
+                display: none !important;
+            }
+            body {
+                background: #ffffff;
+                padding: 0;
+                font-size: 12px;
+            }
+            .container {
+                max-width: 100%;
+                padding: 0;
+                box-shadow: none;
+            }
+            .topic-section {
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="portal-nav"><a href="../">← Voltar para Cálculo III (CM314)</a><span>CM314 · P3 · Lista 9</span></div>
+
+    <!-- HEADER -->
+    <div class="doc-header">
+        <div class="badge-course">CM314 • Cálculo 4 • UFPR • Preparação Prova 3</div>
+        <h1>Caderno de Resolução Integral e Teoria — Lista Nº 9</h1>
+        <div class="subtitle">Sistemas de Equações Diferenciais Ordinárias Lineares de 1ª Ordem: Modelagem, Matriz Fundamental, Autovalores (Reais, Repetidos/Generalizados, Complexos) e Variação dos Parâmetros</div>
+        <div class="header-meta">
+            <span><strong>Aluno:</strong> Vitor Hugo D. Lima</span>
+            <span><strong>Docente:</strong> Profa. Dra. Ana Gabriela Martínez</span>
+            <span><strong>Metodologia:</strong> Raio-X de Prova + Código Comentado Linha a Linha + Zero Pressuposição de Álgebra Linear</span>
+        </div>
+    </div>
+
+    <!-- LEGENDA DE CLASSIFICAÇÃO -->
+    <div class="legend-box">
+        <span class="legend-title">Legenda de Classificação dos Exercícios:</span>
+        <div class="legend-item"><span>⭐</span> <strong>Formato provável de cair em prova</strong> (Foco máximo!)</div>
+        <div class="legend-item"><span>📖</span> <strong>Exercício introdutório ao tema</strong> (Constrói a base)</div>
+        <div class="legend-item"><span>⚠️</span> <strong>Extra / Prioridade Secundária</strong> (Sistemas Não-Homogêneos)</div>
+    </div>
+
+    <!-- CHECKLIST GERAL DA LISTA 9 -->
+    <div class="checklist-card">
+        <h2>📋 Introdução à Lista 9 — Checklist de Tópicos e Subtópicos</h2>
+        <p style="margin-bottom: 12px; color: #475569; font-size: 12.8px;">Todas as <strong>13 questões (Q1 a Q13)</strong> da Lista 9 estão resolvidas item a item abaixo, com alertas explícitos de gralhas do gabarito oficial e revisão completa dos pré-requisitos de Álgebra Linear e Cálculo:</p>
+        <div class="checklist-grid">
+            <div class="chk-topic">
+                <div class="chk-topic-title">☐ Tópico 1: Conceito, Forma Matricial e Redução de Ordem (Q1 a Q7)</div>
+                <ul class="chk-sublist">
+                    <li>Identificação de sistemas lineares vs. não-lineares (\(X' = A(t)X + g(t)\))</li>
+                    <li>Verificação de solução vetorial por substituição direta</li>
+                    <li>Transformação de EDOs de ordem \(n\) e sistemas massa-mola em 1ª ordem</li>
+                </ul>
+            </div>
+            <div class="chk-topic">
+                <div class="chk-topic-title">☐ Tópico 2: Superposição e Matriz Fundamental (Q8 e Q9)</div>
+                <ul class="chk-sublist">
+                    <li>Demonstração formal do Princípio da Superposição para \(X' = A(t)X\)</li>
+                    <li>Verificação de Matriz Fundamental \(\Phi(t)\): \(\Phi'(t) = A\Phi(t)\)</li>
+                    <li>Independência Linear das colunas via \(\det\Phi(t) \neq 0\)</li>
+                </ul>
+            </div>
+            <div class="chk-topic">
+                <div class="chk-topic-title">☐ Tópico 3: Sistemas Homogêneos \(X' = AX\) — 3 Regimes (Q10 a Q12)</div>
+                <ul class="chk-sublist">
+                    <li>Autovalores reais distintos e PVIs \(2\times 2\) e \(3\times 3\)</li>
+                    <li>Autovalores repetidos com defeito geométrico (autovetor generalizado \((A-\lambda I)w = v\))</li>
+                    <li>Autovalores complexos conjugados via Fórmula de Euler (\(\operatorname{Re}\) e \(\operatorname{Im}\))</li>
+                </ul>
+            </div>
+            <div class="chk-topic">
+                <div class="chk-topic-title">☐ Tópico 4: Bloco Extra — Sistemas Não-Homogêneos (Q13 a, b, c)</div>
+                <ul class="chk-sublist">
+                    <li>⚠️ Prioridade secundária: cai apenas se avançado em sala até o fim da ementa</li>
+                    <li>Método dos Coeficientes a Determinar vetorial</li>
+                    <li>Variação dos Parâmetros \(X(t) = \Phi(t)C + \Phi(t)\int_0^t \Phi(\tau)^{-1}g(\tau)\,d\tau\)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TÓPICO 1: MODELAGEM, LINEARIDADE E REDUÇÃO DE ORDEM (Q1 A Q7)     -->
+    <!-- ================================================================= -->
+    <div class="topic-section">
+        <div class="topic-banner">
+            <h2>Tópico 1: Linearidade, Forma Matricial e Redução para 1ª Ordem</h2>
+            <span class="topic-range">Exercícios 1 a 7</span>
+        </div>
+
+        <div class="prereq-box">
+            <h3>🧠 Pré-Requisitos de Álgebra Linear e Cálculo (Zero Pressuposição)</h3>
+            <ul>
+                <li><strong>1. Produto Matriz \(\times\) Vetor Coluna:</strong> Se \(A = \begin{pmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{pmatrix}\) e \(X = \begin{pmatrix} x_1 \\ x_2 \end{pmatrix}\), multiplicamos <em>cada linha de \(A\) pela coluna \(X\)</em>:
+                \[A X = \begin{pmatrix} a_{11}x_1 + a_{12}x_2 \\ a_{21}x_1 + a_{22}x_2 \end{pmatrix}\]
+                Para \(3\times 3\) ou \(4\times 4\), a regra é idêntica: a \(i\)-ésima linha do resultado é a soma dos produtos dos elementos da linha \(i\) de \(A\) pelas respectivas coordenadas de \(X\).</li>
+                <li><strong>2. Derivada de Vetor e Regra da Cadeia:</strong> Derivar um vetor \(X(t) = \begin{pmatrix} x_1(t) \\ x_2(t) \end{pmatrix}\) significa derivar entrada por entrada: \(X'(t) = \begin{pmatrix} x_1'(t) \\ x_2'(t) \end{pmatrix}\). E lembre sempre da Regra da Cadeia: \(\frac{d}{dt}(e^{kt}) = k e^{kt}\), \(\frac{d}{dt}\cos(\omega t) = -\omega\operatorname{sen}(\omega t)\) e \(\frac{d}{dt}\operatorname{sen}(\omega t) = \omega\cos(\omega t)\).</li>
+            </ul>
+        </div>
+
+        <div class="theory-box">
+            <h3>📘 Como Reconhecer um Sistema Linear e Reduzir uma EDO de Ordem Superior</h3>
+            <p>Um sistema de \(n\) EDOs de 1ª ordem na variável independente \(t\) é <strong>linear</strong> quando pode ser escrito na forma padrão:</p>
+            \[X'(t) = A(t)X(t) + g(t)\]
+            <p>onde \(A(t)\) é uma matriz \(n\times n\) que depende <strong>apenas de \(t\)</strong> (ou é constante) e \(g(t)\) é um vetor \(n\times 1\) que também depende <strong>apenas de \(t\)</strong>. Se \(g(t) = \mathbf{0}\), o sistema é <strong>homogêneo</strong>; se \(g(t) \neq \mathbf{0}\), é <strong>não-homogêneo</strong>. O sistema deixa de ser linear se aparecer qualquer produto entre funções incógnitas (como \(x_1 x_2\)), potências (\(x_1^2\)) ou funções não-lineares das incógnitas (\(\operatorname{sen}(x_1)\), \(e^{x_2}\)).</p>
+            <p>Para transformar uma EDO de ordem \(n\), \(y^{(n)} = f(t, y, y', \dots, y^{(n-1)})\), em um sistema de 1ª ordem, criamos uma escada de variáveis \(z_1 = y,\; z_2 = y',\; \dots,\; z_n = y^{(n-1)}\), de modo que \(z_1'=z_2,\; z_2'=z_3,\; \dots,\; z_{n-1}'=z_n\) e a última linha \(z_n'\) recebe a própria EDO isolada.</p>
+        </div>
+
+        <!-- EXERCÍCIO 1 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>📖</span> Exercício 1 — Classificação de Linearidade e Representação Matricial</div>
+                <span class="badge-type badge-book">Introdutório ao Tema</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>1.</strong> Determine quais dos seguintes sistemas de e.d.o expostos a seguir correspondem a sistemas de e.d.o. lineares. Para o caso em que o sistema seja linear represente matricialmente:
+                </div>
+
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>O tema aqui é reconhecimento estrutural de sistemas lineares de 1ª ordem e escrita na forma \(X'(t) = A(t)X(t) + g(t)\). Ao bater o olho nas equações, faça uma varredura procurando termos proibidos envolvendo as variáveis dependentes \(x_1, x_2\): multiplicações cruzadas como \(x_1(t)x_2(t)\), quadrados como \(x_1^2\) ou composições como \(\cos(x_1)\); funções complicadas da variável independente \(t\) (como \(t^3\), \(e^{3t}\), \(\cos(\pi t)\)) são totalmente permitidas e formam os coeficientes de \(A(t)\) ou o termo forçante \(g(t)\). A estratégia é separar o que multiplica \(x_1\) e \(x_2\) (vai para a matriz \(A(t)\)) do que depende só de \(t\) (vai para \(g(t)\)), tomando cuidado máximo com os sinais negativos ao copiar para dentro da matriz — justamente onde o gabarito oficial escorregou no item (c).</p>
+                </div>
+
+                <!-- 1(a) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(a)</strong> \(x_1'(t) = t x_1(t) + x_1(t)x_2(t) + t, \qquad x_2'(t) = t^2 x_1(t) - x_2(t) + 4t.\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q1(a)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(x_1'(t) = t x_1(t) + \underbrace{x_1(t)x_2(t)}_{\text{termo não-linear}} + t\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Na 1ª equação aparece o produto entre duas variáveis dependentes \(x_1(t)\) e \(x_2(t)\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(\text{Impossível escrever como } A(t)X(t) + g(t)\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Na forma matricial linear, cada entrada de \(A(t)\) só pode depender de \(t\), nunca de \(x_1\) ou \(x_2\).</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Conclusão Q1(a): O sistema é <strong>NÃO-LINEAR</strong> (por causa do termo \(x_1(t)x_2(t)\)). Não possui representação \(A(t)X(t)+g(t)\).</div>
+                </div>
+
+                <!-- 1(b) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(b)</strong> \(x_1'(t) = t^3 x_1(t) + x_2(t) + (2t+1)^2, \qquad x_2'(t) = e^{3t} x_1(t) + x_2(t) - \cos(\pi t).\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q1(b)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(x_1' = (t^3)x_1 + (1)x_2 + (2t+1)^2\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> \(x_1\) e \(x_2\) aparecem apenas em grau 1 e isolados; \((2t+1)^2\) depende só de \(t\), logo é linear!</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(x_2' = (e^{3t})x_1 + (1)x_2 + (-\cos(\pi t))\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Coeficientes de \(x_1\) e \(x_2\) são \(e^{3t}\) e \(1\); termo independente de \(X\) é \(-\cos(\pi t)\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\(\begin{pmatrix} x_1'(t) \\ x_2'(t) \end{pmatrix} = \begin{pmatrix} t^3 & 1 \\ e^{3t} & 1 \end{pmatrix} \begin{pmatrix} x_1(t) \\ x_2(t) \end{pmatrix} + \begin{pmatrix} (2t+1)^2 \\ -\cos(\pi t) \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Montamos \(X'(t) = A(t)X(t) + g(t)\): coeficientes formam as linhas de \(A(t)\) e os termos soltos em \(t\) formam \(g(t)\).</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Conclusão Q1(b): Sistema <strong>LINEAR (não-homogêneo)</strong>, com \(A(t) = \begin{pmatrix} t^3 & 1 \\ e^{3t} & 1 \end{pmatrix}\) e \(g(t) = \begin{pmatrix} (2t+1)^2 \\ -\cos(\pi t) \end{pmatrix}\).</div>
+                </div>
+
+                <!-- 1(c) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(c)</strong> \(x_1'(t) = \cos(2\pi t)x_1 + 3x_2(t), \qquad x_2'(t) = x_1(t) - 4t^2 x_2(t).\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q1(c)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(x_1' = (\cos(2\pi t))x_1 + (3)x_2 + 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Todas as ocorrências de \(x_1\) e \(x_2\) são lineares e não há termo dependente apenas de \(t\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(x_2' = (1)x_1 + (-4t^2)x_2 + 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> ATENÇÃO AO SINAL: o coeficiente que multiplica \(x_2(t)\) é \(-4t^2\) (negativo!).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\(\begin{pmatrix} x_1'(t) \\ x_2'(t) \end{pmatrix} = \begin{pmatrix} \cos(2\pi t) & 3 \\ 1 & -4t^2 \end{pmatrix} \begin{pmatrix} x_1(t) \\ x_2(t) \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Sistema linear homogêneo (\(g(t) = \mathbf{0}\)) na forma \(X'(t) = A(t)X(t)\).</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="errata-alert">
+                        <strong>⚠️ Alerta de Gralha no Gabarito Oficial (Q1c):</strong> O gabarito oficial da lista imprimiu \(\begin{pmatrix} \cos(2\pi t) & 3 \\ 1 & 4t^2 \end{pmatrix}\) sem o sinal negativo na entrada \((2,2)\). Como a equação do enunciado é \(x_2'(t) = x_1(t) - 4t^2 x_2(t)\), a entrada correta é obrigatoriamente <strong>\(-4t^2\)</strong>.
+                    </div>
+                    <div class="final-answer">Conclusão Q1(c): Sistema <strong>LINEAR (homogêneo)</strong>, com \(X'(t) = \begin{pmatrix} \cos(2\pi t) & 3 \\ 1 & -4t^2 \end{pmatrix} X(t)\).</div>
+                </div>
+
+                <!-- 1(d) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(d)</strong> \(x_1'(t) = x_1(t)x_2(t) + t - 1, \qquad x_2'(t) = x_1(t) + x_2(t) - 4.\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q1(d)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(x_1'(t) = \underbrace{x_1(t)x_2(t)}_{\text{produto de incógnitas}} + t - 1\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Embora a 2ª equação seja linear, basta UMA equação violar a linearidade para o sistema todo ser não-linear.</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Conclusão Q1(d): O sistema é <strong>NÃO-LINEAR</strong> (produto \(x_1(t)x_2(t)\) na primeira equação).</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXERCÍCIO 2 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>📖</span> Exercício 2 — Verificação de Solução Vetorial por Substituição</div>
+                <span class="badge-type badge-book">Introdutório ao Tema</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>2.</strong> Verifique que a função vetorial \(\mathbf{x}(t) = c_1 e^{-4t} \begin{bmatrix} 1 \\ 1 \end{bmatrix} + c_2 e^{3t} \begin{bmatrix} -2 \\ 5 \end{bmatrix}\) satisfaz o sistema de equações \(\begin{cases} x_1'(t) = -2x_1(t) - 2x_2(t) \\ x_2'(t) = -5x_1(t) + x_2(t) \end{cases}\) para quaisquer valores de \(c_1, c_2 \in \mathbb{R}\).
+                </div>
+
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Questões com o verbo "Verifique que..." não pedem para você encontrar autovalores ou resolver o sistema do zero — o enunciado já te entrega a resposta pronta e quer que você teste se o lado esquerdo (as derivadas \(x_1', x_2'\)) coincide identicamente com o lado direito (as expressões em \(x_1, x_2\)). A melhor estratégia para não se confundir em contas vetoriais é abrir \(\mathbf{x}(t)\) em suas duas componentes escalares \(x_1(t)\) e \(x_2(t)\), calcular \(x_1'(t)\) e \(x_2'(t)\) pela Regra da Cadeia e depois substituir tudo no lado direito das duas equações. O macete de prova é nunca atribuir valores numéricos específicos a \(c_1\) e \(c_2\): mantenha \(c_1\) e \(c_2\) genéricos até o fim para provar que a igualdade vale para quaisquer constantes reais.</p>
+                </div>
+
+                <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q2</span></div><table class="step-table"><tbody>
+                    <tr class="step-row">
+                        <td class="line-num">01</td>
+                        <td class="step-math">\(\mathbf{x}(t) = \begin{bmatrix} x_1(t) \\ x_2(t) \end{bmatrix} = \begin{bmatrix} c_1 e^{-4t} - 2c_2 e^{3t} \\ c_1 e^{-4t} + 5c_2 e^{3t} \end{bmatrix}\)</td>
+                        <td class="step-comment"><span class="comment-prefix">//</span> Abrimos a combinação linear vetorial: multiplicamos cada escalar pelo respectivo vetor e somamos linha a linha.</td>
+                    </tr>
+                    <tr class="step-row">
+                        <td class="line-num">02</td>
+                        <td class="step-math">\(x_1'(t) = \frac{d}{dt}\left(c_1 e^{-4t} - 2c_2 e^{3t}\right) = -4c_1 e^{-4t} - 6c_2 e^{3t}\)</td>
+                        <td class="step-comment"><span class="comment-prefix">//</span> Lado Esquerdo da 1ª EDO: pela Regra da Cadeia, \((e^{-4t})' = -4e^{-4t}\) e \((e^{3t})' = 3e^{3t}\), logo \(-2\cdot 3 = -6\).</td>
+                    </tr>
+                    <tr class="step-row">
+                        <td class="line-num">03</td>
+                        <td class="step-math">\(x_2'(t) = \frac{d}{dt}\left(c_1 e^{-4t} + 5c_2 e^{3t}\right) = -4c_1 e^{-4t} + 15c_2 e^{3t}\)</td>
+                        <td class="step-comment"><span class="comment-prefix">//</span> Lado Esquerdo da 2ª EDO: \(5 \cdot 3 = 15\).</td>
+                    </tr>
+                    <tr class="step-row">
+                        <td class="line-num">04</td>
+                        <td class="step-math">\(-2x_1(t) - 2x_2(t) = -2(c_1 e^{-4t} - 2c_2 e^{3t}) - 2(c_1 e^{-4t} + 5c_2 e^{3t})\)</td>
+                        <td class="step-comment"><span class="comment-prefix">//</span> Lado Direito da 1ª EDO: substituímos as expressões da linha 01.</td>
+                    </tr>
+                    <tr class="step-row">
+                        <td class="line-num">05</td>
+                        <td class="step-math">\(= (-2 - 2)c_1 e^{-4t} + (4 - 10)c_2 e^{3t} = -4c_1 e^{-4t} - 6c_2 e^{3t} = x_1'(t)\)</td>
+                        <td class="step-comment"><span class="comment-prefix">//</span> Agrupando termos semelhantes em \(e^{-4t}\) e \(e^{3t}\), bate exatamente com a linha 02!</td>
+                    </tr>
+                    <tr class="step-row">
+                        <td class="line-num">06</td>
+                        <td class="step-math">\(-5x_1(t) + x_2(t) = -5(c_1 e^{-4t} - 2c_2 e^{3t}) + (c_1 e^{-4t} + 5c_2 e^{3t})\)</td>
+                        <td class="step-comment"><span class="comment-prefix">//</span> Lado Direito da 2ª EDO: substituímos \(x_1(t)\) e \(x_2(t)\).</td>
+                    </tr>
+                    <tr class="step-row">
+                        <td class="line-num">07</td>
+                        <td class="step-math">\(= (-5 + 1)c_1 e^{-4t} + (10 + 5)c_2 e^{3t} = -4c_1 e^{-4t} + 15c_2 e^{3t} = x_2'(t)\)</td>
+                        <td class="step-comment"><span class="comment-prefix">//</span> Bate exatamente com a linha 03, independentemente dos valores de \(c_1, c_2 \in \mathbb{R}\).</td>
+                    </tr>
+                </tbody></table></div>
+                <div class="final-answer">Conclusão Q2: Como \(x_1'(t) = -2x_1 - 2x_2\) e \(x_2'(t) = -5x_1 + x_2\) são identidades válidas para todo \(t \in \mathbb{R}\) e quaisquer \(c_1, c_2 \in \mathbb{R}\), a função vetorial \(\mathbf{x}(t)\) satisfaz o sistema.</div>
+            </div>
+        </div>
+
+        <!-- EXERCÍCIO 3 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>⭐</span> Exercício 3 — Transformação de EDO de Ordem \(n\) em Sistema de 1ª Ordem</div>
+                <span class="badge-type badge-star">Provável de Prova</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>3.</strong> Transforme as e.d.o a seguir em sistemas de equações de primeira ordem (usando \(z_1 = y,\; z_2 = y',\; \dots,\; z_n = y^{(n-1)}\)):
+                </div>
+
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Aqui trabalhamos a redução de uma EDO escalar de ordem \(n\) para um sistema de \(n\) equações de 1ª ordem. O gatilho visual imediato é olhar qual é a maior derivada de \(y\) que aparece na equação: se for \(y''\), o sistema terá 2 variáveis (\(z_1, z_2\)); se for \(y'''\), terá 3 variáveis (\(z_1, z_2, z_3\)). Antes de começar a substituir, isole sempre a derivada de maior ordem sozinha no lado esquerdo — especialmente se ela vier multiplicada por alguma função de \(t\), como ocorre no item (c)! O maior risco de perda de pontos na prova é trocar os índices na hora de reescrever \(y, y', y''\) em termos de \(z_1, z_2, z_3\) (lembre: \(z_1\) é \(y\) sem derivada, \(z_2\) é a 1ª derivada, \(z_3\) é a 2ª derivada — sempre um índice acima da ordem da derivada!).</p>
+                </div>
+
+                <!-- 3(a) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(a)</strong> \(y'''(t) = 5(t^2+1)y''(t) + 6y'(t) + \cos(3t)y(t)\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q3(a)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(\text{Ordem } n = 3 \implies z_1 = y(t),\quad z_2 = y'(t),\quad z_3 = y''(t)\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> A maior derivada é \(y'''\), então criamos 3 variáveis auxiliares até \(y''\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(z_1' = y'(t) = z_2, \qquad z_2' = y''(t) = z_3\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Derivando \(z_1\) e \(z_2\), obtemos automaticamente as duas primeiras equações em cadeia.</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\(z_3' = y'''(t) = 5(t^2+1)z_3 + 6z_2 + \cos(3t)z_1\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Como \(y'''\) já está isolada, basta trocar \(y''\to z_3\), \(y'\to z_2\) e \(y\to z_1\).</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Resposta Q3(a): \(\begin{cases} z_1' = z_2 \\ z_2' = z_3 \\ z_3' = 5(t^2+1)z_3 + 6z_2 + \cos(3t)z_1 \end{cases}\)</div>
+                </div>
+
+                <!-- 3(b) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(b)</strong> \(y'' + 3e^{2t}y(t) = t + 4\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q3(b)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(y''(t) = (t + 4) - 3e^{2t}y(t)\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Primeiro isolamos a derivada de maior ordem (\(y''\)) no lado esquerdo.</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(\text{Ordem } n = 2 \implies z_1 = y(t),\quad z_2 = y'(t)\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> EDO de 2ª ordem gera um sistema com 2 variáveis.</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\(z_1' = z_2, \qquad z_2' = y''(t) = (t+4) - 3e^{2t}z_1\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Note que \(y'(t)=z_2\) não aparece na expressão de \(y''\) (seu coeficiente será zero na matriz).</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Resposta Q3(b): \(\begin{cases} z_1' = z_2 \\ z_2' = (t+4) - 3e^{2t}z_1 \end{cases}\)</div>
+                </div>
+
+                <!-- 3(c) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(c)</strong> \(3y'' + (3t^2+2t)y'''(t) = 2t + y(t)\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q3(c)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\((3t^2+2t)y'''(t) = 2t + y(t) - 3y''(t)\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Passamos \(3y''\) para o lado direito antes de dividir pelo coeficiente líder.</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(y'''(t) = \frac{2t}{3t^2+2t} + \frac{1}{3t^2+2t}y(t) - \frac{3}{3t^2+2t}y''(t)\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Dividimos toda a equação por \(3t^2+2t\) (válido onde \(3t^2+2t \neq 0\), i.e., \(t \neq 0\) e \(t \neq -\frac{2}{3}\)).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\(z_1 = y, \quad z_2 = y', \quad z_3 = y''\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Substituição padrão para ordem \(n=3\). Atenção: \(y''\) é <strong>\(z_3\)</strong>, e não \(z_2\)!</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">04</td>
+                            <td class="step-math">\(z_1' = z_2,\quad z_2' = z_3,\quad z_3' = \frac{2t}{3t^2+2t} + \frac{z_1}{3t^2+2t} - \frac{3}{3t^2+2t}z_3\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Se quiser, \(\frac{2t}{3t^2+2t} = \frac{2}{3t+2}\) para \(t \neq 0\), mantendo o denominador comum se preferir.</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="errata-alert">
+                        <strong>⚠️ Alerta de Gralha no Gabarito Oficial (Q3c):</strong> O gabarito oficial imprimiu \(-\frac{3}{3t^2+2t} z_2\) no último termo de \(z_3'\). Como o termo na EDO original é \(3y''\) (segunda derivada!) e \(z_3 = y''\) (enquanto \(z_2 = y'\)), o termo correto é obrigatoriamente <strong>\(-\frac{3}{3t^2+2t} z_3\)</strong>.
+                    </div>
+                    <div class="final-answer">Resposta Q3(c): \(\begin{cases} z_1' = z_2 \\ z_2' = z_3 \\ z_3' = \frac{2t}{3t^2+2t} + \frac{1}{3t^2+2t}z_1 - \frac{3}{3t^2+2t}z_3 \end{cases}\)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXERCÍCIO 4 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>⭐</span> Exercício 4 — Forma Matricial \(Z'(t) = A(t)Z(t) + g(t)\) da Questão 3</div>
+                <span class="badge-type badge-star">Provável de Prova</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>4.</strong> Para os exemplos da questão anterior escreva os sistemas lineares resultantes na forma \(Z'(t) = A(t)Z(t) + g(t)\). <em>(Nota: o gabarito oficial imprimiu apenas o item (b); aqui resolvemos todos os três itens!)</em>
+                </div>
+
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Este exercício é a continuação natural da Questão 3: transformar o sistema em escada \(z_1', z_2', \dots, z_n'\) na forma matricial \(Z'(t) = A(t)Z(t) + g(t)\). O padrão visual que você deve enxergar é a famosa "matriz companheira": todas as primeiras linhas da matriz \(A(t)\) têm \(0\) em todo lugar, exceto \(1\) logo acima da diagonal principal (porque \(z_1'=z_2\), \(z_2'=z_3\), etc.), enquanto a última linha de \(A(t)\) coleta na ordem exata \((z_1, z_2, \dots, z_n)\) os coeficientes da última equação, e o vetor \(g(t)\) fica com \(0\) em cima e o termo livre (só de \(t\)) apenas na última linha. Um macete infalível é sempre conferir a ordem das colunas \((z_1, z_2, z_3)\) antes de preencher a última linha, colocando \(0\) na coluna de qualquer \(z_k\) que não apareça na equação.</p>
+                </div>
+
+                <!-- 4(a) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(a)</strong> Forma matricial do sistema de Q3(a): \(z_1'=z_2,\; z_2'=z_3,\; z_3' = \cos(3t)z_1 + 6z_2 + 5(t^2+1)z_3\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q4(a)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(\begin{cases} z_1' = 0\cdot z_1 + 1\cdot z_2 + 0\cdot z_3 + 0 \\ z_2' = 0\cdot z_1 + 0\cdot z_2 + 1\cdot z_3 + 0 \\ z_3' = \cos(3t)\cdot z_1 + 6\cdot z_2 + 5(t^2+1)\cdot z_3 + 0 \end{cases}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Reordenamos cada linha sempre na sequência fixa \(z_1, z_2, z_3\) e preenchemos ausências com \(0\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(\begin{pmatrix} z_1' \\ z_2' \\ z_3' \end{pmatrix} = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ \cos(3t) & 6 & 5(t^2+1) \end{pmatrix} \begin{pmatrix} z_1 \\ z_2 \\ z_3 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Sistema homogêneo (\(g(t) = \mathbf{0}\)).</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Resposta Q4(a): \(Z'(t) = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ \cos(3t) & 6 & 5(t^2+1) \end{pmatrix} Z(t)\) (com \(g(t)=\mathbf{0}\)).</div>
+                </div>
+
+                <!-- 4(b) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(b)</strong> Forma matricial do sistema de Q3(b): \(z_1'=z_2,\; z_2' = -3e^{2t}z_1 + (t+4)\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q4(b)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(\begin{cases} z_1' = 0\cdot z_1 + 1\cdot z_2 + 0 \\ z_2' = (-3e^{2t})\cdot z_1 + 0\cdot z_2 + (t+4) \end{cases}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Alinhamos as colunas \(z_1, z_2\) e isolamos o termo independente \((t+4)\) no final da 2ª linha.</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(\begin{pmatrix} z_1' \\ z_2' \end{pmatrix} = \begin{pmatrix} 0 & 1 \\ -3e^{2t} & 0 \end{pmatrix} \begin{pmatrix} z_1 \\ z_2 \end{pmatrix} + \begin{pmatrix} 0 \\ t+4 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Bate 100% com o gabarito oficial!</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Resposta Q4(b): \(\begin{pmatrix} z_1' \\ z_2' \end{pmatrix} = \begin{pmatrix} 0 & 1 \\ -3e^{2t} & 0 \end{pmatrix} \begin{pmatrix} z_1 \\ z_2 \end{pmatrix} + \begin{pmatrix} 0 \\ t+4 \end{pmatrix}\).</div>
+                </div>
+
+                <!-- 4(c) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(c)</strong> Forma matricial do sistema de Q3(c): \(z_1'=z_2,\; z_2'=z_3,\; z_3' = \frac{1}{3t^2+2t}z_1 - \frac{3}{3t^2+2t}z_3 + \frac{2t}{3t^2+2t}\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q4(c)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(\begin{cases} z_1' = 0\cdot z_1 + 1\cdot z_2 + 0\cdot z_3 + 0 \\ z_2' = 0\cdot z_1 + 0\cdot z_2 + 1\cdot z_3 + 0 \\ z_3' = \frac{1}{3t^2+2t}z_1 + 0\cdot z_2 - \frac{3}{3t^2+2t}z_3 + \frac{2t}{3t^2+2t} \end{cases}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Como \(z_2\) não aparece em \(z_3'\), a entrada \((3,2)\) da matriz vale \(0\) e o coeficiente de \(z_3\) vai para a coluna 3.</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(\begin{pmatrix} z_1' \\ z_2' \\ z_3' \end{pmatrix} = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ \frac{1}{3t^2+2t} & 0 & -\frac{3}{3t^2+2t} \end{pmatrix} \begin{pmatrix} z_1 \\ z_2 \\ z_3 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ \frac{2t}{3t^2+2t} \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Sistema não-homogêneo de 1ª ordem na forma \(Z'(t) = A(t)Z(t) + g(t)\).</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Resposta Q4(c): \(Z'(t) = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ \frac{1}{3t^2+2t} & 0 & -\frac{3}{3t^2+2t} \end{pmatrix} Z(t) + \begin{pmatrix} 0 \\ 0 \\ \frac{2t}{3t^2+2t} \end{pmatrix}\).</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXERCÍCIO 5 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>⭐</span> Exercício 5 — Sistema Acoplado de 2ª Ordem para 4 Equações de 1ª Ordem</div>
+                <span class="badge-type badge-star">Provável de Prova</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>5.</strong> Considere o sistema de equações diferenciais lineares de segunda ordem:
+                    \[x''(t) = -6x(t) + 2y(t); \qquad y''(t) = 2x(t) - 2y(t) + 4\operatorname{sen}(2t).\]
+                    Escreva o sistema anterior como um sistema de 4 equações diferenciais de primeira ordem.
+                </div>
+
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Quando aparecem duas variáveis dependentes \(x(t)\) e \(y(t)\) acopladas com segundas derivadas (\(x''\) e \(y''\)), a ordem total do sistema é a soma das ordens máximas de cada variável (\(2 + 2 = 4\) equações de 1ª ordem). A estratégia é montar dois blocos de variáveis em escada: o bloco de \(x\) (\(z_1 = x,\; z_2 = x'\)) e o bloco de \(y\) (\(z_3 = y,\; z_4 = y'\)), derivando cada uma até encaixar \(x'' = z_2'\) e \(y'' = z_4'\) nas equações do enunciado. O macete de prova é nunca confundir \(z_2\) com \(y\): \(z_2\) é a velocidade \(x'(t)\), enquanto \(y(t)\) é \(z_3\); conferir o nome de cada variável antes de preencher \(z_2'\) e \(z_4'\) evita o erro mais comum dessa questão.</p>
+                </div>
+
+                <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q5</span></div><table class="step-table"><tbody>
+                    <tr class="step-row">
+                        <td class="line-num">01</td>
+                        <td class="step-math">\(z_1 = x(t),\quad z_2 = x'(t),\quad z_3 = y(t),\quad z_4 = y'(t)\)</td>
+                        <td class="step-comment"><span class="comment-prefix">//</span> Definimos 2 variáveis para \(x\) (posição e velocidade) e 2 variáveis para \(y\) (posição e velocidade).</td>
+                    </tr>
+                    <tr class="step-row">
+                        <td class="line-num">02</td>
+                        <td class="step-math">\(z_1' = x'(t) = z_2, \qquad z_3' = y'(t) = z_4\)</td>
+                        <td class="step-comment"><span class="comment-prefix">//</span> Derivando \(z_1\) e \(z_3\) obtemos imediatamente as duas equações de ligação.</td>
+                    </tr>
+                    <tr class="step-row">
+                        <td class="line-num">03</td>
+                        <td class="step-math">\(z_2' = x''(t) = -6x(t) + 2y(t) = -6z_1 + 2z_3\)</td>
+                        <td class="step-comment"><span class="comment-prefix">//</span> Derivando \(z_2\), substituímos \(x''\) pela 1ª equação e trocamos \(x \to z_1\), \(y \to z_3\).</td>
+                    </tr>
+                    <tr class="step-row">
+                        <td class="line-num">04</td>
+                        <td class="step-math">\(z_4' = y''(t) = 2x(t) - 2y(t) + 4\operatorname{sen}(2t) = 2z_1 - 2z_3 + 4\operatorname{sen}(2t)\)</td>
+                        <td class="step-comment"><span class="comment-prefix">//</span> Derivando \(z_4\), substituímos \(y''\) pela 2ª equação; o termo \(4\operatorname{sen}(2t)\) fica inalterado (depende só de \(t\)).</td>
+                    </tr>
+                    <tr class="step-row">
+                        <td class="line-num">05</td>
+                        <td class="step-math">\(\begin{pmatrix} z_1' \\ z_2' \\ z_3' \\ z_4' \end{pmatrix} = \begin{pmatrix} 0 & 1 & 0 & 0 \\ -6 & 0 & 2 & 0 \\ 0 & 0 & 0 & 1 \\ 2 & 0 & -2 & 0 \end{pmatrix} \begin{pmatrix} z_1 \\ z_2 \\ z_3 \\ z_4 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 0 \\ 4\operatorname{sen}(2t) \end{pmatrix}\)</td>
+                        <td class="step-comment"><span class="comment-prefix">//</span> Bônus de organização: forma matricial \(Z'(t) = AZ(t) + g(t)\) já pronta!</td>
+                    </tr>
+                </tbody></table></div>
+                <div class="final-answer">Resposta Q5: \(z_1' = z_2,\quad z_2' = -6z_1 + 2z_3,\quad z_3' = z_4,\quad z_4' = 2z_1 - 2z_3 + 4\operatorname{sen}(2t)\).</div>
+            </div>
+        </div>
+
+        <!-- EXERCÍCIO 6 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>⭐</span> Exercício 6 — Sistema Massa-Mola Livre Sem Amortecimento (1 GDL)</div>
+                <span class="badge-type badge-star">Provável de Prova</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>6.</strong> Um sistema massa-mola livre sem amortecimento é descrito pela equação diferencial \(mu'' + ku = 0\) (com \(m > 0,\; k > 0\)).
+                </div>
+
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Este exercício conecta a modelagem clássica de oscilações da P2 (\(mu''+ku=0\)) com o método matricial de sistemas da P3. O gatilho visual é a troca para a frequência natural \(\omega^2 = k/m\) (logo \(\omega = \sqrt{k/m} > 0\)), que limpa as frações dentro da matriz e produz autovalores imaginários puros \(\lambda = \pm i\omega\). A estratégia no item (a) é isolar \(u'' = -\omega^2 u\) e definir \(x_1=u, x_2=u'\); no item (b), calculamos o determinante característico \(\det(A-\lambda I) = \lambda^2+\omega^2=0\), achamos o autovetor complexo associado a \(\lambda=i\omega\) e aplicamos a Fórmula de Euler \(e^{i\omega t}=\cos(\omega t)+i\operatorname{sen}(\omega t)\) para extrair as partes real e imaginária. Fique atento ao sinal da 2ª componente (velocidade): como \(x_2 = x_1'\), ao derivar \(c_1\cos(\omega t)\) aparece um sinal negativo \(-c_1\omega\operatorname{sen}(\omega t)\) que o gabarito oficial esqueceu de digitar na linha final.</p>
+                </div>
+
+                <!-- 6(a) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(a)</strong> Transforme a equação acima em um sistema de equações diferenciais equivalente fazendo \(x_1(t) = u(t)\) e \(x_2(t) = u'(t)\).</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q6(a)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(mu'' + ku = 0 \implies u'' = -\frac{k}{m}u = -\omega^2 u, \quad \text{onde } \omega^2 = \frac{k}{m} > 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Isolamos \(u''\) dividindo por \(m > 0\) e introduzimos a constante \(\omega = \sqrt{k/m}\) para simplificar.</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(x_1'(t) = u'(t) = x_2(t), \qquad x_2'(t) = u''(t) = -\omega^2 x_1(t)\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Substituímos \(u = x_1\) e \(u' = x_2\) nas derivadas.</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\(\begin{pmatrix} x_1'(t) \\ x_2'(t) \end{pmatrix} = \begin{pmatrix} 0 & 1 \\ -\omega^2 & 0 \end{pmatrix} \begin{pmatrix} x_1(t) \\ x_2(t) \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Forma matricial \(X'(t) = A X(t)\) com matriz constante \(A = \begin{pmatrix} 0 & 1 \\ -\omega^2 & 0 \end{pmatrix}\).</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Resposta Q6(a): \(\begin{cases} x_1' = x_2 \\ x_2' = -\omega^2 x_1 \end{cases}\) ou \(\begin{pmatrix} x_1' \\ x_2' \end{pmatrix} = \begin{pmatrix} 0 & 1 \\ -\omega^2 & 0 \end{pmatrix} \begin{pmatrix} x_1 \\ x_2 \end{pmatrix}\), com \(\omega^2 = \frac{k}{m}\).</div>
+                </div>
+
+                <!-- 6(b) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(b)</strong> Resolva o sistema homogêneo do item anterior e obtenha \(u(t)\), a solução da equação diferencial \(mu'' + ku = 0\).</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q6(b)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(\det(A - \lambda I) = \det\begin{pmatrix} 0 - \lambda & 1 \\ -\omega^2 & 0 - \lambda \end{pmatrix} = (-\lambda)(-\lambda) - (1)(-\omega^2) = \lambda^2 + \omega^2 = 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Subtraímos \(\lambda\) da diagonal principal e calculamos o determinante \(2\times 2\) (diag. principal menos diag. secundária).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(\lambda^2 = -\omega^2 \implies \lambda_1 = i\omega, \quad \lambda_2 = -i\omega\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Como \(\omega > 0\), temos um par de autovalores complexos conjugados (\(\alpha = 0,\; \beta = \omega\)).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\((A - i\omega I)v = \begin{pmatrix} -i\omega & 1 \\ -\omega^2 & -i\omega \end{pmatrix}\begin{pmatrix} v_1 \\ v_2 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \end{pmatrix} \implies -i\omega v_1 + v_2 = 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Para \(\lambda_1 = i\omega\), as duas linhas são proporcionais (multiplique a 1ª por \(-i\omega\) para obter a 2ª!). Usamos a 1ª linha.</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">04</td>
+                            <td class="step-math">\(v_2 = i\omega v_1 \xrightarrow{v_1 = 1} v = \begin{pmatrix} 1 \\ i\omega \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \end{pmatrix} + i\begin{pmatrix} 0 \\ \omega \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Escolhemos \(v_1 = 1\) (variável livre) e separamos o autovetor \(v\) em parte real + \(i\cdot\)parte imaginária.</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">05</td>
+                            <td class="step-math">\(Z(t) = e^{i\omega t} v = \big(\cos(\omega t) + i\operatorname{sen}(\omega t)\big)\left[\begin{pmatrix} 1 \\ 0 \end{pmatrix} + i\begin{pmatrix} 0 \\ \omega \end{pmatrix}\right]\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Aplicamos a Fórmula de Euler: \(e^{i\theta} = \cos\theta + i\operatorname{sen}\theta\). Agora fazemos a distributiva lembrando \(i^2 = -1\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">06</td>
+                            <td class="step-math">\(Z(t) = \underbrace{\left[\cos(\omega t)\begin{pmatrix} 1 \\ 0 \end{pmatrix} - \operatorname{sen}(\omega t)\begin{pmatrix} 0 \\ \omega \end{pmatrix}\right]}_{X_1(t) = \operatorname{Re}(Z(t))} + i\underbrace{\left[\operatorname{sen}(\omega t)\begin{pmatrix} 1 \\ 0 \end{pmatrix} + \cos(\omega t)\begin{pmatrix} 0 \\ \omega \end{pmatrix}\right]}_{X_2(t) = \operatorname{Im}(Z(t))}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Termos sem \(i\) vão para \(X_1(t)\); coeficientes que multiplicam \(i\) vão para \(X_2(t)\). Ambos são soluções reais LI!</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">07</td>
+                            <td class="step-math">\(\begin{pmatrix} x_1(t) \\ x_2(t) \end{pmatrix} = c_1 X_1(t) + c_2 X_2(t) = \begin{pmatrix} c_1\cos(\omega t) + c_2\operatorname{sen}(\omega t) \\ -c_1\omega\operatorname{sen}(\omega t) + c_2\omega\cos(\omega t) \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Prova real instantânea: \(x_2(t) = x_1'(t) = -c_1\omega\operatorname{sen}(\omega t) + c_2\omega\cos(\omega t)\). Bate com o sinal negativo!</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">08</td>
+                            <td class="step-math">\(u(t) = x_1(t) = c_1\cos(\omega t) + c_2\operatorname{sen}(\omega t), \quad \omega = \sqrt{\frac{k}{m}}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Como \(x_1(t)\) foi definido como \(u(t)\), a primeira coordenada do vetor solução já é a solução da EDO escalar!</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="errata-alert">
+                        <strong>⚠️ Alerta de Gralha no Gabarito Oficial (Q6b):</strong> Na página 5 do gabarito oficial, as expressões de \(X_1(t)\) e \(X_2(t)\) estão corretas (com \(-\operatorname{sen}(\omega t)\begin{pmatrix} 0 \\ \omega \end{pmatrix}\) em \(X_1\)), porém ao juntar \(c_1 X_1 + c_2 X_2\) no último vetor o gabarito imprimiu \(+c_1\omega\sin(\omega t)\) sem o sinal negativo. O correto na 2ª linha é <strong>\(-c_1\omega\operatorname{sen}(\omega t) + c_2\omega\cos(\omega t)\)</strong> (que confere com \(x_2 = x_1'\)).
+                    </div>
+                    <div class="final-answer">Resposta Q6(b): \(X(t) = \begin{pmatrix} c_1\cos(\omega t) + c_2\operatorname{sen}(\omega t) \\ -c_1\omega\operatorname{sen}(\omega t) + c_2\omega\cos(\omega t) \end{pmatrix}\) e \(u(t) = c_1\cos(\omega t) + c_2\operatorname{sen}(\omega t)\), com \(\omega = \sqrt{k/m}\).</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXERCÍCIO 7 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>📖</span> Exercício 7 — Sistema Massa-Mola de 2 Graus de Liberdade (2 GDL)</div>
+                <span class="badge-type badge-book">Modelagem Física</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>7.</strong> As equações de movimento de um sistema massa-mola de dois graus de liberdade (sem amortecimento) estão dadas por:
+                    \[m_1 y_1''(t) = (k_1+k_2)y_1(t) + k_2 y_2(t), \qquad m_2 y_2''(t) = -k_2 y_1(t) - k_2 y_2(t),\]
+                    onde \(m_1, m_2\) denotam as massas dos corpos e \(k_1, k_2\) as constantes de elasticidade das molas. Transforme este sistema de ordem 2 em um sistema linear de primeira ordem.
+                </div>
+
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Este exercício é estruturalmente idêntico à Questão 5 (conforme o próprio gabarito oficial comenta "Idem questão 5"), apenas trocando números fixos por parâmetros simbólicos \(m_1, m_2, k_1, k_2\). O detalhe essencial antes de montar a matriz de 1ª ordem é dividir a primeira equação por \(m_1\) e a segunda por \(m_2\) para isolar \(y_1''\) e \(y_2''\), pois a forma padrão exige apenas a derivada primeira sozinha à esquerda. Crie as quatro variáveis \(z_1=y_1,\; z_2=y_1',\; z_3=y_2,\; z_4=y_2'\) e respeite fielmente os sinais escritos no enunciado da lista (mesmo que fisicamente na lei de Hooke o termo de \(y_1\) costumasse levar sinal menos, na prova você deve traduzir exatamente a equação fornecida).</p>
+                </div>
+
+                <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q7</span></div><table class="step-table"><tbody>
+                    <tr class="step-row">
+                        <td class="line-num">01</td>
+                        <td class="step-math">\(y_1''(t) = \frac{k_1+k_2}{m_1}y_1(t) + \frac{k_2}{m_1}y_2(t), \qquad y_2''(t) = -\frac{k_2}{m_2}y_1(t) - \frac{k_2}{m_2}y_2(t)\)</td>
+                        <td class="step-comment"><span class="comment-prefix">//</span> Isolamos \(y_1''\) e \(y_2''\) dividindo pelas massas \(m_1 > 0\) e \(m_2 > 0\).</td>
+                    </tr>
+                    <tr class="step-row">
+                        <td class="line-num">02</td>
+                        <td class="step-math">\(z_1 = y_1(t),\quad z_2 = y_1'(t),\quad z_3 = y_2(t),\quad z_4 = y_2'(t)\)</td>
+                        <td class="step-comment"><span class="comment-prefix">//</span> Introduzimos 4 variáveis de estado (2 posições e 2 velocidades).</td>
+                    </tr>
+                    <tr class="step-row">
+                        <td class="line-num">03</td>
+                        <td class="step-math">\(z_1' = z_2,\qquad z_2' = \frac{k_1+k_2}{m_1}z_1 + \frac{k_2}{m_1}z_3,\qquad z_3' = z_4,\qquad z_4' = -\frac{k_2}{m_2}z_1 - \frac{k_2}{m_2}z_3\)</td>
+                        <td class="step-comment"><span class="comment-prefix">//</span> Sistema de 4 EDOs lineares homogêneas de 1ª ordem.</td>
+                    </tr>
+                    <tr class="step-row">
+                        <td class="line-num">04</td>
+                        <td class="step-math">\(\begin{pmatrix} z_1' \\ z_2' \\ z_3' \\ z_4' \end{pmatrix} = \begin{pmatrix} 0 & 1 & 0 & 0 \\ \frac{k_1+k_2}{m_1} & 0 & \frac{k_2}{m_1} & 0 \\ 0 & 0 & 0 & 1 \\ -\frac{k_2}{m_2} & 0 & -\frac{k_2}{m_2} & 0 \end{pmatrix} \begin{pmatrix} z_1 \\ z_2 \\ z_3 \\ z_4 \end{pmatrix}\)</td>
+                        <td class="step-comment"><span class="comment-prefix">//</span> Forma matricial homogênea \(Z'(t) = AZ(t)\).</td>
+                    </tr>
+                </tbody></table></div>
+                <div class="final-answer">Resposta Q7: \(z_1'=z_2,\; z_2'=\frac{k_1+k_2}{m_1}z_1+\frac{k_2}{m_1}z_3,\; z_3'=z_4,\; z_4'=-\frac{k_2}{m_2}z_1-\frac{k_2}{m_2}z_3\) (forma matricial na linha 04).</div>
+            </div>
+        </div>
+
+        <div class="recap-box">
+            <h3>📌 Resuminho do Tópico 1 — Regras de Bolso e Pegadinhas</h3>
+            <div class="recap-grid">
+                <div class="recap-card">
+                    <strong>Regra de Ouro da Redução de Ordem</strong>
+                    Ordem total \(N = \sum (\text{maior derivada de cada incógnita})\). Sempre isole a derivada de maior ordem <em>antes</em> de fazer \(z_1 = y, z_2 = y', \dots\).
+                </div>
+                <div class="recap-card">
+                    <strong>Pegadinhas de Prova e Gralhas</strong>
+                    • Funções de \(t\) (como \(t^3, e^{3t}, \cos(\pi t)\)) NÃO quebram a linearidade.<br>
+                    • Gralhas na lista oficial: Q1(c) tem \(-4t^2\), Q3(c) tem \(z_3\) (não \(z_2\)), e Q6(b) tem \(-c_1\omega\operatorname{sen}(\omega t)\).
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TÓPICO 2: SUPERPOSIÇÃO E MATRIZ FUNDAMENTAL (Q8 E Q9)             -->
+    <!-- ================================================================= -->
+    <div class="topic-section">
+        <div class="topic-banner">
+            <h2>Tópico 2: Princípio da Superposição e Matriz Fundamental</h2>
+            <span class="topic-range">Exercícios 8 e 9</span>
+        </div>
+
+        <div class="prereq-box">
+            <h3>🧠 Pré-Requisitos de Álgebra Linear (Zero Pressuposição)</h3>
+            <ul>
+                <li><strong>1. Linearidade da Derivada e da Multiplicação por Matriz:</strong> Para quaisquer funções vetoriais deriváveis \(X_1(t), X_2(t)\), matriz \(A(t)\) e escalares constantes \(c_1, c_2 \in \mathbb{R}\), valem:
+                \[\big(c_1 X_1(t) + c_2 X_2(t)\big)' = c_1 X_1'(t) + c_2 X_2'(t) \quad \text{e} \quad A(t)\big(c_1 X_1(t) + c_2 X_2(t)\big) = c_1 A(t)X_1(t) + c_2 A(t)X_2(t).\]</li>
+                <li><strong>2. Determinante \(2\times 2\) e Independência Linear (LI):</strong> Para \(\Phi(t) = \begin{pmatrix} a(t) & b(t) \\ c(t) & d(t) \end{pmatrix}\), o determinante (também chamado de <em>Wronskiano do sistema</em>) é \(\det\Phi(t) = a(t)d(t) - b(t)c(t)\). As colunas de \(\Phi(t)\) são <strong>linearmente independentes (LI)</strong> no intervalo \(I\) se, e somente se, \(\det\Phi(t) \neq 0\)!</li>
+                <li><strong>3. Produto de Matrizes \(2\times 2\):</strong> Ao multiplicar \(A \cdot \Phi\), cada coluna \(j\) do resultado é \(A\) multiplicada pela coluna \(j\) de \(\Phi\). Ou seja, \(\Phi'(t) = A\Phi(t)\) equivale exatamente a dizer que \(X_1'(t) = AX_1(t)\) e \(X_2'(t) = AX_2(t)\) simultaneamente!</li>
+            </ul>
+        </div>
+
+        <div class="theory-box">
+            <h3>📘 O Que Define uma Matriz Fundamental \(\Phi(t)\)?</h3>
+            <p>Para um sistema linear homogêneo \(X'(t) = A(t)X(t)\) de dimensão \(n\times n\), uma matriz \(\Phi(t) = [X_1(t) \;|\; X_2(t) \;|\; \dots \;|\; X_n(t)]\) é chamada de <strong>Matriz Fundamental</strong> quando cumpre simultaneamente <strong>duas condições</strong>:</p>
+            <ol>
+                <li><strong>Cada coluna é solução do sistema homogêneo:</strong> isto é, \(X_j'(t) = A(t)X_j(t)\) para \(j=1,\dots,n\), ou na forma matricial compacta, \(\Phi'(t) = A(t)\Phi(t)\).</li>
+                <li><strong>As colunas são Linearmente Independentes (LI):</strong> isto é, \(\det\Phi(t) \neq 0\) para todo \(t\) no intervalo de interesse (pelo Teorema de Abel/Liouville, para sistemas contínuos, se \(\det\Phi(t_0) \neq 0\) em um ponto, então \(\det\Phi(t) \neq 0\) em todo o intervalo!).</li>
+            </ol>
+            <p>Uma vez obtida uma matriz fundamental \(\Phi(t)\), a solução geral é simplesmente \(X(t) = \Phi(t)C\), onde \(C = (c_1, \dots, c_n)^T\) é o vetor de constantes arbitrárias.</p>
+        </div>
+
+        <!-- EXERCÍCIO 8 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>📖</span> Exercício 8 — Demonstração do Princípio da Superposição</div>
+                <span class="badge-type badge-book">Demonstração Clássica</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>8.</strong> Mostre que o princípio de superposição é válido para sistemas de equações lineares homogêneos de primeira ordem \(X'(t) = A(t)X(t)\), isto é: mostre que se \(X_1(t), X_2(t), \dots, X_n(t)\) são soluções do sistema anterior, então qualquer combinação linear destas \(c_1 X_1(t) + c_2 X_2(t) + \dots + c_n X_n(t)\) é também solução do sistema linear homogêneo.
+                </div>
+
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Questão teórica direta que testa se você sabe usar a hipótese e a linearidade das operações matriciais. O segredo para gabaritar uma demonstração em prova é escrever claramente o que sabemos por hipótese (\(X_k'(t) = A(t)X_k(t)\) para cada \(k = 1,\dots,n\)), dar um nome à combinação linear \(Z(t) = \sum_{k=1}^n c_k X_k(t)\), calcular o lado esquerdo \(Z'(t)\) usando linearidade da derivada, calcular o lado direito \(A(t)Z(t)\) usando distributividade do produto de matrizes e mostrar que ambos coincidem. Um erro conceitual grave que zera esse tipo de prova é tentar aplicar superposição a um sistema <em>não-homogêneo</em> \(X'=AX+g\): só funciona porque não há termo \(g(t)\) somando!</p>
+                </div>
+
+                <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q8</span></div><table class="step-table"><tbody>
+                    <tr class="step-row">
+                        <td class="line-num">01</td>
+                        <td class="step-math">\(\text{Hipótese: } X_k'(t) = A(t)X_k(t), \quad \forall k \in \{1, 2, \dots, n\}\)</td>
+                        <td class="step-comment"><span class="comment-prefix">//</span> Traduzimos a informação do enunciado ("são soluções do sistema") para equações exatas.</td>
+                    </tr>
+                    <tr class="step-row">
+                        <td class="line-num">02</td>
+                        <td class="step-math">\(\text{Seja } Z(t) = c_1 X_1(t) + c_2 X_2(t) + \dots + c_n X_n(t) = \sum_{k=1}^n c_k X_k(t)\)</td>
+                        <td class="step-comment"><span class="comment-prefix">//</span> Definimos a função vetorial candidata \(Z(t)\), com \(c_1,\dots,c_n \in \mathbb{R}\) constantes arbitrárias.</td>
+                    </tr>
+                    <tr class="step-row">
+                        <td class="line-num">03</td>
+                        <td class="step-math">\(Z'(t) = \frac{d}{dt}\left(\sum_{k=1}^n c_k X_k(t)\right) = \sum_{k=1}^n c_k X_k'(t)\)</td>
+                        <td class="step-comment"><span class="comment-prefix">//</span> Lado Esquerdo: a derivada da soma é a soma das derivadas e constantes saem para fora da derivada.</td>
+                    </tr>
+                    <tr class="step-row">
+                        <td class="line-num">04</td>
+                        <td class="step-math">\(A(t)Z(t) = A(t)\left(\sum_{k=1}^n c_k X_k(t)\right) = \sum_{k=1}^n c_k \big(A(t)X_k(t)\big)\)</td>
+                        <td class="step-comment"><span class="comment-prefix">//</span> Lado Direito: pela propriedade distributiva e associatividade por escalar da multiplicação matricial.</td>
+                    </tr>
+                    <tr class="step-row">
+                        <td class="line-num">05</td>
+                        <td class="step-math">\(A(t)Z(t) = \sum_{k=1}^n c_k X_k'(t) = Z'(t)\)</td>
+                        <td class="step-comment"><span class="comment-prefix">//</span> Substituímos \(A(t)X_k(t) = X_k'(t)\) (linha 01) e recuperamos exatamente \(Z'(t)\) (linha 03)!</td>
+                    </tr>
+                </tbody></table></div>
+                <div class="final-answer">Conclusão Q8: Como \(Z'(t) = A(t)Z(t)\), fica provado que qualquer combinação linear \(c_1 X_1(t) + \dots + c_n X_n(t)\) também é solução do sistema linear homogêneo.</div>
+            </div>
+        </div>
+
+        <!-- EXERCÍCIO 9 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>⭐</span> Exercício 9 — Verificação de Matrizes Fundamentais \(\Phi_1(t)\) e \(\Phi_2(t)\)</div>
+                <span class="badge-type badge-star">Provável de Prova</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>9.</strong> Verifique que as matrizes
+                    \[\Phi_1(t) = \begin{bmatrix} e^{2t} & te^{2t} \\ -e^{2t} & -te^{2t}+e^{2t} \end{bmatrix} \quad \text{e} \quad \Phi_2(t) = \begin{bmatrix} e^{2t}+te^{2t} & te^{2t} \\ -te^{2t} & e^{2t}-te^{2t} \end{bmatrix}\]
+                    são matrizes fundamentais do sistema \(X'(t) = \begin{bmatrix} 3 & 1 \\ -1 & 1 \end{bmatrix} X(t)\).
+                </div>
+
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Se a questão pede para verificar que \(\Phi(t)\) é uma <em>Matriz Fundamental</em>, existem dois cheques obrigatórios e nenhum pode faltar para ganhar nota cheia: primeiro provar que ela satisfaz a equação matricial \(\Phi'(t) = A\Phi(t)\) (ou checar coluna por coluna \(X_1'=AX_1\) e \(X_2'=AX_2\)), e segundo provar que suas colunas são Linearmente Independentes calculando \(\det\Phi(t)\) e verificando que é diferente de zero! Na hora de derivar termos como \(te^{2t}\), use sem pressa a Regra do Produto \((u\cdot v)' = u'v + uv'\) para obter \((te^{2t})' = e^{2t} + 2te^{2t}\). O macete de prova é notar também a beleza teórica deste exercício: uma mesma EDO pode ter infinitas matrizes fundamentais diferentes (aqui \(\Phi_1\) e \(\Phi_2\) são diferentes, mas ambas têm \(\det\Phi_1(t) = \det\Phi_2(t) = e^{4t} \neq 0\)).</p>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>Parte 1:</strong> Verificação da Matriz \(\Phi_1(t) = \begin{bmatrix} e^{2t} & te^{2t} \\ -e^{2t} & (1-t)e^{2t} \end{bmatrix}\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q9 (Φ₁)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(\frac{d}{dt}(te^{2t}) = 1\cdot e^{2t} + t\cdot (2e^{2t}) = (1+2t)e^{2t}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Regra do Produto para a entrada \((1,2)\). E para \((2,2)\): \(((1-t)e^{2t})' = -e^{2t} + 2(1-t)e^{2t} = (1-2t)e^{2t}\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(\Phi_1'(t) = \begin{bmatrix} 2e^{2t} & e^{2t} + 2te^{2t} \\ -2e^{2t} & e^{2t} - 2te^{2t} \end{bmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Derivamos entrada por entrada a matriz \(\Phi_1(t)\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\(A\Phi_1(t) = \begin{bmatrix} 3 & 1 \\ -1 & 1 \end{bmatrix}\begin{bmatrix} e^{2t} & te^{2t} \\ -e^{2t} & -te^{2t}+e^{2t} \end{bmatrix} = \begin{bmatrix} 3e^{2t}-e^{2t} & 3te^{2t}-te^{2t}+e^{2t} \\ -e^{2t}-e^{2t} & -te^{2t}-te^{2t}+e^{2t} \end{bmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Multiplicamos \(A\) por \(\Phi_1(t)\): linha \(\times\) coluna, entrada a entrada.</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">04</td>
+                            <td class="step-math">\(A\Phi_1(t) = \begin{bmatrix} 2e^{2t} & e^{2t} + 2te^{2t} \\ -2e^{2t} & e^{2t} - 2te^{2t} \end{bmatrix} = \Phi_1'(t)\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Critério 1 OK! Cada coluna de \(\Phi_1(t)\) é solução do sistema.</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">05</td>
+                            <td class="step-math">\(\det\Phi_1(t) = e^{2t}(-te^{2t}+e^{2t}) - (te^{2t})(-e^{2t}) = (-t+1)e^{4t} + te^{4t} = e^{4t} \neq 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Critério 2 OK! Como \(e^{4t} > 0\) para todo \(t\in\mathbb{R}\), as colunas são LI!</td>
+                        </tr>
+                    </tbody></table></div>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>Parte 2:</strong> Verificação da Matriz \(\Phi_2(t) = \begin{bmatrix} (1+t)e^{2t} & te^{2t} \\ -te^{2t} & (1-t)e^{2t} \end{bmatrix}\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q9 (Φ₂)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(\Phi_2'(t) = \begin{bmatrix} (3+2t)e^{2t} & (1+2t)e^{2t} \\ (-1-2t)e^{2t} & (1-2t)e^{2t} \end{bmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Pela Regra do Produto: \(((1+t)e^{2t})' = e^{2t} + 2(1+t)e^{2t} = (3+2t)e^{2t}\); \((-te^{2t})' = (-1-2t)e^{2t}\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(A\Phi_2(t) = \begin{bmatrix} 3 & 1 \\ -1 & 1 \end{bmatrix}\begin{bmatrix} e^{2t}+te^{2t} & te^{2t} \\ -te^{2t} & e^{2t}-te^{2t} \end{bmatrix} = \begin{bmatrix} 3e^{2t}+3te^{2t}-te^{2t} & 3te^{2t}+e^{2t}-te^{2t} \\ -e^{2t}-te^{2t}-te^{2t} & -te^{2t}+e^{2t}-te^{2t} \end{bmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Multiplicação matricial \(A\cdot \Phi_2(t)\) linha a linha.</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\(A\Phi_2(t) = \begin{bmatrix} (3+2t)e^{2t} & (1+2t)e^{2t} \\ (-1-2t)e^{2t} & (1-2t)e^{2t} \end{bmatrix} = \Phi_2'(t)\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Critério 1 OK! \(\Phi_2'(t) = A\Phi_2(t)\) exatamente.</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">04</td>
+                            <td class="step-math">\(\det\Phi_2(t) = (1+t)e^{2t}(1-t)e^{2t} - (te^{2t})(-te^{2t}) = (1-t^2)e^{4t} + t^2 e^{4t} = e^{4t} \neq 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Critério 2 OK! O produto notável \((1+t)(1-t)=1-t^2\) cancela \(t^2\), deixando \(e^{4t} \neq 0\)!</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Conclusão Q9: Tanto \(\Phi_1(t)\) quanto \(\Phi_2(t)\) satisfazem \(\Phi_i'(t) = A\Phi_i(t)\) e possuem \(\det\Phi_i(t) = e^{4t} \neq 0\) para todo \(t\in\mathbb{R}\). Portanto, ambas são Matrizes Fundamentais do sistema.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="recap-box">
+            <h3>📌 Resuminho do Tópico 2 — Regras de Bolso e Pegadinhas</h3>
+            <div class="recap-grid">
+                <div class="recap-card">
+                    <strong>Checklist de Matriz Fundamental</strong>
+                    1) Verificar \(\Phi'(t) = A\Phi(t)\) (solução);<br>
+                    2) Verificar \(\det\Phi(t) \neq 0\) (colunas LI). Sem o passo 2, NÃO está completo!
+                </div>
+                <div class="recap-card">
+                    <strong>Onde a Maioria Erra</strong>
+                    Esquecer a Regra do Produto ao derivar \(te^{2t}\) (que dá \(e^{2t}+2te^{2t}\), e não apenas \(2te^{2t}\)) e esquecer de calcular \(\det\Phi(t)\).
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TÓPICO 3: SISTEMAS LINEARES HOMOGÊNEOS X' = AX (Q10 A Q12)        -->
+    <!-- ================================================================= -->
+    <div class="topic-section">
+        <div class="topic-banner">
+            <h2>Tópico 3: Sistemas Homogêneos \(X'(t) = AX(t)\) com Coeficientes Constantes</h2>
+            <span class="topic-range">Exercícios 10, 11 e 12</span>
+        </div>
+
+        <div class="prereq-box">
+            <h3>🧠 Pré-Requisitos de Álgebra Linear (Tudo Explicado do Zero)</h3>
+            <ul>
+                <li><strong>1. Determinante \(2\times 2\) e \(3\times 3\) (Regra de Sarrus / Laplace):</strong>
+                <ul>
+                    <li>Para \(2\times 2\): \(\det\begin{pmatrix} a & b \\ c & d \end{pmatrix} = ad - bc\).</li>
+                    <li>Para \(3\times 3\): use a <strong>Expansão de Laplace</strong> pela linha ou coluna com mais zeros! Por exemplo, expandindo pela 1ª linha:
+                    \[\det\begin{pmatrix} a_{11} & a_{12} & a_{13} \\ a_{21} & a_{22} & a_{23} \\ a_{31} & a_{32} & a_{33} \end{pmatrix} = a_{11}\det\begin{pmatrix} a_{22} & a_{23} \\ a_{32} & a_{33} \end{pmatrix} - a_{12}\det\begin{pmatrix} a_{21} & a_{23} \\ a_{31} & a_{33} \end{pmatrix} + a_{13}\det\begin{pmatrix} a_{21} & a_{22} \\ a_{31} & a_{32} \end{pmatrix}.\]
+                    E se a matriz for <strong>triangular</strong> (só zeros abaixo ou acima da diagonal) ou <strong>em blocos</strong>, o determinante é simplesmente o produto dos elementos da diagonal (ou dos blocos)!</li>
+                </ul>
+                </li>
+                <li><strong>2. Como Achar Autovalores \(\lambda\):</strong> Montamos a matriz \((A - \lambda I)\) subtraindo \(\lambda\) apenas dos termos da <em>diagonal principal</em> de \(A\) e resolvemos a <strong>equação característica</strong> \(\det(A - \lambda I) = 0\).
+                <br><em>Atalho de Ouro para \(2\times 2\):</em> \(\det(A - \lambda I) = \lambda^2 - \operatorname{tr}(A)\lambda + \det(A) = 0\), onde \(\operatorname{tr}(A) = a_{11} + a_{22}\) é a soma da diagonal principal!</li>
+                <li><strong>3. Como Achar Autovetores \(v \neq \mathbf{0}\):</strong> Para cada \(\lambda\), resolvemos o sistema linear homogêneo \((A - \lambda I)v = \mathbf{0}\). Como \(\det(A-\lambda I)=0\), as equações são sempre dependentes (em \(2\times 2\), uma linha é múltipla da outra!). Escolhemos uma coordenada livre com um número simples (ex: \(1\), ou o denominador para evitar frações) e encontramos as outras. Nunca escolha \(v = \mathbf{0}\)!</li>
+                <li><strong>4. Autovetor Generalizado (Quando Faltam Autovetores):</strong> Se um autovalor \(\lambda\) tem multiplicidade algébrica \(2\), mas só produz \(1\) autovetor \(v\), dizemos que há <em>defeito geométrico</em>. Para achar a 2ª solução LI, resolvemos o sistema linear <strong>não-homogêneo</strong> \((A - \lambda I)w = v\) (escolhendo uma coordenada livre igual a \(0\) ou outro valor conveniente), e a 2ª solução é:
+                \[X_2(t) = e^{\lambda t}(t v + w).\]
+                <em>Atenção em \(3\times 3\):</em> Se \(\lambda\) tem multiplicidade algébrica \(3\) e gera \(2\) autovetores LI (como na Q10f), \(w\) deve satisfazer \((A-\lambda I)w = u\), onde \(u\) é um autovetor que pertença à imagem de \((A-\lambda I)\) — na prática, basta escolher \(w\) tal que \((A-\lambda I)^2 w = \mathbf{0}\) com \(u = (A-\lambda I)w \neq \mathbf{0}\)!</li>
+                <li><strong>5. Fórmula de Euler e Extração de \(\operatorname{Re}\) e \(\operatorname{Im}\):</strong> Quando \(\lambda = \alpha + i\beta\) (\(\beta \neq 0\)) tem autovetor complexo \(v = \mathbf{a} + i\mathbf{b}\), escrevemos a solução complexa:
+                \[Z(t) = e^{(\alpha + i\beta)t}(\mathbf{a} + i\mathbf{b}) = e^{\alpha t}(\cos(\beta t) + i\operatorname{sen}(\beta t))(\mathbf{a} + i\mathbf{b}).\]
+                Fazendo a distributiva e lembrando \(i^2 = -1\), obtemos <strong>duas soluções reais LI</strong> de uma só vez (não precisa repetir o cálculo para \(\overline{\lambda} = \alpha - i\beta\)!):
+                \[X_1(t) = \operatorname{Re}(Z(t)) = e^{\alpha t}\big(\cos(\beta t)\mathbf{a} - \operatorname{sen}(\beta t)\mathbf{b}\big), \qquad X_2(t) = \operatorname{Im}(Z(t)) = e^{\alpha t}\big(\operatorname{sen}(\beta t)\mathbf{a} + \cos(\beta t)\mathbf{b}\big).\]</li>
+            </ul>
+        </div>
+
+        <div class="formula-card">
+            <div class="formula-card-header">📐 Tabela Oficial dos 3 Regimes — Solução Geral de \(X'(t) = AX(t)\)</div>
+            <table class="formula-table">
+                <thead>
+                    <tr>
+                        <th style="width: 24%;">Regime de Autovalores</th>
+                        <th style="width: 34%;">Condição Algébrica / Geométrica</th>
+                        <th style="width: 42%;">Forma da Contribuição na Solução Geral</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Caso 1: Reais Distintos</strong></td>
+                        <td>\(\lambda_1, \dots, \lambda_n \in \mathbb{R}\) distintos \(\implies n\) autovetores LI \(v_1, \dots, v_n\)</td>
+                        <td>\(X(t) = c_1 e^{\lambda_1 t}v_1 + c_2 e^{\lambda_2 t}v_2 + \dots + c_n e^{\lambda_n t}v_n\)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Caso 2: Repetido Completo</strong></td>
+                        <td>\(\lambda\) repetido \(m\) vezes com \(m\) autovetores LI \(v_1,\dots,v_m\)</td>
+                        <td>\(c_1 e^{\lambda t}v_1 + c_2 e^{\lambda t}v_2 + \dots + c_m e^{\lambda t}v_m\) (sem multiplicar por \(t\)!)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Caso 2b: Repetido Defectivo</strong></td>
+                        <td>\(\lambda\) duplo com apenas \(1\) autovetor \(v\): achar \(w\) via \((A-\lambda I)w = v\)</td>
+                        <td>\(c_1 e^{\lambda t}v + c_2 e^{\lambda t}(t v + w)\)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Caso 3: Complexos Conjugados</strong></td>
+                        <td>\(\lambda = \alpha \pm i\beta\) (\(\beta > 0\)), autovetor de \(\alpha+i\beta\) é \(v = \mathbf{a} + i\mathbf{b}\)</td>
+                        <td>\(c_1 e^{\alpha t}\big(\cos(\beta t)\mathbf{a} - \operatorname{sen}(\beta t)\mathbf{b}\big) + c_2 e^{\alpha t}\big(\operatorname{sen}(\beta t)\mathbf{a} + \cos(\beta t)\mathbf{b}\big)\)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- EXERCÍCIO 10 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>⭐</span> Exercício 10 — Sistemas Homogêneos \(2\times 2\) e \(3\times 3\) nos 3 Regimes (Inclui PVI)</div>
+                <span class="badge-type badge-star">Coração da Prova P3</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>10.</strong> Encontre a solução geral para os seguintes sistemas de equações diferenciais de primeira ordem lineares homogêneos com coeficientes constantes: \(X'(t) = AX(t)\). <em>(No item (g), resolva também o PVI dado.)</em>
+                </div>
+
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Esta questão é o verdadeiro coração da P3 porque reúne, em sete subitens, praticamente tudo que pode aparecer sobre \(X'=AX\): autovalores complexos no (a), reais distintos no (b) e no (e), repetidos com autovetor generalizado \(2\times 2\) no (c) e no (d), e matrizes \(3\times 3\) com defeito geométrico no (f) e com PVI no (g). A estratégia fixa em qualquer item é: 1) montar \(\det(A-\lambda I)=0\) (usando o atalho \(\lambda^2 - \operatorname{tr}(A)\lambda + \det(A)=0\) nas \(2\times 2\)); 2) classificar o regime pelas raízes; 3) resolver \((A-\lambda I)v = \mathbf{0}\) e, só se faltarem autovetores LI, resolver \((A-\lambda I)w = v\); 4) se houver \(X(0)=X_0\), substituir \(t=0\) na solução geral (onde \(e^0=1\), \(t=0\), \(\cos 0=1\), \(\operatorname{sen} 0=0\)) para achar \(c_1, c_2, c_3\). Cuidado redobrado no item (e): o gabarito oficial imprimiu um sinal trocado no autovetor de \(\lambda=-1\), então sempre teste mentalmente \(Av = \lambda v\) para validar seus autovetores na hora da prova!</p>
+                </div>
+
+                <!-- 10(a) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(a)</strong> \(X'(t) = \begin{pmatrix} 1 & -1 \\ 1 & 1 \end{pmatrix} X(t)\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q10(a)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(\det(A - \lambda I) = \det\begin{pmatrix} 1-\lambda & -1 \\ 1 & 1-\lambda \end{pmatrix} = (1-\lambda)^2 - (-1)(1) = \lambda^2 - 2\lambda + 2 = 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Note que \(\operatorname{tr}(A)=2\) e \(\det(A)=2\), confirmando \(\lambda^2 - 2\lambda + 2 = 0\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(\lambda = \frac{2 \pm \sqrt{4 - 8}}{2} = \frac{2 \pm \sqrt{-4}}{2} = 1 \pm i\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Bhaskara: discriminante \(\Delta = -4 < 0 \implies\) autovalores complexos (\(\alpha = 1,\; \beta = 1\)).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\((A - (1+i)I)v = \begin{pmatrix} -i & -1 \\ 1 & -i \end{pmatrix}\begin{pmatrix} v_1 \\ v_2 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \end{pmatrix} \implies v_1 - i v_2 = 0 \implies v_1 = i v_2\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Pegamos \(\lambda_1 = 1+i\). Pela 2ª linha (\(v_1 - iv_2 = 0\)), é imediato isolar \(v_1 = i v_2\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">04</td>
+                            <td class="step-math">\(v_2 = 1 \implies v = \begin{pmatrix} i \\ 1 \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \end{pmatrix} + i\begin{pmatrix} 1 \\ 0 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Separamos parte real \(\mathbf{a} = \binom{0}{1}\) e imaginária \(\mathbf{b} = \binom{1}{0}\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">05</td>
+                            <td class="step-math">\(Z(t) = e^{(1+i)t}\begin{pmatrix} i \\ 1 \end{pmatrix} = e^t(\cos t + i\operatorname{sen} t)\left[\begin{pmatrix} 0 \\ 1 \end{pmatrix} + i\begin{pmatrix} 1 \\ 0 \end{pmatrix}\right]\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Abrimos \(e^{(1+i)t} = e^t e^{it} = e^t(\cos t + i\operatorname{sen} t)\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">06</td>
+                            <td class="step-math">\(Z(t) = e^t\underbrace{\begin{pmatrix} -\operatorname{sen} t \\ \cos t \end{pmatrix}}_{\operatorname{Re}} + i e^t\underbrace{\begin{pmatrix} \cos t \\ \operatorname{sen} t \end{pmatrix}}_{\operatorname{Im}}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Linha 1: \((i\operatorname{sen} t)(i) = -\operatorname{sen} t\) (real) e \((\cos t)(i) = i\cos t\) (imag.). Linha 2: \(\cos t + i\operatorname{sen} t\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">07</td>
+                            <td class="step-math">\(X(t) = c_1 e^t\begin{pmatrix} \cos t \\ \operatorname{sen} t \end{pmatrix} + c_2 e^t\begin{pmatrix} -\operatorname{sen} t \\ \cos t \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> A ordem de \(c_1\) e \(c_2\) na combinação linear é livre; escrevemos igual ao gabarito oficial!</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Resposta Q10(a): \(X(t) = c_1 e^t\begin{pmatrix} \cos t \\ \operatorname{sen} t \end{pmatrix} + c_2 e^t\begin{pmatrix} -\operatorname{sen} t \\ \cos t \end{pmatrix}\).</div>
+                </div>
+
+                <!-- 10(b) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(b)</strong> \(X'(t) = \begin{pmatrix} 1 & 3 \\ 3 & 1 \end{pmatrix} X(t)\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q10(b)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(\det(A - \lambda I) = (1-\lambda)^2 - 9 = \lambda^2 - 2\lambda - 8 = (\lambda - 4)(\lambda + 2) = 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Dois autovalores reais distintos: \(\lambda_1 = 4\) e \(\lambda_2 = -2\) (Soma = \(2\), Produto = \(-8\)).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(\lambda_1 = 4:\; (A - 4I)v = \begin{pmatrix} -3 & 3 \\ 3 & -3 \end{pmatrix}\begin{pmatrix} v_1 \\ v_2 \end{pmatrix} = \mathbf{0} \implies -3v_1 + 3v_2 = 0 \implies v_1 = v_2\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Escolhendo \(v_2 = 1\), temos o primeiro autovetor \(v_1 = \begin{pmatrix} 1 \\ 1 \end{pmatrix}\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\(\lambda_2 = -2:\; (A + 2I)v = \begin{pmatrix} 3 & 3 \\ 3 & 3 \end{pmatrix}\begin{pmatrix} v_1 \\ v_2 \end{pmatrix} = \mathbf{0} \implies 3v_1 + 3v_2 = 0 \implies v_1 = -v_2\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Escolhendo \(v_2 = 1\), temos o segundo autovetor \(v_2 = \begin{pmatrix} -1 \\ 1 \end{pmatrix}\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">04</td>
+                            <td class="step-math">\(X(t) = c_1 e^{4t}\begin{pmatrix} 1 \\ 1 \end{pmatrix} + c_2 e^{-2t}\begin{pmatrix} -1 \\ 1 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Combinação linear direta das duas soluções exponenciais LI.</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Resposta Q10(b): \(X(t) = c_1 e^{4t}\begin{pmatrix} 1 \\ 1 \end{pmatrix} + c_2 e^{-2t}\begin{pmatrix} -1 \\ 1 \end{pmatrix}\).</div>
+                </div>
+
+                <!-- 10(c) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(c)</strong> \(X'(t) = \begin{pmatrix} 2 & -1 \\ 1 & 4 \end{pmatrix} X(t)\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q10(c)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(\det(A - \lambda I) = (2-\lambda)(4-\lambda) + 1 = \lambda^2 - 6\lambda + 9 = (\lambda - 3)^2 = 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Raiz dupla: \(\lambda = 3\) com multiplicidade algébrica \(2\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\((A - 3I)v = \begin{pmatrix} -1 & -1 \\ 1 & 1 \end{pmatrix}\begin{pmatrix} v_1 \\ v_2 \end{pmatrix} = \mathbf{0} \implies v_1 + v_2 = 0 \implies v = \begin{pmatrix} 1 \\ -1 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Só existe 1 direção de autovetor (dimensão 1 &lt; 2). Sistema defectivo: precisamos de autovetor generalizado!</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\((A - 3I)w = v \implies \begin{pmatrix} -1 & -1 \\ 1 & 1 \end{pmatrix}\begin{pmatrix} w_1 \\ w_2 \end{pmatrix} = \begin{pmatrix} 1 \\ -1 \end{pmatrix} \implies w_1 + w_2 = -1\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Montamos \((A - \lambda I)w = v\). As duas linhas dão a mesma equação \(w_1 + w_2 = -1\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">04</td>
+                            <td class="step-math">\(\text{Escolhendo } w_1 = 0 \implies w_2 = -1 \implies w = \begin{pmatrix} 0 \\ -1 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Qualquer solução particular serve (ex: \(w_1=0\) zera uma entrada e deixa tudo limpo).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">05</td>
+                            <td class="step-math">\(X(t) = c_1 e^{3t}\begin{pmatrix} 1 \\ -1 \end{pmatrix} + c_2 e^{3t}\left[t\begin{pmatrix} 1 \\ -1 \end{pmatrix} + \begin{pmatrix} 0 \\ -1 \end{pmatrix}\right]\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Aplicamos a fórmula do Caso 2b: \(X_2(t) = e^{\lambda t}(tv + w)\).</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Resposta Q10(c): \(X(t) = c_1 e^{3t}\begin{pmatrix} 1 \\ -1 \end{pmatrix} + c_2 e^{3t}\left[t\begin{pmatrix} 1 \\ -1 \end{pmatrix} + \begin{pmatrix} 0 \\ -1 \end{pmatrix}\right]\).</div>
+                </div>
+
+                <!-- 10(d) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(d)</strong> \(X'(t) = \begin{pmatrix} 1 & 9 \\ -1 & -5 \end{pmatrix} X(t)\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q10(d)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(\det(A - \lambda I) = (1-\lambda)(-5-\lambda) - (9)(-1) = \lambda^2 + 4\lambda + 4 = (\lambda + 2)^2 = 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Conferindo pelo atalho: \(\operatorname{tr}(A) = 1 - 5 = -4\) e \(\det(A) = -5 + 9 = 4\). Raiz dupla \(\lambda = -2\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\((A + 2I)v = \begin{pmatrix} 3 & 9 \\ -1 & -3 \end{pmatrix}\begin{pmatrix} v_1 \\ v_2 \end{pmatrix} = \mathbf{0} \implies -v_1 - 3v_2 = 0 \implies v_1 = -3v_2\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Nota: \(A - (-2)I = A + 2I\)! Escolhendo \(v_2 = 1\), temos \(v = \begin{pmatrix} -3 \\ 1 \end{pmatrix}\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\((A + 2I)w = v \implies \begin{pmatrix} 3 & 9 \\ -1 & -3 \end{pmatrix}\begin{pmatrix} w_1 \\ w_2 \end{pmatrix} = \begin{pmatrix} -3 \\ 1 \end{pmatrix} \implies -w_1 - 3w_2 = 1\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> A 1ª linha dividida por \(-3\) dá exatamente a 2ª linha: \(-w_1 - 3w_2 = 1\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">04</td>
+                            <td class="step-math">\(\text{Escolhendo } w_2 = 0 \implies w_1 = -1 \implies w = \begin{pmatrix} -1 \\ 0 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Escolha mais simples possível para \(w\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">05</td>
+                            <td class="step-math">\(X(t) = c_1 e^{-2t}\begin{pmatrix} -3 \\ 1 \end{pmatrix} + c_2 e^{-2t}\left[t\begin{pmatrix} -3 \\ 1 \end{pmatrix} + \begin{pmatrix} -1 \\ 0 \end{pmatrix}\right]\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Solução geral montada com \(v\) e \(w\).</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Resposta Q10(d): \(X(t) = c_1 e^{-2t}\begin{pmatrix} -3 \\ 1 \end{pmatrix} + c_2 e^{-2t}\left[t\begin{pmatrix} -3 \\ 1 \end{pmatrix} + \begin{pmatrix} -1 \\ 0 \end{pmatrix}\right]\).</div>
+                </div>
+
+                <!-- 10(e) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(e)</strong> \(X'(t) = \begin{pmatrix} 1 & 2 \\ 3 & 2 \end{pmatrix} X(t)\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q10(e)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(\det(A - \lambda I) = (1-\lambda)(2-\lambda) - 6 = \lambda^2 - 3\lambda - 4 = (\lambda + 1)(\lambda - 4) = 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Autovalores reais distintos: \(\lambda_1 = -1\) e \(\lambda_2 = 4\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(\lambda_1 = -1:\; (A + I)v = \begin{pmatrix} 2 & 2 \\ 3 & 3 \end{pmatrix}\begin{pmatrix} v_1 \\ v_2 \end{pmatrix} = \mathbf{0} \implies 2v_1 + 2v_2 = 0 \implies v_2 = -v_1\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Escolhendo \(v_1 = 1\), temos \(v_1 = \begin{pmatrix} 1 \\ -1 \end{pmatrix}\). Prova: \(\begin{pmatrix} 1 & 2 \\ 3 & 2 \end{pmatrix}\begin{pmatrix} 1 \\ -1 \end{pmatrix} = \begin{pmatrix} -1 \\ 1 \end{pmatrix} = -1\begin{pmatrix} 1 \\ -1 \end{pmatrix}\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\(\lambda_2 = 4:\; (A - 4I)v = \begin{pmatrix} -3 & 2 \\ 3 & -2 \end{pmatrix}\begin{pmatrix} v_1 \\ v_2 \end{pmatrix} = \mathbf{0} \implies -3v_1 + 2v_2 = 0 \implies v_2 = \frac{3}{2}v_1\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Com \(v_1 = 1\), dá \(\begin{pmatrix} 1 \\ 3/2 \end{pmatrix}\) (como no gabarito); com \(v_1 = 2\), dá o vetor inteiro \(\begin{pmatrix} 2 \\ 3 \end{pmatrix}\). Ambos são válidos!</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">04</td>
+                            <td class="step-math">\(X(t) = c_1 e^{-t}\begin{pmatrix} 1 \\ -1 \end{pmatrix} + c_2 e^{4t}\begin{pmatrix} 1 \\ 3/2 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Forma equivalente sem fração: \(c_1 e^{-t}\begin{pmatrix} 1 \\ -1 \end{pmatrix} + \tilde{c}_2 e^{4t}\begin{pmatrix} 2 \\ 3 \end{pmatrix}\).</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="errata-alert">
+                        <strong>⚠️ Alerta de Gralha no Gabarito Oficial (Q10e):</strong> O gabarito oficial imprimiu \(c_1 e^{-t}\begin{pmatrix} 1 \\ 1 \end{pmatrix}\) em vez de \(c_1 e^{-t}\begin{pmatrix} 1 \\ -1 \end{pmatrix}\). Testando: \(A\binom{1}{1} = \binom{3}{5} \neq -\binom{1}{1}\), logo \(\binom{1}{1}\) NÃO é autovetor! O autovetor correto para \(\lambda=-1\) é <strong>\(\begin{pmatrix} 1 \\ -1 \end{pmatrix}\)</strong> (ou \(\begin{pmatrix} -1 \\ 1 \end{pmatrix}\)).
+                    </div>
+                    <div class="final-answer">Resposta Q10(e): \(X(t) = c_1 e^{-t}\begin{pmatrix} 1 \\ -1 \end{pmatrix} + c_2 e^{4t}\begin{pmatrix} 1 \\ 3/2 \end{pmatrix}\) (ou \(c_2 e^{4t}\begin{pmatrix} 2 \\ 3 \end{pmatrix}\)).</div>
+                </div>
+
+                <!-- 10(f) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(f)</strong> \(X'(t) = \begin{pmatrix} 1 & 0 & 1 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix} X(t)\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q10(f)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(\det(A - \lambda I) = \det\begin{pmatrix} 1-\lambda & 0 & 1 \\ 0 & 1-\lambda & 0 \\ 0 & 0 & 1-\lambda \end{pmatrix} = (1-\lambda)^3 = 0 \implies \lambda = 1\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Matriz triangular superior: o determinante é o produto da diagonal! Raiz tripla \(\lambda = 1\) (mult. algébrica 3).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\((A - I)v = \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix}\begin{pmatrix} v_1 \\ v_2 \\ v_3 \end{pmatrix} = \begin{pmatrix} v_3 \\ 0 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix} \implies v_3 = 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> \(v_1\) e \(v_2\) ficam livres! Isso dá <strong>2</strong> autovetores LI: \(v^{(1)} = (1,0,0)^T\) e \(v^{(2)} = (0,1,0)^T\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\(\text{Falta 1 solução! } (A-I)^2 = \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix}^2 = \mathbf{0}_{3\times 3}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> CUIDADO \(3\times 3\): queremos \(w\) tal que \((A-I)w = u\) seja um autovetor. Como \((A-I)w = (w_3, 0, 0)^T\), o vetor \(u\) tem que ser múltiplo de \(v^{(1)} = (1,0,0)^T\) (e NÃO de \(v^{(2)}\)!).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">04</td>
+                            <td class="step-math">\((A - I)w = v^{(1)} \implies \begin{pmatrix} w_3 \\ 0 \\ 0 \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} \implies w_3 = 1 \;\;(w_1 = w_2 = 0) \implies w = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Note: se tentássemos \((A-I)w = v^{(2)}\), daria \(0 = 1\) (impossível!). Escolhendo \(w_1=w_2=0\), temos \(w=(0,0,1)^T\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">05</td>
+                            <td class="step-math">\(X_3(t) = e^t\left(t v^{(1)} + w\right) = e^t\left[t\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}\right] = e^t\begin{pmatrix} t \\ 0 \\ 1 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Verificação rápida: \(X_3' = e^t(t+1, 0, 1)^T\) e \(AX_3 = e^t(t+1, 0, 1)^T\). Bate perfeitamente!</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">06</td>
+                            <td class="step-math">\(X(t) = c_1 e^t\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} + c_2 e^t\begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} + c_3 e^t\begin{pmatrix} t \\ 0 \\ 1 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Solução geral completa com 3 colunas LI!</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Resposta Q10(f): \(X(t) = c_1 e^t\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} + c_2 e^t\begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} + c_3 e^t\begin{pmatrix} t \\ 0 \\ 1 \end{pmatrix}\).</div>
+                </div>
+
+                <!-- 10(g) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(g)</strong> \(X'(t) = \begin{pmatrix} 0 & 1 & 0 \\ -1 & -2 & 0 \\ 0 & 0 & 1 \end{pmatrix} X(t), \qquad X(0) = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q10(g)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(\det(A - \lambda I) = \det\begin{pmatrix} -\lambda & 1 & 0 \\ -1 & -2-\lambda & 0 \\ 0 & 0 & 1-\lambda \end{pmatrix} = (1-\lambda)\det\begin{pmatrix} -\lambda & 1 \\ -1 & -2-\lambda \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Expansão de Laplace pela 3ª linha (que só tem um elemento não-nulo na posição \((3,3)\)!).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\((1-\lambda)\big(\lambda(2+\lambda) + 1\big) = (1-\lambda)(\lambda^2 + 2\lambda + 1) = (1-\lambda)(\lambda+1)^2 = 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Autovalores: \(\lambda_1 = 1\) (simples) e \(\lambda_2 = -1\) (duplo).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\(\lambda_1 = 1:\; (A - I)v = \begin{pmatrix} -1 & 1 & 0 \\ -1 & -3 & 0 \\ 0 & 0 & 0 \end{pmatrix}\begin{pmatrix} v_1 \\ v_2 \\ v_3 \end{pmatrix} = \mathbf{0} \implies v_1 = v_2 = 0,\; v_3\text{ livre} \implies v^{(1)} = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Das duas primeiras linhas: \(-v_1+v_2=0\) e \(-v_1-3v_2=0 \implies v_1=v_2=0\). Escolhendo \(v_3=1\), temos \(v^{(1)}\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">04</td>
+                            <td class="step-math">\(\lambda_2 = -1:\; (A + I)v = \begin{pmatrix} 1 & 1 & 0 \\ -1 & -1 & 0 \\ 0 & 0 & 2 \end{pmatrix}\begin{pmatrix} v_1 \\ v_2 \\ v_3 \end{pmatrix} = \mathbf{0} \implies v_1 + v_2 = 0,\; 2v_3 = 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Apenas 1 autovetor LI para \(\lambda_2 = -1\): escolhendo \(v_2 = 1\), temos \(v^{(2)} = \begin{pmatrix} -1 \\ 1 \\ 0 \end{pmatrix}\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">05</td>
+                            <td class="step-math">\((A + I)w = v^{(2)} \implies \begin{pmatrix} 1 & 1 & 0 \\ -1 & -1 & 0 \\ 0 & 0 & 2 \end{pmatrix}\begin{pmatrix} w_1 \\ w_2 \\ w_3 \end{pmatrix} = \begin{pmatrix} -1 \\ 1 \\ 0 \end{pmatrix} \implies w_1 + w_2 = -1,\; w_3 = 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Buscamos o autovetor generalizado \(w\). Escolhendo \(w_1 = 0\), vem \(w_2 = -1\), logo \(w = \begin{pmatrix} 0 \\ -1 \\ 0 \end{pmatrix}\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">06</td>
+                            <td class="step-math">\(X(t) = c_1 e^{-t}\begin{pmatrix} -1 \\ 1 \\ 0 \end{pmatrix} + c_2 e^{-t}\left[t\begin{pmatrix} -1 \\ 1 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ -1 \\ 0 \end{pmatrix}\right] + c_3 e^{t}\begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Esta é a solução geral completa do sistema. Agora aplicamos \(X(0) = (1, 1, 1)^T\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">07</td>
+                            <td class="step-math">\(X(0) = c_1\begin{pmatrix} -1 \\ 1 \\ 0 \end{pmatrix} + c_2\begin{pmatrix} 0 \\ -1 \\ 0 \end{pmatrix} + c_3\begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} = \begin{pmatrix} -c_1 \\ c_1 - c_2 \\ c_3 \end{pmatrix} = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Em \(t=0\), \(e^0 = 1\) e o termo com \(t\) zera!</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">08</td>
+                            <td class="step-math">\(-c_1 = 1 \implies c_1 = -1;\quad -1 - c_2 = 1 \implies c_2 = -2;\quad c_3 = 1\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Resolvemos o sistema para \(c_1, c_2, c_3\) e substituímos de volta na linha 06.</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">09</td>
+                            <td class="step-math">\(X(t) = -e^{-t}\begin{pmatrix} -1 \\ 1 \\ 0 \end{pmatrix} - 2e^{-t}\begin{pmatrix} -t \\ t-1 \\ 0 \end{pmatrix} + e^t\begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} = \begin{pmatrix} (1 + 2t)e^{-t} \\ (1 - 2t)e^{-t} \\ e^t \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Prova real em \(t=0\): \(X(0) = (1, 1, 1)^T\) e \(x_1'(t) = (1-2t)e^{-t} = x_2(t)\)!</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Resposta Q10(g): \(X(t) = \begin{pmatrix} (2t + 1)e^{-t} \\ (1 - 2t)e^{-t} \\ e^t \end{pmatrix}\).</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXERCÍCIO 11 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>⭐</span> Exercício 11 — Sistemas Escritos em Equações e Problemas de Valor Inicial (PVIs \(2\times 2\) e \(3\times 3\))</div>
+                <span class="badge-type badge-star">Provável de Prova</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>11.</strong> Resolva os seguintes sistemas e Problemas de Valor Inicial (PVIs) escritos na forma de equações escalares acopladas:
+                </div>
+
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Diferente da Q10, aqui o enunciado entrega o sistema escrito em equações separadas (\(x', y', z'\)) em vez de já dar a matriz \(A\) pronta — seu primeiro reflexo deve ser montar a matriz \(A\) alinhando rigorosamente as colunas \((x, y)\) ou \((x, y, z)\) e preenchendo com \(0\) qualquer variável ausente (como no item c, onde \(x'=0\cdot x + 1\cdot y + 1\cdot z\)). No par (a)-(b) temos novamente um caso defectivo com autovetor generalizado seguido de PVI; no (c), um sistema \(3\times 3\) que exige calcular o polinômio característico cúbico por Expansão de Laplace e testar raízes inteiras (\(\pm 1, \pm 2, \pm 3\)) até fatorar completamente. O macete infalível nos PVIs é checar os valores iniciais \(x(0), y(0), z(0)\) na resposta final para ter 100% de certeza antes de passar para a próxima questão.</p>
+                </div>
+
+                <!-- 11(a) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(a)</strong> Encontre a solução geral para o problema \(x'(t) = 2x - 9y;\; y'(t) = x + 8y\). <em>(Sem base de autovetores: determinar o autovetor generalizado.)</em></div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q11(a)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(X'(t) = \begin{pmatrix} 2 & -9 \\ 1 & 8 \end{pmatrix} X(t), \quad \text{onde } X(t) = \begin{pmatrix} x(t) \\ y(t) \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Passamos do formato escalar para a forma matricial \(X' = AX\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(\det(A - \lambda I) = (2-\lambda)(8-\lambda) - (-9)(1) = \lambda^2 - 10\lambda + 25 = (\lambda - 5)^2 = 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Trinômio quadrado perfeito: raiz dupla \(\lambda = 5\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\((A - 5I)v = \begin{pmatrix} -3 & -9 \\ 1 & 3 \end{pmatrix}\begin{pmatrix} v_1 \\ v_2 \end{pmatrix} = \mathbf{0} \implies v_1 + 3v_2 = 0 \implies v_1 = -3v_2\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Escolhendo \(v_2 = 1\), temos o único autovetor LI: \(v = \begin{pmatrix} -3 \\ 1 \end{pmatrix}\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">04</td>
+                            <td class="step-math">\((A - 5I)w = v \implies \begin{pmatrix} -3 & -9 \\ 1 & 3 \end{pmatrix}\begin{pmatrix} w_1 \\ w_2 \end{pmatrix} = \begin{pmatrix} -3 \\ 1 \end{pmatrix} \implies w_1 + 3w_2 = 1\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Sistema do autovetor generalizado \((A - 5I)w = v\). As duas linhas são proporcionais.</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">05</td>
+                            <td class="step-math">\(\text{Escolhendo } w_2 = 0 \implies w_1 = 1 \implies w = \begin{pmatrix} 1 \\ 0 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Escolha idêntica à do gabarito oficial para \(w\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">06</td>
+                            <td class="step-math">\(X(t) = c_1 e^{5t}\begin{pmatrix} -3 \\ 1 \end{pmatrix} + c_2 e^{5t}\left[t\begin{pmatrix} -3 \\ 1 \end{pmatrix} + \begin{pmatrix} 1 \\ 0 \end{pmatrix}\right]\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Solução geral montada!</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Resposta Q11(a): \(X(t) = c_1 e^{5t}\begin{pmatrix} -3 \\ 1 \end{pmatrix} + c_2 e^{5t}\left[t\begin{pmatrix} -3 \\ 1 \end{pmatrix} + \begin{pmatrix} 1 \\ 0 \end{pmatrix}\right]\).</div>
+                </div>
+
+                <!-- 11(b) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(b)</strong> Encontre a solução única para o problema anterior com condições iniciais \(x(0) = 2;\; y(0) = 1\).</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q11(b)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(X(0) = c_1 e^0\begin{pmatrix} -3 \\ 1 \end{pmatrix} + c_2 e^0\left[0\cdot\begin{pmatrix} -3 \\ 1 \end{pmatrix} + \begin{pmatrix} 1 \\ 0 \end{pmatrix}\right] = \begin{pmatrix} -3c_1 + c_2 \\ c_1 \end{pmatrix} = \begin{pmatrix} 2 \\ 1 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Avaliamos a solução do item (a) em \(t=0\) e igualamos ao vetor inicial \(\binom{2}{1}\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(c_1 = 1 \quad \text{e} \quad -3(1) + c_2 = 2 \implies c_2 = 5\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Da 2ª linha sai direto \(c_1 = 1\); substituindo na 1ª sai \(c_2 = 5\). Bate com o gabarito!</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\(X(t) = e^{5t}\begin{pmatrix} -3 \\ 1 \end{pmatrix} + 5e^{5t}\begin{pmatrix} -3t + 1 \\ t \end{pmatrix} = \begin{pmatrix} (2 - 15t)e^{5t} \\ (1 + 5t)e^{5t} \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Expandimos \(x(t)\) e \(y(t)\): em \(t=0\), \(x(0)=2\) e \(y(0)=1\).</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Resposta Q11(b): \(c_1 = 1,\; c_2 = 5 \implies x(t) = (2 - 15t)e^{5t},\quad y(t) = (1 + 5t)e^{5t}\).</div>
+                </div>
+
+                <!-- 11(c) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(c)</strong> Encontre a única solução para o problema de valor inicial \(x'(t) = y + z;\; y'(t) = 3x + z;\; z'(t) = 3x + y\), com condições iniciais \(x(0) = 1;\; y(0) = 0;\; z(0) = 1\).</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q11(c)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(X'(t) = \begin{pmatrix} 0 & 1 & 1 \\ 3 & 0 & 1 \\ 3 & 1 & 0 \end{pmatrix} X(t), \qquad X(0) = \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Montamos a matriz \(A\): atenção aos zeros na diagonal principal!</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(\det(A - \lambda I) = \det\begin{pmatrix} -\lambda & 1 & 1 \\ 3 & -\lambda & 1 \\ 3 & 1 & -\lambda \end{pmatrix} = -\lambda(\lambda^2-1) - 1(-3\lambda-3) + 1(3+3\lambda)\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Expansão de Laplace pela 1ª linha: lembre da alternância de sinais \((+,-,+)\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\(= -\lambda^3 + \lambda + 3\lambda + 3 + 3 + 3\lambda = -\lambda^3 + 7\lambda + 6 = 0 \iff \lambda^3 - 7\lambda - 6 = 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Polinômio característico cúbico! Testamos divisores de \(6\): \(\lambda = -1 \implies (-1)^3 - 7(-1) - 6 = 0\) (raiz!).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">04</td>
+                            <td class="step-math">\(\lambda^3 - 7\lambda - 6 = (\lambda + 1)(\lambda^2 - \lambda - 6) = (\lambda + 1)(\lambda + 2)(\lambda - 3) = 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Divisão por \((\lambda+1)\) (Briot-Ruffini) dá \(\lambda^2-\lambda-6\), cujas raízes são \(-2\) e \(3\). Logo \(\lambda_1=-2,\; \lambda_2=-1,\; \lambda_3=3\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">05</td>
+                            <td class="step-math">\(\lambda_1 = -2:\; (A + 2I)v = \begin{pmatrix} 2 & 1 & 1 \\ 3 & 2 & 1 \\ 3 & 1 & 2 \end{pmatrix} v = \mathbf{0} \implies v_1 = -1,\; v_2 = 1,\; v_3 = 1\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Subtraindo a linha 2 da linha 3: \(v_3 - v_2 = 0 \implies v_2 = v_3\). Na linha 1: \(2v_1 + 2v_2 = 0 \implies v_1 = -v_2\). Logo \(v^{(1)} = (-1, 1, 1)^T\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">06</td>
+                            <td class="step-math">\(\lambda_2 = -1:\; (A + I)v = \begin{pmatrix} 1 & 1 & 1 \\ 3 & 1 & 1 \\ 3 & 1 & 1 \end{pmatrix} v = \mathbf{0} \implies v_1 = 0,\; v_2 = -v_3\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Subtraindo a linha 1 da linha 2: \(2v_1 = 0 \implies v_1 = 0\). Depois \(v_2+v_3=0\). Escolhendo \(v_3=1\): \(v^{(2)} = (0, -1, 1)^T\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">07</td>
+                            <td class="step-math">\(\lambda_3 = 3:\; (A - 3I)v = \begin{pmatrix} -3 & 1 & 1 \\ 3 & -3 & 1 \\ 3 & 1 & -3 \end{pmatrix} v = \mathbf{0} \implies v_2 = v_3,\; v_1 = \frac{2}{3}v_3\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Subtraindo L3 de L2: \(-4v_2 + 4v_3 = 0 \implies v_2 = v_3\). Na L1: \(-3v_1 + 2v_3 = 0\). Escolhendo \(v_3 = 3\): \(v^{(3)} = (2, 3, 3)^T\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">08</td>
+                            <td class="step-math">\(X(t) = c_1 e^{-2t}\begin{pmatrix} -1 \\ 1 \\ 1 \end{pmatrix} + c_2 e^{-t}\begin{pmatrix} 0 \\ -1 \\ 1 \end{pmatrix} + c_3 e^{3t}\begin{pmatrix} 2 \\ 3 \\ 3 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Solução geral com os 3 autovalores reais distintos. Agora impomos \(X(0) = (1, 0, 1)^T\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">09</td>
+                            <td class="step-math">\(\begin{cases} -c_1 + 2c_3 = 1 & (L_1) \\ c_1 - c_2 + 3c_3 = 0 & (L_2) \\ c_1 + c_2 + 3c_3 = 1 & (L_3) \end{cases}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Somando \(L_2 + L_3\): \(2c_1 + 6c_3 = 1\). Multiplicando \(L_1\) por \(2\): \(-2c_1 + 4c_3 = 2\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">10</td>
+                            <td class="step-math">\(10c_3 = 3 \implies c_3 = \frac{3}{10};\quad c_1 = 2c_3 - 1 = -\frac{2}{5};\quad c_2 = 1 - c_1 - 3c_3 = \frac{1}{2}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Conferindo em \(L_2\): \(-2/5 - 1/2 + 9/10 = (-4 - 5 + 9)/10 = 0\). Perfeito!</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">11</td>
+                            <td class="step-math">\(\begin{cases} x(t) = \frac{2}{5}e^{-2t} + \frac{3}{5}e^{3t} \\ y(t) = -\frac{2}{5}e^{-2t} - \frac{1}{2}e^{-t} + \frac{9}{10}e^{3t} \\ z(t) = -\frac{2}{5}e^{-2t} + \frac{1}{2}e^{-t} + \frac{9}{10}e^{3t} \end{cases}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Substituímos \(c_1 = -2/5,\; c_2 = 1/2,\; c_3 = 3/10\) na linha 08 (ex: \(2\cdot\frac{3}{10} = \frac{3}{5}\) e \(3\cdot\frac{3}{10} = \frac{9}{10}\)).</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Resposta Q11(c): \(x(t) = \frac{2}{5}e^{-2t} + \frac{3}{5}e^{3t},\quad y(t) = -\frac{2}{5}e^{-2t} - \frac{1}{2}e^{-t} + \frac{9}{10}e^{3t},\quad z(t) = -\frac{2}{5}e^{-2t} + \frac{1}{2}e^{-t} + \frac{9}{10}e^{3t}\).</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXERCÍCIO 12 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>⭐</span> Exercício 12 — Sistemas Homogêneos com Autovalores Complexos Conjugados (\(2\times 2\) e \(3\times 3\))</div>
+                <span class="badge-type badge-star">Provável de Prova</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>12.</strong> Encontre a solução geral para os sistemas lineares homogêneos <em>(observe que nestes casos aparecem autovalores complexos)</em>:
+                </div>
+
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Aqui treinamos exclusivamente o Regime Complexo (\(\lambda = \alpha \pm i\beta\)), tanto em \(2\times 2\) quanto em \(3\times 3\) misturado com autovalor real! O grande segredo de economia de tempo na prova é usar <strong>apenas um autovalor do par conjugado</strong> (por convenção, \(\lambda = \alpha + i\beta\) com \(\beta > 0\)): você encontra um autovetor complexo \(v = \mathbf{a} + i\mathbf{b}\), expande \(Z(t) = e^{\alpha t}(\cos\beta t + i\operatorname{sen}\beta t)(\mathbf{a}+i\mathbf{b})\) e extrai \(X_1(t)=\operatorname{Re}(Z(t))\) e \(X_2(t)=\operatorname{Im}(Z(t))\), que já fornecem as duas soluções reais LI necessárias — nunca precisa resolver \((A-\overline{\lambda}I)v=0\)! No item (c), a lista já entrega os três autovalores (\(\lambda_1=1, \lambda_2=i, \lambda_3=-i\)), poupando a cúbica; o macete ao resolver \((A-iI)v=0\) é escolher a variável livre igual a \(2\) para evitar frações como \(-1/2 - i/2\), mantendo números inteiros limpos até o final.</p>
+                </div>
+
+                <!-- 12(a) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(a)</strong> \(X'(t) = \begin{pmatrix} 1 & 2 \\ -2 & 1 \end{pmatrix} X(t)\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q12(a)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(\det(A - \lambda I) = (1-\lambda)^2 - (2)(-2) = \lambda^2 - 2\lambda + 5 = 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Equação característica: \(\lambda^2 - 2\lambda + 5 = 0\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(\lambda = \frac{2 \pm \sqrt{4 - 20}}{2} = \frac{2 \pm 4i}{2} = 1 \pm 2i \quad (\alpha = 1,\; \beta = 2)\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Par complexo conjugado com parte real \(\alpha = 1\) e parte imaginária \(\beta = 2\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\(\lambda_1 = 1 + 2i:\; (A - (1+2i)I)v = \begin{pmatrix} -2i & 2 \\ -2 & -2i \end{pmatrix}\begin{pmatrix} v_1 \\ v_2 \end{pmatrix} = \mathbf{0} \implies -2iv_1 + 2v_2 = 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Dividindo a 1ª linha por \(2\), temos \(v_2 = i v_1\). Escolhemos \(v_1 = 1\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">04</td>
+                            <td class="step-math">\(v = \begin{pmatrix} 1 \\ i \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \end{pmatrix} + i\begin{pmatrix} 0 \\ 1 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Separamos \(\mathbf{a} = \binom{1}{0}\) e \(\mathbf{b} = \binom{0}{1}\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">05</td>
+                            <td class="step-math">\(Z(t) = e^{(1+2i)t}\begin{pmatrix} 1 \\ i \end{pmatrix} = e^t(\cos 2t + i\operatorname{sen} 2t)\left[\begin{pmatrix} 1 \\ 0 \end{pmatrix} + i\begin{pmatrix} 0 \\ 1 \end{pmatrix}\right]\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Aplicamos a Fórmula de Euler: \(e^{2it} = \cos 2t + i\operatorname{sen} 2t\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">06</td>
+                            <td class="step-math">\(Z(t) = e^t\underbrace{\begin{pmatrix} \cos 2t \\ -\operatorname{sen} 2t \end{pmatrix}}_{\operatorname{Re}(Z(t))} + i e^t\underbrace{\begin{pmatrix} \operatorname{sen} 2t \\ \cos 2t \end{pmatrix}}_{\operatorname{Im}(Z(t))}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Na 2ª linha, \((i\operatorname{sen} 2t)\cdot i = -\operatorname{sen} 2t\) (vai para \(\operatorname{Re}\)) e \((\cos 2t)\cdot i = i\cos 2t\) (vai para \(\operatorname{Im}\)).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">07</td>
+                            <td class="step-math">\(X(t) = c_1 e^t\begin{pmatrix} \cos 2t \\ -\operatorname{sen} 2t \end{pmatrix} + c_2 e^t\begin{pmatrix} \operatorname{sen} 2t \\ \cos 2t \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Solução geral real formada pelas partes real e imaginária!</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Resposta Q12(a): \(X(t) = c_1 e^t\begin{pmatrix} \cos(2t) \\ -\operatorname{sen}(2t) \end{pmatrix} + c_2 e^t\begin{pmatrix} \operatorname{sen}(2t) \\ \cos(2t) \end{pmatrix}\).</div>
+                </div>
+
+                <!-- 12(b) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(b)</strong> \(X'(t) = \begin{pmatrix} 0 & 3 \\ -3 & 0 \end{pmatrix} X(t)\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q12(b)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(\det(A - \lambda I) = (-\lambda)(-\lambda) - (3)(-3) = \lambda^2 + 9 = 0 \implies \lambda = \pm 3i\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Imaginário puro: \(\alpha = 0\) (logo \(e^{0t} = 1\), não há exponencial crescendo/decaindo!) e \(\beta = 3\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(\lambda_1 = 3i:\; (A - 3iI)v = \begin{pmatrix} -3i & 3 \\ -3 & -3i \end{pmatrix}\begin{pmatrix} v_1 \\ v_2 \end{pmatrix} = \mathbf{0} \implies -3iv_1 + 3v_2 = 0 \implies v_2 = iv_1\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Escolhendo \(v_1 = 1\), temos \(v = \begin{pmatrix} 1 \\ i \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \end{pmatrix} + i\begin{pmatrix} 0 \\ 1 \end{pmatrix}\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\(Z(t) = e^{3it}\begin{pmatrix} 1 \\ i \end{pmatrix} = (\cos 3t + i\operatorname{sen} 3t)\begin{pmatrix} 1 \\ i \end{pmatrix} = \begin{pmatrix} \cos 3t \\ -\operatorname{sen} 3t \end{pmatrix} + i\begin{pmatrix} \operatorname{sen} 3t \\ \cos 3t \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Extraímos diretamente \(X_1 = \operatorname{Re}(Z)\) e \(X_2 = \operatorname{Im}(Z)\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">04</td>
+                            <td class="step-math">\(X(t) = c_1\begin{pmatrix} \cos 3t \\ -\operatorname{sen} 3t \end{pmatrix} + c_2\begin{pmatrix} \operatorname{sen} 3t \\ \cos 3t \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Movimento puramente oscilatório (centro no plano de fase).</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Resposta Q12(b): \(X(t) = c_1\begin{pmatrix} \cos(3t) \\ -\operatorname{sen}(3t) \end{pmatrix} + c_2\begin{pmatrix} \operatorname{sen}(3t) \\ \cos(3t) \end{pmatrix}\).</div>
+                </div>
+
+                <!-- 12(c) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(c)</strong> \(X'(t) = \begin{pmatrix} 2 & -1 & 1 \\ 1 & 0 & 1 \\ -2 & 0 & -1 \end{pmatrix} X(t), \qquad [\lambda_1 = 1;\; \lambda_2 = i;\; \lambda_3 = -i]\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q12(c)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(\lambda_1 = 1:\; (A - I)v = \begin{pmatrix} 1 & -1 & 1 \\ 1 & -1 & 1 \\ -2 & 0 & -2 \end{pmatrix}\begin{pmatrix} v_1 \\ v_2 \\ v_3 \end{pmatrix} = \mathbf{0}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Da 3ª linha: \(-2v_1 - 2v_3 = 0 \implies v_1 = -v_3\). Da 1ª linha: \((-v_3) - v_2 + v_3 = 0 \implies v_2 = 0\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(v_3 = 1 \implies v^{(1)} = \begin{pmatrix} -1 \\ 0 \\ 1 \end{pmatrix} \implies X_1(t) = e^t\begin{pmatrix} -1 \\ 0 \\ 1 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Primeira solução real LI (associada ao autovalor real \(\lambda_1 = 1\)).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\(\lambda_2 = i:\; (A - iI)v = \begin{pmatrix} 2-i & -1 & 1 \\ 1 & -i & 1 \\ -2 & 0 & -1-i \end{pmatrix}\begin{pmatrix} v_1 \\ v_2 \\ v_3 \end{pmatrix} = \mathbf{0}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Escolhemos a 3ª linha (tem um zero!) e a 2ª linha (mais simples!).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">04</td>
+                            <td class="step-math">\(-2v_1 - (1+i)v_3 = 0 \implies v_1 = -\frac{1+i}{2}v_3 \xrightarrow{v_3 = 2} v_1 = -1 - i\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Escolher \(v_3 = 2\) elimina imediatamente o denominador \(2\)!</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">05</td>
+                            <td class="step-math">\(v_1 - iv_2 + v_3 = 0 \implies (-1-i) - iv_2 + 2 = 0 \implies iv_2 = 1 - i\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Multiplicamos ambos os lados por \(-i\) (lembrando que \(-i \cdot i = 1\)): \(v_2 = -i(1-i) = -i - 1 = -1 - i\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">06</td>
+                            <td class="step-math">\(v^{(2)} = \begin{pmatrix} -1 - i \\ -1 - i \\ 2 \end{pmatrix} = \begin{pmatrix} -1 \\ -1 \\ 2 \end{pmatrix} + i\begin{pmatrix} -1 \\ -1 \\ 0 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Prova na L1: \((2-i)(-1-i) - (-1-i) + 2 = (-3-i) + 1 + i + 2 = 0\). 100% válido!</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">07</td>
+                            <td class="step-math">\(Z(t) = e^{it}v^{(2)} = (\cos t + i\operatorname{sen} t)\left[\begin{pmatrix} -1 \\ -1 \\ 2 \end{pmatrix} + i\begin{pmatrix} -1 \\ -1 \\ 0 \end{pmatrix}\right]\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Multiplicamos usando \(i^2 = -1\) e separamos a parte sem \(i\) e a parte com \(i\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">08</td>
+                            <td class="step-math">\(Z(t) = \underbrace{\begin{pmatrix} -\cos t + \operatorname{sen} t \\ -\cos t + \operatorname{sen} t \\ 2\cos t \end{pmatrix}}_{X_2(t) = \operatorname{Re}(Z)} + i\underbrace{\begin{pmatrix} -\operatorname{sen} t - \cos t \\ -\operatorname{sen} t - \cos t \\ 2\operatorname{sen} t \end{pmatrix}}_{X_3(t) = \operatorname{Im}(Z)}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Linha 1 e 2: \((-\cos t) + (i\operatorname{sen} t)(-i) = -\cos t + \operatorname{sen} t\) na parte real, e \(-\operatorname{sen} t - \cos t\) na imaginária.</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">09</td>
+                            <td class="step-math">\(X(t) = c_1 e^t\begin{pmatrix} -1 \\ 0 \\ 1 \end{pmatrix} + c_2\begin{pmatrix} \operatorname{sen} t - \cos t \\ \operatorname{sen} t - \cos t \\ 2\cos t \end{pmatrix} + c_3\begin{pmatrix} -\operatorname{sen} t - \cos t \\ -\operatorname{sen} t - \cos t \\ 2\operatorname{sen} t \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Juntamos a solução real \(X_1(t)\) com as duas soluções oscilatórias \(X_2(t), X_3(t)\).</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Resposta Q12(c): \(X(t) = c_1 e^t\begin{pmatrix} -1 \\ 0 \\ 1 \end{pmatrix} + c_2\begin{pmatrix} \operatorname{sen} t - \cos t \\ \operatorname{sen} t - \cos t \\ 2\cos t \end{pmatrix} + c_3\begin{pmatrix} -\operatorname{sen} t - \cos t \\ -\operatorname{sen} t - \cos t \\ 2\operatorname{sen} t \end{pmatrix}\).</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="recap-box">
+            <h3>📌 Resuminho do Tópico 3 — Regras de Bolso e Pegadinhas</h3>
+            <div class="recap-grid">
+                <div class="recap-card">
+                    <strong>Roteiro Mental em 4 Passos (\(X'=AX\))</strong>
+                    1) \(\det(A-\lambda I)=0\);<br>
+                    2) Achar autovetores \((A-\lambda I)v=\mathbf{0}\);<br>
+                    3) Se faltar vetor LI, resolver \((A-\lambda I)w = v\) e usar \(e^{\lambda t}(tv+w)\);<br>
+                    4) Se \(\lambda = \alpha+i\beta\), expandir \(e^{\alpha t}(\cos\beta t + i\operatorname{sen}\beta t)(\mathbf{a}+i\mathbf{b})\).
+                </div>
+                <div class="recap-card">
+                    <strong>Pegadinhas Clássicas</strong>
+                    • Nunca esquecer de <strong>subtrair \(\lambda\) só na diagonal</strong>.<br>
+                    • Em complexos, <strong>não use \(\lambda\) e \(\overline{\lambda}\)</strong> juntos; basta \(\alpha + i\beta\) para gerar \(X_1=\operatorname{Re}\) e \(X_2=\operatorname{Im}\).<br>
+                    • Sempre cheque \(Av = \lambda v\) (evita erros como a gralha da Q10e!).
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TÓPICO 4 — BLOCO EXTRA: SISTEMAS NÃO-HOMOGÊNEOS (Q13 a, b, c)     -->
+    <!-- ================================================================= -->
+    <div class="topic-section">
+        <div class="topic-banner">
+            <h2>Tópico 4 (Bloco Extra): Sistemas Lineares Não-Homogêneos \(X'(t) = AX(t) + g(t)\)</h2>
+            <span class="topic-range">⚠️ Extra / Prioridade Secundária · Q13</span>
+        </div>
+
+        <div class="errata-alert" style="background: #fff7ed; border-color: #fdba74; border-left-color: #ea580c; color: #7c2d12;">
+            <strong>⚠️ Extra / Prioridade Secundária (Sistemas Não-Homogêneos):</strong> Este bloco só cai na P3 caso a professora tenha avançado em sala até o tópico de <em>Sistemas Lineares Não-Homogêneos</em> (Variação dos Parâmetros / Coeficientes a Determinar vetoriais). Domine primeiro 100% os Tópicos 1, 2 e 3 antes de investir tempo aqui — e use esta seção para fechar a matéria com folga!
+        </div>
+
+        <div class="prereq-box">
+            <h3>🧠 Pré-Requisitos: Inversa \(2\times 2\), Variação dos Parâmetros e Integrais (Zero Pressuposição)</h3>
+            <ul>
+                <li><strong>1. Fórmula da Inversa \(2\times 2\) (Dada no Enunciado da Q13):</strong> Se \(M = \begin{pmatrix} a & b \\ c & d \end{pmatrix}\) tem \(\det M = ad - bc \neq 0\), então:
+                \[M^{-1} = \frac{1}{ad - bc}\begin{pmatrix} d & -b \\ -c & a \end{pmatrix}\]
+                <em>Regra mnemônica:</em> <strong>troca</strong> os elementos da diagonal principal (\(a \leftrightarrow d\)), <strong>inverte o sinal</strong> da diagonal secundária (\(b \to -b,\; c \to -c\)) e divide tudo pelo determinante!</li>
+                <li><strong>2. Fórmula da Variação dos Parâmetros (e PVI em \(t_0 = 0\)):</strong> Se \(\Phi(t)\) é uma matriz fundamental qualquer do sistema homogêneo \(X'=AX\), a solução geral do sistema não-homogêneo \(X'(t) = AX(t) + g(t)\) é \(X(t) = \Phi(t)C + \Phi(t)\int_0^t \Phi(\tau)^{-1}g(\tau)\,d\tau\). Impondo \(X(0) = X_0\) (como a integral de \(0\) a \(0\) é nula), temos \(\Phi(0)C = X_0 \implies C = \Phi(0)^{-1}X_0\), logo:
+                \[X(t) = \Phi(t)\Phi(0)^{-1}X_0 + \Phi(t)\int_0^t \Phi(\tau)^{-1}g(\tau)\,d\tau.\]
+                <em>Observação:</em> Se normalizarmos \(\Phi(t)\) para que \(\Phi(0) = I\) (isto é, \(\Phi(t) = e^{At}\)), então \(\Phi(0)^{-1} = I\) e a fórmula assume a forma compacta \(X(t) = \Phi(t)X_0 + \Phi(t)\int_0^t \Phi(\tau)^{-1}g(\tau)\,d\tau\).</li>
+                <li><strong>3. Integrais de Cálculo 1/2 Usadas na Q13:</strong>
+                <ul>
+                    <li>\(\int \tan\tau\,d\tau = \int \frac{\operatorname{sen}\tau}{\cos\tau}\,d\tau = -\ln|\cos\tau| + C\) (substituição \(u = \cos\tau,\; du = -\operatorname{sen}\tau\,d\tau\)). Logo, \(\int (-\tan\tau)\,d\tau = \ln|\cos\tau|\).</li>
+                    <li><strong>Integração por Partes</strong> \(\int u\,dv = uv - \int v\,du\) (aplicada duas vezes para exponencial \(\times\) seno):
+                    \[\int e^{\tau}\operatorname{sen}\tau\,d\tau = \frac{e^{\tau}}{2}(\operatorname{sen}\tau - \cos\tau), \qquad \int e^{-\tau}\operatorname{sen}\tau\,d\tau = -\frac{e^{-\tau}}{2}(\operatorname{sen}\tau + \cos\tau).\]</li>
+                </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- EXERCÍCIO 13 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>⚠️</span> Exercício 13 — Sistemas Lineares Não-Homogêneos (Coeficientes a Determinar e Variação dos Parâmetros)</div>
+                <span class="badge-type badge-extra">Extra / Prioridade Secundária</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>13.</strong> Encontre a solução geral dos sistemas abaixo. Quando uma condição inicial for dada, encontre a única solução. Para encontrar a solução particular, use o método dos coeficientes a determinar ou a fórmula da variação dos parâmetros.
+                    <em>(Lembre que \(\begin{pmatrix} a & b \\ c & d \end{pmatrix}^{-1} = \frac{1}{ad-bc}\begin{pmatrix} d & -b \\ -c & a \end{pmatrix}\).)</em>
+                </div>
+
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Bateu o olho e viu um vetor somando fora de \(AX(t)\) — o termo forçante \(g(t) \neq \mathbf{0}\) — o problema virou um sistema não-homogêneo \(X'(t) = AX(t) + g(t)\), que exige achar primeiro a solução homogênea \(X_h(t)\) (e sua matriz fundamental \(\Phi(t)\)) e depois a solução particular \(X_p(t)\). O gatilho visual para escolher o método mais rápido é olhar a cara de \(g(t)\): se \(g(t)\) tiver apenas exponenciais simples, polinômios ou senos/cossenos (como \(e^t\binom{1}{2}\) no item a), o Método dos Coeficientes a Determinar resolve em poucas linhas sem nenhuma integral; já se aparecerem funções como \(\sec(t)\) (item b) ou condições iniciais misturadas com integrais prontas (item c), a Variação dos Parâmetros \(X(t) = \Phi(t)\Phi(0)^{-1}X_0 + \Phi(t)\int_0^t \Phi(\tau)^{-1}g(\tau)\,d\tau\) é obrigatória. Na hora de inverter \(\Phi(t)\), o macete é checar primeiro \(\det\Phi(t)\): muitas vezes os fatores exponenciais ou trigonométricos se cancelam (como \(\det=-1\) no item b e \(\det=1\) no item c!), deixando as contas da integral bem mais limpas.</p>
+                </div>
+
+                <!-- 13(a) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(a)</strong> \(X'(t) = \begin{pmatrix} 1 & 2 \\ 3 & 2 \end{pmatrix} X(t) + e^t \begin{pmatrix} 1 \\ 2 \end{pmatrix}\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q13(a) (Dois Métodos Completos!)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(\lambda_1 = -1 \implies v_1 = \begin{pmatrix} 1 \\ -1 \end{pmatrix}; \qquad \lambda_2 = 4 \implies v_2 = \begin{pmatrix} 2 \\ 3 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Passo 1 (Homogênea): é a mesma matriz \(A\) da Q10(e)! Logo \(X_h(t) = c_1 e^{-t}\binom{1}{-1} + c_2 e^{4t}\binom{2}{3}\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(\text{Palpite: } X_p(t) = e^t \begin{pmatrix} a \\ b \end{pmatrix} \implies X_p'(t) = e^t \begin{pmatrix} a \\ b \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> MÉTODO 1 (Coeficientes a Determinar): como o expoente \(1\) de \(e^t\) NÃO é autovalor (\(-1\) nem \(4\)), não há ressonância!</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\(e^t\begin{pmatrix} a \\ b \end{pmatrix} = \begin{pmatrix} 1 & 2 \\ 3 & 2 \end{pmatrix}e^t\begin{pmatrix} a \\ b \end{pmatrix} + e^t\begin{pmatrix} 1 \\ 2 \end{pmatrix} \implies \begin{cases} a = a + 2b + 1 \\ b = 3a + 2b + 2 \end{cases}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Substituímos \(X_p\) na EDO e cancelamos \(e^t \neq 0\) de todos os termos.</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">04</td>
+                            <td class="step-math">\(2b + 1 = 0 \implies b = -\frac{1}{2}; \qquad 3a + \left(-\frac{1}{2}\right) + 2 = 0 \implies 3a = -\frac{3}{2} \implies a = -\frac{1}{2}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Da 1ª eq. sai \(b = -1/2\); na 2ª eq. (\(3a+b+2=0\)) sai \(a = -1/2\). Logo \(X_p(t) = -\frac{1}{2}e^t\binom{1}{1}\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">05</td>
+                            <td class="step-math">\(\Phi(t) = \begin{pmatrix} e^{-t} & 2e^{4t} \\ -e^{-t} & 3e^{4t} \end{pmatrix} \implies \det\Phi(t) = 3e^{3t} - (-2e^{3t}) = 5e^{3t}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> MÉTODO 2 (Variação dos Parâmetros): montamos \(\Phi(t)\) com as colunas de \(X_h\) e calculamos \(\det\Phi(t)\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">06</td>
+                            <td class="step-math">\(\Phi(t)^{-1} = \frac{1}{5e^{3t}}\begin{pmatrix} 3e^{4t} & -2e^{4t} \\ e^{-t} & e^{-t} \end{pmatrix} = \frac{1}{5}\begin{pmatrix} 3e^t & -2e^t \\ e^{-4t} & e^{-4t} \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Pela fórmula da inversa \(2\times 2\): troca diag. principal, inverte sinais da secundária e divide por \(5e^{3t}\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">07</td>
+                            <td class="step-math">\(\Phi(\tau)^{-1}g(\tau) = \frac{1}{5}\begin{pmatrix} 3e^\tau & -2e^\tau \\ e^{-4\tau} & e^{-4\tau} \end{pmatrix}\begin{pmatrix} e^\tau \\ 2e^\tau \end{pmatrix} = \frac{1}{5}\begin{pmatrix} 3e^{2\tau} - 4e^{2\tau} \\ e^{-3\tau} + 2e^{-3\tau} \end{pmatrix} = \frac{1}{5}\begin{pmatrix} -e^{2\tau} \\ 3e^{-3\tau} \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Multiplicamos \(\Phi(\tau)^{-1}\) por \(g(\tau)\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">08</td>
+                            <td class="step-math">\(\int \Phi(\tau)^{-1}g(\tau)\,d\tau = \frac{1}{5}\begin{pmatrix} -\frac{1}{2}e^{2t} \\ -e^{-3t} \end{pmatrix} = \begin{pmatrix} -\frac{1}{10}e^{2t} \\ -\frac{1}{5}e^{-3t} \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Primitiva entrada a entrada: \(\int -e^{2\tau}d\tau = -\frac{1}{2}e^{2t}\) e \(\int 3e^{-3\tau}d\tau = -e^{-3t}\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">09</td>
+                            <td class="step-math">\(X_p(t) = \Phi(t)\begin{pmatrix} -\frac{1}{10}e^{2t} \\ -\frac{1}{5}e^{-3t} \end{pmatrix} = \begin{pmatrix} -\frac{1}{10}e^t - \frac{2}{5}e^t \\ \frac{1}{10}e^t - \frac{3}{5}e^t \end{pmatrix} = \begin{pmatrix} -\frac{1}{2}e^t \\ -\frac{1}{2}e^t \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Exatamente o mesmo \(X_p(t)\) encontrado pelo Método 1!</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">10</td>
+                            <td class="step-math">\(X(t) = X_h(t) + X_p(t) = c_1 e^{-t}\begin{pmatrix} 1 \\ -1 \end{pmatrix} + c_2 e^{4t}\begin{pmatrix} 2 \\ 3 \end{pmatrix} - \frac{1}{2}e^t\begin{pmatrix} 1 \\ 1 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Solução geral completa (homogênea + particular).</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Resposta Q13(a): \(X(t) = c_1 e^{-t}\begin{pmatrix} 1 \\ -1 \end{pmatrix} + c_2 e^{4t}\begin{pmatrix} 2 \\ 3 \end{pmatrix} - \frac{1}{2}e^t\begin{pmatrix} 1 \\ 1 \end{pmatrix}\).</div>
+                </div>
+
+                <!-- 13(b) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(b)</strong> \(X'(t) = \begin{pmatrix} 2 & -5 \\ 1 & -2 \end{pmatrix} X(t) + \begin{pmatrix} \sec(t) \\ 0 \end{pmatrix}, \qquad X(0) = \begin{pmatrix} 0 \\ 0 \end{pmatrix}\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q13(b)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(\det(A - \lambda I) = (2-\lambda)(-2-\lambda) + 5 = \lambda^2 - 4 + 5 = \lambda^2 + 1 = 0 \implies \lambda = \pm i\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Autovalores imaginários puros (\(\alpha = 0,\; \beta = 1\)).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\((A - iI)v = \begin{pmatrix} 2-i & -5 \\ 1 & -2-i \end{pmatrix}\begin{pmatrix} v_1 \\ v_2 \end{pmatrix} = \mathbf{0} \implies v_1 = (2+i)v_2 \xrightarrow{v_2=1} v = \begin{pmatrix} 2+i \\ 1 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Pela 2ª linha: \(v_1 - (2+i)v_2 = 0\). Separando: \(v = \binom{2}{1} + i\binom{1}{0}\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\(Z(t) = (\cos t + i\operatorname{sen} t)\left[\begin{pmatrix} 2 \\ 1 \end{pmatrix} + i\begin{pmatrix} 1 \\ 0 \end{pmatrix}\right] = \begin{pmatrix} 2\cos t - \operatorname{sen} t \\ \cos t \end{pmatrix} + i\begin{pmatrix} 2\operatorname{sen} t + \cos t \\ \operatorname{sen} t \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> As partes real e imaginária formam as colunas da matriz fundamental \(\Phi(t)\)!</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">04</td>
+                            <td class="step-math">\(\Phi(t) = \begin{pmatrix} 2\cos t - \operatorname{sen} t & 2\operatorname{sen} t + \cos t \\ \cos t & \operatorname{sen} t \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Calculamos \(\det\Phi(t) = (2\cos t - \operatorname{sen} t)\operatorname{sen} t - (2\operatorname{sen} t + \cos t)\cos t = -(\operatorname{sen}^2 t + \cos^2 t) = -1\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">05</td>
+                            <td class="step-math">\(\Phi(t)^{-1} = \frac{1}{-1}\begin{pmatrix} \operatorname{sen} t & -(2\operatorname{sen} t + \cos t) \\ -\cos t & 2\cos t - \operatorname{sen} t \end{pmatrix} = \begin{pmatrix} -\operatorname{sen} t & 2\operatorname{sen} t + \cos t \\ \cos t & \operatorname{sen} t - 2\cos t \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Aplicamos a fórmula da inversa \(2\times 2\) dada no enunciado com \(ad-bc = -1\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">06</td>
+                            <td class="step-math">\(X(t) = \Phi(t)\Phi(0)^{-1}\underbrace{X_0}_{\mathbf{0}} + \Phi(t)\int_0^t \Phi(\tau)^{-1}g(\tau)\,d\tau = \Phi(t)\int_0^t \Phi(\tau)^{-1}\begin{pmatrix} \sec\tau \\ 0 \end{pmatrix}\,d\tau\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Como \(X(0) = \binom{0}{0}\), o termo homogêneo do PVI é identicamente nulo!</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">07</td>
+                            <td class="step-math">\(\Phi(\tau)^{-1}\begin{pmatrix} \frac{1}{\cos\tau} \\ 0 \end{pmatrix} = \begin{pmatrix} -\operatorname{sen}\tau \cdot \frac{1}{\cos\tau} \\ \cos\tau \cdot \frac{1}{\cos\tau} \end{pmatrix} = \begin{pmatrix} -\tan\tau \\ 1 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Lembrando que \(\sec\tau = \frac{1}{\cos\tau}\), a segunda coluna de \(\Phi(\tau)^{-1}\) multiplica por \(0\) e some!</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">08</td>
+                            <td class="step-math">\(\int_0^t \begin{pmatrix} -\tan\tau \\ 1 \end{pmatrix}\,d\tau = \begin{pmatrix} \big[\ln|\cos\tau|\big]_0^t \\ \big[\tau\big]_0^t \end{pmatrix} = \begin{pmatrix} \ln(\cos t) \\ t \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Para \(t \in (-\frac{\pi}{2}, \frac{\pi}{2})\), \(\cos t > 0\) e \(\ln(\cos 0) = \ln(1) = 0\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">09</td>
+                            <td class="step-math">\(X(t) = \begin{pmatrix} 2\cos t - \operatorname{sen} t & 2\operatorname{sen} t + \cos t \\ \cos t & \operatorname{sen} t \end{pmatrix}\begin{pmatrix} \ln(\cos t) \\ t \end{pmatrix} = \begin{pmatrix} (2\cos t - \operatorname{sen} t)\ln(\cos t) + t(2\operatorname{sen} t + \cos t) \\ \cos t\,\ln(\cos t) + t\operatorname{sen} t \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Conferindo em \(t=0\): \(\ln(1)=0\) e \(t=0 \implies X(0) = (0, 0)^T\)!</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Resposta Q13(b): \(X(t) = \begin{pmatrix} (2\cos t - \operatorname{sen} t)\ln(\cos t) + t(2\operatorname{sen} t + \cos t) \\ \cos t\,\ln(\cos t) + t\operatorname{sen} t \end{pmatrix}\), válida em \((-\pi/2,\; \pi/2)\).</div>
+                </div>
+
+                <!-- 13(c) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>(c)</strong> \(X'(t) = \begin{pmatrix} -3 & 4 \\ -2 & 3 \end{pmatrix} X(t) + \begin{pmatrix} \operatorname{sen} t \\ -2 \end{pmatrix}, \qquad X(0) = \begin{pmatrix} 7 \\ 6 \end{pmatrix}\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Q13(c)</span></div><table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(\det(A - \lambda I) = (-3-\lambda)(3-\lambda) + 8 = \lambda^2 - 9 + 8 = \lambda^2 - 1 = 0 \implies \lambda_1 = -1,\; \lambda_2 = 1\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Autovalores reais distintos: \(-1\) e \(1\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(\lambda_1 = -1:\; (A+I)v = \begin{pmatrix} -2 & 4 \\ -2 & 4 \end{pmatrix} v = \mathbf{0} \implies v_1 = 2v_2 \implies v^{(1)} = \begin{pmatrix} 2 \\ 1 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Autovetor para \(\lambda_1 = -1\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\(\lambda_2 = 1:\; (A-I)v = \begin{pmatrix} -4 & 4 \\ -2 & 2 \end{pmatrix} v = \mathbf{0} \implies v_1 = v_2 \implies v^{(2)} = \begin{pmatrix} 1 \\ 1 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Autovetor para \(\lambda_2 = 1\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">04</td>
+                            <td class="step-math">\(\Phi(t) = \begin{pmatrix} 2e^{-t} & e^t \\ e^{-t} & e^t \end{pmatrix} \implies \det\Phi(t) = (2e^{-t})e^t - e^t(e^{-t}) = 2 - 1 = 1\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Maravilha! O determinante da matriz fundamental é constante igual a \(1\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">05</td>
+                            <td class="step-math">\(\Phi(t)^{-1} = \frac{1}{1}\begin{pmatrix} e^t & -e^t \\ -e^{-t} & 2e^{-t} \end{pmatrix} = \begin{pmatrix} e^t & -e^t \\ -e^{-t} & 2e^{-t} \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Pela fórmula da inversa \(2\times 2\). Note que \(\Phi(0)^{-1} = \begin{pmatrix} 1 & -1 \\ -1 & 2 \end{pmatrix}\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">06</td>
+                            <td class="step-math">\(C = \Phi(0)^{-1}X_0 = \begin{pmatrix} 1 & -1 \\ -1 & 2 \end{pmatrix}\begin{pmatrix} 7 \\ 6 \end{pmatrix} = \begin{pmatrix} 7 - 6 \\ -7 + 12 \end{pmatrix} = \begin{pmatrix} 1 \\ 5 \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Calculamos o vetor de constantes iniciais \(C = \Phi(0)^{-1}X_0\) para a fórmula \(X(t) = \Phi(t)\big[C + \int_0^t \Phi(\tau)^{-1}g(\tau)\,d\tau\big]\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">07</td>
+                            <td class="step-math">\(\Phi(\tau)^{-1}g(\tau) = \begin{pmatrix} e^\tau & -e^\tau \\ -e^{-\tau} & 2e^{-\tau} \end{pmatrix}\begin{pmatrix} \operatorname{sen}\tau \\ -2 \end{pmatrix} = \begin{pmatrix} e^\tau\operatorname{sen}\tau + 2e^\tau \\ -e^{-\tau}\operatorname{sen}\tau - 4e^{-\tau} \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Agora integramos de \(\tau=0\) até \(\tau=t\) usando as integrais por partes revisadas nos pré-requisitos!</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">08</td>
+                            <td class="step-math">\(\int_0^t (e^\tau\operatorname{sen}\tau + 2e^\tau)\,d\tau = \left[\frac{e^\tau}{2}(\operatorname{sen}\tau - \cos\tau) + 2e^\tau\right]_0^t = \frac{e^t}{2}(\operatorname{sen} t - \cos t) + 2e^t - \frac{3}{2}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Em \(\tau=0\): \(\frac{1}{2}(0 - 1) + 2 = \frac{3}{2}\), logo subtraímos \(\frac{3}{2}\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">09</td>
+                            <td class="step-math">\(\int_0^t (-e^{-\tau}\operatorname{sen}\tau - 4e^{-\tau})\,d\tau = \left[\frac{e^{-\tau}}{2}(\operatorname{sen}\tau + \cos\tau) + 4e^{-\tau}\right]_0^t = \frac{e^{-t}}{2}(\operatorname{sen} t + \cos t) + 4e^{-t} - \frac{9}{2}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Conferindo a derivada: \(\big[\frac{e^{-\tau}}{2}(\operatorname{sen}\tau+\cos\tau)\big]' = -e^{-\tau}\operatorname{sen}\tau\). Em \(\tau=0\): \(\frac{1}{2}+4 = \frac{9}{2}\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">10</td>
+                            <td class="step-math">\(\mathbf{u}(t) = C + \int_0^t \Phi(\tau)^{-1}g(\tau)\,d\tau = \begin{pmatrix} \frac{e^t}{2}(\operatorname{sen} t - \cos t) + 2e^t - \frac{1}{2} \\ \frac{e^{-t}}{2}(\operatorname{sen} t + \cos t) + 4e^{-t} + \frac{1}{2} \end{pmatrix}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Somamos \(1 - \frac{3}{2} = -\frac{1}{2}\) na 1ª linha e \(5 - \frac{9}{2} = +\frac{1}{2}\) na 2ª linha!</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">11</td>
+                            <td class="step-math">\(x_1(t) = 2e^{-t}u_1(t) + e^t u_2(t) = (\operatorname{sen} t - \cos t + 4 - e^{-t}) + \left(\frac{1}{2}\operatorname{sen} t + \frac{1}{2}\cos t + 4 + \frac{1}{2}e^t\right)\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Multiplicamos \(X(t) = \Phi(t)\mathbf{u}(t)\): os fatores \(e^{-t}\cdot e^t = 1\) e \(e^t\cdot e^{-t} = 1\) se cancelam lindamente!</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">12</td>
+                            <td class="step-math">\(x_1(t) = \frac{1}{2}e^t - e^{-t} + \frac{3}{2}\operatorname{sen} t - \frac{1}{2}\cos t + 8\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Cheque em \(t=0\): \(\frac{1}{2} - 1 + 0 - \frac{1}{2} + 8 = 7\) (bate com \(x_1(0)=7\)!).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">13</td>
+                            <td class="step-math">\(x_2(t) = e^{-t}u_1(t) + e^t u_2(t) = \left(\frac{1}{2}\operatorname{sen} t - \frac{1}{2}\cos t + 2 - \frac{1}{2}e^{-t}\right) + \left(\frac{1}{2}\operatorname{sen} t + \frac{1}{2}\cos t + 4 + \frac{1}{2}e^t\right)\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Os termos com \(\cos t\) (\(-\frac{1}{2}\cos t + \frac{1}{2}\cos t\)) se anulam!</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">14</td>
+                            <td class="step-math">\(x_2(t) = \frac{1}{2}e^t - \frac{1}{2}e^{-t} + \operatorname{sen} t + 6 = \sinh(t) + \operatorname{sen} t + 6\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Lembrando que \(\sinh(t) = \frac{e^t - e^{-t}}{2}\). Cheque em \(t=0\): \(0 + 0 + 6 = 6\) (bate com \(x_2(0)=6\)!).</td>
+                        </tr>
+                    </tbody></table></div>
+                    <div class="final-answer">Resposta Q13(c): \(x_1(t) = \frac{1}{2}e^t - e^{-t} + \frac{3}{2}\operatorname{sen} t - \frac{1}{2}\cos t + 8, \qquad x_2(t) = \sinh(t) + \operatorname{sen} t + 6\).</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="recap-box">
+            <h3>📌 Resuminho do Tópico 4 (Extra) — Regras de Bolso e Pegadinhas</h3>
+            <div class="recap-grid">
+                <div class="recap-card">
+                    <strong>Quando Usar Cada Método em \(X' = AX + g\)</strong>
+                    • <strong>Coeficientes a Determinar:</strong> quando \(g(t)\) é combinação simples de \(e^{at}\), polinômios, \(\operatorname{sen}(bt)/\cos(bt)\).<br>
+                    • <strong>Variação dos Parâmetros:</strong> universal (funciona para \(\sec t\), \(\tan t\), etc., e integra direto no PVI!).
+                </div>
+                <div class="recap-card">
+                    <strong>Pegadinha da Constante Inicial no PVI</strong>
+                    Se a sua \(\Phi(t)\) NÃO tiver \(\Phi(0) = I\), lembre-se de multiplicar o valor inicial \(X_0\) por \(\Phi(0)^{-1}\):<br>
+                    \(X(t) = \Phi(t)\Phi(0)^{-1}X_0 + \Phi(t)\int_0^t \Phi(\tau)^{-1}g(\tau)\,d\tau\).
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

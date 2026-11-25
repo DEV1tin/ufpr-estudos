@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apostila de Estudo - Lista 7: Séries de Potências em torno de Ponto Ordinário (~ P.O.) (CM314 - UFPR)</title>
+    <!-- KaTeX for crisp, fast math rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '\\[', right: '\\]', display: true},
+                {left: '\\(', right: '\\)', display: false}
+            ],
+            throwOnError: false
+        });"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --primary: #3730a3;
+            --primary-light: #e0e7ff;
+            --primary-border: #a5b4fc;
+            --accent: #0f766e;
+            --accent-light: #ccfbf1;
+            --accent-border: #5eead4;
+            --warn: #b45309;
+            --warn-light: #fef3c7;
+            --warn-border: #fcd34d;
+            --prereq-bg: #f3e8ff;
+            --prereq-border: #c084fc;
+            --prereq-text: #581c87;
+            --code-bg: #0f172a;
+            --code-row-even: #f8fafc;
+            --code-row-odd: #ffffff;
+            --comment-color: #047857;
+            --comment-bg: #ecfdf5;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.6;
+            font-size: 13.5px;
+            padding: 20px;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 32px 36px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Portal Top Navigation */
+        .portal-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #eef2ff;
+            border: 1px solid #c7d2fe;
+            border-radius: 8px;
+            padding: 8px 14px;
+            margin-bottom: 18px;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #3730a3;
+        }
+
+        .portal-nav a {
+            color: #3730a3;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .portal-nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Cover / Header */
+        .doc-header {
+            background: linear-gradient(135deg, #3730a3 0%, #0f172a 100%);
+            color: #ffffff;
+            padding: 28px 32px;
+            border-radius: 12px;
+            margin-bottom: 26px;
+            border-left: 8px solid #818cf8;
+        }
+
+        .doc-header .badge-course {
+            display: inline-block;
+            background: rgba(129, 140, 248, 0.2);
+            color: #c7d2fe;
+            font-weight: 700;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(129, 140, 248, 0.4);
+        }
+
+        .doc-header h1 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            line-height: 1.25;
+        }
+
+        .doc-header .subtitle {
+            font-size: 13.5px;
+            color: #cbd5e1;
+            margin-bottom: 16px;
+        }
+
+        .header-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 12px;
+            color: #e2e8f0;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 12px;
+        }
+
+        /* Legend Box */
+        .legend-box {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-bottom: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            align-items: center;
+            font-size: 12.5px;
+        }
+
+        .legend-title {
+            font-weight: 700;
+            color: #1e293b;
+            margin-right: 4px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #ffffff;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            font-weight: 500;
+        }
+
+        /* Checklist Section */
+        .checklist-card {
+            background: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+        }
+
+        .chk-topic {
+            break-inside: avoid;
+        }
+
+        .checklist-card h2 {
+            font-size: 17px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 8px;
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .chk-topic {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 14px;
+        }
+
+        .chk-topic-title {
+            font-weight: 700;
+            color: #0f172a;
+            font-size: 13px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .chk-sublist {
+            list-style: none;
+            padding-left: 20px;
+            font-size: 12px;
+            color: #475569;
+        }
+
+        .chk-sublist li {
+            margin-bottom: 3px;
+            position: relative;
+        }
+
+        .chk-sublist li::before {
+            content: "☐";
+            position: absolute;
+            left: -16px;
+            color: #64748b;
+            font-weight: bold;
+        }
+
+        /* Topic Header Banner */
+        .topic-section {
+            margin-top: 34px;
+            margin-bottom: 28px;
+        }
+
+        .topic-banner {
+            background: linear-gradient(90deg, #3730a3 0%, #4f46e5 100%);
+            color: #ffffff;
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            break-after: avoid;
+        }
+
+        .topic-banner h2 {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .topic-banner .topic-range {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Theory & Prerequisite Boxes */
+        .theory-box {
+            background: #eff6ff;
+            border-left: 5px solid #2563eb;
+            border-top: 1px solid #bfdbfe;
+            border-right: 1px solid #bfdbfe;
+            border-bottom: 1px solid #bfdbfe;
+            border-radius: 0 8px 8px 0;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+        }
+
+        .theory-box h3 {
+            color: #1e3a8a;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theory-box p, .theory-box ul, .theory-box ol {
+            margin-bottom: 8px;
+            color: #1e293b;
+        }
+
+        .theory-box ul, .theory-box ol {
+            padding-left: 22px;
+        }
+
+        .prereq-box {
+            background: var(--prereq-bg);
+            border-left: 5px solid #9333ea;
+            border-top: 1px solid #e9d5ff;
+            border-right: 1px solid #e9d5ff;
+            border-bottom: 1px solid #e9d5ff;
+            border-radius: 0 8px 8px 0;
+            padding: 15px 20px;
+            margin-bottom: 16px;
+            break-inside: avoid;
+        }
+
+        .prereq-box h3 {
+            color: var(--prereq-text);
+            font-size: 14.5px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prereq-box ul, .prereq-box ol {
+            padding-left: 22px;
+        }
+
+        .prereq-box li {
+            margin-bottom: 6px;
+        }
+
+        /* Alert / Errata Box */
+        .alert-errata {
+            background: #fef2f2;
+            border-left: 5px solid #dc2626;
+            border-top: 1px solid #fecaca;
+            border-right: 1px solid #fecaca;
+            border-bottom: 1px solid #fecaca;
+            border-radius: 0 8px 8px 0;
+            padding: 14px 18px;
+            margin-bottom: 16px;
+            break-inside: avoid;
+        }
+
+        .alert-errata h3 {
+            color: #991b1b;
+            font-size: 14.5px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .alert-errata p, .alert-errata ul {
+            color: #7f1d1d;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .alert-errata ul {
+            padding-left: 20px;
+        }
+
+        /* Raio-X Box (um único bloco corrido por questão) */
+        .raiox-box {
+            background: #f5f3ff;
+            border-left: 5px solid #4f46e5;
+            border-top: 1px solid #ddd6fe;
+            border-right: 1px solid #ddd6fe;
+            border-bottom: 1px solid #ddd6fe;
+            border-radius: 0 8px 8px 0;
+            padding: 12px 16px;
+            margin-bottom: 14px;
+            break-inside: avoid;
+        }
+
+        .raiox-box .raiox-title {
+            font-weight: 800;
+            font-size: 13px;
+            color: #3730a3;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .raiox-box p {
+            font-size: 12.6px;
+            color: #1e293b;
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        /* Formula Table */
+        .formula-card {
+            background: #ffffff;
+            border: 2px solid #0f766e;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            break-inside: avoid;
+        }
+
+        .formula-card-header {
+            background: #0f766e;
+            color: #ffffff;
+            padding: 8px 16px;
+            font-weight: 700;
+            font-size: 13.5px;
+        }
+
+        .formula-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12.8px;
+        }
+
+        .formula-table th {
+            background: #f0fdfa;
+            color: #115e59;
+            text-align: left;
+            padding: 8px 12px;
+            border-bottom: 1px solid #99f6e4;
+            font-weight: 700;
+        }
+
+        .formula-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: middle;
+        }
+
+        .formula-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Exercise Card */
+        .exercise-card {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            margin-bottom: 22px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+
+        .exercise-header {
+            background: #f1f5f9;
+            padding: 12px 18px;
+            border-bottom: 1px solid #cbd5e1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            break-after: avoid;
+        }
+
+        .exercise-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: #0f172a;
+            display: block;
+        }
+
+        .badge-type {
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 999px;
+        }
+
+        .badge-star {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #f59e0b;
+        }
+
+        .badge-book {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #60a5fa;
+        }
+
+        .badge-skip {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #f87171;
+        }
+
+        .exercise-body {
+            padding: 16px 18px;
+        }
+
+        .enunciado-geral {
+            background: #f8fafc;
+            border-left: 4px solid #64748b;
+            padding: 10px 14px;
+            margin-bottom: 14px;
+            font-weight: 500;
+            color: #1e293b;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .subitem-block {
+            margin-top: 14px;
+            margin-bottom: 16px;
+        }
+
+        .subitem-enunciado {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-left: 4px solid #2563eb;
+            padding: 8px 14px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #1e3a8a;
+            break-after: avoid;
+        }
+
+        /* Code-Style Resolution Table */
+        .code-resolution {
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            background: #ffffff;
+        }
+
+        .code-header {
+            background: #1e293b;
+            color: #cbd5e1;
+            padding: 6px 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            break-after: avoid;
+        }
+
+        .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .dot.red { background: #ef4444; }
+        .dot.yellow { background: #f59e0b; }
+        .dot.green { background: #10b981; }
+        .code-title { margin-left: 6px; font-weight: 500; color: #94a3b8; }
+
+        .step-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .step-row {
+            border-bottom: 1px solid #e2e8f0;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .step-row:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .step-row:last-child {
+            border-bottom: none;
+        }
+
+        .line-num {
+            width: 38px;
+            min-width: 38px;
+            text-align: right;
+            padding: 8px 8px 8px 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #64748b;
+            background: #f1f5f9;
+            border-right: 2px solid #cbd5e1;
+            vertical-align: middle;
+            user-select: none;
+        }
+
+        .step-math {
+            width: 54%;
+            padding: 8px 12px;
+            vertical-align: middle;
+            font-size: 13px;
+            color: #0f172a;
+        }
+
+        .step-comment {
+            width: 44%;
+            padding: 8px 12px;
+            vertical-align: middle;
+            font-family: 'Inter', sans-serif;
+            font-size: 12.2px;
+            color: #065f46;
+            background: rgba(236, 253, 245, 0.55);
+            border-left: 1px dashed #6ee7b7;
+            line-height: 1.45;
+        }
+
+        .comment-prefix {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: #059669;
+            margin-right: 4px;
+        }
+
+        .final-answer {
+            background: #ecfdf5;
+            border: 1.5px solid #10b981;
+            border-radius: 6px;
+            padding: 8px 14px;
+            font-weight: 600;
+            color: #065f46;
+            font-size: 13px;
+            margin-top: 6px;
+            break-inside: avoid;
+        }
+
+        /* Recapitulation Box */
+        .recap-box {
+            background: #fffbeb;
+            border: 2px solid #f59e0b;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            break-inside: avoid;
+        }
+
+        .recap-box h3 {
+            color: #b45309;
+            font-size: 15.5px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .recap-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .recap-card {
+            background: #ffffff;
+            border: 1px solid #fde68a;
+            border-radius: 6px;
+            padding: 10px 12px;
+            font-size: 12.5px;
+        }
+
+        .recap-card > strong:first-child {
+            color: #92400e;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Excluded Section Styles */
+        .excluded-note {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-left: 4px solid #dc2626;
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin-top: 8px;
+            font-size: 12.2px;
+            color: #991b1b;
+            font-weight: 500;
+        }
+
+        /* Print optimization */
+        @page {
+            size: A4 portrait;
+            margin: 12mm 10mm 12mm 10mm;
+        }
+
+        @media print {
+            .portal-nav {
+                display: none;
+            }
+            body {
+                background: #ffffff;
+                padding: 0;
+                font-size: 12px;
+            }
+            .container {
+                max-width: 100%;
+                padding: 0;
+                box-shadow: none;
+            }
+            .topic-section {
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- BARRA DE NAVEGAÇÃO DO PORTAL -->
+    <div class="portal-nav"><a href="../">← Voltar para Cálculo III (CM314)</a><span>CM314 · P3 · Lista 7</span></div>
+
+    <!-- HEADER / CAPA -->
+    <div class="doc-header">
+        <div class="badge-course">CM314 • Cálculo 4 / Cálculo III • UFPR • Preparação Prova 3</div>
+        <h1>Caderno de Resolução Integral e Teoria — Lista Nº 7</h1>
+        <div class="subtitle">Séries de Potências em torno de Ponto Ordinário (~ P.O.): Classificação de Pontos, Relações de Recorrência, Raio de Convergência e Equação de Legendre</div>
+        <div class="header-meta">
+            <span><strong>Aluno:</strong> Vitor Hugo D. Lima</span>
+            <span><strong>Disciplina:</strong> CM314 — UFPR (2026)</span>
+            <span><strong>Metodologia:</strong> Raio-X de Prova + Código Comentado Linha a Linha + Zero Pressuposição de Base</span>
+        </div>
+    </div>
+
+    <!-- LEGENDA DE CLASSIFICAÇÃO -->
+    <div class="legend-box">
+        <span class="legend-title">Legenda de Classificação dos Exercícios:</span>
+        <div class="legend-item"><span>⭐</span> <strong>Formato provável de cair na P3</strong> (Foco máximo!)</div>
+        <div class="legend-item"><span>📖</span> <strong>Exercício introdutório / conceitual</strong> (Constrói a base)</div>
+        <div class="legend-item"><span>❌</span> <strong>Fora de (~ P.O.) — Não cai na P3</strong> (Frobenius / Pontos Singulares / Bessel)</div>
+    </div>
+
+    <!-- CHECKLIST GERAL DA LISTA 7 -->
+    <div class="checklist-card">
+        <h2>📋 Introdução à Lista 7 — Visão Panorâmica e Escopo (~ P.O.) da Prova 3</h2>
+        <p style="margin-bottom: 12px; color: #475569; font-size: 12.8px;">
+            Na ementa da Prova 3, a sigla <strong>(~ P.O.)</strong> significa <strong>Resolução de EDOs por Séries de Potências em torno de Ponto Ordinário</strong>. Por isso, a Lista 7 divide-se em duas partes bem nítidas: as <strong>Questões 1 a 6 caem integralmente na P3</strong> (classificação de pontos ordinários/singulares, método das séries em torno de \(x_0 = 0\) e Equação de Legendre), enquanto as <strong>Questões 7 a 11 tratam do Método de Frobenius, Pontos Singulares Regulares e Equação de Bessel</strong>, ficando <strong>fora do escopo da P3</strong> (listadas ao final apenas para consulta de enunciado).
+        </p>
+        <div class="checklist-grid">
+            <div class="chk-topic">
+                <div class="chk-topic-title">☐ Tópico 1: Pontos Ordinários e Singulares (Q1)</div>
+                <ul class="chk-sublist">
+                    <li>Normalização para a forma canônica \(y'' + p(x)y' + q(x)y = 0\)</li>
+                    <li>Conceito de função analítica e singularidades (reais e complexas)</li>
+                    <li>Teorema de Fuchs: raio mínimo \(R\) pela distância à singularidade mais próxima</li>
+                </ul>
+            </div>
+            <div class="chk-topic">
+                <div class="chk-topic-title">☐ Tópico 2: Método das Séries em torno de \(x_0 = 0\) (Q2 a Q5)</div>
+                <ul class="chk-sublist">
+                    <li>Derivação termo a termo (\(y', y''\)) e deslocamento de índices (\(x^k\))</li>
+                    <li>Relação de recorrência, separação par (\(a_0\)) / ímpar (\(a_1\)) e PVI</li>
+                    <li>Equação de Airy (Q3b), forma fechada geométrica (Q4) e raio \(R\)</li>
+                </ul>
+            </div>
+            <div class="chk-topic">
+                <div class="chk-topic-title">☐ Tópico 3: Equação e Polinômios de Legendre (Q6)</div>
+                <ul class="chk-sublist">
+                    <li>Correção das 2 gralhas do PDF oficial (\(-2xy'\) e fator \(a_n\))</li>
+                    <li>Dedução da recorrência e das fórmulas gerais \(a_{2n}\) e \(a_{2n+1}\)</li>
+                    <li>Truncamento para \(\alpha = p \in \mathbb{N}\) e normalização \(P_n(1)=1\)</li>
+                </ul>
+            </div>
+            <div class="chk-topic">
+                <div class="chk-topic-title">❌ Fora de (~ P.O.): Frobenius e Bessel (Q7 a Q11)</div>
+                <ul class="chk-sublist">
+                    <li>Q7–Q8: Pontos singulares regulares vs. irregulares</li>
+                    <li>Q9–Q10: Equação indicial e soluções de Frobenius (\(x^{n+r}\))</li>
+                    <li>Q11: Equação e Funções de Bessel \(J_0(x)\) e \(Y_0(x)\)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TÓPICO 1: CLASSIFICAÇÃO DE PONTOS ORDINÁRIOS E SINGULARES (Q1)    -->
+    <!-- ================================================================= -->
+    <div class="topic-section">
+        <div class="topic-banner">
+            <h2>Tópico 1: Classificação de Pontos Ordinários e Singulares e Raio de Convergência</h2>
+            <span class="topic-range">Questão 1</span>
+        </div>
+
+        <div class="prereq-box">
+            <h3>🧠 Pré-Requisitos de Base (Zero Pressuposição)</h3>
+            <ul>
+                <li><strong>1. Forma Canônica (Normalizada) da EDO de 2ª Ordem:</strong> Antes de classificar qualquer ponto, o coeficiente que multiplica \(y''\) <strong>tem que ser igual a \(1\)</strong>. Se a EDO vier escrita como \(P(x)y'' + Q(x)y' + R(x)y = 0\), você é obrigado a dividir toda a equação por \(P(x)\):
+                \[y'' + \underbrace{\frac{Q(x)}{P(x)}}_{p(x)} y' + \underbrace{\frac{R(x)}{P(x)}}_{q(x)} y = 0\]
+                <em>Atenção:</em> Classificar olhando só para \(P(x) = 0\) pode enganar se \(P(x)\) e \(Q(x)\) simplificarem um fator comum! Sempre simplifique \(p(x)\) e \(q(x)\) ao máximo antes de testar.</li>
+                <li><strong>2. O que é uma Função Analítica em \(x_0\)?</strong> Uma função \(f(x)\) é <strong>analítica</strong> em \(x_0\) se puder ser representada por uma <strong>série de Taylor convergente</strong> \(\sum_{n=0}^\infty \frac{f^{(n)}(x_0)}{n!}(x - x_0)^n\) em algum intervalo aberto ao redor de \(x_0\). Na prática das provas de Cálculo III/IV:
+                    <ul>
+                        <li>Polinômios (\(2x, x^2-1\)), exponenciais (\(e^x\)), \(\sin(x)\) e \(\cos(x)\) são analíticas em <strong>todo \(\mathbb{R}\) e \(\mathbb{C}\)</strong>.</li>
+                        <li>Funções racionais/quocientes \(\frac{N(x)}{D(x)}\) de funções analíticas são analíticas em todo ponto onde o denominador <strong>não zera</strong> (\(D(x_0) \neq 0\)).</li>
+                        <li>Funções com módulo \(|x - a|\), quinas ou raízes \(\sqrt{|x - a|}\) <strong>não são diferenciáveis</strong> em \(x = a\); logo, não admitem série de Taylor em \(x = a\) e <strong>não são analíticas</strong> lá.</li>
+                    </ul>
+                </li>
+                <li><strong>3. Distância no Plano Complexo \(\mathbb{C}\) (Raio Mínimo de Convergência):</strong> Se uma EDO tem um termo como \(\frac{1}{x^2 + 1}\), o denominador nunca zera nos números reais, mas zera nos números complexos em \(x^2 = -1 \implies z = \pm i\)! A distância entre \(x_0\) (real) e um ponto complexo \(z_s = a + bi\) é dada pelo módulo da diferença (Teorema de Pitágoras):
+                \[d(x_0, z_s) = |z_s - x_0| = \sqrt{(a - x_0)^2 + b^2}\]</li>
+            </ul>
+        </div>
+
+        <div class="theory-box">
+            <h3>📘 Teoria Essencial — Pontos Ordinários, Singulares e Teorema de Fuchs</h3>
+            <p>Dada a EDO linear homogênea na <strong>forma canônica</strong> \(y''(x) + p(x)y'(x) + q(x)y(x) = 0\):</p>
+            <ul>
+                <li><strong>Ponto Ordinário:</strong> \(x_0\) é um <strong>ponto ordinário</strong> se <strong>ambas</strong> as funções \(p(x)\) e \(q(x)\) são analíticas em \(x_0\).</li>
+                <li><strong>Ponto Singular:</strong> \(x_0\) é um <strong>ponto singular</strong> se <strong>pelo menos uma</strong> dentre \(p(x)\) e \(q(x)\) não for analítica em \(x_0\).</li>
+                <li><strong>Teorema de Existência e Raio Mínimo (Fuchs):</strong> Se \(x_0\) é ponto ordinário, a EDO possui duas soluções linearmente independentes da forma \(y(x) = \sum_{n=0}^\infty a_n (x - x_0)^n\), e o raio de convergência \(R\) de ambas é <strong>pelo menos igual à distância de \(x_0\) até o ponto singular mais próximo no plano complexo \(\mathbb{C}\)</strong>:
+                \[R \;\ge\; \min_{\text{singularidades } z_s \in \mathbb{C}} |z_s - x_0|\]</li>
+            </ul>
+        </div>
+
+        <div class="formula-card">
+            <div class="formula-card-header">📐 Formulário Rápido — Como Testar Analiticidade e Achar o Raio \(R\)</div>
+            <table class="formula-table">
+                <thead>
+                    <tr>
+                        <th style="width: 28%;">Situação em \(p(x)\) ou \(q(x)\)</th>
+                        <th style="width: 36%;">Onde é Analítica?</th>
+                        <th style="width: 36%;">Pontos Singulares e Raio em \(x_0 = 0\)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Polinômios, \(e^x\), \(\sin x\), \(\cos x\)</td>
+                        <td>Em todo \(\mathbb{R}\) e todo \(\mathbb{C}\)</td>
+                        <td>Nenhuma singularidade finita \(\implies R = \infty\)</td>
+                    </tr>
+                    <tr>
+                        <td>Quociente com \(x^2 - a^2\) no denominador</td>
+                        <td>Todo \(z \neq \pm a\)</td>
+                        <td>Singulares reais em \(x = \pm a \implies R \ge |a|\)</td>
+                    </tr>
+                    <tr>
+                        <td>Quociente com \(x^2 + a^2\) no denominador</td>
+                        <td>Todo \(z \neq \pm a i\)</td>
+                        <td>Singulares complexos em \(z = \pm ai \implies R \ge |a|\)</td>
+                    </tr>
+                    <tr>
+                        <td>Expressão com \(|x - a|\) ou \(\sqrt{|x - a|}\)</td>
+                        <td>Todo \(x \neq a\) (nos reais)</td>
+                        <td>Singular em \(x = a\) (quebra de derivabilidade) \(\implies R \ge |a|\)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- EXERCÍCIO 1 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>📖</span> Questão 1 — Pontos Ordinários e Singulares</div>
+                <span class="badge-type badge-book">Conceito Fundamental (Cai em P3!)</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>1.</strong> Determine pontos ordinários e singulares (caso existam) para as equações a seguir:
+                </div>
+
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>O tema aqui é classificação de pontos de uma EDO linear de 2ª ordem. O gatilho visual imediato é verificar se o coeficiente de \(y''\) vale \(1\): como em (a) e (b) ele já vale \(1\), os coeficientes \(p(x)\) e \(q(x)\) ficam expostos diretamente para inspeção. Estruture a resposta sempre em três etapas: identifique explicitamente \(p(x)\) e \(q(x)\), analise o domínio de analiticidade de cada um separadamente (procurando zeros de denominadores ou pontos onde módulos/raízes perdem diferenciabilidade) e conclua listando os pontos singulares e declarando todo o restante como ponto ordinário. A pegadinha clássica de prova é olhar só para denominadores e esquecer funções com módulo ou raiz como \(\sqrt{|x-1|}\) no item (b), que embora seja contínua em \(x=1\), tem derivada infinita lá e portanto não é analítica.</p>
+                </div>
+
+                <!-- Item 1(a) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        (a) \(y''(x) + \dfrac{e^x}{x^2 - 4} y'(x) + 2x\,y(x) = 0\)
+                    </div>
+                    <div class="code-resolution">
+                        <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Item 1(a)</span></div>
+                        <table class="step-table"><tbody>
+                            <tr class="step-row">
+                                <td class="line-num">01</td>
+                                <td class="step-math">\(y'' + \underbrace{\frac{e^x}{x^2 - 4}}_{p(x)} y' + \underbrace{2x}_{q(x)} y = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> A EDO já está na forma canônica (coeficiente de \(y''\) é \(1\)). Identificamos \(p(x)\) e \(q(x)\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">02</td>
+                                <td class="step-math">\(q(x) = 2x \;\text{ é polinômio} \implies \text{analítica em todo } x \in \mathbb{R}\;(\text{e } \mathbb{C})\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Todo polinômio é sua própria série de Taylor finita, logo \(q(x)\) nunca gera singularidades.</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">03</td>
+                                <td class="step-math">\(p(x) = \frac{e^x}{x^2 - 4} = \frac{e^x}{(x - 2)(x + 2)}\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Numerador \(e^x\) é analítico em toda parte. Fatoramos o denominador \(x^2 - 4\) como diferença de quadrados.</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">04</td>
+                                <td class="step-math">\(x^2 - 4 = 0 \iff x = -2 \;\text{ ou }\; x = 2\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Como \(e^{\pm 2} \neq 0\), não há cancelamento: em \(x = \pm 2\) o denominador zera e \(p(x)\) não é analítica.</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">05</td>
+                                <td class="step-math">\(\text{Se } x \neq \pm 2 \implies p(x) \text{ e } q(x) \text{ são analíticas}\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Quociente de funções analíticas com denominador não nulo é sempre analítico. (Obs.: em torno de \(x_0 = 0\), o raio mínimo seria \(R \ge 2\)).</td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    <div class="final-answer">✓ Resposta 1(a): \(x_0 = -2\) e \(x_1 = 2\) são <strong>pontos singulares</strong>; todo \(x \neq \pm 2\) é <strong>ponto ordinário</strong>.</div>
+                </div>
+
+                <!-- Item 1(b) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        (b) \(y'' + \sqrt{|x - 1|}\, y(x) = 0\)
+                    </div>
+                    <div class="code-resolution">
+                        <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Item 1(b)</span></div>
+                        <table class="step-table"><tbody>
+                            <tr class="step-row">
+                                <td class="line-num">01</td>
+                                <td class="step-math">\(p(x) = 0 \quad \text{e} \quad q(x) = \sqrt{|x - 1|}\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Já está na forma canônica. Como não há termo em \(y'\), temos \(p(x) = 0\) (função nula, analítica em todo \(\mathbb{R}\)).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">02</td>
+                                <td class="step-math">\(x \gt 1:\; q(x) = (x - 1)^{1/2}; \quad x \lt 1:\; q(x) = (1 - x)^{1/2}\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Abrimos o módulo \(|x - 1|\). Para qualquer \(x \neq 1\), o radicando é estritamente positivo, logo \(q(x)\) admite série de Taylor em torno de \(x\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">03</td>
+                                <td class="step-math">\(\lim_{x \to 1^+} \frac{q(x) - q(1)}{x - 1} = \lim_{x \to 1^+} \frac{\sqrt{x - 1}}{x - 1} = \lim_{x \to 1^+} \frac{1}{\sqrt{x - 1}} = +\infty\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Testamos a diferenciabilidade em \(x = 1\) pela definição de derivada: o limite explode para \(+\infty\)!</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">04</td>
+                                <td class="step-math">\(q'(1) \text{ não existe} \implies q(x) \text{ não é analítica em } x = 1\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Toda função analítica em \(x_0\) é infinitamente derivável em \(x_0\). Como \(q\) nem sequer tem 1ª derivada em \(x=1\), falha a analiticidade.</td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    <div class="final-answer">✓ Resposta 1(b): \(x_0 = 1\) é <strong>ponto singular</strong>; todo \(x_0 \neq 1\) é <strong>ponto ordinário</strong>.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="recap-box">
+            <h3>📝 Resuminho do Tópico 1 — Classificação &amp; Raio Mínimo</h3>
+            <div class="recap-grid">
+                <div class="recap-card">
+                    <strong>Passo a Passo Mental</strong>
+                    1. Divida pelo coeficiente de \(y''\) para isolar \(p(x)\) e \(q(x)\).<br>
+                    2. Ache onde \(p(x)\) ou \(q(x)\) deixam de ser analíticas (denominador = 0, \(\ln\), módulo, raiz de 0).<br>
+                    3. Esses pontos são <em>singulares</em>; todos os outros são <em>ordinários</em>.
+                </div>
+                <div class="recap-card">
+                    <strong>Pegadinha Clássica de Prova</strong>
+                    Em \((x^2 + 9)y'' + y = 0\), não existem zeros reais, mas em \(\mathbb{C}\) temos \(x = \pm 3i\). Por isso o raio de convergência da série em torno de \(x_0 = 0\) é \(R = 3\), e <strong>não</strong> \(\infty\)!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TÓPICO 2: MÉTODO DAS SÉRIES DE POTÊNCIAS EM TORNO DE x0 = 0       -->
+    <!-- ================================================================= -->
+    <div class="topic-section">
+        <div class="topic-banner">
+            <h2>Tópico 2: Método das Séries de Potências em torno de Ponto Ordinário \(x_0 = 0\)</h2>
+            <span class="topic-range">Questões 2, 3, 4 e 5</span>
+        </div>
+
+        <div class="prereq-box">
+            <h3>🧠 Pré-Requisitos de Base — Derivação de Somatórios e Deslocamento de Índices (Passo a Passo!)</h3>
+            <ul>
+                <li><strong>1. Como derivar uma Série de Potências termo a termo?</strong> Se \(y(x) = \sum_{n=0}^\infty a_n x^n = a_0 + a_1 x + a_2 x^2 + a_3 x^3 + \dots\), derivamos cada parcela \(a_n x^n\) usando a Regra do Tombo \((x^n)' = n x^{n-1}\):
+                    <ul>
+                        <li><strong>1ª Derivada \(y'(x)\):</strong> O termo \(n=0\) é a constante \(a_0\), cuja derivada é \(0\). Por isso, o somatório passa a começar em \(n = 1\):
+                        \[y'(x) = \sum_{n=1}^\infty n a_n x^{n-1} = a_1 + 2a_2 x + 3a_3 x^2 + 4a_4 x^3 + \dots\]</li>
+                        <li><strong>2ª Derivada \(y''(x)\):</strong> Agora derivamos \(y'(x)\). O termo \(n=1\) é a constante \(a_1\), cuja derivada também é \(0\). Logo, o somatório passa a começar em \(n = 2\):
+                        \[y''(x) = \sum_{n=2}^\infty n(n-1) a_n x^{n-2} = 2a_2 + 6a_3 x + 12a_4 x^2 + \dots\]</li>
+                    </ul>
+                </li>
+                <li><strong>2. O que é Multiplicar uma Série por \(x\) ou \(x^2\)?</strong> Como \(x\) não depende do índice \(n\), ele entra multiplicando dentro do somatório pelas propriedades de potência (\(x^a \cdot x^b = x^{a+b}\)):
+                \[x \cdot y'(x) = x \sum_{n=1}^\infty n a_n x^{n-1} = \sum_{n=1}^\infty n a_n x^n, \qquad x^2 \cdot y''(x) = x^2 \sum_{n=2}^\infty n(n-1) a_n x^{n-2} = \sum_{n=2}^\infty n(n-1) a_n x^n\]
+                <em>Detalhe de ouro:</em> Em \(\sum_{n=1}^\infty n a_n x^n\), se você testar \(n=0\), o termo dá \(0\cdot a_0 x^0 = 0\); e em \(\sum_{n=2}^\infty n(n-1)a_n x^n\), testar \(n=0\) ou \(n=1\) também dá \(0\)! Portanto, quando o coeficiente anula os índices extras, você pode recomeçar de \(n=0\) se quiser, ou simplesmente separar \(k=0\) e \(k=1\).</li>
+                <li><strong>3. Deslocamento de Índices (Alinhando tudo para \(x^k\)):</strong> Para somar duas séries dentro de um único \(\sum\), todas precisam ter a <strong>mesma potência \(x^k\)</strong>. Veja a receita infalível com exemplo:
+                    <br>Queremos transformar \(\sum_{n=2}^\infty n(n-1) a_n x^{n-2}\) para que apareça \(x^k\):
+                    <ol>
+                        <li><strong>Batize o novo expoente:</strong> Faça \(k = n - 2\).</li>
+                        <li><strong>Isole o índice antigo \(n\):</strong> \(n = k + 2\).</li>
+                        <li><strong>Calcule onde \(k\) começa:</strong> Se \(n\) começava em \(n = 2\), então \(k\) começa em \(k = 2 - 2 = 0\).</li>
+                        <li><strong>Substitua cada \(n\) por \((k+2)\):</strong>
+                        \[\sum_{n=2}^\infty n(n-1) a_n x^{n-2} \;=\; \sum_{k=0}^\infty (k+2)(k+1) a_{k+2} x^k\]</li>
+                    </ol>
+                </li>
+                <li><strong>4. Igualando o Índice Inicial (Puxando Termos para Fora):</strong> Se uma série começa em \(k = 0\) e outra começa em \(k = 1\) (ou \(k = 2\)), <strong>escreva explicitamente os termos iniciais</strong> da série que começa antes até que todas comecem no mesmo \(k\):
+                \[\sum_{k=0}^\infty c_k x^k \;=\; \underbrace{c_0 x^0}_{\text{termo } k=0} + \sum_{k=1}^\infty c_k x^k \;=\; c_0 + c_1 x + \sum_{k=2}^\infty c_k x^k\]</li>
+                <li><strong>5. Princípio da Identidade de Séries + Teste da Razão para Raio \(R\):</strong> Se \(c_0 + c_1 x + \sum_{k=2}^\infty c_k x^k = 0\) em um intervalo aberto em torno de \(0\), então <strong>todo coeficiente é zero</strong> (\(c_0 = 0, c_1 = 0, c_k = 0\)). E para achar o raio \(R\) diretamente pela série \(\sum u_n(x)\), usamos o Teste da Razão: converge absolutamente quando \(\lim_{n\to\infty} \left|\frac{u_{n+1}(x)}{u_n(x)}\right| \lt 1\).</li>
+            </ul>
+        </div>
+
+        <div class="theory-box">
+            <h3>📘 Algoritmo Geral do Método das Séries em torno de \(x_0 = 0\)</h3>
+            <ol>
+                <li><strong>Verifique que \(x_0 = 0\) é Ponto Ordinário</strong> e anote o raio mínimo garantido \(R\) (distância até a singularidade complexa mais próxima).</li>
+                <li><strong>Proponha o ansatz</strong> \(y(x) = \sum_{n=0}^\infty a_n x^n\), calcule \(y'(x)\) e \(y''(x)\) e substitua na EDO (distribuindo eventuais polinômios multiplicadores como \((x^2 - 1)\) ou \((x^2 + 1)\) antes!).</li>
+                <li><strong>Alinhe as potências para \(x^k\)</strong> usando o deslocamento de índices e <strong>puxe os primeiros termos</strong> até todas as séries iniciarem no mesmo \(k_{\min}\).</li>
+                <li><strong>Iguale todos os coeficientes a zero:</strong> os termos soltos dão relações iniciais (como \(a_2 = 0\) ou \(a_3 = a_1\)) e o somatório unificado dá a <strong>Relação de Recorrência</strong>.</li>
+                <li><strong>Itere a recorrência</strong> separando os termos que dependem de \(a_0\) (em geral pares ou múltiplos do passo) dos que dependem de \(a_1\), formando \(y(x) = a_0 y_1(x) + a_1 y_2(x)\). Se houver PVI, lembre sempre que <strong>\(a_0 = y(0)\)</strong> e <strong>\(a_1 = y'(0)\)</strong>!</li>
+            </ol>
+        </div>
+
+        <div class="formula-card">
+            <div class="formula-card-header">📐 Tabela de Referência Rápida — Séries de Maclaurin Úteis e Relações com PVI</div>
+            <table class="formula-table">
+                <thead>
+                    <tr>
+                        <th style="width: 34%;">Fato / Série Clássica</th>
+                        <th style="width: 36%;">Expressão em Série</th>
+                        <th style="width: 30%;">Domínio / Observação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Condições iniciais em \(x_0 = 0\)</td>
+                        <td>\(a_0 = y(0), \quad a_1 = y'(0), \quad a_n = \frac{y^{(n)}(0)}{n!}\)</td>
+                        <td>Fundamental para PVI (Q2 e Q5)</td>
+                    </tr>
+                    <tr>
+                        <td>Exponencial \(e^u\)</td>
+                        <td>\(e^u = \sum_{n=0}^\infty \frac{u^n}{n!} = 1 + u + \frac{u^2}{2!} + \dots\)</td>
+                        <td>Converge para todo \(u \in \mathbb{R}\) (\(R = \infty\))</td>
+                    </tr>
+                    <tr>
+                        <td>Seno e Cosseno</td>
+                        <td>\(\cos x = \sum_{k=0}^\infty \frac{(-1)^k x^{2k}}{(2k)!}, \quad \sin x = \sum_{k=0}^\infty \frac{(-1)^k x^{2k+1}}{(2k+1)!}\)</td>
+                        <td>\(R = \infty\) (aparecem na Q3a!)</td>
+                    </tr>
+                    <tr>
+                        <td>Série Geométrica</td>
+                        <td>\(\frac{1}{1 - r} = \sum_{n=0}^\infty r^n = 1 + r + r^2 + \dots\)</td>
+                        <td>Converge se e só se \(|r| \lt 1\) (Q4!)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- EXERCÍCIO 2 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>📖</span> Questão 2 — Aquecimento Comparativo: Separação de Variáveis vs. Séries vs. Taylor</div>
+                <span class="badge-type badge-book">Introdutório ao Tema</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>2.</strong> Considere a equação diferencial \(y'(x) = 2xy\) com condição inicial \(y(0) = 1\).
+                </div>
+
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>O tema desta questão é introduzir o método das séries de potências em uma EDO de 1ª ordem cuja resposta exata já sabemos calcular por separação de variáveis, permitindo validar que a série encontrada realmente bate com a função analítica \(e^{x^2}\). O gatilho visual no enunciado é que a própria letra (b) fornece a relação de recorrência \(a_{n+1} = \frac{2a_{n-1}}{n+1}\) (\(\forall n \ge 1\)) e diz \(a_1 = 0\), funcionando como um "gabarito embutido" para você conferir o deslocamento de índices na hora. Estruture a questão resolvendo primeiro a EDO separável em (a), depois substituindo \(y = \sum a_n x^n\) e alinhando as potências \(x^k\) em (b) para deduzir a recorrência, encontrar a lei fechada de \(a_{2n}\) (separando \(n\) par e ímpar), aplicar \(y(0)=1 \implies a_0=1\) e calcular o raio \(R\) pelo Teste da Razão, e por fim usar \(e^u\) com \(u=x^2\) em (c). A principal pegadinha é confundir o índice da série \(a_{2n}\) com o índice da recorrência e escrever \(\frac{1}{(2n)!}\) no lugar de \(\frac{1}{n!}\), ou esquecer de justificar por que \(a_1 = 0\) (vem do termo isolado \(k = 0\)) antes de concluir que todos os ímpares zeram.</p>
+                </div>
+
+                <!-- Item 2(a) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        (a) Resolva a equação usando a técnica de separação de variáveis.
+                    </div>
+                    <div class="code-resolution">
+                        <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Item 2(a)</span></div>
+                        <table class="step-table"><tbody>
+                            <tr class="step-row">
+                                <td class="line-num">01</td>
+                                <td class="step-math">\(\frac{dy}{dx} = 2xy \implies \frac{1}{y}\,dy = 2x\,dx \quad (y \neq 0)\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Escrevemos \(y' = \frac{dy}{dx}\) e separamos tudo que tem \(y\) à esquerda e tudo que tem \(x\) à direita. Como \(y(0)=1 \neq 0\), a solução não é nula na vizinhança de \(0\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">02</td>
+                                <td class="step-math">\(\int \frac{1}{y}\,dy = \int 2x\,dx \implies \ln|y| = x^2 + C\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Integramos os dois lados (lembrando de Cálculo 1: \(\int \frac{dy}{y} = \ln|y|\) e \(\int 2x\,dx = x^2\), agrupando a constante em \(C \in \mathbb{R}\)).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">03</td>
+                                <td class="step-math">\(|y| = e^{x^2 + C} = e^C e^{x^2} \implies y(x) = A e^{x^2}\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Aplicamos a exponencial nos dois lados para tirar o \(\ln\); \(A = \pm e^C\) absorve o sinal do módulo.</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">04</td>
+                                <td class="step-math">\(y(0) = 1 \implies A e^{0^2} = 1 \implies A \cdot 1 = 1 \implies A = 1\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Substituímos a condição inicial \(x=0, y=1\) para determinar a constante \(A\).</td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    <div class="final-answer">✓ Resposta 2(a): \(y(x) = e^{x^2}\).</div>
+                </div>
+
+                <!-- Item 2(b) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        (b) Use o método das séries de potências em torno de \(x_0 = 0\) para achar a solução e verifique que os coeficientes da série satisfazem a relação de recorrência \(a_{n+1} = \dfrac{2a_{n-1}}{n+1},\; \forall n \ge 1\), e que \(a_1 = 0\). Determine o termo geral da série e seu raio de convergência.
+                    </div>
+                    <div class="code-resolution">
+                        <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Item 2(b)</span></div>
+                        <table class="step-table"><tbody>
+                            <tr class="step-row">
+                                <td class="line-num">01</td>
+                                <td class="step-math">\(y(x) = \sum_{n=0}^\infty a_n x^n \implies y'(x) = \sum_{n=1}^\infty n a_n x^{n-1}\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Como \(y' - 2xy = 0\) tem coeficientes analíticos em \(x_0 = 0\), propomos a série de potências e derivamos termo a termo (o termo \(n=0\) some na derivada).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">02</td>
+                                <td class="step-math">\(2xy(x) = 2x \sum_{n=0}^\infty a_n x^n = \sum_{n=0}^\infty 2a_n x^{n+1}\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Multiplicamos a série de \(y(x)\) por \(2x\), somando \(1\) ao expoente de \(x\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">03</td>
+                                <td class="step-math">\(\sum_{n=1}^\infty n a_n x^{n-1} - \sum_{n=0}^\infty 2a_n x^{n+1} = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Substituímos tudo na EDO reescrita na forma \(y' - 2xy = 0\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">04</td>
+                                <td class="step-math">\(1\text{ª série: } k = n - 1 \implies n = k + 1, \; k \ge 0 \implies \sum_{k=0}^\infty (k+1)a_{k+1} x^k\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Deslocamento de índice na 1ª série para aparecer \(x^k\): quando \(n=1\), \(k=0\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">05</td>
+                                <td class="step-math">\(2\text{ª série: } k = n + 1 \implies n = k - 1, \; k \ge 1 \implies \sum_{k=1}^\infty 2a_{k-1} x^k\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Deslocamento de índice na 2ª série para aparecer \(x^k\): quando \(n=0\), \(k=1\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">06</td>
+                                <td class="step-math">\(1\cdot a_1 x^0 + \sum_{k=1}^\infty (k+1)a_{k+1} x^k - \sum_{k=1}^\infty 2a_{k-1} x^k = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Puxamos o termo \(k=0\) da 1ª série para que ambos os somatórios comecem juntos em \(k=1\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">07</td>
+                                <td class="step-math">\(a_1 + \sum_{k=1}^\infty \big[(k+1)a_{k+1} - 2a_{k-1}\big] x^k = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Unificamos os dois somatórios colocando \(x^k\) em evidência.</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">08</td>
+                                <td class="step-math">\(a_1 = 0 \quad \text{e} \quad (k+1)a_{k+1} - 2a_{k-1} = 0 \implies a_{n+1} = \frac{2a_{n-1}}{n+1}, \; \forall n \ge 1\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Pelo Princípio da Identidade de Séries, cada coeficiente é zero! Renomeamos o índice mudo \(k\) para \(n\). Verificamos exatamente a recorrência pedida!</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">09</td>
+                                <td class="step-math">\(n=2: a_3 = \frac{2a_1}{3} = 0; \;\; n=4: a_5 = \frac{2a_3}{5} = 0 \implies a_{2m+1} = 0, \;\forall m \ge 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Como a recorrência pula de \(2\) em \(2\) e \(a_1 = 0\), todos os coeficientes de índice ímpar são nulos!</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">10</td>
+                                <td class="step-math">\(n=1:\; a_2 = \frac{2a_0}{2} = a_0 = \frac{a_0}{1!}; \quad n=3:\; a_4 = \frac{2a_2}{4} = \frac{a_0}{2} = \frac{a_0}{2!}\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Calculamos os primeiros coeficientes pares em função de \(a_0\) e já observamos o padrão fatorial no denominador.</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">11</td>
+                                <td class="step-math">\(n=5:\; a_6 = \frac{2a_4}{6} = \frac{a_0}{3 \cdot 2!} = \frac{a_0}{3!} \implies \text{Termo geral: } a_{2n} = \frac{a_0}{n!}, \; a_{2n+1} = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Por indução, o passo \(a_{2n} = \frac{2a_{2n-2}}{2n} = \frac{a_{2n-2}}{n}\) divide por \(n\) a cada etapa, gerando \(a_{2n} = \frac{a_0}{n!}\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">12</td>
+                                <td class="step-math">\(y(0) = a_0 = 1 \implies y(x) = \sum_{n=0}^\infty \frac{x^{2n}}{n!}\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Aplicamos a condição inicial \(y(0) = 1\), que fixa \(a_0 = 1\) (pois \(y(0) = a_0 + a_1\cdot 0 + \dots\)).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">13</td>
+                                <td class="step-math">\(L = \lim_{n \to \infty} \left|\frac{x^{2(n+1)}/(n+1)!}{x^{2n}/n!}\right| = \lim_{n \to \infty} \frac{|x|^2}{n+1} = 0 \lt 1, \; \forall x \in \mathbb{R} \implies R = \infty\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Aplicamos o Teste da Razão: usando \((n+1)! = (n+1)n!\), sobra \(n+1\) no denominador; como \(n \to \infty\), o limite é \(0 \lt 1\) para qualquer \(x\), logo \(R = \infty\).</td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    <div class="final-answer">✓ Resposta 2(b): \(a_{2n} = \dfrac{a_0}{n!}\), \(a_{2n+1} = 0\); com \(y(0)=1\), \(y(x) = \sum_{n=0}^\infty \dfrac{x^{2n}}{n!}\) e raio de convergência \(R = \infty\).</div>
+                </div>
+
+                <!-- Item 2(c) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        (c) Use a expansão de Taylor da função exponencial em \(x_0 = 0\) para verificar que as soluções obtidas em (a) e (b) são idênticas.
+                    </div>
+                    <div class="code-resolution">
+                        <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Item 2(c)</span></div>
+                        <table class="step-table"><tbody>
+                            <tr class="step-row">
+                                <td class="line-num">01</td>
+                                <td class="step-math">\(e^u = \sum_{n=0}^\infty \frac{u^n}{n!} = 1 + u + \frac{u^2}{2!} + \frac{u^3}{3!} + \dots, \quad \forall u \in \mathbb{R}\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Partimos da série de Taylor (Maclaurin) conhecida da função exponencial em torno de \(u_0 = 0\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">02</td>
+                                <td class="step-math">\(\text{Fazendo } u = x^2:\;\; e^{x^2} = \sum_{n=0}^\infty \frac{(x^2)^n}{n!} = \sum_{n=0}^\infty \frac{x^{2n}}{n!}\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Substituímos \(u = x^2\) e usamos potência de potência \((x^2)^n = x^{2n}\). O resultado coincide termo a termo com a série obtida em (b)!</td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    <div class="final-answer">✓ Resposta 2(c): \(e^{x^2} = \sum_{n=0}^\infty \dfrac{x^{2n}}{n!}\), confirmando que as soluções de (a) e (b) são idênticas.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXERCÍCIO 3 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>⭐</span> Questão 3 — Soluções em Série de Potências para EDOs de 2ª Ordem</div>
+                <span class="badge-type badge-star">Formato Clássico de Prova (P3!)</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>3.</strong> Para as seguintes equações diferenciais, encontre as soluções em série de potências em torno dos pontos indicados:
+                </div>
+
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>O tema desta questão é o núcleo duro do método de séries em torno de ponto ordinário \(x_0 = 0\) aplicado a três EDOs de 2ª ordem em ordem crescente de dificuldade: coeficientes constantes em (a), Equação de Airy com \(x\) multiplicando \(y\) em (b) e EDO com coeficiente quadrático \((x^2+1)\) em (c). O gatilho visual é contar o degrau entre os índices de \(y''\) e dos outros termos: em (a) não há \(x\) multiplicando, gerando salto de 2 em 2; em (b) o termo \(-xy\) joga a potência para \(x^{n+1}\), criando uma recorrência que salta de 3 em 3 (com \(a_2 = 0\)); em (c) o termo \((x^2+1)y''\) deve ser aberto em \(x^2y'' + y''\) antes de substituir as séries, mantendo o salto de 2 em 2 e revelando singularidades complexas em \(x = \pm i\) (\(R = 1\)). Estruture sempre cada item alinhando todos os somatórios para \(x^k\), puxando os termos soltos até o maior índice inicial, isolando a recorrência e separando claramente \(y(x) = a_0 y_1(x) + a_1 y_2(x)\). Fique muito atento a duas pegadinhas: na Q3(c), \(k=1\) zera \(a_3\) e colapsa \(y_2(x)\) em um único polinômio \(y_2(x) = x\) (e não esqueça de dividir \((k+1)\) na recorrência para \(k \ge 2\)); e na <strong>Q3(b), cuidado com a gralha do gabarito oficial do PDF</strong>, que imprimiu \((3k)(3k+11)\) em \(y_2(x)\) quando o produto correto é \((3k)(3k+1)\).</p>
+                </div>
+
+                <!-- Item 3(a) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        (a) \(y''(x) + y(x) = 0, \quad x_0 = 0\)
+                    </div>
+                    <div class="code-resolution">
+                        <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Item 3(a)</span></div>
+                        <table class="step-table"><tbody>
+                            <tr class="step-row">
+                                <td class="line-num">01</td>
+                                <td class="step-math">\(p(x) = 0, \; q(x) = 1 \implies x_0 = 0 \text{ é P.O. com } R = \infty\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Coeficientes constantes são analíticos em todo \(\mathbb{C}\), logo \(x_0=0\) é ponto ordinário e a série convergirá para todo \(x \in \mathbb{R}\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">02</td>
+                                <td class="step-math">\(y(x) = \sum_{n=0}^\infty a_n x^n \implies y''(x) = \sum_{n=2}^\infty n(n-1) a_n x^{n-2}\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Escrevemos \(y\) e sua segunda derivada \(y''\) em série de potências.</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">03</td>
+                                <td class="step-math">\(\sum_{n=2}^\infty n(n-1) a_n x^{n-2} + \sum_{n=0}^\infty a_n x^n = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Substituímos \(y''\) e \(y\) na EDO \(y'' + y = 0\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">04</td>
+                                <td class="step-math">\(1\text{ª série: } k = n - 2 \implies n = k + 2, \; k \ge 0 \implies \sum_{k=0}^\infty (k+2)(k+1)a_{k+2} x^k\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Deslocamos o índice da 1ª série para que a potência vire \(x^k\). Na 2ª série já temos \(x^n\), bastando trocar \(n\) por \(k\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">05</td>
+                                <td class="step-math">\(\sum_{k=0}^\infty \big[(k+2)(k+1)a_{k+2} + a_k\big] x^k = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Ambas as séries começam em \(k = 0\)! Não sobra nenhum termo isolado; unificamos tudo em um só somatório.</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">06</td>
+                                <td class="step-math">\(a_{k+2} = -\frac{a_k}{(k+2)(k+1)}, \quad \forall k \ge 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Igualamos o coeficiente geral de \(x^k\) a zero e isolamos o termo de maior índice \(a_{k+2}\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">07</td>
+                                <td class="step-math">\(\text{Pares: } a_2 = -\frac{a_0}{2\cdot 1} = -\frac{a_0}{2!}; \;\; a_4 = -\frac{a_2}{4\cdot 3} = \frac{a_0}{4!} \implies a_{2k} = \frac{(-1)^k}{(2k)!} a_0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Para \(k=0, 2, 4, \dots\) obtemos os coeficientes pares com sinal alternado \((-1)^k\) e fatorial par \((2k)!\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">08</td>
+                                <td class="step-math">\(\text{Ímpares: } a_3 = -\frac{a_1}{3\cdot 2} = -\frac{a_1}{3!}; \;\; a_5 = -\frac{a_3}{5\cdot 4} = \frac{a_1}{5!} \implies a_{2k+1} = \frac{(-1)^k}{(2k+1)!} a_1\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Para \(k=1, 3, 5, \dots\) obtemos os coeficientes ímpares com sinal alternado \((-1)^k\) e fatorial ímpar \((2k+1)!\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">09</td>
+                                <td class="step-math">\(y(x) = a_0 \sum_{k=0}^\infty \frac{(-1)^k}{(2k)!} x^{2k} + a_1 \sum_{k=0}^\infty \frac{(-1)^k}{(2k+1)!} x^{2k+1} = a_0\cos x + a_1\sin x\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Separamos os termos ligados a \(a_0\) e \(a_1\). Note que essas duas séries são exatamente as séries de Maclaurin de \(\cos x\) e \(\sin x\)!</td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    <div class="final-answer">✓ Resposta 3(a): \(y(x) = a_0 \sum_{k=0}^\infty \dfrac{(-1)^k}{(2k)!} x^{2k} + a_1 \sum_{k=0}^\infty \dfrac{(-1)^k}{(2k+1)!} x^{2k+1}\) (convergente para todo \(x \in \mathbb{R}\), \(R = \infty\)).</div>
+                </div>
+
+                <!-- Item 3(b) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        (b) \(y''(x) - x\,y(x) = 0, \quad x_0 = 0\) <em>(Equação de Airy)</em>
+                    </div>
+                    <div class="code-resolution">
+                        <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Item 3(b)</span></div>
+                        <table class="step-table"><tbody>
+                            <tr class="step-row">
+                                <td class="line-num">01</td>
+                                <td class="step-math">\(p(x) = 0, \; q(x) = -x \implies x_0 = 0 \text{ é P.O. com } R = \infty\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Polinômios não têm singularidades finitas, logo \(R = \infty\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">02</td>
+                                <td class="step-math">\(\sum_{n=2}^\infty n(n-1) a_n x^{n-2} - x \sum_{n=0}^\infty a_n x^n = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Substituímos \(y''(x)\) e \(y(x)\). O \(x\) fora do segundo somatório entra multiplicando \(x^n\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">03</td>
+                                <td class="step-math">\(\sum_{n=2}^\infty n(n-1) a_n x^{n-2} - \sum_{n=0}^\infty a_n x^{n+1} = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Agora temos potências \(x^{n-2}\) e \(x^{n+1}\). Vamos alinhar ambas para \(x^k\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">04</td>
+                                <td class="step-math">\(1\text{ª: } k = n-2 \implies \sum_{k=0}^\infty (k+2)(k+1)a_{k+2}x^k; \quad 2\text{ª: } k = n+1 \implies \sum_{k=1}^\infty a_{k-1}x^k\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Na 1ª série, \(n = k+2\) e \(k\) inicia em \(0\). Na 2ª série, \(n = k-1\) e \(k\) inicia em \(1\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">05</td>
+                                <td class="step-math">\(2\cdot 1\cdot a_2 x^0 + \sum_{k=1}^\infty \big[(k+2)(k+1)a_{k+2} - a_{k-1}\big] x^k = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Puxamos o termo \(k=0\) da 1ª série para que ambos os somatórios iniciem em \(k=1\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">06</td>
+                                <td class="step-math">\(2a_2 = 0 \implies a_2 = 0; \qquad a_{k+2} = \frac{a_{k-1}}{(k+2)(k+1)}, \;\; \forall k \ge 1\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Zeramos o termo constante (\(a_2 = 0\)) e obtemos a recorrência de passo \(3\) (liga \(k+2\) com \(k-1\), diferença \(3\)!).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">07</td>
+                                <td class="step-math">\(\text{Subseq. } a_2:\;\; a_5 = \frac{a_2}{5\cdot 4} = 0, \;\; a_8 = 0 \implies a_{3n+2} = 0, \;\forall n \ge 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Como \(a_2 = 0\), toda a família de índices \(2, 5, 8, 11, \dots\) (\(3n+2\)) desaparece!</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">08</td>
+                                <td class="step-math">\(a_3 = \frac{a_0}{3\cdot 2} = \frac{a_0}{6}; \;\; a_6 = \frac{a_3}{6\cdot 5} = \frac{a_0}{180}; \;\; a_9 = \frac{a_6}{9\cdot 8} = \frac{a_0}{12960}\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Família de \(a_0\) (\(k = 1, 4, 7, \dots\)): os denominadores acumulam os pares consecutivos \((3\cdot 2)(6\cdot 5)(9\cdot 8)\cdots\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">09</td>
+                                <td class="step-math">\(a_{3n} = \frac{a_0}{\prod_{k=1}^n (3k)(3k-1)} \quad (n \ge 1)\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Escrevemos o termo geral da família \(3n\) em notação de produtório (para \(n=1\): \(3\cdot 2 = 6\); para \(n=2\): \(6\cdot 5\cdot 3\cdot 2 = 180\)).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">10</td>
+                                <td class="step-math">\(a_4 = \frac{a_1}{4\cdot 3} = \frac{a_1}{12}; \;\; a_7 = \frac{a_4}{7\cdot 6} = \frac{a_1}{504}; \;\; a_{10} = \frac{a_7}{10\cdot 9} = \frac{a_1}{45360}\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Família de \(a_1\) (\(k = 2, 5, 8, \dots\)): os denominadores acumulam \((4\cdot 3)(7\cdot 6)(10\cdot 9)\cdots\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">11</td>
+                                <td class="step-math">\(a_{3n+1} = \frac{a_1}{\prod_{k=1}^n (3k)(3k+1)} \quad (n \ge 1)\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Termo geral da família \(3n+1\): para \(n=1\) dá \((3)(4)=12\); para \(n=2\) dá \((3)(4)(6)(7)=504\); para \(n=3\) dá \(45360\). <strong>(Obs.: o gabarito do PDF imprimiu \((3k+11)\) por erro de digitação; o correto é \((3k+1)\)!).</strong></td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    <div class="final-answer">✓ Resposta 3(b): \(y(x) = a_0 y_1(x) + a_1 y_2(x)\), com \(y_1(x) = 1 + \sum_{n=1}^\infty \dfrac{x^{3n}}{\prod_{k=1}^n (3k)(3k-1)}\) e \(y_2(x) = x + \sum_{n=1}^\infty \dfrac{x^{3n+1}}{\prod_{k=1}^n (3k)(3k+1)}\) (válida para todo \(x \in \mathbb{R}\)).</div>
+                </div>
+
+                <!-- Item 3(c) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        (c) \((x^2 + 1)\,y''(x) + x\,y'(x) - y(x) = 0, \quad x_0 = 0\)
+                    </div>
+                    <div class="code-resolution">
+                        <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Item 3(c)</span></div>
+                        <table class="step-table"><tbody>
+                            <tr class="step-row">
+                                <td class="line-num">01</td>
+                                <td class="step-math">\(y'' + \frac{x}{x^2+1}y' - \frac{1}{x^2+1}y = 0 \implies x^2+1 = 0 \implies x = \pm i \implies R \ge 1\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Dividimos por \(x^2+1\): \(x_0 = 0\) é P.O., mas há singularidades complexas em \(z = \pm i\) a distância \(|i - 0| = 1\), logo garantimos convergência ao menos para \(|x| \lt 1\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">02</td>
+                                <td class="step-math">\(x^2 y'' + y'' + x y' - y = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Abrimos \((x^2+1)y'' = x^2y'' + y''\) antes de substituir os somatórios para facilitar o alinhamento.</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">03</td>
+                                <td class="step-math">\(\sum_{n=2}^\infty n(n-1)a_n x^n + \sum_{n=2}^\infty n(n-1)a_n x^{n-2} + \sum_{n=1}^\infty n a_n x^n - \sum_{n=0}^\infty a_n x^n = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Note que na 1ª, 3ª e 4ª séries a potência já é \(x^n\)! Só a 2ª série tem \(x^{n-2}\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">04</td>
+                                <td class="step-math">\(2\text{ª série: } k = n-2 \implies \sum_{k=0}^\infty (k+2)(k+1)a_{k+2} x^k\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Deslocamos a 2ª série para \(x^k\) e renomeamos \(n \to k\) nas demais. Os índices iniciais atuais são \(k=2\) (1ª), \(k=0\) (2ª), \(k=1\) (3ª) e \(k=0\) (4ª).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">05</td>
+                                <td class="step-math">\(k=0:\;\; 2a_2 - a_0 = 0 \implies a_2 = \frac{a_0}{2}\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Para \(k=0\), só contribuem a 2ª série (\(2\cdot 1\cdot a_2\)) e a 4ª série (\(-a_0\)).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">06</td>
+                                <td class="step-math">\(k=1:\;\; 6a_3 + a_1 - a_1 = 0 \implies 6a_3 = 0 \implies a_3 = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Para \(k=1\), contribuem a 2ª (\(3\cdot 2 a_3 = 6a_3\)), a 3ª (\(1\cdot a_1\)) e a 4ª (\(-a_1\)). Como \(a_1 - a_1 = 0\), sobra \(a_3 = 0\)!</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">07</td>
+                                <td class="step-math">\(k \ge 2:\;\; \big[k(k-1)a_k + (k+2)(k+1)a_{k+2} + k a_k - a_k\big] = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> A partir de \(k = 2\), todas as quatro séries participam! Agrupamos os termos com \(a_k\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">08</td>
+                                <td class="step-math">\((k+2)(k+1)a_{k+2} + (k^2 - 1)a_k = 0 \iff (k+2)(k+1)a_{k+2} + (k-1)(k+1)a_k = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Simplificamos \(k(k-1) + k - 1 = k^2 - k + k - 1 = k^2 - 1\) e fatoramos como \((k-1)(k+1)\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">09</td>
+                                <td class="step-math">\(a_{k+2} = -\frac{k-1}{k+2} a_k, \quad \forall k \ge 2\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Como \(k \ge 2\), temos \(k+1 \neq 0\) e podemos cancelar \((k+1)\) dos dois lados!</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">10</td>
+                                <td class="step-math">\(\text{Ímpares: } a_3 = 0 \implies a_5 = -\frac{2}{5}a_3 = 0 \implies a_{2k+1} = 0, \;\forall k \ge 1 \implies y_2(x) = x\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Todos os ímpares de \(a_3\) em diante zeram! Apenas \(a_1 x\) sobrevive (confira: \(y_2(x)=x\) realmente zera \((x^2+1)(0) + x(1) - x = 0\)).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">11</td>
+                                <td class="step-math">\(k=2:\; a_4 = -\frac{1}{4}a_2 = -\frac{1}{8}a_0; \qquad k=4:\; a_6 = -\frac{3}{6}a_4 = +\frac{1\cdot 3}{6\cdot 4 \cdot 2}a_0 = \frac{1}{16}a_0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Iteramos os pares a partir de \(a_2 = \frac{a_0}{2}\) usando \(a_{k+2} = -\frac{k-1}{k+2}a_k\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">12</td>
+                                <td class="step-math">\(k=6:\; a_8 = -\frac{5}{8}a_6 = -\frac{1\cdot 3\cdot 5}{8\cdot 6\cdot 4\cdot 2}a_0 = -\frac{5}{128}a_0; \quad k=8:\; a_{10} = \frac{1\cdot 3\cdot 5\cdot 7}{10\cdot 8\cdot 6\cdot 4\cdot 2}a_0 = \frac{7}{256}a_0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Veja o padrão: no numerador aparecem os ímpares \(1\cdot 3\cdot 5\cdots (2m-3)\); no denominador, os pares \(2\cdot 4\cdot 6\cdots (2m) = 2^m m!\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">13</td>
+                                <td class="step-math">\(a_{2k} = (-1)^{k-1}\frac{1\cdot 3\cdot 5\cdots (2k-3)}{2^k k!} a_0, \quad \forall k \ge 2\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Fórmula fechada dos termos pares para \(k \ge 2\) (para \(k=2\) dá \((-1)^1 \frac{1}{4\cdot 2}a_0 = -\frac{1}{8}a_0\); para \(k=3\) dá \(+\frac{3}{48}a_0 = \frac{1}{16}a_0\)).</td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    <div class="final-answer">✓ Resposta 3(c): \(y(x) = a_0 y_1(x) + a_1 y_2(x)\), onde \(y_1(x) = 1 + \dfrac{x^2}{2} + \sum_{k=2}^\infty (-1)^{k-1} \dfrac{1\cdot 3\cdot 5\cdots (2k-3)}{2^k k!} x^{2k}\) e \(y_2(x) = x\) (para \(|x| \lt 1\)).</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXERCÍCIO 4 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>⭐</span> Questão 4 — Solução Geral, Forma Fechada Geométrica e Raio de Convergência</div>
+                <span class="badge-type badge-star">Formato Clássico de Prova (P3!)</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>4.</strong> Encontre a solução geral para a equação diferencial:
+                    \[(x^2 - 1)y'' + 4xy' + 2y = 0,\]
+                    em torno do ponto ordinário \(x_0 = 0\) e determine o raio de convergência da série de potências solução da equação diferencial.
+                </div>
+
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>O tema desta questão é a resolução de uma EDO linear de 2ª ordem com coeficientes polinomiais em torno de \(x_0 = 0\), combinada com o reconhecimento de uma Série Geométrica fechada e o cálculo do raio de convergência. O gatilho visual imediato está no fator \((x^2 - 1)\) multiplicando \(y''\): dividindo por ele, os pontos singulares ficam em \(x = \pm 1\), o que já avisa antes de qualquer conta que o raio de convergência em torno de \(x_0 = 0\) será \(R = 1\). Estruture a resolução distribuindo \((x^2 - 1)y'' = x^2 y'' - y''\), substituindo as séries, deslocando apenas \(y''\) para \(x^k\), checando \(k=0\) e \(k=1\) separadamente e fatorando o coeficiente de \(a_k\) para \(k \ge 2\) até cancelar \((k+2)(k+1)\) dos dois lados e chegar à recorrência surpreendentemente simples \(a_{k+2} = a_k\). A pegadinha clássica é parar na recorrência \(a_{k+2} = a_k\) sem perceber que todos os coeficientes pares são iguais a \(a_0\) e todos os ímpares são iguais a \(a_1\), deixando escapar a fatoração \((a_0 + a_1 x)\sum_{n=0}^\infty x^{2n} = \frac{a_0 + a_1 x}{1 - x^2}\) e a dupla justificativa de \(R = 1\) (tanto pelo Teorema de Fuchs quanto pela convergência \(|x^2| \lt 1\) da série geométrica).</p>
+                </div>
+
+                <div class="code-resolution">
+                    <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Questão 4</span></div>
+                    <table class="step-table"><tbody>
+                        <tr class="step-row">
+                            <td class="line-num">01</td>
+                            <td class="step-math">\(y'' + \frac{4x}{x^2 - 1}y' + \frac{2}{x^2 - 1}y = 0 \implies \text{Singulares: } x = \pm 1 \implies R \ge |1 - 0| = 1\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Normalizamos para checar o P.O. \(x_0 = 0\): o denominador \(x^2 - 1\) zera em \(x = \pm 1\), garantindo raio mínimo \(R \ge 1\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">02</td>
+                            <td class="step-math">\(x^2 y'' - y'' + 4xy' + 2y = 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Distribuímos \((x^2 - 1)y''\) antes de inserir as séries.</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">03</td>
+                            <td class="step-math">\(\sum_{n=2}^\infty n(n-1)a_n x^n - \sum_{n=2}^\infty n(n-1)a_n x^{n-2} + \sum_{n=1}^\infty 4n a_n x^n + \sum_{n=0}^\infty 2a_n x^n = 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Substituímos \(y, y', y''\): em \(x^2y''\) o \(x^2\) cancela o \(-2\) do expoente; em \(4xy'\) o \(x\) cancela o \(-1\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">04</td>
+                            <td class="step-math">\(2\text{ª série: } k = n - 2 \implies n = k + 2 \implies -\sum_{k=0}^\infty (k+2)(k+1)a_{k+2} x^k\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Só a 2ª série (\(-y''\)) precisa de deslocamento de índice; nas outras três apenas trocamos a letra \(n\) por \(k\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">05</td>
+                            <td class="step-math">\(k = 0:\;\; -2\cdot 1\cdot a_2 + 2a_0 = 0 \implies -2a_2 + 2a_0 = 0 \implies a_2 = a_0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Para \(k=0\), participam apenas a 2ª série (\(-2a_2\)) e a 4ª série (\(+2a_0\)).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">06</td>
+                            <td class="step-math">\(k = 1:\;\; -3\cdot 2\cdot a_3 + 4(1)a_1 + 2a_1 = 0 \implies -6a_3 + 6a_1 = 0 \implies a_3 = a_1\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Para \(k=1\), participam a 2ª (\(-6a_3\)), a 3ª (\(+4a_1\)) e a 4ª (\(+2a_1\)).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">07</td>
+                            <td class="step-math">\(k \ge 2:\;\; \big[k(k-1)a_k - (k+2)(k+1)a_{k+2} + 4k a_k + 2a_k\big] = 0\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Para \(k \ge 2\), todas as quatro séries entram no somatório único!</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">08</td>
+                            <td class="step-math">\(k(k-1) + 4k + 2 = k^2 - k + 4k + 2 = k^2 + 3k + 2 = (k+1)(k+2)\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Simplificamos e fatoramos o polinômio que multiplica \(a_k\) (raízes \(-1\) e \(-2\)).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">09</td>
+                            <td class="step-math">\((k+1)(k+2)a_k - (k+2)(k+1)a_{k+2} = 0 \implies a_{k+2} = a_k, \;\; \forall k \ge 2\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Como \((k+1)(k+2) \neq 0\), dividimos tudo por ele! Junto com \(a_2=a_0\) e \(a_3=a_1\), vale \(a_{k+2} = a_k\) para todo \(k \ge 0\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">10</td>
+                            <td class="step-math">\(a_0 = a_2 = a_4 = \dots = a_{2n} = a_0; \qquad a_1 = a_3 = a_5 = \dots = a_{2n+1} = a_1\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Todos os coeficientes pares valem \(a_0\) e todos os coeficientes ímpares valem \(a_1\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">11</td>
+                            <td class="step-math">\(y(x) = a_0 \sum_{n=0}^\infty x^{2n} + a_1 \sum_{n=0}^\infty x^{2n+1} = (a_0 + a_1 x)\sum_{n=0}^\infty x^{2n}\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Colocamos \(x\) em evidência na segunda soma (\(x^{2n+1} = x\cdot x^{2n}\)) e depois agrupamos \(\sum_{n=0}^\infty x^{2n}\).</td>
+                        </tr>
+                        <tr class="step-row">
+                            <td class="line-num">12</td>
+                            <td class="step-math">\(\sum_{n=0}^\infty (x^2)^n = \frac{1}{1 - x^2} \;\; \text{se e só se } |x^2| \lt 1 \iff |x| \lt 1 \implies y(x) = \frac{a_0 + a_1 x}{1 - x^2}, \;\; R = 1\)</td>
+                            <td class="step-comment"><span class="comment-prefix">//</span> Série Geométrica de razão \(r = x^2\)! Converge exatamente para \(|x| \lt 1\), portanto o raio exato de convergência é \(R = 1\) (para \(a_0, a_1\) não ambos nulos).</td>
+                        </tr>
+                    </tbody></table>
+                </div>
+                <div class="final-answer">✓ Resposta 4: \(y(x) = (a_0 + a_1 x)\sum_{n=0}^\infty x^{2n} = \dfrac{a_0 + a_1 x}{1 - x^2}\), com raio de convergência \(R = 1\) (ou seja, \(|x| \lt 1\)).</div>
+            </div>
+        </div>
+
+        <!-- EXERCÍCIO 5 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>⭐</span> Questão 5 — Ponto Ordinário, Recorrência e PVI com 5 Termos</div>
+                <span class="badge-type badge-star">Formato Clássico de Prova (P3!)</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>5.</strong> Considere a equação diferencial linear \(y''(x) - 2xy'(x) + y(x) = 0\).
+                </div>
+
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>O tema aqui é o pacote completo de P3 em ponto ordinário: provar que \(x_0 = 0\) é ponto ordinário, achar a relação de recorrência, aplicar condições iniciais \(y(0)\) e \(y'(0)\) para escrever os primeiros termos da série e justificar o raio de convergência \(R = \infty\). O gatilho visual é o coeficiente \(-2x\) multiplicando \(y'\): como \(y'\) tem potências \(x^{n-1}\), multiplicar por \(x\) devolve exatamente \(x^n\), de modo que só \(y''\) precisa de deslocamento de índice e os termos que faltam em \(-2xy'\) (\(n=0\)) valem zero naturalmente, permitindo escrever uma única recorrência válida desde \(n = 0\). Estruture (a) verificando que \(p(x)=-2x\) e \(q(x)=1\) são polinômios (analíticos em todo \(\mathbb{C}\)), alinhando os índices e isolando \(a_{n+2}\); e estruture (b) lembrando que \(a_0 = y(0) = 4\) e \(a_1 = y'(0) = 3\), iterando \(n = 0, 1, 2\) para achar \(a_2, a_3, a_4\) e fechando os 5 primeiros termos da série junto à justificativa de \(R = \infty\). Duas pegadinhas merecem atenção: na recorrência para \(n = 0\), o numerador é \(2(0) - 1 = -1\) (não erre o sinal de \(a_2 = -2\)), e ao contar "os primeiros cinco termos da série", lembre que a contagem começa em \(a_0\) (constante), \(a_1 x\), \(a_2 x^2\), \(a_3 x^3\) e termina em \(a_4 x^4\).</p>
+                </div>
+
+                <!-- Item 5(a) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        (a) Verifique que \(x_0 = 0\) é um ponto ordinário da equação. Seja \(y(x) = \sum_{n=0}^\infty a_n x^n\) uma solução em série de potências na vizinhança de \(x_0 = 0\). Determine a relação de recorrência para os coeficientes dessa série.
+                    </div>
+                    <div class="code-resolution">
+                        <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Item 5(a)</span></div>
+                        <table class="step-table"><tbody>
+                            <tr class="step-row">
+                                <td class="line-num">01</td>
+                                <td class="step-math">\(y'' + \underbrace{(-2x)}_{p(x)}y' + \underbrace{1}_{q(x)}y = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> A EDO já está na forma canônica. Tanto \(p(x) = -2x\) quanto \(q(x) = 1\) são polinômios.</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">02</td>
+                                <td class="step-math">\(p(x) \text{ e } q(x) \text{ analíticas em todo } \mathbb{C} \implies x_0 = 0 \text{ é P.O. (e } R = \infty\text{)}\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Como não existem singularidades finitas em \(\mathbb{C}\), \(x_0 = 0\) é ponto ordinário e o raio de convergência é \(R = \infty\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">03</td>
+                                <td class="step-math">\(y'(x) = \sum_{n=1}^\infty n a_n x^{n-1}, \qquad y''(x) = \sum_{n=2}^\infty n(n-1) a_n x^{n-2}\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Calculamos as duas primeiras derivadas de \(y(x) = \sum_{n=0}^\infty a_n x^n\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">04</td>
+                                <td class="step-math">\(\sum_{n=2}^\infty n(n-1) a_n x^{n-2} - 2x \sum_{n=1}^\infty n a_n x^{n-1} + \sum_{n=0}^\infty a_n x^n = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Substituímos tudo na EDO \(y'' - 2xy' + y = 0\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">05</td>
+                                <td class="step-math">\(\sum_{n=2}^\infty n(n-1) a_n x^{n-2} - \sum_{n=1}^\infty 2n a_n x^n + \sum_{n=0}^\infty a_n x^n = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Multiplicamos \(x \cdot x^{n-1} = x^n\) no termo do meio.</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">06</td>
+                                <td class="step-math">\(1\text{ª: } k = n - 2 \implies \sum_{k=0}^\infty (k+2)(k+1)a_{k+2} x^k; \quad 2\text{ª: } \sum_{k=0}^\infty 2k a_k x^k\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Deslocamos a 1ª série para \(x^k\). Truque limpo na 2ª série: para \(k=0\), o fator \(2k = 0\), então podemos começar a 2ª série em \(k = 0\) sem alterar nada!</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">07</td>
+                                <td class="step-math">\(\sum_{k=0}^\infty \big[(k+2)(k+1)a_{k+2} - 2k a_k + a_k\big] x^k = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Todas as três séries começam em \(k = 0\) com potência \(x^k\), permitindo juntar tudo em um só somatório.</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">08</td>
+                                <td class="step-math">\((k+2)(k+1)a_{k+2} - (2k - 1)a_k = 0 \implies a_{n+2} = \frac{(2n - 1)a_n}{(n+2)(n+1)}, \;\; \forall n \ge 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Colocamos \(-a_k\) em evidência: \(-2k a_k + a_k = -(2k-1)a_k\). Igualamos o coeficiente a zero e renomeamos \(k \to n\).</td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    <div class="final-answer">✓ Resposta 5(a): \(x_0 = 0\) é ponto ordinário pois \(p(x)=-2x\) e \(q(x)=1\) são analíticas em \(\mathbb{R}\) (e \(\mathbb{C}\)); relação de recorrência: \(a_{n+2} = \dfrac{(2n - 1)a_n}{(n + 2)(n + 1)}, \;\forall n \ge 0\).</div>
+                </div>
+
+                <!-- Item 5(b) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        (b) Para as condições iniciais \(y(0) = 4\) e \(y'(0) = 3\), escreva os primeiros cinco termos da série. <em>(E indique o raio de convergência).</em>
+                    </div>
+                    <div class="code-resolution">
+                        <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Item 5(b)</span></div>
+                        <table class="step-table"><tbody>
+                            <tr class="step-row">
+                                <td class="line-num">01</td>
+                                <td class="step-math">\(y(0) = a_0 = 4, \qquad y'(0) = a_1 = 3\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Como \(y(x) = a_0 + a_1 x + a_2 x^2 + \dots\) e \(y'(x) = a_1 + 2a_2 x + \dots\), avaliar em \(x=0\) dá diretamente \(a_0\) e \(a_1\)!</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">02</td>
+                                <td class="step-math">\(n = 0:\;\; a_2 = \frac{(2\cdot 0 - 1)a_0}{(0+2)(0+1)} = \frac{-1}{2}\cdot 4 = -2\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> 3º termo da série (\(a_2 x^2\)): atenção ao sinal negativo de \(2(0)-1 = -1\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">03</td>
+                                <td class="step-math">\(n = 1:\;\; a_3 = \frac{(2\cdot 1 - 1)a_1}{(1+2)(1+1)} = \frac{1}{6}\cdot 3 = \frac{1}{2}\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> 4º termo da série (\(a_3 x^3\)): simplificamos \(\frac{3}{6} = \frac{1}{2}\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">04</td>
+                                <td class="step-math">\(n = 2:\;\; a_4 = \frac{(2\cdot 2 - 1)a_2}{(2+2)(2+1)} = \frac{3}{12}\cdot (-2) = \frac{1}{4}\cdot (-2) = -\frac{1}{2}\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> 5º termo da série (\(a_4 x^4\)): já temos os 5 primeiros termos (\(a_0, a_1x, a_2x^2, a_3x^3, a_4x^4\))!</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">05</td>
+                                <td class="step-math">\(y(x) = 4 + 3x - 2x^2 + \frac{1}{2}x^3 - \frac{1}{2}x^4 + \dots \quad (\text{com } R = \infty)\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Montamos o polinômio de grau 4 com os 5 termos. O raio de convergência é \(R = \infty\) pois \(p(x)=-2x\) e \(q(x)=1\) são analíticas em todo o plano complexo \(\mathbb{C}\).</td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    <div class="final-answer">✓ Resposta 5(b): \(y(x) = 4 + 3x - 2x^2 + \dfrac{1}{2}x^3 - \dfrac{1}{2}x^4 + \dots\), com raio de convergência \(R = \infty\).</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="recap-box">
+            <h3>📝 Resuminho do Tópico 2 — Método das Séries em torno de \(x_0 = 0\)</h3>
+            <div class="recap-grid">
+                <div class="recap-card">
+                    <strong>Regras de Bolso para Não Errar Índices</strong>
+                    • Sempre distribua polinômios tipo \((x^2+1)y'' = x^2y'' + y''\) antes de substituir séries.<br>
+                    • Em \(x^2y''\) e \(xy'\), os expoentes já saem como \(x^n\); só \(y''\) exige \(k = n - 2\).<br>
+                    • Nunca iguale o somatório geral sem antes puxar os termos \(k=0\) e \(k=1\) que faltam!
+                </div>
+                <div class="recap-card">
+                    <strong>Checklist de Prova (PVI &amp; Raio)</strong>
+                    • No PVI em \(x_0 = 0\): \(a_0 = y(0)\) e \(a_1 = y'(0)\) direto, sem conta.<br>
+                    • Sempre dê o raio \(R\): se \(p, q\) são polinômios, \(R = \infty\); se há divisor \(x^2 \pm a^2\), \(R = |a|\).<br>
+                    • Na Q3(b) (Airy), lembre que o gabarito do PDF tem gralha em \((3k+11)\): o certo é \((3k+1)\).
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TÓPICO 3: EQUAÇÃO DIFERENCIAL E POLINÔMIOS DE LEGENDRE (Q6)       -->
+    <!-- ================================================================= -->
+    <div class="topic-section">
+        <div class="topic-banner">
+            <h2>Tópico 3: Equação Diferencial e Polinômios de Legendre</h2>
+            <span class="topic-range">Questão 6</span>
+        </div>
+
+        <div class="alert-errata">
+            <h3>⚠️ Aviso Crítico — 2 Gralhas no PDF Oficial da Lista 7 (Questão 6)</h3>
+            <p>O enunciado oficial da Questão 6 no PDF possui <strong>dois erros de digitação</strong> que impedem a conta de fechar se você não os corrigir:</p>
+            <ul>
+                <li><strong>Gralha 1 (Sinal do termo \(2xy'\)):</strong> O PDF imprimiu \((1 - x^2)y'' \mathbf{+ 2xy'} + \alpha(\alpha + 1)y = 0\), porém a verdadeira Equação de Legendre possui sinal negativo:
+                \[(1 - x^2)y'' \mathbf{- 2xy'} + \alpha(\alpha + 1)y = 0\]
+                <em>Prova rápida:</em> A recorrência do item 6(a) e os polinômios \(p_1(x)=x\), \(p_2(x)=\frac{1}{2}(3x^2-1)\) e \(p_3(x)=\frac{1}{2}(5x^3-3x)\) do item 6(c) só satisfazem a EDO com \(\mathbf{-2xy'}\) (com \(+2xy'\), \(p_1, p_2, p_3\) deixam resíduo não nulo!).</li>
+                <li><strong>Gralha 2 (Fator \(a_n\) omitido em 6a):</strong> Na relação de recorrência impressa no item 6(a), o PDF escreveu \(a_{n+2} = \frac{-(\alpha - n)(n + \alpha + 1)}{(n+1)(n+2)}\), esquecendo o fator <strong>\(a_n\)</strong> multiplicando a fração. O correto é:
+                \[a_{n+2} = \frac{-(\alpha - n)(n + \alpha + 1)}{(n+1)(n+2)}\, a_n\]</li>
+            </ul>
+        </div>
+
+        <div class="prereq-box">
+            <h3>🧠 Pré-Requisitos de Base — Fatoração Algébrica, Truncamento de Séries e Normalização</h3>
+            <ul>
+                <li><strong>1. Fatoração por Diferença de Quadrados (\(A^2 - B^2\)):</strong> Na dedução da recorrência de Legendre aparece a expressão \(\alpha(\alpha+1) - n(n+1)\). Para transformá-la em produto de fatores lineares sem sofrer com Bhaskara, reagrupe os quadrados com os termos lineares:
+                \[\alpha^2 + \alpha - n^2 - n = (\alpha^2 - n^2) + (\alpha - n) = (\alpha - n)(\alpha + n) + (\alpha - n) = (\alpha - n)(n + \alpha + 1)\]</li>
+                <li><strong>2. Quando uma Série Infinita "Trunca" e Vira Polinômio?</strong> Em uma recorrência de passo \(2\) como \(a_{n+2} = (\text{fator com } \alpha - n)\cdot a_n\), se em algum índice \(n = p\) o fator \((\alpha - p)\) se anular, então \(a_{p+2} = 0\), o que força \(a_{p+4} = 0\), \(a_{p+6} = 0\dots\) Todos os termos seguintes daquela paridade desaparecem e a série infinita vira um <strong>polinômio finito de grau \(p\)</strong>!</li>
+                <li><strong>3. Normalização \(P_n(1) = 1\):</strong> Como \(y_1(x)\) e \(y_2(x)\) podem ser multiplicados por qualquer constante \(a_0\) ou \(a_1\) e continuam resolvendo a EDO homogênea, escolhe-se a constante multiplicativa de modo que, ao substituir \(x = 1\), o polinômio valha exatamente \(1\).</li>
+            </ul>
+        </div>
+
+        <!-- EXERCÍCIO 6 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>⭐</span> Questão 6 — Equação Diferencial e Polinômios de Legendre</div>
+                <span class="badge-type badge-star">Tema Clássico de P3 (~ P.O.)</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>6.</strong> Considere a equação diferencial de Legendre <em>(já corrigindo o sinal da gralha do PDF para \(-2xy'\))</em>:
+                    \[(1 - x^2)y'' - 2xy' + \alpha(\alpha + 1)y = 0; \qquad \alpha \in \mathbb{R}.\]
+                    Encontre a solução da equação anterior em torno do ponto ordinário \(x_0 = 0\).
+                </div>
+
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>O tema desta questão é a Equação de Legendre resolvida em torno do ponto ordinário \(x_0 = 0\), culminando no truncamento que gera os famosos Polinômios de Legendre. O gatilho visual é o fator \((1 - x^2)\) multiplicando \(y''\): dividindo a EDO por \((1-x^2)\), surgem singularidades em \(x = \pm 1\), o que explica imediatamente por que o intervalo natural de validade em torno de \(x_0 = 0\) é \((-1, 1)\). Estruture o exercício distribuindo \((1 - x^2)y'' = y'' - x^2y''\), notando que em \(-x^2y''\) e \(-2xy'\) os termos iniciais para \(n=0,1\) valem zero naturalmente (dispensando puxar termos separados!), fatorando \(\alpha(\alpha+1) - n(n+1) = (\alpha - n)(n + \alpha + 1)\) em (a), iterando as famílias \(a_{2n}\) e \(a_{2n+1}\) em (b) e verificando em (c) que \(\alpha = p \in \mathbb{N}\) zera o fator \((\alpha - p)\) na recorrência, truncando \(y_1\) (se \(p\) par) ou \(y_2\) (se \(p\) ímpar), bastando depois multiplicar por uma constante para impor \(P_n(1)=1\). Além das <strong>2 gralhas do PDF oficial</strong> (que imprimiu \(+2xy'\) em vez de \(-2xy'\) no enunciado e omitiu \(a_n\) na fórmula da recorrência de 6a), fique atento a uma pegadinha sutil no item 6(b): o PDF escreve \(y(x) = a_0 \sum a_{2n} x^{2n} + a_1 \sum a_{2n+1} x^{2n+1}\), mas como \(a_0\) e \(a_1\) já estão dentro das expressões de \(a_{2n}\) e \(a_{2n+1}\), na decomposição \(a_0 y_1(x) + a_1 y_2(x)\) você não deve multiplicar \(a_0\) e \(a_1\) duas vezes!</p>
+                </div>
+
+                <!-- Item 6(a) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        (a) Propor \(y(x) = \sum_{n=0}^\infty a_n x^n\) e verificar que os \(a_n\) satisfazem a relação de recorrência \(a_{n+2} = \dfrac{-(\alpha - n)(n + \alpha + 1)}{(n + 1)(n + 2)}\, a_n\).
+                    </div>
+                    <div class="code-resolution">
+                        <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Item 6(a)</span></div>
+                        <table class="step-table"><tbody>
+                            <tr class="step-row">
+                                <td class="line-num">01</td>
+                                <td class="step-math">\(y'' + \frac{-2x}{1-x^2}y' + \frac{\alpha(\alpha+1)}{1-x^2}y = 0 \implies \text{Singulares: } x = \pm 1 \implies R \ge 1\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Normalizamos a EDO: \(x_0 = 0\) é ponto ordinário, com singularidades em \(x = \pm 1\), garantindo convergência em \(x \in (-1, 1)\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">02</td>
+                                <td class="step-math">\(y'' - x^2 y'' - 2xy' + \alpha(\alpha+1)y = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Distribuímos \((1-x^2)y'' = y'' - x^2 y''\) usando o sinal correto \(-2xy'\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">03</td>
+                                <td class="step-math">\(\sum_{n=2}^\infty n(n-1)a_n x^{n-2} - \sum_{n=2}^\infty n(n-1)a_n x^n - \sum_{n=1}^\infty 2n a_n x^n + \sum_{n=0}^\infty \alpha(\alpha+1)a_n x^n = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Substituímos \(y, y', y''\) em série de potências e multiplicamos por \(x^2\) e \(x\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">04</td>
+                                <td class="step-math">\(1\text{ª série: } k = n - 2 \implies \sum_{k=0}^\infty (k+2)(k+1)a_{k+2} x^k\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Deslocamos o índice da 1ª série para \(x^k\) (\(k \ge 0\)).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">05</td>
+                                <td class="step-math">\(-\sum_{k=0}^\infty k(k-1)a_k x^k - \sum_{k=0}^\infty 2k a_k x^k + \sum_{k=0}^\infty \alpha(\alpha+1)a_k x^k\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Como \(k(k-1) = 0\) para \(k=0,1\) e \(2k = 0\) para \(k=0\), podemos iniciar as outras séries em \(k = 0\) sem alterar nenhum termo!</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">06</td>
+                                <td class="step-math">\(\sum_{k=0}^\infty \big[(k+2)(k+1)a_{k+2} + \big(-k(k-1) - 2k + \alpha(\alpha+1)\big)a_k\big] x^k = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Todas as quatro séries começam em \(k = 0\): agrupamos em um único somatório!</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">07</td>
+                                <td class="step-math">\(-k(k-1) - 2k + \alpha(\alpha+1) = -k^2 + k - 2k + \alpha^2 + \alpha = (\alpha^2 - k^2) + (\alpha - k)\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Expandimos o colchete que multiplica \(a_k\) e reagrupamos em \((\alpha^2 - k^2) + (\alpha - k)\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">08</td>
+                                <td class="step-math">\((\alpha - k)(\alpha + k) + (\alpha - k)\cdot 1 = (\alpha - k)(k + \alpha + 1)\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Fatoramos \(\alpha^2 - k^2 = (\alpha - k)(\alpha + k)\) e colocamos \((\alpha - k)\) em evidência!</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">09</td>
+                                <td class="step-math">\((n+2)(n+1)a_{n+2} + (\alpha - n)(n + \alpha + 1)a_n = 0 \implies a_{n+2} = \frac{-(\alpha - n)(n + \alpha + 1)}{(n+1)(n+2)}a_n\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Renomeamos \(k \to n\), igualamos a zero e isolamos \(a_{n+2}\) (\(\forall n \ge 0\)). Dedução completa!</td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    <div class="final-answer">✓ Resposta 6(a): \(a_{n+2} = \dfrac{-(\alpha - n)(n + \alpha + 1)}{(n + 1)(n + 2)}\, a_n, \;\forall n \ge 0\).</div>
+                </div>
+
+                <!-- Item 6(b) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        (b) Mostre que
+                        \[a_{2n} = \frac{(-1)^n \alpha(\alpha - 2)\dots(\alpha - 2n + 2)(\alpha + 1)(\alpha + 3)\dots(\alpha + 2n - 1)a_0}{(2n)!}\]
+                        \[a_{2n+1} = \frac{(-1)^n (\alpha - 1)(\alpha - 3)\dots(\alpha - 2n + 1)(\alpha + 2)(\alpha + 4)\dots(\alpha + 2n)a_1}{(2n + 1)!}\]
+                        Portanto \(y(x) = a_0 y_1(x) + a_1 y_2(x)\).
+                    </div>
+                    <div class="code-resolution">
+                        <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Item 6(b)</span></div>
+                        <table class="step-table"><tbody>
+                            <tr class="step-row">
+                                <td class="line-num">01</td>
+                                <td class="step-math">\(n = 0:\;\; a_2 = \frac{-\alpha(\alpha + 1)}{1 \cdot 2}a_0 = \frac{(-1)^1 \alpha(\alpha + 1)}{2!}a_0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Aplicamos a recorrência de 6(a) para \(n=0\), obtendo \(a_2\) em função de \(a_0\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">02</td>
+                                <td class="step-math">\(n = 2:\;\; a_4 = \frac{-(\alpha - 2)(\alpha + 3)}{3 \cdot 4}a_2 = \frac{(-1)^2 \alpha(\alpha - 2)(\alpha + 1)(\alpha + 3)}{4!}a_0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Substituímos \(a_2\) em \(a_4\): os fatores crescem para \((\alpha+1)(\alpha+3)\) e descem para \(\alpha(\alpha-2)\), enquanto \(3\cdot 4 \cdot 2! = 4!\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">03</td>
+                                <td class="step-math">\(\text{Indução (pares): } a_{2n} = \frac{(-1)^n \alpha(\alpha - 2)\dots(\alpha - 2n + 2)(\alpha + 1)(\alpha + 3)\dots(\alpha + 2n - 1)a_0}{(2n)!}\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> A cada passo par \(2k \to 2k+2\), multiplica-se por \(-1\), desce \(2\) no bloco \((\alpha - 2k)\), sobe \(2\) no bloco \((\alpha + 2k + 1)\) e divide por \((2k+1)(2k+2)\), formando \((2n)!\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">04</td>
+                                <td class="step-math">\(n = 1:\;\; a_3 = \frac{-(\alpha - 1)(\alpha + 2)}{2 \cdot 3}a_1 = \frac{(-1)^1 (\alpha - 1)(\alpha + 2)}{3!}a_1\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Agora fazemos o mesmo para os índices ímpares a partir de \(a_1\) (\(n=1\)).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">05</td>
+                                <td class="step-math">\(n = 3:\;\; a_5 = \frac{-(\alpha - 3)(\alpha + 4)}{4 \cdot 5}a_3 = \frac{(-1)^2 (\alpha - 1)(\alpha - 3)(\alpha + 2)(\alpha + 4)}{5!}a_1\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Substituindo \(a_3\) em \(a_5\), o denominador \(4\cdot 5\cdot 3! = 5!\) e os blocos ganham \((\alpha - 3)\) e \((\alpha + 4)\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">06</td>
+                                <td class="step-math">\(\text{Indução (ímpares): } a_{2n+1} = \frac{(-1)^n (\alpha - 1)(\alpha - 3)\dots(\alpha - 2n + 1)(\alpha + 2)(\alpha + 4)\dots(\alpha + 2n)a_1}{(2n + 1)!}\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Fatoramos \(a_0\) da soma par para definir \(y_1(x)\) e \(a_1\) da soma ímpar para definir \(y_2(x)\), dando \(y(x) = a_0 y_1(x) + a_1 y_2(x)\).</td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    <div class="final-answer">✓ Resposta 6(b): Fórmulas de \(a_{2n}\) e \(a_{2n+1}\) demonstradas por recorrência iterada, gerando \(y(x) = a_0 y_1(x) + a_1 y_2(x)\) para \(x \in (-1, 1)\).</div>
+                </div>
+
+                <!-- Item 6(c) -->
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        (c) Observe que se \(\alpha = p\) é um natural não nulo então se \(p\) é par \(y_1(x)\) é um polinômio, e se \(p\) é ímpar \(y_2(x)\) é um polinômio. Os 4 primeiros polinômios de Legendre (normalizados de forma que \(P(1)=1\)) são:
+                        \[p_0(x) = 1; \quad p_1(x) = x; \quad p_2(x) = \frac{1}{2}(3x^2 - 1); \quad p_3(x) = \frac{1}{2}(5x^3 - 3x).\]
+                    </div>
+                    <div class="code-resolution">
+                        <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo — Item 6(c)</span></div>
+                        <table class="step-table"><tbody>
+                            <tr class="step-row">
+                                <td class="line-num">01</td>
+                                <td class="step-math">\(\text{Se } \alpha = p = 2m \text{ (par): } (\alpha - 2m) = (p - p) = 0 \implies a_{p+2} = a_{p+4} = \dots = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Na fórmula de \(a_{2n}\), quando \(2n \ge p + 2\), aparece o fator \((\alpha - p) = 0\) no numerador! Logo \(y_1(x)\) trunca num polinômio de grau \(p\) (e \(y_2\) segue série infinita).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">02</td>
+                                <td class="step-math">\(\text{Se } \alpha = p = 2m+1 \text{ (ímpar): } (\alpha - (2m+1)) = 0 \implies a_{p+2} = a_{p+4} = \dots = 0\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Na fórmula de \(a_{2n+1}\), quando \(2n+1 \ge p + 2\), aparece \((\alpha - p) = 0\), truncando \(y_2(x)\) num polinômio de grau \(p\)!</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">03</td>
+                                <td class="step-math">\(\alpha = 0:\;\; y_1(x) = 1 \implies y_1(1) = 1 \implies p_0(x) = 1\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Para \(\alpha = 0\), \(a_2 = 0\) já zera todos os termos seguintes de \(y_1(x)\). Já está normalizado com \(p_0(1) = 1\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">04</td>
+                                <td class="step-math">\(\alpha = 1:\;\; y_2(x) = x \implies y_2(1) = 1 \implies p_1(x) = x\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Para \(\alpha = 1\), \(a_3 = 0\) zera todos os termos seguintes de \(y_2(x)\). Já satisfaz \(p_1(1) = 1\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">05</td>
+                                <td class="step-math">\(\alpha = 2:\;\; y_1(x) = 1 - \frac{2\cdot 3}{2!}x^2 = 1 - 3x^2; \quad y_1(1) = 1 - 3 = -2\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Para \(\alpha = 2\), \(a_4 = 0\), restando \(1 - 3x^2\). Como em \(x=1\) vale \(-2\), dividimos \(y_1(x)\) por \(-2\) (isto é, tomamos \(a_0 = -\frac{1}{2}\)) para forçar \(p_2(1)=1\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">06</td>
+                                <td class="step-math">\(p_2(x) = -\frac{1}{2}(1 - 3x^2) = \frac{1}{2}(3x^2 - 1)\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Conferindo: \(p_2(1) = \frac{1}{2}(3 - 1) = 1\)! E satisfaz \((1-x^2)p_2'' - 2xp_2' + 6p_2 = (1-x^2)(3) - 2x(3x) + 3(3x^2-1) = 0\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">07</td>
+                                <td class="step-math">\(\alpha = 3:\;\; y_2(x) = x - \frac{(3-1)(3+2)}{3!}x^3 = x - \frac{5}{3}x^3; \quad y_2(1) = 1 - \frac{5}{3} = -\frac{2}{3}\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Para \(\alpha = 3\), \(a_5 = 0\), restando \(x - \frac{5}{3}x^3\). Dividimos por \(-\frac{2}{3}\) (ou seja, tomamos \(a_1 = -\frac{3}{2}\)) para normalizar em \(1\).</td>
+                            </tr>
+                            <tr class="step-row">
+                                <td class="line-num">08</td>
+                                <td class="step-math">\(p_3(x) = -\frac{3}{2}\left(x - \frac{5}{3}x^3\right) = \frac{1}{2}(5x^3 - 3x)\)</td>
+                                <td class="step-comment"><span class="comment-prefix">//</span> Conferindo: \(p_3(1) = \frac{1}{2}(5 - 3) = 1\)! (Nota do enunciado: como a teoria em \(x_0 = 0\) tem singularidades em \(x = \pm 1\), o intervalo garantido pela série é \(x \in (-1, 1]\)).</td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    <div class="final-answer">✓ Resposta 6(c): Truncamento demonstrado via fator \((\alpha - p) = 0\); \(p_0(x)=1\), \(p_1(x)=x\), \(p_2(x)=\frac{1}{2}(3x^2-1)\) e \(p_3(x)=\frac{1}{2}(5x^3-3x)\).</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="recap-box">
+            <h3>📝 Resuminho do Tópico 3 — Equação de Legendre</h3>
+            <div class="recap-grid">
+                <div class="recap-card">
+                    <strong>Equação e Recorrência Corretas</strong>
+                    • EDO: \((1 - x^2)y'' \mathbf{- 2xy'} + \alpha(\alpha + 1)y = 0\).<br>
+                    • Recorrência: \(a_{n+2} = \frac{-(\alpha - n)(n + \alpha + 1)}{(n+1)(n+2)}\, a_n\).<br>
+                    • Ponto ordinário \(x_0 = 0\) com singularidades em \(x = \pm 1 \implies R = 1\).
+                </div>
+                <div class="recap-card">
+                    <strong>Por que Truncam os Polinômios?</strong>
+                    • Se \(\alpha = p \in \mathbb{N}\) é par, \(y_1(x)\) vira polinômio de grau \(p\).<br>
+                    • Se \(\alpha = p \in \mathbb{N}\) é ímpar, \(y_2(x)\) vira polinômio de grau \(p\).<br>
+                    • Normalização \(P_n(1)=1\): basta dividir o polinômio obtido pelo seu valor em \(x=1\).
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- BLOCO FINAL (Q7 a Q11): FORA DE (~ P.O.) - FROBENIUS E BESSEL     -->
+    <!-- ================================================================= -->
+    <div class="topic-section">
+        <div class="topic-banner" style="background: linear-gradient(90deg, #991b1b 0%, #dc2626 100%);">
+            <h2>❌ Segunda Parte da Lista 7 — Fora de (~ P.O.): Método de Frobenius e Bessel</h2>
+            <span class="topic-range">Questões 7 a 11 (Não caem na P3)</span>
+        </div>
+
+        <div class="alert-errata">
+            <h3>🚫 Escopo da P3: Por que as Questões 7 a 11 NÃO são resolvidas aqui?</h3>
+            <p>A ementa oficial da P3 cobra Séries de Potências em torno de <strong>Ponto Ordinário (~ P.O.)</strong>, que corresponde exatamente às <strong>Questões 1 a 6</strong>. As Questões 7 a 11 tratam de <strong>Pontos Singulares Regulares, Equação Indicial, Método de Frobenius e Equação de Bessel</strong>. Abaixo estão os enunciados fiéis ao PDF apenas para referência completa da lista.</p>
+        </div>
+
+        <!-- Q7 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>❌</span> Questão 7 — Classificação de Pontos Singulares Regulares e Irregulares</div>
+                <span class="badge-type badge-skip">❌ Fora de (~ P.O.) — Não cai na P3</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>7.</strong> Um ponto Singular da equação diferencial
+                    \[y''(x) + p(x)y'(x) + q(x)y(x) = 0\]
+                    é dito ponto <strong>singular regular</strong> se as funções \((x - x_0)p(x)\) e \((x - x_0)^2 q(x)\) são analíticas em \(x_0\). Em qualquer outro caso o ponto singular é dito ponto <strong>singular irregular</strong>.<br>
+                    Encontre e classifique os pontos singulares das seguintes equações diferenciais:<br>
+                    (a) \(2x(x - 1)^2 y'' + 5xy' + (x - 1)y = 0\).<br>
+                    (b) \((x - 2)^2 y'' + 3x(x - 2)^3 y' + y = 0\).
+                </div>
+                <div class="excluded-note">Motivo de exclusão: Trata de classificação entre ponto singular regular e irregular (pré-requisito do Método de Frobenius, fora de ~ P.O.).</div>
+            </div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>❌</span> Questão 8 — Pontos Singulares Regulares em Cauchy-Euler e Bessel</div>
+                <span class="badge-type badge-skip">❌ Fora de (~ P.O.) — Não cai na P3</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>8.</strong> (a) Mostre que o ponto \(x_0 = 0\) é um ponto singular regular para a equação de <strong>Cauchy-Euler</strong>, \(x^2 y'' + axy' + by = 0\).<br>
+                    (b) Mostre que \(x_0 = 0\) é um ponto singular regular para a <strong>equação de Bessel de ordem \(p \ge 0\)</strong>,
+                    \[x^2 y'' + xy' + (x^2 - p^2)y = 0.\]
+                </div>
+                <div class="excluded-note">Motivo de exclusão: Trata de ponto singular regular e introdução à Equação de Bessel (fora de ~ P.O.).</div>
+            </div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>❌</span> Questão 9 — Raízes da Equação Indicial</div>
+                <span class="badge-type badge-skip">❌ Fora de (~ P.O.) — Não cai na P3</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>9.</strong> Se \(x_0\) é um ponto <em>singular regular</em> da equação diferencial,
+                    \[y''(x) + p(x)y'(x) + q(x)y(x) = 0\]
+                    e \(p_0 = \lim_{x \to x_0}(x - x_0)p(x)\), \(q_0 = \lim_{x \to x_0}(x - x_0)^2 q(x)\), então a <strong>equação indicial</strong> associada à equação diferencial é a equação de segundo grau: \(r(r - 1) + p_0 r + q_0 = 0\).<br>
+                    Encontre as raízes da equação indicial nos seguintes casos:<br>
+                    (a) \(2x^2 y'' + 3xy' + (2x^2 - 1)y = 0\) no ponto singular regular \(x_0 = 0\).<br>
+                    (b) \((x - 1)y'' - 4y' + \dfrac{3 + 2x}{(x - 1)}y = 0\) no ponto singular regular \(x_0 = 1\).
+                </div>
+                <div class="excluded-note">Motivo de exclusão: Trata de ponto singular regular e cálculo da equação indicial do Método de Frobenius.</div>
+            </div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>❌</span> Questão 10 — Teorema de Frobenius (\(r_1 - r_2 \notin \mathbb{Z}\))</div>
+                <span class="badge-type badge-skip">❌ Fora de (~ P.O.) — Não cai na P3</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>10.</strong> Considere a e.d.o, \(4xy'' + 2y' + y = 0\). Verifique que \(x_0 = 0\) é um ponto singular regular da equação.<br>
+                    (a) Mostre que \(r_1 = 0\) e \(r_2 = 1/2\) são as raízes da equação indicial associada à equação.<br>
+                    (b) Devido a que \(r_1 - r_2 = -1/2 \notin \mathbb{Z}\), o <strong>teorema de Frobenius</strong> garante que a equação possui duas soluções L.I. da forma:
+                    \[y_1(x) = \sum_{n=0}^\infty a_n x^{n+r_1}, \qquad y_2(x) = \sum_{n=0}^\infty b_n x^{n+r_2}\]
+                    Mostre que a relação de recorrência para os termos das séries (em cada caso) é:
+                    \[a_n = \frac{-a_{n-1}}{2n(2n - 1)}, \qquad b_n = \frac{-b_{n-1}}{2n(2n + 1)}; \quad \text{para } n = 1, 2, 3, \dots\]
+                    (c) Mostre que \(y_1(x) = \sum_{n=0}^\infty \dfrac{(-1)^n}{(2n)!}x^n\), e \(y_2(x) = \sum_{n=0}^\infty \dfrac{(-1)^n}{(2n + 1)!}x^{(2n+1)/2}\). Portanto a solução geral é:
+                    \[y(x) = c_1 \sum_{n=0}^\infty \frac{(-1)^n}{(2n)!}x^n + c_2 \sum_{n=0}^\infty \frac{(-1)^n}{(2n + 1)!}x^{(2n+1)/2}.\]
+                    Ou equivalentemente \(y(x) = c_1 \cos(\sqrt{x}) + c_2 \sin(\sqrt{x})\).
+                </div>
+                <div class="excluded-note">Motivo de exclusão: Trata de ponto singular regular, equação indicial e séries de Frobenius \(x^{n+r}\).</div>
+            </div>
+        </div>
+
+        <!-- Q11 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>❌</span> Questão 11 — Equação de Bessel de Ordem Zero (\(J_0\) e \(Y_0\))</div>
+                <span class="badge-type badge-skip">❌ Fora de (~ P.O.) — Não cai na P3</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>11.</strong> Determine as duas soluções linearmente independentes da equação de Bessel de ordem zero \(x^2 y'' + xy' + x^2 y = 0\), à direita de \(x_0 = 0\). Para isto:<br>
+                    (a) Determine a equação indicial. [Observe que possui duas raízes nulas repetidas].<br>
+                    (b) Suponha \(y_1(x) = \sum_{n=0}^\infty a_n x^n,\; x \gt 0\), mostre que \(a_1 = 0\) e que obtém-se a relação de recorrência \(a_n = \dfrac{1}{n^2}a_{n-2},\; \forall n \ge 2\).<br>
+                    (c) Use a relação de recorrência do item (b) para mostrar que \(a_{2k} = \dfrac{(-1)^k}{2^{2k}(k!)^2}a_0\) e \(a_{2k+1} = 0,\;\forall k\). Logo uma solução da equação de Bessel é
+                    \[J_0(x) = y_1(x) = 1 + \sum_{n=1}^\infty \frac{(-1)^n}{(n!)^2}\left(\frac{x}{2}\right)^{2n}.\]
+                    Esta função \(J_0(x)\) é chamada <strong>função de Bessel de primeira espécie de ordem zero</strong>.<br>
+                    (d) Para obter a segunda solução propor: \(y_2(x) = y_1(x)\ln(x) + \sum_{n=1}^\infty b_n x^n\). Substituir na equação para obter:
+                    \[b_1 + 4b_2 x + \sum_{n=3}^\infty [n^2 b_n + b_{n-2}]x^{n-1} = \sum_{n=1}^\infty (-1)^{n+1}\frac{4n}{2^{2n}(n!)^2}x^{2n-1}.\]
+                    (e) Mostre que \(b_{2n} = (-1)^{n+1}\dfrac{1}{2^{2n}(n!)^2}\left(1 + \dfrac{1}{2} + \dots + \dfrac{1}{n}\right)\), e que \(b_{2n+1} = 0\).<br>
+                    (f) Finalmente pode-se escrever a segunda solução, chamada de função de Bessel de segunda espécie de ordem zero:
+                    \[Y_0(x) = y_2(x) = J_0(x)\ln(x) + \sum_{n=1}^\infty (-1)^{n+1}\frac{1}{(n!)^2}\left(1 + \frac{1}{2} + \dots + \frac{1}{n}\right)\left(\frac{x}{2}\right)^{2n}.\]
+                </div>
+                <div class="excluded-note">Motivo de exclusão: Trata de ponto singular regular com raízes indiciais repetidas (\(r_1 = r_2 = 0\)), Método de Frobenius com termo \(\ln(x)\) e Funções de Bessel \(J_0, Y_0\).</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
