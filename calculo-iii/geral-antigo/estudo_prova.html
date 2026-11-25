@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Estudos Premium - Cálculo III (Provas)</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- MathJax -->
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --primary-light: #e0e7ff;
+            --accent: #06b6d4;
+            --accent-light: #ecfeff;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --sidebar-bg: #ffffff;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.04), 0 4px 6px -4px rgb(0 0 0 / 0.04);
+            
+            --tag-metodo-bg: #eff6ff; --tag-metodo-border: #bfdbfe; --tag-metodo-text: #1d4ed8;
+            --tag-dica-bg: #ecfdf5; --tag-dica-border: #a7f3d0; --tag-dica-text: #047857;
+            --tag-cuidado-bg: #fff1f2; --tag-cuidado-border: #fecdd3; --tag-cuidado-text: #be123c;
+            --tag-tabela-bg: #fdf4ff; --tag-tabela-border: #f5d0fe; --tag-tabela-text: #a21caf;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --text-color: #e2e8f0;
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --primary-light: #1e1b4b;
+            --accent: #22d3ee;
+            --accent-light: #083344;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --sidebar-bg: #1e293b;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.2), 0 2px 4px -2px rgb(0 0 0 / 0.2);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.15), 0 4px 6px -4px rgb(0 0 0 / 0.15);
+            
+            --tag-metodo-bg: #1e293b; --tag-metodo-border: #2563eb; --tag-metodo-text: #60a5fa;
+            --tag-dica-bg: #064e3b; --tag-dica-border: #059669; --tag-dica-text: #34d399;
+            --tag-cuidado-bg: #4c0519; --tag-cuidado-border: #e11d48; --tag-cuidado-text: #fb7185;
+            --tag-tabela-bg: #4a044e; --tag-tabela-border: #d946ef; --tag-tabela-text: #f0abfc;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; transition: background-color 0.3s ease, border-color 0.3s ease; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; display: flex; }
+        .sidebar { width: 280px; height: 100vh; background-color: var(--sidebar-bg); border-right: 1px solid var(--border-color); position: fixed; top: 0; left: 0; padding: 2rem 1.5rem; display: flex; flex-direction: column; justify-content: space-between; overflow-y: auto; z-index: 100; }
+        .sidebar-brand h1 { font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
+        .sidebar-brand p { font-size: 0.85rem; color: #64748b; margin-bottom: 2rem; }
+        .nav-links { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+        .nav-links a { display: flex; align-items: center; padding: 0.75rem 1rem; color: var(--text-color); text-decoration: none; border-radius: 0.5rem; font-size: 0.95rem; font-weight: 500; transition: all 0.2s ease; }
+        .nav-links a:hover, .nav-links a.active { background-color: var(--primary-light); color: var(--primary); }
+        .theme-toggle-btn { background-color: var(--primary); color: white; border: none; padding: 0.75rem 1rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; margin-top: auto; transition: background-color 0.2s ease; }
+        .theme-toggle-btn:hover { background-color: var(--primary-hover); }
+        .content-area { margin-left: 280px; padding: 3rem 4rem; width: calc(100% - 280px); max-width: 1200px; }
+        section { margin-bottom: 5rem; scroll-margin-top: 2rem; }
+        h2.section-title { font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 700; color: var(--primary); margin-bottom: 1.5rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; }
+        .section-intro { font-size: 1.1rem; color: #64748b; margin-bottom: 2rem; }
+        .exercise-card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 1rem; padding: 2rem; margin-bottom: 3rem; box-shadow: var(--shadow); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .exercise-card:hover { box-shadow: var(--shadow-lg); }
+        .exercise-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+        .exercise-tag { background-color: var(--primary-light); color: var(--primary); font-weight: 600; font-size: 0.85rem; padding: 0.35rem 0.75rem; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .exercise-title { font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 600; color: var(--text-color); }
+        .exercise-statement { background-color: var(--bg-color); border-left: 4px solid var(--primary); padding: 1rem 1.5rem; border-radius: 0 0.5rem 0.5rem 0; margin-bottom: 1.5rem; font-style: italic; }
+        .info-box { border-radius: 0.75rem; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; border: 1px solid; }
+        .info-box h4 { font-family: 'Outfit', sans-serif; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .info-box.metodo { background-color: var(--tag-metodo-bg); border-color: var(--tag-metodo-border); color: var(--tag-metodo-text); }
+        .info-box.dica { background-color: var(--tag-dica-bg); border-color: var(--tag-dica-border); color: var(--tag-dica-text); }
+        .info-box.cuidado { background-color: var(--tag-cuidado-bg); border-color: var(--tag-cuidado-border); color: var(--tag-cuidado-text); }
+        .info-box.tabela { background-color: var(--tag-tabela-bg); border-color: var(--tag-tabela-border); color: var(--tag-tabela-text); }
+        .solution-section { margin-top: 2rem; }
+        .solution-title { font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.25rem; }
+        .step { margin-bottom: 1.5rem; position: relative; padding-left: 2rem; }
+        .step::before { content: ''; position: absolute; left: 7px; top: 28px; bottom: -20px; width: 2px; background-color: var(--border-color); }
+        .step:last-child::before { display: none; }
+        .step-badge { position: absolute; left: 0; top: 0; width: 16px; height: 16px; border-radius: 50%; background-color: var(--primary); border: 3px solid var(--card-bg); box-shadow: 0 0 0 2px var(--primary); }
+        .step-title { font-weight: 600; font-size: 1rem; margin-bottom: 0.5rem; color: var(--text-color); }
+        .step-content { font-size: 0.95rem; }
+        .step-content p { margin-bottom: 0.5rem; }
+        .styled-table { width: 100%; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; font-family: 'Inter', sans-serif; box-shadow: var(--shadow); border-radius: 0.5rem; overflow: hidden; }
+        .styled-table thead tr { background-color: var(--primary); color: #ffffff; text-align: left; }
+        .styled-table th, .styled-table td { padding: 12px 15px; border-bottom: 1px solid var(--border-color); }
+        .styled-table tbody tr:nth-of-type(even) { background-color: var(--bg-color); }
+        .styled-table tbody tr:last-of-type { border-bottom: 2px solid var(--primary); }
+
+        .menu-open-btn { position: fixed; top: 1rem; left: 1rem; z-index: 90; background-color: var(--primary); color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer; font-weight: 600; box-shadow: var(--shadow); display: none; }
+        
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); transition: transform 0.3s ease; }
+            .sidebar.open { transform: translateX(0); }
+            .content-area { margin-left: 0; width: 100%; padding: 2rem 1.5rem; }
+            .menu-open-btn { display: block; }
+        }
+    </style>
+</head>
+<body>
+    <button class="menu-open-btn" onclick="toggleSidebar()">☰ Menu</button>
+    <div class="sidebar" id="sidebar">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div class="sidebar-brand">
+                <h1>Cálculo III</h1>
+                <p>Guia de Estudos (Provas)</p>
+            </div>
+            <button onclick="toggleSidebar()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-color);" title="Esconder Menu" class="menu-close-btn">×</button>
+        </div>
+        
+        <ul class="nav-links">
+            <li><a href="#intro" class="active">Introdução</a></li>
+            <li><a href="#tabelas">Tabelas Notáveis</a></li>
+            <li><a href="#prova1">Prova 1 (P1)</a></li>
+            <li><a href="#prova2">Prova 2 (P2)</a></li>
+            <li><a href="#prova3">Prova 3 (P3)</a></li>
+        </ul>
+        
+        <button class="theme-toggle-btn" onclick="toggleSolutions()" style="margin-bottom: 0.5rem; background-color: var(--accent); color: #fff;">
+            <span id="solution-btn-text">Esconder Resoluções</span>
+        </button>
+        <button class="theme-toggle-btn" onclick="toggleTheme()">
+            <span id="theme-btn-text">Modo Escuro</span>
+        </button>
+    </div>
+
+    <div class="content-area">
+        <section id="intro">
+            <h2 class="section-title">Guia de Estudos Premium - Resoluções P1, P2 e P3</h2>
+            <div class="section-intro">
+                <p>Este material agrupa todas as resoluções detalhadas passo a passo das provas <strong>P1, P2 e P3 de Cálculo III (CM043)</strong> aplicadas pelo Prof. Cleber.</p>
+                <div class="info-box dica">
+                    <h4>Navegação Otimizada</h4>
+                    <p>Utilize o menu lateral para saltar diretamente para os tópicos de cada prova. Você pode recolher as soluções caso queira tentar resolver os exercícios sozinho primeiro.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tabelas">
+            <h2 class="section-title">Tabelas Notáveis</h2>
+            <div class="section-intro">
+                Agrupamento das principais fórmulas e relações utilizadas nas resoluções.
+            </div>
+            
+            <div class="exercise-card">
+                <div class="exercise-title">1. Tabela de Transformadas de Laplace Elementares</div>
+                <table class="styled-table">
+                    <thead><tr><th>$f(t)$</th><th>$\mathcal{L}\{f(t)\} = F(s)$</th><th>Condição</th></tr></thead>
+                    <tbody>
+                        <tr><td>$K$ (constante)</td><td>$\frac{K}{s}$</td><td>$s > 0$</td></tr>
+                        <tr><td>$t^n$ (n int. positivo)</td><td>$\frac{n!}{s^{n+1}}$</td><td>$s > 0$</td></tr>
+                        <tr><td>$e^{at}$</td><td>$\frac{1}{s-a}$</td><td>$s > a$</td></tr>
+                        <tr><td>$\cos(\mu t)$</td><td>$\frac{s}{s^2+\mu^2}$</td><td>$s > 0$</td></tr>
+                        <tr><td>$\sin(\mu t)$</td><td>$\frac{\mu}{s^2+\mu^2}$</td><td>$s > 0$</td></tr>
+                        <tr><td>$e^{ct} f(t)$</td><td>$F(s-c)$</td><td>-</td></tr>
+                        <tr><td>$u_c(t)$ (Degrau)</td><td>$\frac{e^{-cs}}{s}$</td><td>$s > 0$</td></tr>
+                        <tr><td>$u_c(t)f(t-c)$</td><td>$e^{-cs}F(s)$</td><td>-</td></tr>
+                        <tr><td>$t^n f(t)$</td><td>$(-1)^n \frac{d^n}{ds^n} F(s)$</td><td>-</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-title">2. Fórmulas Úteis para EDOs</div>
+                <table class="styled-table">
+                    <thead><tr><th>Método / Conceito</th><th>Fórmula</th></tr></thead>
+                    <tbody>
+                        <tr><td>Fator Integrante ($\mu$)</td><td>Se EDO linear: $\mu(x) = e^{\int P(x) dx}$<br>Se EDO para ser exata em $x$: $\frac{d\mu}{dx} = \left(\frac{P_y - Q_x}{Q}\right) \mu$<br>Em $y$: $\frac{d\mu}{dy} = \left(\frac{Q_x - P_y}{P}\right) \mu$</td></tr>
+                        <tr><td>Variação dos Parâmetros</td><td>$y_p = -y_1 \int \frac{y_2 g}{W(y_1, y_2)} dx + y_2 \int \frac{y_1 g}{W(y_1, y_2)} dx$</td></tr>
+                        <tr><td>Redução de Ordem</td><td>$y_2 = y_1 \int \frac{e^{-\int P dx}}{y_1^2} dx$</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="exercise-card">
+                <div class="exercise-title">3. Tabela de Séries de Maclaurin (Taylor em x = 0)</div>
+                <table class="styled-table">
+                    <thead><tr><th>Função $f(x)$</th><th>Série de Maclaurin $\sum c_n x^n$</th><th>Raio/Intervalo</th></tr></thead>
+                    <tbody>
+                        <tr><td>$\frac{1}{1-x}$</td><td>$\sum_{n=0}^{\infty} x^n$</td><td>$(-1, 1)$</td></tr>
+                        <tr><td>$e^x$</td><td>$\sum_{n=0}^{\infty} \frac{x^n}{n!}$</td><td>$(-\infty, \infty)$</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="prova1">
+            <h2 class="section-title">Prova 1 (P1): Equações Diferenciais Ordinárias (EDOs)</h2>
+            
+            <!-- P1 Q1 -->
+            <div class="exercise-card">
+                <div class="exercise-header"><span class="exercise-tag">Prova 1, Ex 1(a)</span><span class="exercise-title">EDO Linear de 1ª Ordem</span></div>
+                <div class="exercise-statement">Encontre a solução geral de: $xy' - 2y = x^2 \ln x$, com $x > 0$.</div>
+                <div class="info-box metodo">
+                    <h4>Introdução Teórica: Fator Integrante (EDO Linear)</h4>
+                    <p><strong>Conceito:</strong> Uma EDO linear de 1ª ordem pode ser escrita na forma $y' + P(x)y = Q(x)$. O objetivo do método do fator integrante é multiplicar a equação inteira por uma função $\mu(x)$, de modo que o lado esquerdo se transforme perfeitamente na derivada de um produto: $(\mu y)'$.</p>
+                    <p><strong>Objetivo:</strong> Descobrir $\mu(x) = e^{\int P(x) dx}$ e, em seguida, integrar ambos os lados para isolar a função incógnita $y(x)$.</p>
+                </div>
+                
+                <div class="solution-section">
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 1: Colocar na Forma Padrão</div><div class="step-content">Dividimos toda a equação por $x$ para deixar o coeficiente de $y'$ igual a 1:<br>$y' - \frac{2}{x}y = x \ln x$. (*)</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 2: Identificar P(x) e Calcular o Fator Integrante</div><div class="step-content">Aqui, $P(x) = -\frac{2}{x}$. A integral é $\int -\frac{2}{x} dx = -2 \ln x$.<br>O fator integrante será $\mu = e^{\int P(x) dx} = e^{-2 \ln x}$.<br>Utilizando as propriedades de logaritmo, $e^{\ln(x^{-2})} = x^{-2} = \frac{1}{x^2}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 3: Multiplicar a EDO pelo Fator Integrante</div><div class="step-content">Multiplicando a eq. (*) por $1/x^2$:<br>$\frac{1}{x^2}y' - \frac{2}{x^3}y = \frac{\ln x}{x}$.<br>Observe que o lado esquerdo é exatamente a regra do produto aplicada a $\left(\frac{1}{x^2} y\right)$. Portanto, a EDO se torna: $\left( \frac{1}{x^2} y \right)' = \frac{\ln x}{x}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 4: Preparar a Integração</div><div class="step-content">Agora, integramos ambos os lados em relação a $x$:<br>$\frac{1}{x^2} y = \int \frac{\ln x}{x} dx$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 5: Resolver a Integral por Substituição</div><div class="step-content">Para a integral do lado direito, aplicamos a substituição $u = \ln x$. Logo, a diferencial é $du = \frac{1}{x} dx$.<br>A integral se transforma em $\int u du$, cuja solução é $\frac{u^2}{2} + C$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 6: Retornar à Variável Original</div><div class="step-content">Desfazendo a substituição de $u$, temos: $\frac{1}{x^2} y = \frac{1}{2}\ln^2 x + C$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 7: Isolar a Solução Geral</div><div class="step-content">Por fim, isolamos $y(x)$ multiplicando toda a equação por $x^2$:<br>$y = \frac{1}{2}x^2 \ln^2 x + Cx^2$.</div></div>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header"><span class="exercise-tag">Prova 1, Ex 1(b)</span><span class="exercise-title">EDO Exata (Redutível)</span></div>
+                <div class="exercise-statement">Resolva: $3e^{-y} + 4xy^2 + (2x^2y - xe^{-y})y' = 0$</div>
+                <div class="info-box metodo">
+                    <h4>Introdução Teórica: EDOs Exatas e Fator Integrante Especial</h4>
+                    <p><strong>Conceito:</strong> Uma EDO na forma $P(x,y) + Q(x,y)y' = 0$ é exata se houver uma função potencial $\phi(x,y)$ tal que $\frac{\partial \phi}{\partial x} = P$ e $\frac{\partial \phi}{\partial y} = Q$. O critério de Euler exige que $P_y = Q_x$.</p>
+                    <p><strong>Objetivo:</strong> Se $P_y \neq Q_x$, verificamos se existe um fator integrante $\mu(x)$ (que dependa apenas de $x$). Se a expressão $\frac{P_y - Q_x}{Q}$ resultar apenas em $x$, então $\mu(x) = e^{\int \frac{P_y - Q_x}{Q} dx}$ tornará a EDO exata, permitindo a integração para achar a solução implícita $\phi(x,y) = C$.</p>
+                </div>
+                
+                <div class="solution-section">
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 1: Identificar P e Q e testar Exatidão</div><div class="step-content">$P(x,y) = 3e^{-y} + 4xy^2 \implies P_y = -3e^{-y} + 8xy$<br>$Q(x,y) = 2x^2y - xe^{-y} \implies Q_x = 4xy - e^{-y}$<br>Como $P_y \neq Q_x$, a EDO não é exata originalmente.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 2: Construir a Relação do Fator Integrante</div><div class="step-content">Testamos se o fator integrante depende apenas de $x$ calculando $\frac{P_y - Q_x}{Q}$:<br>$\frac{-3e^{-y} + 8xy - (4xy - e^{-y})}{2x^2y - xe^{-y}} = \frac{4xy - 2e^{-y}}{x(2xy - e^{-y})}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 3: Simplificar para achar a EDO de $\mu$</div><div class="step-content">Fatorando um 2 no numerador: $\frac{2(2xy - e^{-y})}{x(2xy - e^{-y})} = \frac{2}{x}$. Como só depende de $x$, podemos encontrar $\mu(x)$.<br>A EDO para o fator integrante fica: $\frac{d\mu}{dx} = \frac{2}{x}\mu$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 4: Integrar para achar $\mu(x)$</div><div class="step-content">Separando as variáveis: $\frac{d\mu}{\mu} = \frac{2}{x}dx \implies \ln \mu = 2\ln x = \ln x^2$.<br>Portanto, $\mu(x) = x^2$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 5: Tornar a EDO Original Exata</div><div class="step-content">Multiplicamos a EDO original inteira por $\mu = x^2$:<br>$\underbrace{(3x^2e^{-y} + 4x^3y^2)}_{Novo P} + \underbrace{(2x^4y - x^3e^{-y})}_{Novo Q} y' = 0$.<br>Testando novamente: $P_y = -3x^2e^{-y} + 8x^3y$ e $Q_x = 8x^3y - 3x^2e^{-y}$. Agora eles são iguais, logo a EDO é exata.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 6: Integrar em relação a $x$ para achar $\phi$</div><div class="step-content">Como $\frac{\partial \phi}{\partial x} = P$, integramos $P$ em $x$:<br>$\phi(x,y) = \int (3x^2e^{-y} + 4x^3y^2) dx = x^3e^{-y} + x^4y^2 + g(y)$, onde $g(y)$ atua como a constante de integração.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 7: Derivar em relação a $y$ e concluir</div><div class="step-content">Derivamos a nossa $\phi(x,y)$ em $y$ para encontrar $g(y)$ igualando a $Q$:<br>$\phi_y = -x^3e^{-y} + 2x^4y + g'(y) = 2x^4y - x^3e^{-y}$.<br>Isso implica que $g'(y) = 0 \implies g$ é uma constante numérica.<br>Assim, a solução geral implícita é: $x^3e^{-y} + x^4y^2 = C$.</div></div>
+                </div>
+            </div>
+
+            <!-- P1 Q2 -->
+            <div class="exercise-card">
+                <div class="exercise-header"><span class="exercise-tag">Prova 1, Ex 2</span><span class="exercise-title">EDO de 2ª Ordem - Coeficientes Constantes</span></div>
+                <div class="exercise-statement">Considere: $y'' + 2\alpha y' + \alpha^2 y = 4e^x$<br>(a) Solução geral para $\alpha \neq -1$.<br>(b) Solução do PVI com $\alpha = -1, y(0)=2, y'(0)=-3$.</div>
+                <div class="info-box metodo">
+                    <h4>Introdução Teórica: EDOs de 2ª Ordem Não Homogêneas</h4>
+                    <p><strong>Conceito:</strong> A solução completa de uma EDO não homogênea é dada pela soma da Solução Homogênea ($y_h$, obtida igualando a equação a zero) e a Solução Particular ($y_p$, um chute embasado na função fonte). O polinômio característico determina as raízes da parte homogênea.</p>
+                    <p><strong>Objetivo:</strong> Encontrar as raízes de $r^2 + 2\alpha r + \alpha^2 = 0$. Após achar $y_h$, usamos o método dos coeficientes a determinar (chutando a forma de $y_p$) garantindo que o chute não se confunda com raízes de $y_h$. E no item (b), aplica-se os valores iniciais (Problema de Valor Inicial).</p>
+                </div>
+
+                <div class="solution-section">
+                    <h3 class="solution-title">Item (a): Solução Geral</h3>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 1: Construir a Equação Característica</div><div class="step-content">Para a parte homogênea $y'' + 2\alpha y' + \alpha^2 y = 0$, a equação característica em $r$ é $r^2 + 2\alpha r + \alpha^2 = 0$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 2: Resolver a Homogênea (Raiz Dupla)</div><div class="step-content">Temos um trinômio quadrado perfeito: $(r + \alpha)^2 = 0$. Logo, a raiz é dupla: $r_1 = r_2 = -\alpha$.<br>Assim, a solução homogênea ganha um termo multiplicado por $x$ para preservar a independência linear: $y_h(x) = C_1 e^{-\alpha x} + C_2 x e^{-\alpha x}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 3: Propor a Solução Particular $y_p$</div><div class="step-content">A função fonte é $g(x) = 4e^x$. Tentamos um chute $y_p = A e^x$. Como foi dado $\alpha \neq -1$, a raiz do chute ($+1$) não colide com as raízes da homogênea ($-\alpha$). Assim, o chute é válido.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 4: Derivar e Substituir o Chute na EDO</div><div class="step-content">Calculamos as derivadas: $y_p' = A e^x$ e $y_p'' = A e^x$.<br>Substituindo na EDO não homogênea: $A e^x + 2\alpha A e^x + \alpha^2 A e^x = 4e^x$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 5: Encontrar a Constante $A$</div><div class="step-content">Agrupando $A e^x$: $A e^x(1 + 2\alpha + \alpha^2) = 4e^x$. Dividindo por $e^x$:<br>$A(\alpha+1)^2 = 4 \implies A = \frac{4}{(\alpha+1)^2}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 6: Solução Geral Completa</div><div class="step-content">Somamos as partes: $y(x) = y_h(x) + y_p(x) = C_1 e^{-\alpha x} + C_2 x e^{-\alpha x} + \frac{4}{(\alpha+1)^2} e^x$.</div></div>
+                </div>
+
+                <div class="solution-section">
+                    <h3 class="solution-title">Item (b): PVI com $\alpha = -1$</h3>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 1: Atualizar a Solução Homogênea</div><div class="step-content">Substituindo $\alpha = -1$: a EDO fica $y'' - 2y' + y = 4e^x$.<br>A raiz dupla agora é $r = 1$. Portanto, $y_h = C_1 e^x + C_2 x e^x$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 2: Formular novo Chute para a Particular</div><div class="step-content">Como a raiz da fonte ($+1$) coincide com as DUAS raízes homogêneas, devemos multiplicar o chute por $x^2$.<br>Tentativa correta: $y_p = A x^2 e^x$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 3: Derivar o novo $y_p$</div><div class="step-content">Usando a regra do produto: $y_p' = A(2x e^x + x^2 e^x)$.<br>$y_p'' = A(2 e^x + 2x e^x + 2x e^x + x^2 e^x) = A(2 e^x + 4x e^x + x^2 e^x)$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 4: Substituir na EDO e Achar A</div><div class="step-content">Substituindo em $y'' - 2y' + y = 4e^x$:<br>$A(2+4x+x^2)e^x - 2A(2x+x^2)e^x + Ax^2e^x = 4e^x$.<br>Expandindo: $A(2 + 4x + x^2 - 4x - 2x^2 + x^2)e^x = 4e^x \implies 2A e^x = 4e^x \implies A=2$.<br>A solução geral passa a ser: $y(x) = C_1 e^x + C_2 x e^x + 2x^2 e^x$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 5: Aplicar as Condições Iniciais</div><div class="step-content">Aplicando $y(0) = 2$: $C_1 e^0 + 0 + 0 = 2 \implies C_1 = 2$.<br>Agora, precisamos derivar a solução geral: $y'(x) = C_1 e^x + C_2(e^x + x e^x) + 4x e^x + 2x^2 e^x$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 6: Solução Final do PVI</div><div class="step-content">Aplicando $y'(0) = -3$: $C_1(1) + C_2(1+0) + 0 + 0 = -3 \implies 2 + C_2 = -3 \implies C_2 = -5$.<br>A solução do PVI é: $y(x) = 2e^x - 5x e^x + 2x^2 e^x$.</div></div>
+                </div>
+            </div>
+
+            <!-- P1 Q3 -->
+            <div class="exercise-card">
+                <div class="exercise-header"><span class="exercise-tag">Prova 1, Ex 3</span><span class="exercise-title">Redução de Ordem e Variação dos Parâmetros</span></div>
+                <div class="exercise-statement">EDO: $t^2y'' - ty' + y = 3t^2, t > 0$<br>(a) Verifique $y_1(t)=t$ na homogênea e ache $y_2(t)$ por redução de ordem.<br>(b) Ache a solução particular e geral.</div>
+                <div class="info-box metodo">
+                    <h4>Introdução Teórica: Redução de Ordem e Variação de Parâmetros</h4>
+                    <p><strong>Conceito:</strong> A Redução de Ordem é usada quando conhecemos apenas uma solução ($y_1$) da EDO homogênea e queremos encontrar uma segunda ($y_2$) linearmente independente. Isso gera a base da homogênea completa. Já a Variação de Parâmetros é usada para achar a solução particular $y_p$, assumindo que as constantes $C_1, C_2$ viram funções dependentes de $t$.</p>
+                    <p><strong>Objetivo:</strong> Usar a fórmula de Liouville (redução) e depois calcular o determinante Wronskiano (variação de parâmetros) para integrar os termos de $y_p$, lembrando sempre de dividir toda a EDO para deixá-la na forma $y'' + \dots$.</p>
+                </div>
+                
+                <div class="solution-section">
+                    <h3 class="solution-title">Item (a): Redução de Ordem</h3>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 1: Verificação de $y_1$</div><div class="step-content">Sabendo que $y_1 = t$, derivamos: $y_1'=1$ e $y_1''=0$.<br>Substituindo na EDO homogênea $t^2y''-ty'+y=0$, temos: $t^2(0) - t(1) + t = 0$. Como a igualdade confere, $y_1$ é solução válida.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 2: Obter a Forma Padrão</div><div class="step-content">O método de redução requer o coeficiente de $y''$ igual a 1. Dividimos a EDO inteira por $t^2$:<br>$y'' - \frac{1}{t}y' + \frac{1}{t^2}y = 0$. Desse modo, $P(t) = -\frac{1}{t}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 3: Aplicar a Fórmula de Redução de Ordem</div><div class="step-content">A fórmula é: $y_2(t) = y_1 \int \frac{e^{-\int P(t) dt}}{y_1^2} dt$.<br>Calculando a integral interna do expoente: $\int P(t) dt = \int -\frac{1}{t} dt = -\ln t$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 4: Resolver o Fator Exponencial</div><div class="step-content">Substituímos o expoente: $e^{-(-\ln t)} = e^{\ln t} = t$.<br>A fórmula vira: $y_2(t) = t \int \frac{t}{t^2} dt$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 5: Integrar e Obter $y_2$</div><div class="step-content">Simplificando a fração, temos $t \int \frac{1}{t} dt = t \ln t$.<br>Logo, $y_2(t) = t \ln t$, e a solução homogênea final é: $y_h(t) = C_1 t + C_2 t \ln t$.</div></div>
+                </div>
+                
+                <div class="solution-section">
+                    <h3 class="solution-title">Item (b): Variação dos Parâmetros</h3>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 1: Construir o Wronskiano</div><div class="step-content">Com as soluções da base $y_1 = t$ e $y_2 = t \ln t$, montamos a matriz e derivamos:<br>$W = \det \begin{pmatrix} t & t \ln t \\ 1 & \ln t + 1 \end{pmatrix}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 2: Calcular o Wronskiano</div><div class="step-content">O determinante é $t(\ln t + 1) - (1)(t \ln t) = t \ln t + t - t \ln t = t$. Portanto, $W = t$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 3: Identificar $g(t)$ na Forma Padrão</div><div class="step-content">Na forma padrão da EDO, isolando o $y''$ (dividindo por $t^2$), a fonte do lado direito será: $\frac{3t^2}{t^2} = 3$.<br>Logo, $g(t) = 3$. Este passo é uma armadilha comum!</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 4: Montar as Integrais do Método</div><div class="step-content">A fórmula de $y_p$ é: $y_p = -y_1 \int \frac{y_2 g}{W} dt + y_2 \int \frac{y_1 g}{W} dt$.<br>Substituindo as peças: $y_p = -t \int \frac{(t \ln t)(3)}{t} dt + t \ln t \int \frac{(t)(3)}{t} dt$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 5: Simplificar e Executar Integrais</div><div class="step-content">Cancelando os $t$: $y_p = -3t \int \ln t \, dt + 3t \ln t \int 1 \, dt$.<br>Sabemos por partes que $\int \ln t \, dt = t \ln t - t$, e a segunda é apenas $t$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 6: Consolidar a Solução Particular e Geral</div><div class="step-content">Aplicando as integrais: $y_p = -3t(t \ln t - t) + 3t \ln t (t) = -3t^2 \ln t + 3t^2 + 3t^2 \ln t = 3t^2$.<br>A solução geral completa ($y = y_h + y_p$) é: $y(t) = C_1 t + C_2 t \ln t + 3t^2$.</div></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="prova2">
+            <h2 class="section-title">Prova 2 (P2): Transformada de Laplace</h2>
+            
+            <div class="exercise-card">
+                <div class="exercise-header"><span class="exercise-tag">Prova 2, Ex 1</span><span class="exercise-title">Transformadas Direta e Inversa</span></div>
+                <div class="info-box metodo">
+                    <h4>Introdução Teórica: Laplace e Propriedades Operacionais</h4>
+                    <p><strong>Conceito:</strong> A Transformada de Laplace converte equações diferenciais no domínio do tempo para equações algébricas no domínio da frequência $s$. Ela possui propriedades como o Primeiro Teorema do Deslocamento (translação em $s$) e a derivada da transformada (quando multiplicamos por $t$).</p>
+                    <p><strong>Objetivo:</strong> Usar tabelas prontas para resolver cada pedaço separadamente. Para inversões, a técnica crucial é o completamento de quadrados no denominador para se adequar ao formato de Senos ou Cossenos transladados.</p>
+                </div>
+
+                <div class="solution-section">
+                    <h3 class="solution-title">Item (a): Direta $f(t) = e^{-2t} \cos(\pi t) + t \sin(t)$</h3>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 1: Transformar a 1ª Parte (Cosseno)</div><div class="step-content">Pela tabela, a transformada básica de $\cos(\pi t)$ é $\frac{s}{s^2 + \pi^2}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 2: Aplicar o Teorema da Translação</div><div class="step-content">O termo $e^{-2t}$ que multiplica o cosseno indica um deslocamento no domínio $s$. Para $e^{at}$, trocamos $s$ por $s-a$. Como $a=-2$, trocamos $s$ por $s+2$.<br>Obtemos: $\mathcal{L}\{e^{-2t} \cos(\pi t)\} = \frac{s+2}{(s+2)^2 + \pi^2}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 3: Transformar a 2ª Parte (Multiplicação por $t$)</div><div class="step-content">A propriedade de multiplicar por $t$ nos diz que $\mathcal{L}\{t f(t)\} = -F'(s)$.<br>Pegamos a transformada básica de $\sin(t)$, que é $\frac{1}{s^2+1}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 4: Realizar a Derivada</div><div class="step-content">Derivamos $\frac{1}{s^2+1}$ em relação a $s$: $-\frac{d}{ds}\left((s^2+1)^{-1}\right) = -(-1)(s^2+1)^{-2}(2s) = \frac{2s}{(s^2+1)^2}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 5: Conclusão</div><div class="step-content">Somamos as partes. A Transformada completa é: $F(s) = \frac{s+2}{(s+2)^2 + \pi^2} + \frac{2s}{(s^2+1)^2}$, definida para $s > 0$.</div></div>
+                </div>
+
+                <div class="solution-section">
+                    <h3 class="solution-title">Item (b): Inversa $F(s) = \frac{s}{(s-1)^2 + 4}$</h3>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 1: Identificar Padrão do Denominador</div><div class="step-content">O denominador $(s-1)^2 + 4$ já está como quadrado completo. Ele sugere uma função de seno ou cosseno envolvendo frequência angular $\omega=2$ (pois $2^2=4$) e uma translação temporal que aponta para um multiplicador $e^{1t}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 2: Ajuste Algébrico no Numerador</div><div class="step-content">Para usar as fórmulas de $\cos$ transladado, o numerador também precisa ter o termo exato $(s-1)$. Temos apenas $s$.<br>Subtraímos e somamos 1: $\frac{s}{(s-1)^2+4} = \frac{s-1+1}{(s-1)^2+4}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 3: Separação em Frações</div><div class="step-content">Quebramos em duas frações: $\frac{s-1}{(s-1)^2+4} + \frac{1}{(s-1)^2+4}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 4: Mapear a 1ª Fração para a Tabela</div><div class="step-content">A primeira fração $\frac{s-1}{(s-1)^2+4}$ bate perfeitamente com a inversa de $e^t \cos(2t)$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 5: Mapear a 2ª Fração (Multiplicador do Seno)</div><div class="step-content">A segunda fração precisa ter um "2" no numerador para ser um seno (onde $\omega=2$).<br>Multiplicamos em cima e dividimos embaixo: $\frac{1}{2}\left[\frac{2}{(s-1)^2+4}\right]$. Isso resulta em $\frac{1}{2} e^t \sin(2t)$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 6: Conclusão</div><div class="step-content">Juntando os fragmentos, a Transformada Inversa é: $\mathcal{L}^{-1}\{F(s)\} = e^t \cos(2t) + \frac{1}{2} e^t \sin(2t)$.</div></div>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header"><span class="exercise-tag">Prova 2, Ex 2</span><span class="exercise-title">EDO por Laplace (PVI Simples)</span></div>
+                <div class="exercise-statement">$y'' + y = t, \quad y(0)=0, y'(0)=0$.</div>
+                <div class="info-box metodo">
+                    <h4>Introdução Teórica: Resolvendo EDO via Laplace</h4>
+                    <p><strong>Conceito:</strong> Ao aplicar Laplace, transformamos as derivadas $y''$ em polinômios algébricos $s^2 Y(s)$. Isso transforma o cálculo diferencial num problema de fatoração de polinômios.</p>
+                    <p><strong>Objetivo:</strong> Expandir, embutir as condições iniciais e isolar a função incógnita $Y(s)$ no espaço das frequências. O último passo é usar Frações Parciais para retornar tudo ao domínio do tempo ($t$).</p>
+                </div>
+                <div class="solution-section">
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 1: Aplicação de Laplace em ambos os lados</div><div class="step-content">Tirando $\mathcal{L}$ da EDO: $\mathcal{L}\{y''\} + \mathcal{L}\{y\} = \mathcal{L}\{t\}$.<br>Expandimos a derivada segunda: $[s^2 Y(s) - sy(0) - y'(0)] + Y(s) = \frac{1}{s^2}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 2: Inserir as Condições Iniciais</div><div class="step-content">Substituímos $y(0)=0$ e $y'(0)=0$. Os termos negativos desaparecem:<br>$s^2 Y(s) + Y(s) = \frac{1}{s^2}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 3: Fatorar a Incógnita $Y(s)$</div><div class="step-content">Colocando $Y(s)$ em evidência: $Y(s)(s^2+1) = \frac{1}{s^2}$.<br>Isolando $Y(s)$, chegamos a: $Y(s) = \frac{1}{s^2(s^2+1)}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 4: Aplicar Frações Parciais Diretas</div><div class="step-content">Podemos desmembrar essa fração através de um truque algébrico simples: o numerador $1$ pode ser visto como $(s^2+1) - s^2$.<br>Separando: $\frac{s^2+1 - s^2}{s^2(s^2+1)} = \frac{s^2+1}{s^2(s^2+1)} - \frac{s^2}{s^2(s^2+1)} = \frac{1}{s^2} - \frac{1}{s^2+1}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 5: Inverter de volta para $t$</div><div class="step-content">Aplicando $\mathcal{L}^{-1}$ em cada parte da diferença:<br>A inversa de $\frac{1}{s^2}$ é $t$. A inversa de $\frac{1}{s^2+1}$ é $\sin t$.<br>Logo, $y(t) = t - \sin t$.</div></div>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header"><span class="exercise-tag">Prova 2, Ex 3</span><span class="exercise-title">EDO com Função Degrau (Heaviside)</span></div>
+                <div class="exercise-statement">$y'' + 9y = g(t)$, onde $g(t) = t$ ($0 \le t < 1$) e $1$ ($t \ge 1$), com $y(0)=1, y'(0)=0$.</div>
+                <div class="info-box metodo">
+                    <h4>Introdução Teórica: Funções por Partes e Heaviside</h4>
+                    <p><strong>Conceito:</strong> A função Degrau de Heaviside $u_c(t)$ vale $0$ antes de $t=c$ e $1$ após. Ela permite reescrever funções chaves que mudam de comportamento em tempos específicos, tornando viável a aplicação de Laplace em regimes transitórios.</p>
+                    <p><strong>Objetivo:</strong> Montar a função fonte por chaves $g(t)$ como uma soma de degraus para facilitar a transformada. Ao inverter, as frações de Laplace que tem $e^{-cs}$ nos indicam para ativar um degrau e defasar todo o tempo daquela fração por $(t-c)$.</p>
+                </div>
+                <div class="solution-section">
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 1: Expressar $g(t)$ em Degraus Unitários</div><div class="step-content">A função começa como $t$. No instante 1 ela perde o comportamento de $t$ e ganha comportamento de 1.<br>Podemos escrever como: $g(t) = t + [1 - t]u_1(t)$. Para usar na fórmula da translação, fatoramos: $g(t) = t - (t-1)u_1(t)$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 2: Transformada da Função Degrau Modificada</div><div class="step-content">Sabemos que $\mathcal{L}\{t\} = \frac{1}{s^2}$. E para o termo deslocado $(t-1)u_1(t)$, usamos o teorema: $\mathcal{L}\{f(t-c)u_c\} = e^{-cs}F(s)$.<br>$\mathcal{L}\{g(t)\} = \frac{1}{s^2} - e^{-s}\frac{1}{s^2} = \frac{1-e^{-s}}{s^2}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 3: Laplace na EDO Principal</div><div class="step-content">Aplicando $\mathcal{L}$ e considerando as CI's: $s^2 Y(s) - s(1) - 0 + 9Y(s) = \frac{1-e^{-s}}{s^2}$.<br>Isolando termos com $Y(s)$: $(s^2+9)Y(s) - s = \frac{1-e^{-s}}{s^2}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 4: Isolar e Desmembrar $Y(s)$</div><div class="step-content">$(s^2+9)Y(s) = s + \frac{1}{s^2} - \frac{e^{-s}}{s^2}$.<br>Dividindo tudo por $(s^2+9)$: $Y(s) = \frac{s}{s^2+9} + \frac{1}{s^2(s^2+9)} - \frac{e^{-s}}{s^2(s^2+9)}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 5: Frações Parciais Auxiliares</div><div class="step-content">Precisamos abrir $\frac{1}{s^2(s^2+9)}$. Similarmente ao Ex 2, a técnica de subtrair denominadores dá $\frac{1}{9}\left[\frac{1}{s^2} - \frac{1}{s^2+9}\right]$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 6: Retornar ao Domínio do Tempo (Sem Defasagem)</div><div class="step-content">A parte sem degraus é: $\frac{s}{s^2+9} + \frac{1}{9}\left[\frac{1}{s^2} - \frac{1}{s^2+9}\right]$. Para o último termo ajustamos $1 = \frac{1}{3}\cdot 3$.<br>Invertendo: $\cos(3t) + \frac{1}{9}t - \frac{1}{27}\sin(3t)$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 7: Tratar o Termo com Exponencial e Concluir</div><div class="step-content">O termo associado a $e^{-s}$ sofrerá a mesma transformação inversa, mas atrasada por um degrau $u_1(t)$ e defasada $(t-1)$ no tempo.<br>Assim, subtraímos do total: $- \frac{1}{9}u_1(t)\left[(t-1) - \frac{1}{3}\sin(3(t-1))\right]$.<br>Solução final: $y(t) = \cos(3t) + \frac{t}{9} - \frac{\sin(3t)}{27} - \frac{u_1(t)}{9}\left[(t-1) - \frac{\sin(3(t-1))}{3}\right]$.</div></div>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header"><span class="exercise-tag">Prova 2, Ex 4</span><span class="exercise-title">Demonstração: Mudança de Escala</span></div>
+                <div class="exercise-statement">Dado $\lambda > 0$, prove que $\mathcal{L}\{f(\lambda t)\} = \frac{1}{\lambda} F\left(\frac{s}{\lambda}\right)$.</div>
+                <div class="info-box metodo">
+                    <h4>Introdução Teórica: Propriedades Integro-diferenciais</h4>
+                    <p><strong>Conceito:</strong> A mudança de escala é uma prova que manipula a estrutura base de integração de Laplace, alterando os tempos relativos (estiramento ou compressão) da função $f(t)$.</p>
+                    <p><strong>Objetivo:</strong> Utilizar a definição integral com limites de $0$ a infinito, propondo uma simples mudança de variável de integração para visualizar a formação de uma nova transformada $F$.</p>
+                </div>
+                <div class="solution-section">
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 1: Evocar a Definição Formal</div><div class="step-content">Escrevemos a função na integral da Transformada: $\mathcal{L}\{f(\lambda t)\} = \int_0^\infty e^{-st} f(\lambda t) dt$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 2: Realizar Mudança de Variável</div><div class="step-content">Chamamos a variável interna de $\tau = \lambda t$. Assim, derivando obtemos a diferencial $d\tau = \lambda dt \implies dt = \frac{d\tau}{\lambda}$.<br>Em adição, sabemos que $t = \frac{\tau}{\lambda}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 3: Conferir Limites de Integração</div><div class="step-content">Os limites para $t \to 0$ implicam $\tau \to 0$. Para $t \to \infty$, como $\lambda > 0$, o limite de $\tau$ se mantém no $+\infty$. A ordem de integração não foi afetada.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 4: Substituir e Reorganizar</div><div class="step-content">Jogando tudo na integral: $= \int_0^\infty e^{-s(\tau/\lambda)} f(\tau) \frac{d\tau}{\lambda}$.<br>O fator $1/\lambda$ é constante em relação a $\tau$, podendo sair da integral.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 5: Concluir por Reconhecimento</div><div class="step-content"> $= \frac{1}{\lambda} \int_0^\infty e^{-(s/\lambda)\tau} f(\tau) d\tau$. O que temos ali é a exata definição de Laplace, porém, sendo calculada para uma "frequência" $s/\lambda$. Logo: $= \frac{1}{\lambda} F\left(\frac{s}{\lambda}\right)$.</div></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="prova3">
+            <h2 class="section-title">Prova 3 (P3): Séries de Potências</h2>
+            
+            <div class="exercise-card">
+                <div class="exercise-header"><span class="exercise-tag">Prova 3, Ex 2</span><span class="exercise-title">Série Geométrica</span></div>
+                <div class="exercise-statement">Verifique se $\sum_{k=1}^\infty (3/\pi)^k$ converge e ache a soma.</div>
+                <div class="info-box metodo">
+                    <h4>Introdução Teórica: Séries Geométricas e Convergência</h4>
+                    <p><strong>Conceito:</strong> Uma série do tipo $\sum r^n$ onde $r$ é a razão geométrica. Se $|r| < 1$, nós temos a garantia de que a soma de infinitos termos resultará num número finito convergente.</p>
+                    <p><strong>Objetivo:</strong> Utilizar o Teste da Raiz para garantir a convergência formalmente, e depois aplicar a fórmula do limite da soma parcial geométrica $S = \frac{a_0}{1-r}$, com atenção aos limites do somatório para não somar o que não existe!</p>
+                </div>
+                <div class="solution-section">
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 1: Teste da Raiz para Convergência</div><div class="step-content">O teste nos diz para avaliar o limite: $L = \lim_{n\to\infty} \sqrt[n]{|a_n|}$.<br>Temos $L = \lim_{n\to\infty} \sqrt[n]{(3/\pi)^n} = 3/\pi$. Como $\pi \approx 3.14$, temos que $3/\pi < 1$. Logo, a série é absolutamente convergente.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 2: Fórmula de Soma Infinita (Base Zero)</div><div class="step-content">É uma série geométrica cuja razão comum é $r = 3/\pi$.<br>A fórmula clássica assume a soma de $k=0$ ao $\infty$: $\sum_{k=0}^\infty r^k = \frac{1}{1 - r}$.<br>$\frac{1}{1 - 3/\pi} = \frac{1}{(\pi-3)/\pi} = \frac{\pi}{\pi-3}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 3: Ajuste de Índices Iniciais</div><div class="step-content">No entanto, a nossa série começa em $k=1$, perdendo o primeiro termo (quando $k=0$).<br>Podemos calcular apenas subtraindo o termo $k=0$: $\sum_{k=1}^\infty r^k = \sum_{k=0}^\infty r^k - r^0$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 4: Cálculo da Soma Final</div><div class="step-content">Sabemos que $r^0 = 1$.<br>Subtraímos 1 do total: $\frac{\pi}{\pi-3} - 1 = \frac{\pi - (\pi-3)}{\pi-3} = \frac{3}{\pi-3}$. Esse é o valor exato da soma.</div></div>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header"><span class="exercise-tag">Prova 3, Ex 3</span><span class="exercise-title">Intervalo de Convergência e Derivada</span></div>
+                <div class="exercise-statement">$f(x) = \sum_{n=1}^\infty \frac{1}{n}(3x-2)^n$. (a) Valores de convergência. (b) Derivada $f^{(2026)}(2/3)$.</div>
+                <div class="info-box metodo">
+                    <h4>Introdução Teórica: Séries de Potências</h4>
+                    <p><strong>Conceito:</strong> Trata-se de uma função descrita por infinitas variáveis $(x-x_0)^n$. O Teste da Razão nos fornece o raio interno, mas falha nas extremidades, que precisam de análise ponto a ponto. Já o valor da derivada num ponto pode ser pinçado por meio das correspondências de Série de Taylor, uma vez que elas são equivalentes.</p>
+                    <p><strong>Objetivo:</strong> Usar o limite para achar o Raio de Convergência, testar os dois finais do intervalo com testes de p-série alternada/harmônica. Para o item (b), casamos o polinômio generalizado de Taylor com os dados originais.</p>
+                </div>
+                <div class="solution-section">
+                    <h3 class="solution-title">Item (a): Raio e Intervalo</h3>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 1: Reescrever no Formato Padrão e Definir Centro</div><div class="step-content">Queremos a forma $a_n (x - x_0)^n$. O termo $(3x-2)^n$ pode ser fatorado evidenciando o 3: $[3(x - 2/3)]^n = 3^n (x - 2/3)^n$.<br>A série fica: $\sum \frac{3^n}{n} (x - 2/3)^n$. Logo, $a_n = \frac{3^n}{n}$ e o centro de convergência é $x_0 = 2/3$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 2: Raio via Teste da Razão Limite</div><div class="step-content">Aplicamos a inversa do teste para o raio: $R = \lim_{n \to \infty} \left|\frac{a_n}{a_{n+1}}\right|$.<br>$R = \lim \frac{3^n}{n} \cdot \frac{n+1}{3^{n+1}} = \lim \frac{1}{3}\frac{n+1}{n} = \frac{1}{3}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 3: Delimitar o Intervalo Aberto Preliminar</div><div class="step-content">Sabemos que converge no espaço $(x_0 - R, x_0 + R) \implies (2/3 - 1/3, 2/3 + 1/3) \implies (1/3, 1)$. O que resta avaliar são as duas quinas.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 4: Verificação da Extremidade Esquerda</div><div class="step-content">Avaliando na extremidade $x = 1/3$: Substituindo na série original $\sum \frac{1}{n}(3(1/3)-2)^n = \sum \frac{(-1)^n}{n}$.<br>Essa é a famosa Série Harmônica Alternada, que sabidamente converge (condicionalmente) pelo Teste de Leibniz. Portanto, inclui-se a borda 1/3.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 5: Verificação da Extremidade Direita e Conclusão</div><div class="step-content">Avaliando em $x = 1$: $\sum \frac{1}{n}(3(1)-2)^n = \sum \frac{1^n}{n} = \sum \frac{1}{n}$.<br>Essa é a Série Harmônica Pura (uma p-série com $p=1$), que sabidamente diverge. O ponto 1 não fará parte.<br>O intervalo final é semi-fechado: $[1/3, 1)$.</div></div>
+                </div>
+                <div class="solution-section">
+                    <h3 class="solution-title">Item (b): Derivada Pontual</h3>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 1: Correlacionar com Taylor</div><div class="step-content">A definição de Séries de Taylor afirma que a soma de potências é exatamente: $\sum_{n=0}^\infty \frac{f^{(n)}(x_0)}{n!} (x - x_0)^n$.<br>Comparando, concluímos que o termo que chamamos de $a_n$ possui a relação: $a_n = \frac{f^{(n)}(x_0)}{n!}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 2: Isolar a Derivada e Substituir n</div><div class="step-content">Manipulamos essa igualdade isolando a derivada no ponto 2/3: $f^{(n)}(2/3) = n! \cdot a_n$.<br>Como no nosso caso $a_n = \frac{3^n}{n}$, então: $f^{(n)}(2/3) = n! \cdot \frac{3^n}{n}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 3: Simplificar Fatorial e Concluir</div><div class="step-content">Podemos cortar o denominador cortando o último iterável do fatorial: $n! / n = (n-1)!$.<br>Portanto a fórmula simplificada é $f^{(n)}(2/3) = (n-1)! 3^n$.<br>Para o grau de derivação exótico $n=2026$, o valor da derivada em 2/3 é: $(2025)! 3^{2026}$.</div></div>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header"><span class="exercise-tag">Prova 3, Ex 4</span><span class="exercise-title">Cota do Raio em EDO</span></div>
+                <div class="exercise-statement">EDO: $(1+x)y'' - x^2y' + (1-x)y = 0$. Avaliar em $x_0=1$.</div>
+                <div class="info-box metodo">
+                    <h4>Introdução Teórica: Raios Analíticos</h4>
+                    <p><strong>Conceito:</strong> Nem sempre podemos/queremos resolver a EDO usando a série completa só para achar seu raio. Teoremas garantem que, se as funções multiplicadoras são racionais, o raio mínimo de convergência para a solução centrada em $x_0$ é dado pela distância do centro até o Ponto Singular mais próximo no plano (mesmo os complexos).</p>
+                    <p><strong>Objetivo:</strong> Colocar na forma base de polinômios para verificar raízes zeradoras (os pontos singulares) e depois encontrar a distância métrica para dizer a cota.</p>
+                </div>
+                <div class="solution-section">
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 1: Padronizar a EDO Racional</div><div class="step-content">Dividimos todos os termos pelo termo chefe $(1+x)$ para obter as equações $P(x)$ e $Q(x)$ canônicas:<br>$y'' - \frac{x^2}{1+x}y' + \frac{1-x}{1+x}y = 0$.<br>Então, $P(x) = -\frac{x^2}{1+x}$ e $Q(x) = \frac{1-x}{1+x}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 2: Qualificar o Ponto Fornecido ($x_0=1$)</div><div class="step-content">Checamos se essas expressões se tornam indefinidas em $x_0 = 1$.<br>O denominador comum é $1+x$. Ao substituir por 1, temos $1+1 = 2 \neq 0$. Logo as duas são analíticas neste ponto. Concluímos que $x_0 = 1$ é um ponto ordinário para essa EDO.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 3: Mapear Pontos Singulares</div><div class="step-content">Observamos os problemas da racional. O único lugar onde $1+x = 0$ é quando $x = -1$. Logo, $-1$ é a nossa única raiz "ruim" (singular).</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 4: Medir Distância para a Cota Inferior</div><div class="step-content">A cota teórica diz que o raio de $x_0$ é no mínimo a distância absoluta ao ponto problemático.<br>A distância $R_S$ de $x_0 = 1$ para $x = -1$ é: $R_S = |1 - (-1)| = |1 + 1| = 2$.<br>Portanto, podemos assegurar que o raio real $R \ge 2$.</div></div>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header"><span class="exercise-tag">Prova 3, Ex 5</span><span class="exercise-title">Solução de EDO em Séries</span></div>
+                <div class="exercise-statement">$y'' - 2xy' = 0$. Ache relação de recorrência e soluções em séries em torno de $x_0=0$.</div>
+                <div class="info-box metodo">
+                    <h4>Introdução Teórica: Substituição de Séries de Potências</h4>
+                    <p><strong>Conceito:</strong> Trata-se do método da cartada final: Quando outros falham, chutamos que a resposta $y(x)$ se traduz em uma soma infinita. Substituimos derivadas e depois manobramos os índices somatórios $k$ e $n$ para formar apenas um aglomerado.</p>
+                    <p><strong>Objetivo:</strong> Obter uma lei de formação única igualada a zero, o que força todos os coeficientes polinomiais combinados da EDO a serem 0. O resultado será a Relação de Recorrência (RR), que desempacotará constantes atreladas a $a_0$ ou $a_1$.</p>
+                </div>
+                <div class="solution-section">
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 1: Escrever Expansões Preliminares</div><div class="step-content">A solução tentada será sempre $y = \sum_{n=0}^\infty a_n x^n$. Derivando sequencialmente, mantendo a regra do tombo:<br>$y' = \sum_{n=1}^\infty n a_n x^{n-1}$, e $y'' = \sum_{n=2}^\infty n(n-1) a_n x^{n-2}$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 2: Inserir as Equações na EDO e Multiplicar Termos</div><div class="step-content">Substituímos em $y'' - 2xy' = 0$ resultando em: $\sum_{n=2}^\infty n(n-1)a_n x^{n-2} - 2x \sum_{n=1}^\infty n a_n x^{n-1} = 0$.<br>O multiplicador de $x$ do lado de fora entra na soma de $y'$, aumentando o grau para $x^n$.<br>Fica: $\sum_{n=2}^\infty n(n-1)a_n x^{n-2} - \sum_{n=1}^\infty 2n a_n x^n = 0$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 3: Homogeneizar a Base da Potência $x^k$</div><div class="step-content">As duas somas possuem potências diferentes ($n-2$ e $n$). O passo fundamental é equiparar tudo a uma nova letra $k$.<br>Na 1ª soma: Chamamos $k = n-2$, o que implica $n = k+2$. O índice sai de $n=2$ para $k=0$.<br>Na 2ª soma: Apenas rebatizamos formalmente $n$ como $k$. O índice se mantém, partindo de $k=1$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 4: Reorganizar e Mesclar Somatórios</div><div class="step-content">Montando os resultados com $k$: $\sum_{k=0}^\infty (k+2)(k+1)a_{k+2} x^k - \sum_{k=1}^\infty 2k a_k x^k = 0$.<br>A primeira soma vai a partir do 0, a segunda do 1. Para juntar num grande bloco unificado a partir do $k=1$, precisamos "destacar" o termo inicial solitário $k=0$ pertencente ao 1º bloco.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 5: Relação de Recorrência (RR) base e extração iterativa</div><div class="step-content">Avaliando para $k=0$: O único termo é $(0+2)(0+1)a_{0+2} \cdot x^0 = 2a_2$. Como isso deve zerar, concluímos direto que $a_2 = 0$.<br>Para o corpo unificado ($k \ge 1$): $(k+2)(k+1)a_{k+2} - 2k a_k = 0$. Isolando a maior variável indexada ($k+2$):<br>A nossa Relação de Recorrência (RR) fica: $a_{k+2} = \frac{2k}{(k+2)(k+1)} a_k$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 6: Expandir Termos Pares</div><div class="step-content">Testamos iterar pela árvore dos termos com salto par. Como o "prédio da sequência par" inicia de $a_2$ que vimos valer 0:<br>Temos $a_4 = \frac{2(2)}{(4)(3)} a_2 = 0$. Logo por efeito dominó, todo o bloco par $a_{2n}=0$, para $n \ge 1$. $a_0$ continua sendo coeficiente puramente arbitrário livre ($C_1$).</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 7: Expandir Termos Ímpares</div><div class="step-content">Agora alimentamos o braço ímpar da recorrência com $a_1$ servindo como nova raiz fixa ($C_2$).<br>Para $k=1$: $a_3 = \frac{2(1)}{3\cdot 2}a_1$. Para $k=3$: $a_5 = \frac{2(3)}{5\cdot 4}a_3 = \frac{2^2 \cdot 1 \cdot 3}{5!}a_1$.<br>O padrão se revela como o fatorial com saltos. Em regra: $a_{2n+1} = \frac{2^n \cdot 1 \cdot 3 \dots (2n-1)}{(2n+1)!} a_1$.</div></div>
+                    <div class="step"><div class="step-badge"></div><div class="step-title">Passo 8: Consolidar a Resposta Final na Série Completa</div><div class="step-content">O formato exigido soma a série e põe em evidência as ramificações de constantes originadas por $a_0$ e $a_1$. O resultado purgado será:<br>$y(x) = a_0(1) + a_1 \left( x + \sum_{n=1}^\infty \frac{2^n \cdot 1\cdot 3\dots(2n-1)}{(2n+1)!} x^{2n+1} \right)$. E está finalizado.</div></div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        function toggleTheme() {
+            const body = document.documentElement;
+            const isDark = body.getAttribute('data-theme') === 'dark';
+            body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            document.getElementById('theme-btn-text').textContent = isDark ? 'Modo Escuro' : 'Modo Claro';
+            localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        }
+
+        function toggleSolutions() {
+            const solutions = document.querySelectorAll('.solution-section');
+            const btn = document.getElementById('solution-btn-text');
+            const isHidden = solutions[0]?.style.display === 'none';
+            
+            solutions.forEach(el => el.style.display = isHidden ? 'block' : 'none');
+            btn.textContent = isHidden ? 'Esconder Resoluções' : 'Mostrar Resoluções';
+        }
+
+        // Initialize theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.getElementById('theme-btn-text').textContent = 'Modo Claro';
+        }
+        
+        // Active links
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(li => {
+                li.classList.remove('active');
+                if (li.getAttribute('href').includes(current)) {
+                    li.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

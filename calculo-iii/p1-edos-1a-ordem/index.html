@@ -1,0 +1,1893 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Apostila Completa de Cálculo 4 - Prova 1 (EDOs)</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&amp;family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- KaTeX for LaTeX Math Rendering -->
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" rel="stylesheet"/>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script defer="" onload="renderMathInElement(document.body, {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false}
+            ],
+            throwOnError: false
+          });" src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+<style>
+    :root {
+      --bg-main: #0b0f19;
+      --bg-card: #151d30;
+      --bg-card-header: #101726;
+      --bg-card-hover: #1c263d;
+      --bg-sidebar: #080c14;
+      --border-color: #233048;
+      --border-accent: #38bdf8;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-heading: #38bdf8;
+      
+      --mod-1-color: #38bdf8;
+      --mod-2-color: #818cf8;
+      --mod-3-color: #fb923c;
+      --mod-4-color: #c084fc;
+      --success-green: #22c55e;
+      --warning-amber: #fbbf24;
+      --danger-rose: #f43f5e;
+      
+      --box-explanation: rgba(56, 189, 248, 0.07);
+      --box-identification: rgba(34, 197, 94, 0.07);
+      --box-tips: rgba(251, 191, 36, 0.07);
+      --box-example: rgba(192, 132, 252, 0.07);
+      --box-summary: rgba(244, 63, 94, 0.07);
+      
+      --sidebar-width: 330px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.65;
+      display: flex;
+      min-height: 100vh;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Floating Hamburger Menu Toggle Button */
+    .sidebar-toggle-btn {
+      position: fixed;
+      top: 1.25rem;
+      left: 1.25rem;
+      z-index: 999;
+      background: #1e293b;
+      border: 1px solid var(--border-color);
+      color: #ffffff;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .sidebar-toggle-btn:hover {
+      background: #334155;
+      border-color: var(--border-accent);
+      transform: scale(1.05);
+    }
+
+    .sidebar-toggle-btn span {
+      display: block;
+      width: 22px;
+      height: 2.5px;
+      background-color: #f1f5f9;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Sidebar Navigation */
+    aside.sidebar {
+      width: var(--sidebar-width);
+      background-color: var(--bg-sidebar);
+      border-right: 1px solid var(--border-color);
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      overflow-y: auto;
+      padding: 5rem 1rem 2rem 1rem;
+      z-index: 100;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    aside.sidebar.collapsed {
+      transform: translateX(-100%);
+    }
+
+    aside.sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+    aside.sidebar::-webkit-scrollbar-thumb {
+      background: #233048;
+      border-radius: 3px;
+    }
+
+    .sidebar-header {
+      padding-bottom: 1.25rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .sidebar-header h2 {
+      font-size: 1.15rem;
+      color: #ffffff;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .sidebar-header p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* Global Progress Tracker in Sidebar */
+    .global-progress-box {
+      background: #111827;
+      border: 1px solid var(--border-color);
+      padding: 0.9rem;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+    }
+
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .progress-bar-bg {
+      height: 7px;
+      background: #1f293d;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #38bdf8, #22c55e);
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    /* Accordion Modules in Sidebar */
+    .module-accordion {
+      margin-bottom: 0.85rem;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #0f1626;
+      transition: all 0.2s ease;
+    }
+
+    .module-accordion.mod-1 { border-left: 4px solid var(--mod-1-color); }
+    .module-accordion.mod-2 { border-left: 4px solid var(--mod-2-color); }
+    .module-accordion.mod-3 { border-left: 4px solid var(--mod-3-color); }
+    .module-accordion.mod-4 { border-left: 4px solid var(--mod-4-color); }
+
+    .accordion-header {
+      padding: 0.75rem 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      background: rgba(255, 255, 255, 0.02);
+      transition: background 0.2s ease;
+    }
+
+    .accordion-header:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .accordion-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .accordion-title {
+      font-size: 0.83rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .accordion-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .accordion-icon {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      transition: transform 0.3s ease;
+    }
+
+    .module-accordion.open .accordion-icon {
+      transform: rotate(180deg);
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+      background: #090d17;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .module-accordion.open .accordion-content {
+      max-height: 800px;
+      transition: max-height 0.4s ease-in-out;
+    }
+
+    .nav-links {
+      list-style: none;
+      padding: 0.4rem 0.3rem;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.35rem 0.6rem;
+      margin-bottom: 0.2rem;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item:hover {
+      background-color: #162035;
+    }
+
+    .nav-item a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.8rem;
+      flex: 1;
+      line-height: 1.35;
+      padding-right: 0.5rem;
+    }
+
+    .nav-item a:hover {
+      color: #38bdf8;
+    }
+
+    /* Small Checkbox & Check status in sidebar */
+    .sidebar-check-indicator {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      border: 1.5px solid #475569;
+      background: transparent;
+      cursor: pointer;
+      color: transparent;
+      font-size: 0.7rem;
+      font-weight: 800;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .sidebar-check-indicator.checked {
+      background: #22c55e;
+      border-color: #22c55e;
+      color: #ffffff;
+    }
+
+    /* Main Content Area */
+    main.content {
+      margin-left: var(--sidebar-width);
+      padding: 3rem 4rem;
+      max-width: 1200px;
+      flex: 1;
+      transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    main.content.expanded {
+      margin-left: 0;
+      padding: 3rem 5rem;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, #151d30 0%, #0b0f19 100%);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--border-accent);
+      padding: 2.2rem;
+      border-radius: 14px;
+      margin-bottom: 3rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .hero-banner h1 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-banner p {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .badge-bar {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent-blue);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    /* Module Section */
+    .module-container {
+      margin-bottom: 4.5rem;
+      scroll-margin-top: 2rem;
+    }
+
+    .module-header {
+      padding-bottom: 0.85rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .module-tag {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border-radius: 6px;
+      color: #fff;
+    }
+
+    .tag-m1 { background: var(--mod-1-color); color: #04101e; }
+    .tag-m2 { background: var(--mod-2-color); color: #07091d; }
+    .tag-m3 { background: var(--mod-3-color); color: #200a00; }
+    .tag-m4 { background: var(--mod-4-color); color: #160424; }
+
+    .module-header h2 {
+      font-size: 1.55rem;
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    /* Topic Card */
+    .topic-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      margin-bottom: 2.5rem;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      scroll-margin-top: 2rem;
+      transition: border-color 0.2s ease;
+    }
+
+    .topic-card.completed {
+      border-color: rgba(34, 197, 94, 0.5);
+    }
+
+    .topic-card-header {
+      background-color: var(--bg-card-header);
+      padding: 1.2rem 1.75rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .card-title-left {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    /* Large Interactive Card Checkbox */
+    .card-checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .card-checkbox {
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border: 2px solid #64748b;
+      border-radius: 6px;
+      background-color: #0b0f19;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .card-checkbox:hover {
+      border-color: #22c55e;
+    }
+
+    .card-checkbox:checked {
+      background-color: #22c55e;
+      border-color: #22c55e;
+    }
+
+    .card-checkbox:checked::after {
+      content: '✓';
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 900;
+    }
+
+    .topic-card-header h3 {
+      font-size: 1.25rem;
+      color: #f8fafc;
+      font-weight: 700;
+    }
+
+    .topic-origin {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      background: #0b0f19;
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+    }
+
+    .topic-body {
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.35rem;
+    }
+
+    /* Standard Pedagogical 5 Blocks */
+    .section-block {
+      border-radius: 10px;
+      padding: 1.25rem 1.45rem;
+      border-left: 4px solid;
+    }
+
+    .section-block h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .section-block p, .section-block ul, .section-block ol {
+      font-size: 0.95rem;
+      color: #e2e8f0;
+    }
+
+    .section-block ul, .section-block ol {
+      padding-left: 1.4rem;
+      margin-top: 0.4rem;
+    }
+
+    .section-block li {
+      margin-bottom: 0.35rem;
+    }
+
+    .block-explanation {
+      background-color: var(--box-explanation);
+      border-left-color: var(--mod-1-color);
+    }
+    .block-explanation h4 { color: var(--mod-1-color); }
+
+    .block-identification {
+      background-color: var(--box-identification);
+      border-left-color: var(--success-green);
+    }
+    .block-identification h4 { color: var(--success-green); }
+
+    .block-tips {
+      background-color: var(--box-tips);
+      border-left-color: var(--warning-amber);
+    }
+    .block-tips h4 { color: var(--warning-amber); }
+
+    .block-example {
+      background-color: var(--box-example);
+      border-left-color: var(--mod-4-color);
+    }
+    .block-example h4 { color: var(--mod-4-color); }
+
+    .block-summary {
+      background-color: var(--box-summary);
+      border-left-color: var(--danger-rose);
+    }
+    .block-summary h4 { color: var(--danger-rose); }
+
+    .math-highlight {
+      background: #090d16;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 0.85rem 1.1rem;
+      margin: 0.75rem 0;
+      overflow-x: auto;
+    }
+
+    code {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9em;
+      background: #090d16;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      color: #38bdf8;
+    }
+
+    .step-item {
+      margin-bottom: 1rem;
+      padding-left: 0.5rem;
+    }
+
+    .step-title {
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 0.25rem;
+    }
+
+    table.decision-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+    }
+
+    table.decision-table th, table.decision-table td {
+      border: 1px solid var(--border-color);
+      padding: 0.75rem 1rem;
+      text-align: left;
+    }
+
+    table.decision-table th {
+      background: #0f172a;
+      color: var(--text-heading);
+      font-weight: 700;
+    }
+
+    table.decision-table tr:nth-child(even) {
+      background: rgba(15, 23, 42, 0.4);
+    }
+
+    @media (max-width: 950px) {
+      aside.sidebar {
+        transform: translateX(-100%);
+      }
+      aside.sidebar.mobile-open {
+        transform: translateX(0);
+      }
+      main.content {
+        margin-left: 0;
+        padding: 4.5rem 1.5rem 2rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- FLOATING HAMBURGER TOGGLE BUTTON -->
+<button aria-label="Toggle Menu" class="sidebar-toggle-btn" id="sidebarToggle" title="Ocultar/Mostrar Barra Lateral">
+<span></span>
+<span></span>
+<span></span>
+</button>
+<!-- SIDEBAR NAVIGATION -->
+<aside class="sidebar" id="sidebar">
+<div class="sidebar-header">
+<h2>📘 Guia de Cálculo 4</h2>
+<p>Apostila de Estudos para a Prova 1</p>
+</div>
+<!-- GLOBAL PROGRESS TRACKER -->
+<div class="global-progress-box">
+<div class="progress-labels">
+<span>Progresso de Estudos</span>
+<span id="progressPercent">0%</span>
+</div>
+<div class="progress-bar-bg">
+<div class="progress-bar-fill" id="progressBar"></div>
+</div>
+<div id="progressCount" style="font-size: 0.72rem; color: #94a3b8; margin-top: 0.4rem; text-align: right;">
+        0 de 24 tópicos concluídos
+      </div>
+</div>
+<!-- MODULE 1 ACCORDION -->
+<div class="module-accordion mod-1 open" id="acc-mod-1">
+<div class="accordion-header" onclick="toggleAccordion('acc-mod-1')">
+<div class="accordion-title-group">
+<div class="accordion-title">
+<span>🟢 Módulo 1: Fundamentos</span>
+</div>
+<div class="accordion-sub" id="status-mod-1">0/4 concluídos</div>
+</div>
+<span class="accordion-icon">▼</span>
+</div>
+<div class="accordion-content">
+<ul class="nav-links">
+<li class="nav-item">
+<a href="#tema-1-1">1.1 Classificação (Ordem &amp; Linear)</a>
+<span class="sidebar-check-indicator" data-target="tema-1-1" onclick="toggleCheckFromSidebar(event, 'tema-1-1')">✓</span>
+</li>
+<li class="nav-item">
+<a href="#tema-1-2">1.2 Soluções &amp; Cauchy-Euler</a>
+<span class="sidebar-check-indicator" data-target="tema-1-2" onclick="toggleCheckFromSidebar(event, 'tema-1-2')">✓</span>
+</li>
+<li class="nav-item">
+<a href="#tema-1-3">1.3 PVI &amp; Constantes</a>
+<span class="sidebar-check-indicator" data-target="tema-1-3" onclick="toggleCheckFromSidebar(event, 'tema-1-3')">✓</span>
+</li>
+<li class="nav-item">
+<a href="#tema-1-4">1.4 Intervalo de Validade</a>
+<span class="sidebar-check-indicator" data-target="tema-1-4" onclick="toggleCheckFromSidebar(event, 'tema-1-4')">✓</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- MODULE 2 ACCORDION -->
+<div class="module-accordion mod-2 open" id="acc-mod-2">
+<div class="accordion-header" onclick="toggleAccordion('acc-mod-2')">
+<div class="accordion-title-group">
+<div class="accordion-title">
+<span>🔵 Módulo 2: Métodos de 1ª Ordem</span>
+</div>
+<div class="accordion-sub" id="status-mod-2">0/8 concluídos</div>
+</div>
+<span class="accordion-icon">▼</span>
+</div>
+<div class="accordion-content">
+<ul class="nav-links">
+<li class="nav-item">
+<a href="#tema-2-1">2.1 Equações Separáveis</a>
+<span class="sidebar-check-indicator" data-target="tema-2-1" onclick="toggleCheckFromSidebar(event, 'tema-2-1')">✓</span>
+</li>
+<li class="nav-item">
+<a href="#tema-2-2">2.2 Lineares de 1ª Ordem</a>
+<span class="sidebar-check-indicator" data-target="tema-2-2" onclick="toggleCheckFromSidebar(event, 'tema-2-2')">✓</span>
+</li>
+<li class="nav-item">
+<a href="#tema-2-3">2.3 Superposição &amp; Teoria Linear</a>
+<span class="sidebar-check-indicator" data-target="tema-2-3" onclick="toggleCheckFromSidebar(event, 'tema-2-3')">✓</span>
+</li>
+<li class="nav-item">
+<a href="#tema-2-4">2.4 EDOs Exatas</a>
+<span class="sidebar-check-indicator" data-target="tema-2-4" onclick="toggleCheckFromSidebar(event, 'tema-2-4')">✓</span>
+</li>
+<li class="nav-item">
+<a href="#tema-2-5">2.5 Fatores Integrantes $\mu(x)/\mu(y)$</a>
+<span class="sidebar-check-indicator" data-target="tema-2-5" onclick="toggleCheckFromSidebar(event, 'tema-2-5')">✓</span>
+</li>
+<li class="nav-item">
+<a href="#tema-2-6">2.6 EDOs Homogêneas</a>
+<span class="sidebar-check-indicator" data-target="tema-2-6" onclick="toggleCheckFromSidebar(event, 'tema-2-6')">✓</span>
+</li>
+<li class="nav-item">
+<a href="#tema-2-7">2.7 Equação de Bernoulli</a>
+<span class="sidebar-check-indicator" data-target="tema-2-7" onclick="toggleCheckFromSidebar(event, 'tema-2-7')">✓</span>
+</li>
+<li class="nav-item">
+<a href="#tema-2-8">2.8 Tabela de Decisão Rápida</a>
+<span class="sidebar-check-indicator" data-target="tema-2-8" onclick="toggleCheckFromSidebar(event, 'tema-2-8')">✓</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- MODULE 3 ACCORDION -->
+<div class="module-accordion mod-3 open" id="acc-mod-3">
+<div class="accordion-header" onclick="toggleAccordion('acc-mod-3')">
+<div class="accordion-title-group">
+<div class="accordion-title">
+<span>🟠 Módulo 3: Modelagem &amp; Aplicações</span>
+</div>
+<div class="accordion-sub" id="status-mod-3">0/7 concluídos</div>
+</div>
+<span class="accordion-icon">▼</span>
+</div>
+<div class="accordion-content">
+<ul class="nav-links">
+<li class="nav-item">
+<a href="#tema-3-1">3.1 Decaimento &amp; Meia-Vida</a>
+<span class="sidebar-check-indicator" data-target="tema-3-1" onclick="toggleCheckFromSidebar(event, 'tema-3-1')">✓</span>
+</li>
+<li class="nav-item">
+<a href="#tema-3-2">3.2 Resfriamento de Newton</a>
+<span class="sidebar-check-indicator" data-target="tema-3-2" onclick="toggleCheckFromSidebar(event, 'tema-3-2')">✓</span>
+</li>
+<li class="nav-item">
+<a href="#tema-3-3">3.3 Farmacocinética / Misturas</a>
+<span class="sidebar-check-indicator" data-target="tema-3-3" onclick="toggleCheckFromSidebar(event, 'tema-3-3')">✓</span>
+</li>
+<li class="nav-item">
+<a href="#tema-3-4">3.4 Crescimento Malthusiano</a>
+<span class="sidebar-check-indicator" data-target="tema-3-4" onclick="toggleCheckFromSidebar(event, 'tema-3-4')">✓</span>
+</li>
+<li class="nav-item">
+<a href="#tema-3-5">3.5 Crescimento Logístico</a>
+<span class="sidebar-check-indicator" data-target="tema-3-5" onclick="toggleCheckFromSidebar(event, 'tema-3-5')">✓</span>
+</li>
+<li class="nav-item">
+<a href="#tema-3-6">3.6 Evaporação &amp; Geometria</a>
+<span class="sidebar-check-indicator" data-target="tema-3-6" onclick="toggleCheckFromSidebar(event, 'tema-3-6')">✓</span>
+</li>
+<li class="nav-item">
+<a href="#tema-3-7">3.7 Troca Térmica Não Linear</a>
+<span class="sidebar-check-indicator" data-target="tema-3-7" onclick="toggleCheckFromSidebar(event, 'tema-3-7')">✓</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- MODULE 4 ACCORDION -->
+<div class="module-accordion mod-4 open" id="acc-mod-4">
+<div class="accordion-header" onclick="toggleAccordion('acc-mod-4')">
+<div class="accordion-title-group">
+<div class="accordion-title">
+<span>🟣 Módulo 4: TEU &amp; Qualitativa</span>
+</div>
+<div class="accordion-sub" id="status-mod-4">0/5 concluídos</div>
+</div>
+<span class="accordion-icon">▼</span>
+</div>
+<div class="accordion-content">
+<ul class="nav-links">
+<li class="nav-item">
+<a href="#tema-4-1">4.1 Teorema TEU (Picard)</a>
+<span class="sidebar-check-indicator" data-target="tema-4-1" onclick="toggleCheckFromSidebar(event, 'tema-4-1')">✓</span>
+</li>
+<li class="nav-item">
+<a href="#tema-4-2">4.2 Falha de Unicidade</a>
+<span class="sidebar-check-indicator" data-target="tema-4-2" onclick="toggleCheckFromSidebar(event, 'tema-4-2')">✓</span>
+</li>
+<li class="nav-item">
+<a href="#tema-4-3">4.3 Campos de Direções</a>
+<span class="sidebar-check-indicator" data-target="tema-4-3" onclick="toggleCheckFromSidebar(event, 'tema-4-3')">✓</span>
+</li>
+<li class="nav-item">
+<a href="#tema-4-4">4.4 EDOs Autônomas &amp; Fase</a>
+<span class="sidebar-check-indicator" data-target="tema-4-4" onclick="toggleCheckFromSidebar(event, 'tema-4-4')">✓</span>
+</li>
+<li class="nav-item">
+<a href="#tema-4-5">4.5 Redução de Ordem (2ª Ordem)</a>
+<span class="sidebar-check-indicator" data-target="tema-4-5" onclick="toggleCheckFromSidebar(event, 'tema-4-5')">✓</span>
+</li>
+</ul>
+</div>
+</div>
+</aside>
+<!-- MAIN CONTENT -->
+<main class="content" id="mainContent">
+<!-- HERO BANNER -->
+<header class="hero-banner">
+<h1>Apostila Completa: EDOs de 1ª Ordem, Modelagem &amp; Análise Qualitativa</h1>
+<p>Material completo e estruturado para revisão intensiva da Prova 1 (Cálculo 4 / CM314). Baseado integralmente nas Listas 1, 2, 3 e notas de aula.</p>
+<div class="badge-bar">
+<span class="badge">Lista 1: Métodos Analíticos</span>
+<span class="badge">Lista 2: Aplicações Práticas</span>
+<span class="badge">Lista 3: TEU &amp; Autônomas</span>
+<span class="badge">Redução de Ordem (2ª Ordem)</span>
+<span class="badge" style="background: rgba(34, 197, 94, 0.15); color: #22c55e; border-color: #22c55e;">Checklist Interativo Salvo</span>
+</div>
+</header>
+<!-- ========================================================================= -->
+<!-- MÓDULO 1 -->
+<!-- ========================================================================= -->
+<section class="module-container" id="modulo-1">
+<div class="module-header">
+<span class="module-tag tag-m1">Módulo 1</span>
+<h2>Fundamentos e Introdução a EDOs (Lista 1, Ex. 1 a 5)</h2>
+</div>
+<!-- TEMA 1.1 -->
+<article class="topic-card" id="tema-1-1">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-1-1" onchange="toggleTopicCheck('tema-1-1')" type="checkbox"/>
+<h3>1.1 Classificação de EDOs: Ordem e Linearidade</h3>
+</div>
+<span class="topic-origin">Lista 1: Ex. 1</span>
+</div>
+<div class="topic-body">
+<div class="section-block block-explanation">
+<h4>📖 Explicação Geral &amp; Objetivo da Teoria</h4>
+<p>A classificação é o primeiro passo para saber qual método aplicar. Uma Equação Diferencial Ordinária (EDO) relaciona uma variável independente $x$, uma função incógnita $y(x)$ e suas derivadas.</p>
+<ul>
+<li><strong>Ordem:</strong> É a ordem da <em>maior derivada</em> que aparece na equação (ex: $y'''$ é ordem 3).</li>
+<li><strong>Linearidade:</strong> Uma EDO é linear se a função incógnita $y$ e todas as suas derivadas aparecem de forma estritamente linear (grau 1), sem produtos entre si (ex: $y \cdot y'$) e sem estarem dentro de funções não-lineares (ex: $\sin(y), e^y, \sqrt{y'}$). Os coeficientes podem ser funções arbitrárias de $x$.</li>
+</ul>
+</div>
+<div class="section-block block-identification">
+<h4>🔍 Dicas de Identificação: Como saber se é NÃO LINEAR?</h4>
+<ul>
+<li>Expoente diferente de 1 em $y$ ou em qualquer derivada: $(y')^3$, $y^2$, $\sqrt{y}$.</li>
+<li>Produto entre $y$ e suas derivadas: $y \cdot y''$, $y \cdot y'$.</li>
+<li>$y$ ou derivadas dentro de funções transcendentais: $\cos(xy)$, $e^y$, $\ln(y)$.</li>
+</ul>
+</div>
+<div class="section-block block-tips">
+<h4>💡 Macetes &amp; Pegadinhas de Prova</h4>
+<p>⚠️ <strong>Atenção com coeficientes em $x$:</strong> A não linearidade diz respeito <strong>somente</strong> à variável $y$ e suas derivadas. Termos como $\cos(2\pi x)y$ ou $x^3 y'$ são perfeitamente lineares.</p>
+</div>
+<div class="section-block block-example">
+<h4>📝 Exercícios Resolvidos Passo a Passo (Lista 1, Ex. 1)</h4>
+<div class="step-item">
+<div class="step-title">Enunciado (Item a)</div>
+<p>Classifique segundo a ordem e linearidade: $x^2 y'' + 5xy = 3x (y')^3$</p>
+</div>
+<div class="step-item">
+<div class="math-highlight">
+<p><strong>Ordem: 2</strong></p>
+<span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Identificamos todas as derivadas. Temos $y''$ (2ª derivada) e $y'$ (1ª derivada). A maior é 2.</span>
+<br/>
+<p><strong>Linearidade: Não Linear</strong></p>
+<span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Observe o termo do lado direito: $(y')^3$. A primeira derivada está elevada à terceira potência. Para ser linear, o expoente de todas as derivadas deve ser estritamente 1.</span>
+</div>
+</div>
+<div class="step-item" style="margin-top: 1.5rem;">
+<div class="step-title">Enunciado (Item c)</div>
+<p>Classifique segundo a ordem e linearidade: $y \frac{d^4 y}{dx^4} + \ln(x^2 + 1)y = 0$</p>
+</div>
+<div class="step-item">
+<div class="math-highlight">
+<p><strong>Ordem: 4</strong></p>
+<span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: A maior derivada presente é a quarta derivada, denotada por $\frac{d^4 y}{dx^4}$.</span>
+<br/>
+<p><strong>Linearidade: Não Linear</strong></p>
+<span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Observe o primeiro termo: $y \cdot \frac{d^4 y}{dx^4}$. A função incógnita $y$ está multiplicando a sua quarta derivada. Produtos entre $y$ e derivadas violam a condição de linearidade.</span>
+</div>
+</div>
+<div class="step-item" style="margin-top: 1.5rem;">
+<div class="step-title">Enunciado (Item f)</div>
+<p>Classifique segundo a ordem e linearidade: $\cos(x^3) y'' - 3x y''' - x^2 y = y' \sin x$</p>
+</div>
+<div class="step-item">
+<div class="math-highlight">
+<p><strong>Ordem: 3</strong></p>
+<span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Temos $y, y', y''$ e $y'''$. A maior é a terceira derivada ($y'''$).</span>
+<br/>
+<p><strong>Linearidade: Linear</strong></p>
+<span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Todos os termos dependentes de $y$ ($y, y', y'', y'''$) possuem grau 1 e não se multiplicam entre si. Os coeficientes como $\cos(x^3)$ ou $\sin x$ dependem exclusivamente de $x$, o que é permitido.</span>
+</div>
+</div>
+</div>
+<div class="section-block block-summary">
+<h4>⚡ Resumo Direto ao Ponto</h4>
+<p><strong>Ordem:</strong> maior derivada. <strong>Linear:</strong> variável $y$ e derivadas só podem aparecer isoladas, multiplicadas por funções de $x$, elevadas a 1.</p>
+</div>
+</div>
+</article>
+<!-- TEMA 1.2 -->
+<article class="topic-card" id="tema-1-2">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-1-2" onchange="toggleTopicCheck('tema-1-2')" type="checkbox"/>
+<h3>1.2 Verificação de Soluções e Parâmetros (Cauchy-Euler)</h3>
+</div>
+<span class="topic-origin">Lista 1: Ex. 2 e 5</span>
+</div>
+<div class="topic-body">
+<div class="section-block block-explanation">
+<h4>📖 Explicação Geral &amp; Objetivo da Teoria</h4>
+<p>Para verificar se uma função é solução, substituímos a função e suas derivadas na EDO. Para equações do tipo Cauchy-Euler (onde termos têm a forma $x^k y^{(k)}$), testamos famílias de funções como $y = x^m$ para descobrir quais valores de $m$ satisfazem a igualdade.</p>
+</div>
+<div class="section-block block-example">
+<h4>📝 Exercícios Resolvidos Passo a Passo (Lista 1, Ex. 2)</h4>
+<div class="step-item">
+<div class="step-title">Enunciado (Item a)</div>
+<p>Verifique que $y(x) = \frac{c}{\cos x}$ é solução de $y' - y 	an(x) = 0$.</p>
+</div>
+<div class="step-item">
+<div class="math-highlight">
+                $$ y(x) = c(\cos x)^{-1} $$
+                <span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Reescrevemos a função para facilitar a derivação, aplicando a regra da cadeia em vez da regra do quociente.</span>
+<br/>
+                $$ y'(x) = c \cdot (-1)(\cos x)^{-2} \cdot (-\sin x) = \frac{c \sin x}{\cos^2 x} $$
+                <span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Aplicamos a Regra da Cadeia: a derivada de $u^{-1}$ é $-u^{-2} \cdot u'$. A derivada de $\cos x$ é $-\sin x$. O sinal negativo cancela.</span>
+<br/>
+                $$ \frac{c \sin x}{\cos^2 x} - \left(\frac{c}{\cos x}
+ight) \left(\frac{\sin x}{\cos x}
+ight) = 0 $$
+                <span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Substituímos $y'$ e $y$ na EDO original $y' - y	an x = 0$. Trocamos $	an x$ pela identidade notável $\frac{\sin x}{\cos x}$.</span>
+<br/>
+                $$ \frac{c \sin x}{\cos^2 x} - \frac{c \sin x}{\cos^2 x} = 0 \implies 0 = 0 $$
+                <span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: A igualdade é verdadeira, logo, a função é solução comprovada.</span>
+</div>
+</div>
+<div class="step-item" style="margin-top: 1.5rem;">
+<div class="step-title">Enunciado (Item c)</div>
+<p>Determine para quais valores de $m$ a função $y(x) = x^m$ é solução da equação diferencial $x^2 y'' + x y' - 4y = 0$.</p>
+</div>
+<div class="step-item">
+<div class="math-highlight">
+                $$ y' = m x^{m-1}, \quad y'' = m(m-1)x^{m-2} $$
+                <span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Calculamos as derivadas primeira e segunda usando a regra da potência básica (Regra do Tombo).</span>
+<br/>
+                $$ x^2 [m(m-1)x^{m-2}] + x [m x^{m-1}] - 4[x^m] = 0 $$
+                <span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Substituímos $y, y'$ e $y''$ diretamente na EDO fornecida no enunciado.</span>
+<br/>
+                $$ m(m-1)x^m + m x^m - 4 x^m = 0 $$
+                <span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Multiplicamos os expoentes de mesma base ($x^2 \cdot x^{m-2} = x^m$ e $x^1 \cdot x^{m-1} = x^m$).</span>
+<br/>
+                $$ x^m [m^2 - m + m - 4] = 0 \implies x^m (m^2 - 4) = 0 $$
+                <span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Colocamos o termo comum $x^m$ em evidência. Como $x^m 
+eq 0$ para $x&gt;0$, o polinômio entre parênteses deve ser igual a zero.</span>
+<br/>
+                $$ m^2 - 4 = 0 \implies m = \pm 2 $$
+                <span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Resolvemos a equação característica. Os valores que tornam $y=x^m$ solução são $m=2$ e $m=-2$.</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- TEMA 1.3 -->
+<article class="topic-card" id="tema-1-3">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-1-3" onchange="toggleTopicCheck('tema-1-3')" type="checkbox"/>
+<h3>1.3 Problema de Valor Inicial (PVI) e Constantes</h3>
+</div>
+<span class="topic-origin">Lista 1: Ex. 3 e 4</span>
+</div>
+<div class="topic-body">
+<div class="section-block block-explanation">
+<h4>📖 Explicação Geral &amp; Objetivo da Teoria</h4>
+<p>Um Problema de Valor Inicial (PVI) fixa um ponto por onde a curva deve passar: $y(x_0) = y_0$. Ao substituir esses valores na solução geral, encontramos o valor exato da constante de integração $C$.</p>
+</div>
+<div class="section-block block-example">
+<h4>📝 Exercícios Resolvidos Passo a Passo (Lista 1, Ex. 3 e 4)</h4>
+<div class="step-item">
+<div class="step-title">Enunciado (Ex 3a)</div>
+<p>Determine a solução particular do PVI: $y' - y 	an(x) = 0$ com $y(0) = 3$. (Use a solução geral do exercício anterior $y(x) = \frac{c}{\cos x}$).</p>
+</div>
+<div class="step-item">
+<div class="math-highlight">
+                $$ y(0) = \frac{c}{\cos(0)} = 3 $$
+                <span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Substituímos $x = 0$ e igualamos o resultado da função a $3$, conforme dado no PVI.</span>
+<br/>
+                $$ \frac{c}{1} = 3 \implies c = 3 $$
+                <span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Como $\cos(0)$ é um limite notável igual a $1$, isolamos a constante $c$.</span>
+<br/>
+                $$ y(x) = \frac{3}{\cos x} = 3 \sec x $$
+                <span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Reescrevemos a solução final substituindo o valor de $c$ encontrado. (Opcional: usar a identidade $\sec x = 1/\cos x$).</span>
+</div>
+</div>
+<div class="step-item" style="margin-top: 1.5rem;">
+<div class="step-title">Enunciado (Ex 4)</div>
+<p>(a) Verifique que $f(t) = \ln(e^t + 2)$ e $g(t) = \ln|e^t + e - 1|$ são soluções de $y'(t) = e^{t-y}$.<br/>(b) Tanto $f$ quanto $g$ resolvem o PVI $y'(t) = e^{t-y}$ com $y(0) = 1$? Justifique.</p>
+</div>
+<div class="step-item">
+<div class="math-highlight">
+<p><strong>Item a: Verificação de $f(t)$</strong></p>
+                $$ f'(t) = \frac{1}{e^t + 2} \cdot e^t = \frac{e^t}{e^t + 2} $$
+                <span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Usamos a Regra da Cadeia para derivar logaritmo: $\frac{d}{dt} \ln(u) = \frac{u'}{u}$.</span>
+<br/>
+                $$ \text{EDO Lado Direito: } e^{t - f(t)} = \frac{e^t}{e^{f(t)}} = \frac{e^t}{e^{\ln(e^t + 2)}} $$
+                <span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Propriedade de exponenciais: subtrair expoentes equivale à divisão. Substituímos $y$ pela função $f(t)$.</span>
+<br/>
+                $$ \frac{e^t}{e^t + 2} = f'(t) $$
+                <span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: A identidade notável $e^{\ln(x)} = x$ cancela a exponencial com o logaritmo no denominador. Como Lado Esquerdo = Lado Direito, $f(t)$ é solução. (O mesmo ocorre identicamente para $g(t)$).</span>
+<br/><br/>
+<p><strong>Item b: Verificação do PVI $y(0) = 1$</strong></p>
+                $$ f(0) = \ln(e^0 + 2) = \ln(1 + 2) = \ln(3) 
+eq 1 $$
+                <span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Substituímos $t=0$ em $f(t)$. O resultado é $\ln(3)$, que não atende a condição inicial $y(0)=1$.</span>
+<br/>
+                $$ g(0) = \ln|e^0 + e - 1| = \ln|1 + e - 1| = \ln(e) = 1 $$
+                <span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Substituímos $t=0$ em $g(t)$. Cancelamos os $1$s, restando $\ln(e)$. Como $\ln(e) = 1$, ela atende à condição perfeitamente. Logo, apenas $g(t)$ resolve o PVI.</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- TEMA 1.4 -->
+<article class="topic-card" id="tema-1-4">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-1-4" onchange="toggleTopicCheck('tema-1-4')" type="checkbox"/>
+<h3>1.4 Domínio e Intervalo de Validade da Solução</h3>
+</div>
+<span class="topic-origin">Lista 1: Ex. 4 / Lista 3: Ex. 1c</span>
+</div>
+<div class="topic-body">
+<div class="section-block block-explanation">
+<h4>📖 Explicação Geral &amp; Objetivo da Teoria</h4>
+<p>O Teorema de Existência e Unicidade (TEU) diz que se $f(x,y)$ for contínua, existe solução local. Se $\frac{\partial f}{\partial y}$ também for contínua, a solução é única. O <strong>intervalo maximal</strong> da solução de um PVI é o maior trecho contínuo livre de assíntotas verticais ou indefinições matemáticas que contém o ponto inicial $x_0$.</p>
+</div>
+<div class="section-block block-example">
+<h4>📝 Exercícios Resolvidos Passo a Passo (Lista 3, Ex. 1)</h4>
+<div class="step-item">
+<div class="step-title">Enunciado (Itens b, c)</div>
+<p>b) Para $y' + 2xy^2 = 0$, determine a região onde se verificam as hipóteses do T.E.U.<br/>c) Encontre a única solução do PVI $y(0) = -1$. Em que intervalo a solução está definida? Contradiz o TEU?</p>
+</div>
+<div class="step-item">
+<div class="math-highlight">
+<p><strong>Item b: Região do TEU</strong></p>
+                $$ y' = -2xy^2 \implies f(x,y) = -2xy^2 $$
+                <span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Isolamos $y'$ para identificar a função $f(x,y)$ na forma padrão $y' = f(x,y)$.</span>
+<br/>
+                $$ \frac{\partial f}{\partial y} = -4xy $$
+                <span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Calculamos a derivada parcial em relação a $y$, tratando $x$ como constante.</span>
+<br/>
+<span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Conclusão (b): Como tanto $f(x,y)$ quanto sua parcial são polinômios, elas são contínuas em todo o plano $\mathbb{R}^2$. As hipóteses são verificadas em todo o plano.</span>
+<br/><br/>
+<p><strong>Item c: Resolução do PVI e Intervalo Maximal</strong></p>
+                $$ \frac{dy}{y^2} = -2x dx \implies \int y^{-2} dy = \int -2x dx $$
+                <span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Equação é separável. Isolamos os termos em $y$ de um lado e $x$ do outro e integramos usando a regra da potência (notável).</span>
+<br/>
+                $$ -\frac{1}{y} = -x^2 + C $$
+                <span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Aplicamos a condição inicial $y(0) = -1$ substituindo $x=0$ e $y=-1$ para encontrar $C$.</span>
+<br/>
+                $$ -\frac{1}{-1} = -0^2 + C \implies 1 = C \implies -\frac{1}{y} = -x^2 + 1 $$
+                <span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Encontramos a constante e a substituímos na equação geral. Multiplicando tudo por $-1$ e invertendo, isolamos $y$.</span>
+<br/>
+                $$ y(x) = \frac{1}{x^2 - 1} $$
+                <span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Esta é a solução particular. O domínio matemático dela exige que o denominador não seja zero: $x^2 - 1 
+eq 0 \implies x 
+eq \pm 1$.</span>
+<br/>
+<span style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Conclusão (c): O ponto inicial do PVI é $x_0 = 0$. O maior intervalo sem descontinuidades que contém o 0 é $(-1, 1)$. Isso NÃO contradiz o TEU, pois o teorema garante apenas a existência de uma solução LOCAL em torno de $x_0$, mas não garante que ela não tenha assíntotas verticais no futuro.</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<!-- ========================================================================= -->
+<!-- MÓDULO 2 -->
+<!-- ========================================================================= -->
+<section class="module-container" id="modulo-2">
+<div class="module-header">
+<span class="module-tag tag-m2">Módulo 2</span>
+<h2>Métodos de Resolução de EDOs de 1ª Ordem (Lista 1, Ex. 6 a 19)</h2>
+</div>
+<!-- TEMA 2.1 -->
+<article class="topic-card" id="tema-2-1">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-2-1" onchange="toggleTopicCheck('tema-2-1')" type="checkbox"/>
+<h3>2.1 Equações Separáveis</h3>
+</div>
+<span class="topic-origin">Lista 1: Ex. 6 e 7</span>
+</div>
+<div class="topic-body">
+<div class="section-block block-explanation">
+<h4>📖 Explicação Geral &amp; Objetivo da Teoria</h4>
+<p>Em EDOs Separáveis, nosso objetivo é usar álgebra básica para colocar tudo o que depende de $y$ (junto com $dy$) em um lado da equação e tudo o que depende de $x$ (junto com $dx$) do outro. Após essa separação, basta integrar os dois lados.</p>
+</div>
+<div class="section-block block-example">
+<h4>📝 Exercícios Resolvidos Passo a Passo</h4>
+<div class="step-item">
+<div class="step-title">Enunciado (Lista 1, Ex. 6d)</div>
+<p>Resolva a equação separável: $y'(t) = \frac{t^2 + 1}{y^2 + 1}$</p>
+</div>
+<div class="step-item">
+<div class="math-highlight">
+                $$ \frac{dy}{dt} = \frac{t^2 + 1}{y^2 + 1} \implies (y^2 + 1) dy = (t^2 + 1) dt $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Trocamos $y'$ pela notação de Leibniz $\frac{dy}{dt}$. Multiplicamos em "cruz" para isolar $y$ na esquerda e $t$ na direita.</span>
+<br/>
+                $$ \int (y^2 + 1) dy = \int (t^2 + 1) dt $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Integramos ambos os lados em relação às suas respectivas variáveis.</span>
+<br/>
+                $$ \frac{y^3}{3} + y = \frac{t^3}{3} + t + C $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: A integral de um polinômio $x^n$ é $\frac{x^{n+1}}{n+1}$. A constante de integração $C$ é colocada apenas de um lado (pois $C_1 - C_2$ é uma nova constante). Esta é a solução implícita.</span>
+</div>
+</div>
+<div class="step-item" style="margin-top: 1.5rem;">
+<div class="step-title">Enunciado (Lista 1, Ex. 7a)</div>
+<p>Resolva o PVI: $2y \frac{dy}{dx} = -x^2$, com $y(0) = 2$.</p>
+</div>
+<div class="step-item">
+<div class="math-highlight">
+                $$ 2y dy = -x^2 dx \implies \int 2y dy = \int -x^2 dx $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: As variáveis já estão quase separadas. Apenas passamos $dx$ multiplicando e integramos ambos os lados.</span>
+<br/>
+                $$ y^2 = -\frac{x^3}{3} + C $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: $\int 2y dy = y^2$ e $\int -x^2 dx = -x^3/3$. Agora, antes de isolar $y$, vamos aplicar o PVI para achar $C$.</span>
+<br/>
+                $$ (2)^2 = -\frac{0^3}{3} + C \implies 4 = C $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Substituímos a condição inicial $x = 0$ e $y = 2$. Descobrimos que $C=4$.</span>
+<br/>
+                $$ y^2 = 4 - \frac{x^3}{3} \implies y(x) = \sqrt{4 - \frac{x^3}{3}} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Escolhemos a raiz positiva porque o valor inicial $y(0) = 2$ é positivo.</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- TEMA 2.2 -->
+<article class="topic-card" id="tema-2-2">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-2-2" onchange="toggleTopicCheck('tema-2-2')" type="checkbox"/>
+<h3>2.2 EDOs Lineares de 1ª Ordem (Fator Integrante)</h3>
+</div>
+<span class="topic-origin">Lista 1: Ex. 9 e 10</span>
+</div>
+<div class="topic-body">
+<div class="section-block block-explanation">
+<h4>📖 Explicação Geral &amp; Objetivo da Teoria</h4>
+<p>Para equações na forma $y' + P(x)y = Q(x)$, usamos a técnica do Fator Integrante $\mu(x) = e^{\int P(x)dx}$. O objetivo é transformar o lado esquerdo em uma derivada exata do produto: $[\mu(x) \cdot y]'$.</p>
+</div>
+<div class="section-block block-example">
+<h4>📝 Exercícios Resolvidos Passo a Passo</h4>
+<div class="step-item">
+<div class="step-title">Enunciado (Lista 1, Ex. 10a)</div>
+<p>Encontre a solução geral: $xy' + 2y = x^2 - x + 1$</p>
+</div>
+<div class="step-item">
+<div class="math-highlight">
+                $$ y' + \frac{2}{x}y = x - 1 + \frac{1}{x} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: PASSO CRÍTICO: O coeficiente de $y'$ DEVE ser 1. Por isso, dividimos toda a equação por $x$. Logo, $P(x) = \frac{2}{x}$ e $Q(x) = x - 1 + \frac{1}{x}$.</span>
+<br/>
+                $$ \mu(x) = e^{\int \frac{2}{x} dx} = e^{2 \ln x} = e^{\ln(x^2)} = x^2 $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Calculamos o fator integrante. Usamos a propriedade de logaritmo $a \ln b = \ln(b^a)$ para cancelar a exponencial com o logaritmo.</span>
+<br/>
+                $$ [x^2 \cdot y]' = x^2 \left(x - 1 + \frac{1}{x}\right) = x^3 - x^2 + x $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Multiplicamos a forma canônica por $\mu(x) = x^2$. O lado esquerdo SEMPRE vira $[\mu(x)y]'$. O lado direito distribuímos o $x^2$.</span>
+<br/>
+                $$ x^2 y = \int (x^3 - x^2 + x) dx = \frac{x^4}{4} - \frac{x^3}{3} + \frac{x^2}{2} + C $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Integramos ambos os lados em relação a $x$. A integral desfaz a derivada do lado esquerdo.</span>
+<br/>
+                $$ y(x) = \frac{x^2}{4} - \frac{x}{3} + \frac{1}{2} + \frac{C}{x^2} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Finalmente, isolamos $y(x)$ dividindo todos os termos por $x^2$. A constante $C$ também é dividida!</span>
+</div>
+</div>
+<div class="step-item" style="margin-top: 1.5rem;">
+<div class="step-title">Enunciado (Lista 1, Ex. 10b)</div>
+<p>Encontre a solução geral: $y' - \frac{2}{x}y = x \quad (x &gt; 0)$</p>
+</div>
+<div class="step-item">
+<div class="math-highlight">
+                $$ P(x) = -\frac{2}{x} \implies \mu(x) = e^{\int -\frac{2}{x} dx} = e^{-2 \ln x} = x^{-2} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: A equação já está na forma canônica. O sinal de menos acompanha $P(x)$. Cancelamos $e^{\ln(\dots)}$ para obter $\mu(x) = x^{-2} = \frac{1}{x^2}$.</span>
+<br/>
+                $$ [x^{-2} \cdot y]' = x^{-2} \cdot x = x^{-1} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: O lado esquerdo é a derivada do produto $\mu \cdot y$. O lado direito é $Q(x) \cdot \mu(x)$.</span>
+<br/>
+                $$ x^{-2} y = \int \frac{1}{x} dx = \ln|x| + C $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: A integral de $1/x$ é o $\ln|x|$. (Como o enunciado diz $x&gt;0$, o módulo sai: $\ln x$).</span>
+<br/>
+                $$ y(x) = x^2 \ln x + C x^2 $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Isolamos $y$ multiplicando todos os lados por $x^2$.</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- TEMA 2.3 -->
+<article class="topic-card" id="tema-2-3">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-2-3" onchange="toggleTopicCheck('tema-2-3')" type="checkbox"/>
+<h3>2.3 Superposição e Teoria Linear</h3>
+</div>
+<span class="topic-origin">Lista 1: Ex. 11 e 12</span>
+</div>
+<div class="topic-body">
+<div class="section-block block-explanation">
+<h4>📖 Explicação Geral</h4>
+<p>A solução geral de $y' + P(x)y = Q(x)$ é a soma $y(x) = c y_h(x) + y_p(x)$, onde $y_h$ resolve a homogênea e $y_p$ é uma particular.</p>
+</div>
+<div class="section-block block-summary">
+<h4>⚡ Resumo Direto ao Ponto</h4>
+<p>A homogênea admite combinações lineares ($c_1 y_1 + c_2 y_2$). A não homogênea é $y = c y_h + y_p$.</p>
+</div>
+</div>
+</article>
+<!-- TEMA 2.4 -->
+<article class="topic-card" id="tema-2-4">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-2-4" onchange="toggleTopicCheck('tema-2-4')" type="checkbox"/>
+<h3>2.4 EDOs Exatas</h3>
+</div>
+<span class="topic-origin">Lista 1: Ex. 13</span>
+</div>
+<div class="topic-body">
+<div class="section-block block-explanation">
+<h4>📖 Explicação Geral &amp; Objetivo da Teoria</h4>
+<p>Seja $M dx + N dy = 0$. Se ela é a Diferencial Total de uma função $\Phi(x,y)$, então a solução geral será as curvas de nível $\Phi(x,y) = C$. O teste de exatidão é garantir que $M_y = N_x$.</p>
+</div>
+<div class="section-block block-example">
+<h4>📝 Exercícios Resolvidos Passo a Passo (Lista 1, Ex. 13c)</h4>
+<div class="step-item">
+<div class="step-title">Enunciado</div>
+<p>Mostre que a equação é exata e resolva: $y^2 + \cos x + (2xy + e^y)y' = 0$</p>
+</div>
+<div class="step-item">
+<div class="math-highlight">
+                $$ M = y^2 + \cos x, \quad N = 2xy + e^y $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: $M$ é o termo que multiplicaria $dx$, e $N$ o termo que multiplica $y'$ (que é $dy/dx$).</span>
+<br/>
+                $$ \frac{\partial M}{\partial y} = 2y, \quad \frac{\partial N}{\partial x} = 2y \implies \text{É Exata!} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Derivamos $M$ em relação a $y$ (x é constante) e $N$ em relação a $x$ (y é constante). Elas são idênticas.</span>
+<br/>
+                $$ \Phi(x,y) = \int M dx = \int (y^2 + \cos x) dx = xy^2 + \sin x + g(y) $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: O potencial $\Phi$ vem da integração de $M$ em relação a $x$. A "constante" dessa integração é, na verdade, uma função desconhecida $g(y)$.</span>
+<br/>
+                $$ \frac{\partial \Phi}{\partial y} = 2xy + g'(y) $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Derivamos o $\Phi$ que acabamos de encontrar em relação a $y$ para comparar com a equação original (onde $\Phi_y = N$).</span>
+<br/>
+                $$ 2xy + g'(y) = 2xy + e^y \implies g'(y) = e^y \implies g(y) = e^y $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Igualamos a expressão derivada a $N(x,y)$. Cancelamos os termos idênticos ($2xy$) e integramos $g'(y)$ para achar $g(y)$. A constante pode ser ignorada aqui.</span>
+<br/>
+                $$ \Phi(x,y) = xy^2 + \sin x + e^y = C $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Solução final implícita. Juntamos tudo e igualamos à constante arbitrária $C$.</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- TEMA 2.5 -->
+<article class="topic-card" id="tema-2-5">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-2-5" onchange="toggleTopicCheck('tema-2-5')" type="checkbox"/>
+<h3>2.5 Fatores Integrantes Especiais: $\mu(x)$ e $\mu(y)$</h3>
+</div>
+<span class="topic-origin">Lista 1: Ex. 14 e 15</span>
+</div>
+<div class="topic-body">
+<div class="section-block block-explanation">
+<h4>📖 Fórmulas Chave</h4>
+<div class="math-highlight">
+<p>1) Se $\frac{M_y - N_x}{N} = h(x) \implies \mu(x) = e^{\int h(x) dx}$</p>
+<p>2) Se $\frac{N_x - M_y}{M} = k(y) \implies \mu(y) = e^{\int k(y) dy}$</p>
+</div>
+</div>
+<div class="section-block block-example">
+<h4>📝 Exemplo (Lista 1, Ex. 15a)</h4>
+<p>Para $y \, dx + (2x - y e^y) \, dy = 0$, temos $M=y, N=2x-ye^y$. $\frac{N_x - M_y}{M} = \frac{2 - 1}{y} = \frac{1}{y} \implies \mu(y) = y$. Multiplicando por $y$, torna-se exata.</p>
+</div>
+<div class="section-block block-summary">
+<h4>⚡ Resumo Direto ao Ponto</h4>
+<p>Calcule $\frac{M_y-N_x}{N}$ para achar $\mu(x)$ ou $\frac{N_x-M_y}{M}$ para achar $\mu(y)$.</p>
+</div>
+</div>
+</article>
+<!-- TEMA 2.6 -->
+<article class="topic-card" id="tema-2-6">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-2-6" onchange="toggleTopicCheck('tema-2-6')" type="checkbox"/>
+<h3>2.6 EDOs Homogêneas</h3>
+</div>
+<span class="topic-origin">Lista 1: Ex. 16 e 17</span>
+</div>
+<div class="topic-body">
+<div class="section-block block-explanation">
+<h4>📖 Mudança de Variável</h4>
+<div class="math-highlight">$$y = v \cdot x \implies y' = v + x \frac{dv}{dx}$$</div>
+<p>Isso sempre gera uma equação separável em $v$ e $x$.</p>
+</div>
+<div class="section-block block-summary">
+<h4>⚡ Resumo Direto ao Ponto</h4>
+<p>Mesmo grau nos termos $\implies$ faça $y = vx$ e $y' = v + xv'$, separe e retorne $v = y/x$.</p>
+</div>
+</div>
+</article>
+<!-- TEMA 2.7 -->
+<article class="topic-card" id="tema-2-7">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-2-7" onchange="toggleTopicCheck('tema-2-7')" type="checkbox"/>
+<h3>2.7 Equação de Bernoulli</h3>
+</div>
+<span class="topic-origin">Lista 1: Ex. 18</span>
+</div>
+<div class="topic-body">
+<div class="section-block block-explanation">
+<h4>📖 Explicação Geral &amp; Objetivo da Teoria</h4>
+<p>Bernoulli: $y' + P(x)y = Q(x)y^\alpha$. Para linearizar, usamos a mudança de variável estratégica $v = y^{1-\alpha}$. Toda a equação é multiplicada para ficar nos termos de $v$ e $v'$.</p>
+</div>
+<div class="section-block block-example">
+<h4>📝 Exercícios Resolvidos Passo a Passo</h4>
+<div class="step-item">
+<div class="step-title">Enunciado (Lista 1, Ex. 18c)</div>
+<p>Resolva: $y' + \frac{y}{x} = x^2 y^4$</p>
+</div>
+<div class="step-item">
+<div class="math-highlight">
+                $$ \alpha = 4 \implies v = y^{1 - 4} = y^{-3} \implies v' = -3y^{-4}y' $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Identificamos $\alpha = 4$ e definimos a nova variável $v$. Derivamos $v$ implicitamente pela Regra da Cadeia.</span>
+<br/>
+                $$ y^{-4}y' + \frac{1}{x}y^{-3} = x^2 $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Dividimos TODA a equação original por $y^4$ (que é $y^\alpha$) para começar a isolar os termos.</span>
+<br/>
+                $$ -\frac{1}{3}v' + \frac{1}{x}v = x^2 \implies v' - \frac{3}{x}v = -3x^2 $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Substituímos $y^{-3}$ por $v$, e $y^{-4}y'$ por $-\frac{1}{3}v'$. Para deixá-la na forma canônica, multiplicamos tudo por $-3$. (Essa é a nova Linear!).</span>
+<br/>
+                $$ \mu(x) = e^{\int -3/x dx} = e^{-3\ln x} = x^{-3} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Calculamos o fator integrante para a nova EDO linear em $v$.</span>
+<br/>
+                $$ [x^{-3}v]' = -3x^{-1} \implies x^{-3}v = -3 \int \frac{1}{x} dx = -3\ln|x| + C $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Multiplicamos a linear por $\mu(x)$ e integramos. A integral de $-3x^{-1}$ é o logaritmo.</span>
+<br/>
+                $$ v(x) = x^3(C - 3\ln|x|) \implies y^{-3} = x^3(C - 3\ln|x|) $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Isolamos $v$ e então revertemos a mudança $v = y^{-3}$. Esta é a solução final.</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- TEMA 2.8 -->
+<article class="topic-card" id="tema-2-8">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-2-8" onchange="toggleTopicCheck('tema-2-8')" type="checkbox"/>
+<h3>2.8 Tabela de Decisão Rápida para a Prova</h3>
+</div>
+<span class="topic-origin">Síntese Prática</span>
+</div>
+<div class="topic-body">
+<table class="decision-table">
+<thead>
+<tr><th>Formato</th><th>Método</th><th>Ação Chave</th></tr>
+</thead>
+<tbody>
+<tr><td>$y' = g(x)h(y)$</td><td><strong>Separável</strong></td><td>$\int \frac{dy}{h(y)} = \int g(x)dx$</td></tr>
+<tr><td>$y' + Py = Q$</td><td><strong>Linear</strong></td><td>$\mu(x) = e^{\int P dx}$</td></tr>
+<tr><td>$y' + Py = Q y^\alpha$</td><td><strong>Bernoulli</strong></td><td>$v = y^{1-\alpha}$</td></tr>
+<tr><td>$M dx + N dy = 0$ ($M_y=N_x$)</td><td><strong>Exata</strong></td><td>$\Phi(x,y) = C$</td></tr>
+<tr><td>$M dx + N dy = 0$ ($M_y \neq N_x$)</td><td><strong>Fator $\mu(x)/\mu(y)$</strong></td><td>$\frac{M_y-N_x}{N}$ ou $\frac{N_x-M_y}{M}$</td></tr>
+<tr><td>$f(tx,ty) = t^n f(x,y)$</td><td><strong>Homogênea</strong></td><td>$y = vx \implies y' = v+xv'$</td></tr>
+</tbody>
+</table>
+</div>
+</article>
+</section>
+<!-- ========================================================================= -->
+<!-- MÓDULO 3 -->
+<!-- ========================================================================= -->
+<section class="module-container" id="modulo-3">
+<div class="module-header">
+<span class="module-tag tag-m3">Módulo 3</span>
+<h2>Modelagem e Aplicações do Mundo Real (Lista 2, Ex. 1 a 12)</h2>
+</div>
+<!-- TEMA 3.1 -->
+<article class="topic-card" id="tema-3-1">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-3-1" onchange="toggleTopicCheck('tema-3-1')" type="checkbox"/>
+<h3>3.1 Decaimento Radioativo &amp; Meia-Vida</h3>
+</div>
+<span class="topic-origin">Lista 2: Ex. 1 e 2</span>
+</div>
+<div class="topic-body">
+<div class="section-block block-explanation">
+<h4>📖 Explicação Geral &amp; Objetivo da Teoria</h4>
+<p>O modelo de decaimento assume que a taxa de variação da quantidade $\frac{dQ}{dt}$ é proporcional ao que existe $Q$. A constante de proporcionalidade é negativa (decaimento). A Meia-vida ($t_{1/2}$) nos ajuda a encontrar a constante $k$.</p>
+</div>
+<div class="section-block block-example">
+<h4>📝 Exercícios Resolvidos Passo a Passo (Lista 2, Ex. 1)</h4>
+<div class="step-item">
+<div class="step-title">Enunciado</div>
+<p>A meia-vida do C-14 é 5568 anos. Um fóssil contém $\frac{1}{8} Q_0$. Determine a idade do fóssil.</p>
+</div>
+<div class="step-item">
+<div class="math-highlight">
+                $$ \frac{dQ}{dt} = -k Q \implies \int \frac{dQ}{Q} = \int -k dt \implies \ln Q = -kt + C_1 $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Resolvemos por separação de variáveis. Ao aplicar exponencial de ambos os lados, obtemos a solução padrão de decaimento: $Q(t) = Q_0 e^{-kt}$.</span>
+<br/>
+                $$ Q(5568) = \frac{Q_0}{2} \implies Q_0 e^{-5568k} = \frac{Q_0}{2} \implies e^{-5568k} = 2^{-1} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Usamos a definição de meia-vida para encontrar $k$. O tempo em que a massa cai pela metade é 5568. Cancelamos $Q_0$ e aplicamos $\ln$.</span>
+<br/>
+                $$ -5568k = -\ln 2 \implies k = \frac{\ln 2}{5568} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Isolamos a constante de decaimento radioativo. Deixaremos na forma exata para não perder precisão no final.</span>
+<br/>
+                $$ Q(t) = \frac{1}{8}Q_0 \implies Q_0 e^{-kt} = \frac{1}{8}Q_0 \implies e^{-kt} = 2^{-3} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Queremos o tempo $t$ para o qual a massa atinge $1/8$. Simplificamos o termo fracionário para a mesma base ($2$).</span>
+<br/>
+                $$ -kt = -3\ln 2 \implies t = \frac{3\ln 2}{k} = \frac{3\ln 2}{\frac{\ln 2}{5568}} = 3 \times 5568 = 16.704 \text{ anos.} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Isolamos $t$ e substituímos o valor de $k$. O $\ln 2$ é cancelado, revelando que decorreram exatamente 3 ciclos de meia-vida.</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- TEMA 3.2 -->
+<article class="topic-card" id="tema-3-2">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-3-2" onchange="toggleTopicCheck('tema-3-2')" type="checkbox"/>
+<h3>3.2 Lei de Resfriamento de Newton &amp; Problemas Forenses</h3>
+</div>
+<span class="topic-origin">Lista 2: Ex. 3, 4, 5 e 6</span>
+</div>
+<div class="topic-body">
+<div class="section-block block-explanation">
+<h4>📖 Explicação Geral &amp; Objetivo da Teoria</h4>
+<p>A Lei de Resfriamento de Newton indica que $\Delta T(t) = T(t) - T_m$ (diferença entre corpo e ambiente) decai exponencialmente: $T(t) = T_m + (T_0 - T_m)e^{-kt}$. Nos problemas forenses, traçamos o tempo reverso até $T = 37^\circ\text{C}$ ($98.6^\circ\text{F}$).</p>
+</div>
+<div class="section-block block-example">
+<h4>📝 Exercícios Resolvidos Passo a Passo (Lista 2, Ex. 5)</h4>
+<div class="step-item">
+<div class="step-title">Enunciado</div>
+<p>Quarto $T_m = 70$. Às 12h ($t=0$): $T=80$. Às 13h ($t=1$): $T=75$. A temperatura do vivo é $98.6$. Qual a hora da morte?</p>
+</div>
+<div class="step-item">
+<div class="math-highlight">
+                $$ T(t) = 70 + (80 - 70)e^{-kt} = 70 + 10e^{-kt} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Adotamos 12h como o "Tempo Zero" ($t=0$). Substituímos a temperatura inicial (80) e a ambiente (70) no modelo.</span>
+<br/>
+                $$ T(1) = 75 \implies 70 + 10e^{-k(1)} = 75 \implies 10e^{-k} = 5 \implies e^{-k} = 0.5 $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Usamos a medição de 13h ($t=1$) para encontrar a constante $k$. Vemos que $k = \ln 2 \approx 0.69315$.</span>
+<br/>
+                $$ 70 + 10e^{-k t_{morte}} = 98.6 \implies 10e^{-k t_{morte}} = 28.6 \implies e^{-k t_{morte}} = 2.86 $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Igualamos a equação à temperatura do corpo vivo ($98.6$) para descobrir em qual momento (negativo, antes do meio dia) isso ocorreu.</span>
+<br/>
+                $$ -k t_{morte} = \ln(2.86) \implies t_{morte} = -\frac{\ln 2.86}{\ln 2} \approx -1.516 \text{ horas} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Aplicamos logaritmo de ambos os lados e isolamos o tempo. Ele é negativo porque aconteceu antes do nosso $t=0$.</span>
+<br/>
+                $$ 1.516\text{h} = 1\text{h} + (0.516 \times 60)\text{min} \approx 1\text{h e } 31\text{min} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Convertendo a fração decimal para minutos. Subtraindo de 12:00, temos aproximadamente 10h e 29min (bate com o gabarito de 10:28 devido ao arredondamento).</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- TEMA 3.3 -->
+<article class="topic-card" id="tema-3-3">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-3-3" onchange="toggleTopicCheck('tema-3-3')" type="checkbox"/>
+<h3>3.3 Farmacocinética e Entrada/Saída</h3>
+</div>
+<span class="topic-origin">Lista 2: Ex. 7</span>
+</div>
+<div class="topic-body">
+<div class="section-block block-explanation">
+<p>$\frac{dx}{dt} = r - kx \implies x(t) = \frac{r}{k}(1 - e^{-kt})$. Taxa constante de entrada $r$ e eliminação proporcional $-kx$.</p>
+</div>
+<div class="section-block block-summary">
+<h4>⚡ Resumo</h4>
+<p>Modelo linear simples de saturação com $x(\infty) = r/k$.</p>
+</div>
+</div>
+</article>
+<!-- TEMA 3.4 -->
+<article class="topic-card" id="tema-3-4">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-3-4" onchange="toggleTopicCheck('tema-3-4')" type="checkbox"/>
+<h3>3.4 Crescimento Populacional Malthusiano</h3>
+</div>
+<span class="topic-origin">Lista 2: Ex. 8</span>
+</div>
+<div class="topic-body">
+<div class="section-block block-explanation">
+<p>$\frac{dP}{dt} = kP \implies P(t) = P_0 e^{kt}$. Crescimento exponencial sem restrição de espaço ou comida.</p>
+</div>
+<div class="section-block block-summary">
+<h4>⚡ Resumo</h4>
+<p>Ache $k$ pela taxa observada e calcule $P_0$ ou tempos futuros.</p>
+</div>
+</div>
+</article>
+<!-- TEMA 3.5 -->
+<article class="topic-card" id="tema-3-5">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-3-5" onchange="toggleTopicCheck('tema-3-5')" type="checkbox"/>
+<h3>3.5 Crescimento Logístico &amp; Epidemias</h3>
+</div>
+<span class="topic-origin">Lista 2: Ex. 9 e 10</span>
+</div>
+<div class="topic-body">
+<div class="section-block block-explanation">
+<h4>📖 Explicação Geral &amp; Objetivo da Teoria</h4>
+<p>O Modelo Logístico $\frac{dP}{dt} = a P - b P^2$ é uma EDO de Bernoulli que modela crescimento com restrição (capacidade de suporte). Quando $t \to \infty$, a população estabiliza no equilíbrio.</p>
+</div>
+<div class="section-block block-example">
+<h4>📝 Exercícios Resolvidos Passo a Passo (Lista 2, Ex. 9)</h4>
+<div class="step-item">
+<div class="step-title">Enunciado</div>
+<p>População segue: $\frac{dP}{dt} = 0.01P(t) - 10^{-8}P(t)^2$. Encontre $P(t)$ geral (Item a).</p>
+</div>
+<div class="step-item">
+<div class="math-highlight">
+                $$ P' - 0.01 P = -10^{-8}P^2 \implies \alpha = 2 \implies v = P^{1-2} = P^{-1} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Identificamos como uma Equação de Bernoulli com $\alpha = 2$. Propomos a substituição para torná-la linear.</span>
+<br/>
+                $$ P^{-2}P' - 0.01 P^{-1} = -10^{-8} \implies -v' - 0.01 v = -10^{-8} \implies v' + 0.01 v = 10^{-8} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Dividimos a equação original por $P^2$. Substituindo $v = P^{-1}$ e notando que $v' = -P^{-2}P'$, chegamos na EDO linear padrão.</span>
+<br/>
+                $$ \mu(t) = e^{\int 0.01 dt} = e^{0.01t} \implies [v e^{0.01t}]' = 10^{-8}e^{0.01t} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Resolvemos a linear com o Fator Integrante e integramos ambos os lados em relação a $t$.</span>
+<br/>
+                $$ v e^{0.01t} = \frac{10^{-8}}{0.01}e^{0.01t} + C = 10^{-6}e^{0.01t} + C \implies v(t) = 10^{-6} + C e^{-0.01t} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: O denominador $0.01 = 10^{-2}$ divide o coeficiente. Isolamos $v(t)$ dividindo pelo fator integrante.</span>
+<br/>
+                $$ P(t) = \frac{1}{v(t)} = \frac{1}{10^{-6} + C e^{-0.01t}} = \frac{e^{0.01t}}{10^{-6} e^{0.01t} + C} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Retornamos à variável original $P(t) = 1/v(t)$. Multiplicando numerador e denominador por $e^{0.01t}$, chegamos exatamente à forma do Gabarito.</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- TEMA 3.6 -->
+<article class="topic-card" id="tema-3-6">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-3-6" onchange="toggleTopicCheck('tema-3-6')" type="checkbox"/>
+<h3>3.6 Evaporação e Taxas Geométricas</h3>
+</div>
+<span class="topic-origin">Lista 2: Ex. 11</span>
+</div>
+<div class="topic-body">
+<div class="section-block block-explanation">
+<p>$\frac{dV}{dt} = -k V^{2/3} \implies V(t) = \left(V_0^{1/3} - \frac{kt}{3}\right)^3$. Tempo de extinção: $t^* = \frac{3 V_0^{1/3}}{k}$.</p>
+</div>
+<div class="section-block block-summary">
+<h4>⚡ Resumo</h4>
+<p>Evaporação esférica acaba em tempo finito $t = \frac{3V_0^{1/3}}{k}$.</p>
+</div>
+</div>
+</article>
+<!-- TEMA 3.7 -->
+<article class="topic-card" id="tema-3-7">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-3-7" onchange="toggleTopicCheck('tema-3-7')" type="checkbox"/>
+<h3>3.7 Aquecimento com Controle Variável</h3>
+</div>
+<span class="topic-origin">Lista 2: Ex. 12</span>
+</div>
+<div class="topic-body">
+<div class="section-block block-explanation">
+<p>$\frac{dT}{dt} + \frac{t}{t^2+4}T = \frac{3}{t^2+4}$. EDO linear resolvida por fator integrante $\mu(t) = \sqrt{t^2+4}$.</p>
+</div>
+<div class="section-block block-summary">
+<h4>⚡ Resumo</h4>
+<p>Aplicação direta da técnica de fator integrante de 1ª ordem em problemas físicos.</p>
+</div>
+</div>
+</article>
+</section>
+<!-- ========================================================================= -->
+<!-- MÓDULO 4 -->
+<!-- ========================================================================= -->
+<section class="module-container" id="modulo-4">
+<div class="module-header">
+<span class="module-tag tag-m4">Módulo 4</span>
+<h2>Teoria Qualitativa, TEU e Redução de Ordem (Lista 3, Ex. 1 a 9)</h2>
+</div>
+<!-- TEMA 4.1 -->
+<article class="topic-card" id="tema-4-1">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-4-1" onchange="toggleTopicCheck('tema-4-1')" type="checkbox"/>
+<h3>4.1 Teorema de Existência e Unicidade (Picard-Lindelöf)</h3>
+</div>
+<span class="topic-origin">Lista 3: Ex. 1 e 3</span>
+</div>
+<div class="topic-body">
+<div class="section-block block-explanation">
+<h4>📖 Explicação Geral &amp; Objetivo da Teoria</h4>
+<p>A Falha do TEU ocorre quando a derivada parcial em relação a $y$ explode (ex: divisão por zero ou raiz negativa) no ponto $(x_0, y_0)$ do PVI. Isso abre a possibilidade (não a certeza) de existirem infinitas soluções ou múltiplas curvas cruzando o mesmo ponto.</p>
+</div>
+<div class="section-block block-example">
+<h4>📝 Exercícios Resolvidos Passo a Passo (Lista 3, Ex. 2 e 3)</h4>
+<div class="step-item">
+<div class="step-title">Enunciado (Ex 2)</div>
+<p>O PVI $y' = 2\sqrt{y}$, com $y(0) = 0$, tem soluções $y_1(x) = 0$ e $y_2(x) = x^2$ (para $x \ge 0$). Por que isso não contradiz o TEU?</p>
+</div>
+<div class="step-item">
+<div class="math-highlight">
+                $$ f(x,y) = 2\sqrt{y} = 2y^{1/2} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Identificamos $f(x,y)$. Ela é contínua para $y \ge 0$, logo a Existência está garantida no ponto $(0,0)$.</span>
+<br/>
+                $$ \frac{\partial f}{\partial y} = 2 \cdot \frac{1}{2}y^{-1/2} = \frac{1}{\sqrt{y}} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Calculamos a derivada parcial em relação a $y$ usando a Regra do Tombo.</span>
+<br/>
+                $$ \text{Em } (0,0): \frac{\partial f}{\partial y}(0,0) = \frac{1}{\sqrt{0}} \implies \text{Indefinido!} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Ao testar o ponto do PVI, notamos divisão por zero. A derivada parcial NÃO é contínua na região que contém $(0,0)$. Portanto, o TEU não garante a Unicidade, justificando a existência das duas soluções sem ferir o teorema matemático.</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- TEMA 4.2 -->
+<article class="topic-card" id="tema-4-2">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-4-2" onchange="toggleTopicCheck('tema-4-2')" type="checkbox"/>
+<h3>4.2 Falha de Unicidade &amp; Soluções Múltiplas</h3>
+</div>
+<span class="topic-origin">Lista 3: Ex. 2</span>
+</div>
+<div class="topic-body">
+<div class="section-block block-explanation">
+<p>Se $\frac{\partial f}{\partial y}$ explodir no ponto inicial (ex: $y' = 3y^{2/3}$ em $y=0$), a unicidade falha e existem infinitas soluções (ex: $y(x)=0$ e $y(x)=(x-x_0)^3$).</p>
+</div>
+<div class="section-block block-summary">
+<h4>⚡ Resumo</h4>
+<p>Derivada infinita em $y_0 \implies$ quebra de unicidade.</p>
+</div>
+</div>
+</article>
+<!-- TEMA 4.3 -->
+<article class="topic-card" id="tema-4-3">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-4-3" onchange="toggleTopicCheck('tema-4-3')" type="checkbox"/>
+<h3>4.3 Campos de Direções &amp; Isóclinas</h3>
+</div>
+<span class="topic-origin">Lista 3: Ex. 4 e 8</span>
+</div>
+<div class="topic-body">
+<div class="section-block block-explanation">
+<p>Isóclinas são curvas onde as retas tangentes têm inclinação constante $f(x,y) = c$. Permitem esboçar soluções qualitativas sem integrar.</p>
+</div>
+<div class="section-block block-summary">
+<h4>⚡ Resumo</h4>
+<p>Iguale $f(x,y) = c$ para desenhar segmentos tangentes e seguir as trajetórias.</p>
+</div>
+</div>
+</article>
+<!-- TEMA 4.4 -->
+<article class="topic-card" id="tema-4-4">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-4-4" onchange="toggleTopicCheck('tema-4-4')" type="checkbox"/>
+<h3>4.4 EDOs Autônomas, Diagrama de Fase e Estabilidade</h3>
+</div>
+<span class="topic-origin">Lista 3: Ex. 5, 6 e 7</span>
+</div>
+<div class="topic-body">
+<div class="section-block block-explanation">
+<h4>📖 Explicação Geral &amp; Objetivo da Teoria</h4>
+<p>EDOs Autônomas não dependem explicitamente de $t$ (tempo): $\frac{dy}{dt} = f(y)$. Os pontos onde $f(y)=0$ são Pontos Críticos (Equilíbrios). Analisamos o sinal de $f'(y)$ ou fazemos a linha de fase para classificar a estabilidade.</p>
+</div>
+<div class="section-block block-example">
+<h4>📝 Exercícios Resolvidos Passo a Passo (Lista 3, Ex. 5a)</h4>
+<div class="step-item">
+<div class="step-title">Enunciado</div>
+<p>Encontre e classifique os pontos críticos de $y' = y^2 - y^3$.</p>
+</div>
+<div class="step-item">
+<div class="math-highlight">
+                $$ f(y) = y^2 - y^3 = y^2(1 - y) = 0 $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Para achar os pontos de equilíbrio, igualamos $y'$ a zero. Fatorando, extraímos as raízes.</span>
+<br/>
+                $$ \text{Pontos Críticos: } y_1 = 0, \quad y_2 = 1 $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Soluções estacionárias onde a derivada se anula.</span>
+<br/>
+                $$ f'(y) = 2y - 3y^2 $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Usamos o Teste da Derivada Primeira. Derivamos $f(y)$ em relação a $y$.</span>
+<br/>
+                $$ f'(1) = 2(1) - 3(1)^2 = -1 &lt; 0 \implies \text{Assintoticamente Estável} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Se $f'(c) &lt; 0$, as setas convergem para o ponto. Ele é um "atrator".</span>
+<br/>
+                $$ f'(0) = 2(0) - 3(0)^2 = 0 \implies \text{Inconclusivo pelo Teste da Derivada!} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Quando a derivada é zero, testamos o sinal de $f(y)$ na vizinhança. Para $y=-0.1$, $f &lt; 0$ (cai). Para $y=0.1$, $f &gt; 0$ (sobe). As setas apontam para CIMA de ambos os lados de 0. Logo, $y=0$ é Semiestável.</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- TEMA 4.5 -->
+<article class="topic-card" id="tema-4-5">
+<div class="topic-card-header">
+<div class="card-title-left">
+<input class="card-checkbox" id="chk-tema-4-5" onchange="toggleTopicCheck('tema-4-5')" type="checkbox"/>
+<h3>4.5 Redução de Ordem para EDOs de 2ª Ordem</h3>
+</div>
+<span class="topic-origin">Lista 3: Ex. 9</span>
+</div>
+<div class="topic-body">
+<div class="section-block block-explanation">
+<h4>📖 Explicação Geral &amp; Objetivo da Teoria</h4>
+<p>Redução de ordem transforma uma EDO de 2ª ordem em uma de 1ª ordem através da substituição $v = y'$. Pode faltar o $y$ (mais fácil) ou o $x$ (requer a regra da cadeia $y'' = v \frac{dv}{dy}$).</p>
+</div>
+<div class="section-block block-example">
+<h4>📝 Exercícios Resolvidos Passo a Passo (Lista 3, Ex. 9a)</h4>
+<div class="step-item">
+<div class="step-title">Enunciado</div>
+<p>Reduza a ordem e resolva: $x y'' = y'$</p>
+</div>
+<div class="step-item">
+<div class="math-highlight">
+                $$ v = y' \implies v' = y'' $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Como a variável dependente $y$ não aparece explicitamente na equação, usamos a substituição direta.</span>
+<br/>
+                $$ x \cdot v' = v \implies \frac{dv}{dt} \cdot x = v \implies \frac{dv}{v} = \frac{dx}{x} $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Substituímos na EDO, obtendo uma equação de 1ª ordem para $v$, que é Separável.</span>
+<br/>
+                $$ \int \frac{1}{v} dv = \int \frac{1}{x} dx \implies \ln|v| = \ln|x| + C $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Integramos ambos os lados. As integrais notáveis geram logaritmos.</span>
+<br/>
+                $$ |v| = e^{\ln|x| + C} \implies v = \pm e^C \cdot x \implies v(x) = C_1 x $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Exponenciamos para sumir com o $\ln$. A constante arbitrária $\pm e^C$ é renomeada para $C_1$.</span>
+<br/>
+                $$ y' = C_1 x \implies \int y' dx = \int C_1 x dx $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: Desfazemos a substituição $v = y'$. Como $y'$ depende só de $x$, basta integrar diretamente.</span>
+<br/>
+                $$ y(x) = C_1 \frac{x^2}{2} + C_2 $$
+                <span class="math-comment" style="color: #94a3b8; font-size: 0.85em; display: block; margin-top: 5px;">// Explicação: A integral de $x$ é $x^2/2$. Surge a segunda constante $C_2$, característica de EDOs de 2ª Ordem.</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</main>
+<script>
+    // Accordion Toggle Logic
+    function toggleAccordion(id) {
+      const acc = document.getElementById(id);
+      acc.classList.toggle('open');
+    }
+
+    // Sidebar Visibility Toggle (Hamburger Button)
+    const sidebarToggleBtn = document.getElementById('sidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('mainContent');
+
+    sidebarToggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+      mainContent.classList.toggle('expanded');
+      sidebar.classList.toggle('mobile-open');
+    });
+
+    // Topic Checklist & Progress Tracker Logic
+    const TOPIC_IDS = [
+      'tema-1-1', 'tema-1-2', 'tema-1-3', 'tema-1-4',
+      'tema-2-1', 'tema-2-2', 'tema-2-3', 'tema-2-4', 'tema-2-5', 'tema-2-6', 'tema-2-7', 'tema-2-8',
+      'tema-3-1', 'tema-3-2', 'tema-3-3', 'tema-3-4', 'tema-3-5', 'tema-3-6', 'tema-3-7',
+      'tema-4-1', 'tema-4-2', 'tema-4-3', 'tema-4-4', 'tema-4-5'
+    ];
+
+    const MODULE_MAPPING = {
+      'mod-1': ['tema-1-1', 'tema-1-2', 'tema-1-3', 'tema-1-4'],
+      'mod-2': ['tema-2-1', 'tema-2-2', 'tema-2-3', 'tema-2-4', 'tema-2-5', 'tema-2-6', 'tema-2-7', 'tema-2-8'],
+      'mod-3': ['tema-3-1', 'tema-3-2', 'tema-3-3', 'tema-3-4', 'tema-3-5', 'tema-3-6', 'tema-3-7'],
+      'mod-4': ['tema-4-1', 'tema-4-2', 'tema-4-3', 'tema-4-4', 'tema-4-5']
+    };
+
+    function loadProgress() {
+      const saved = JSON.parse(localStorage.getItem('calculo4_progress') || '{}');
+      TOPIC_IDS.forEach(id => {
+        const isChecked = !!saved[id];
+        updateTopicUI(id, isChecked);
+      });
+      updateStats();
+    }
+
+    function saveProgress(id, isChecked) {
+      const saved = JSON.parse(localStorage.getItem('calculo4_progress') || '{}');
+      saved[id] = isChecked;
+      localStorage.setItem('calculo4_progress', JSON.stringify(saved));
+      updateStats();
+    }
+
+    function toggleTopicCheck(id) {
+      const chk = document.getElementById('chk-' + id);
+      const isChecked = chk.checked;
+      updateTopicUI(id, isChecked);
+      saveProgress(id, isChecked);
+    }
+
+    function toggleCheckFromSidebar(e, id) {
+      e.stopPropagation();
+      e.preventDefault();
+      const chk = document.getElementById('chk-' + id);
+      const newState = !chk.checked;
+      chk.checked = newState;
+      updateTopicUI(id, newState);
+      saveProgress(id, newState);
+    }
+
+    function updateTopicUI(id, isChecked) {
+      const card = document.getElementById(id);
+      const chk = document.getElementById('chk-' + id);
+      const sidebarIndicator = document.querySelector(`.sidebar-check-indicator[data-target="${id}"]`);
+
+      if (chk) chk.checked = isChecked;
+      if (card) {
+        if (isChecked) card.classList.add('completed');
+        else card.classList.remove('completed');
+      }
+      if (sidebarIndicator) {
+        if (isChecked) sidebarIndicator.classList.add('checked');
+        else sidebarIndicator.classList.remove('checked');
+      }
+    }
+
+    function updateStats() {
+      const saved = JSON.parse(localStorage.getItem('calculo4_progress') || '{}');
+      let totalChecked = 0;
+
+      // Update per module
+      for (const [modKey, topics] of Object.entries(MODULE_MAPPING)) {
+        let modCount = 0;
+        topics.forEach(t => {
+          if (saved[t]) modCount++;
+        });
+        const subLabel = document.getElementById(`status-${modKey}`);
+        if (subLabel) {
+          subLabel.innerText = `${modCount}/${topics.length} concluídos`;
+          if (modCount === topics.length) {
+            subLabel.style.color = '#22c55e';
+            subLabel.style.fontWeight = '700';
+          } else {
+            subLabel.style.color = '#94a3b8';
+            subLabel.style.fontWeight = 'normal';
+          }
+        }
+        totalChecked += modCount;
+      }
+
+      // Update global bar
+      const totalTopics = TOPIC_IDS.length;
+      const pct = Math.round((totalChecked / totalTopics) * 100);
+      document.getElementById('progressBar').style.width = pct + '%';
+      document.getElementById('progressPercent').innerText = pct + '%';
+      document.getElementById('progressCount').innerText = `${totalChecked} de ${totalTopics} tópicos concluídos`;
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', loadProgress);
+  </script>
+</body>
+</html>

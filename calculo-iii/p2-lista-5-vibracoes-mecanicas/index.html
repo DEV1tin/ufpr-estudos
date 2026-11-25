@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apostila de Estudo - Lista 5: Vibrações Mecânicas (CM314 - UFPR)</title>
+    <!-- KaTeX for crisp, fast math rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '\\[', right: '\\]', display: true},
+                {left: '\\(', right: '\\)', display: false}
+            ],
+            throwOnError: false
+        });"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --primary: #1e40af;
+            --primary-light: #dbeafe;
+            --primary-border: #93c5fd;
+            --accent: #0f766e;
+            --accent-light: #ccfbf1;
+            --accent-border: #5eead4;
+            --warn: #b45309;
+            --warn-light: #fef3c7;
+            --warn-border: #fcd34d;
+            --prereq-bg: #f3e8ff;
+            --prereq-border: #c084fc;
+            --prereq-text: #581c87;
+            --code-bg: #0f172a;
+            --code-row-even: #f8fafc;
+            --code-row-odd: #ffffff;
+            --comment-color: #047857;
+            --comment-bg: #ecfdf5;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.6;
+            font-size: 13.5px;
+            padding: 20px;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 32px 36px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Cover / Header */
+        .doc-header {
+            background: linear-gradient(135deg, #0f766e 0%, #0f172a 100%);
+            color: #ffffff;
+            padding: 28px 32px;
+            border-radius: 12px;
+            margin-bottom: 26px;
+            border-left: 8px solid #2dd4bf;
+        }
+
+        .doc-header .badge-course {
+            display: inline-block;
+            background: rgba(45, 212, 191, 0.2);
+            color: #99f6e4;
+            font-weight: 700;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(45, 212, 191, 0.4);
+        }
+
+        .doc-header h1 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            line-height: 1.25;
+        }
+
+        .doc-header .subtitle {
+            font-size: 13.5px;
+            color: #cbd5e1;
+            margin-bottom: 16px;
+        }
+
+        .header-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 12px;
+            color: #e2e8f0;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 12px;
+        }
+
+        /* Legend Box */
+        .legend-box {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-bottom: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            align-items: center;
+            font-size: 12.5px;
+        }
+
+        .legend-title {
+            font-weight: 700;
+            color: #1e293b;
+            margin-right: 4px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #ffffff;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            font-weight: 500;
+        }
+
+        /* Checklist Section */
+        .checklist-card {
+            background: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 20px 24px;
+            margin-bottom: 30px;
+            break-inside: avoid;
+        }
+
+        .checklist-card h2 {
+            font-size: 17px;
+            color: var(--accent);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 2px solid var(--accent-light);
+            padding-bottom: 8px;
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .chk-topic {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 14px;
+        }
+
+        .chk-topic-title {
+            font-weight: 700;
+            color: #0f172a;
+            font-size: 13px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .chk-sublist {
+            list-style: none;
+            padding-left: 20px;
+            font-size: 12px;
+            color: #475569;
+        }
+
+        .chk-sublist li {
+            margin-bottom: 3px;
+            position: relative;
+        }
+
+        .chk-sublist li::before {
+            content: "☐";
+            position: absolute;
+            left: -16px;
+            color: #64748b;
+            font-weight: bold;
+        }
+
+        /* Topic Header Banner */
+        .topic-section {
+            margin-top: 34px;
+            margin-bottom: 28px;
+        }
+
+        .topic-banner {
+            background: linear-gradient(90deg, #0f766e 0%, #0d9488 100%);
+            color: #ffffff;
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            break-after: avoid;
+        }
+
+        .topic-banner h2 {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .topic-banner .topic-range {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Theory & Prerequisite Boxes */
+        .theory-box {
+            background: #eff6ff;
+            border-left: 5px solid #2563eb;
+            border-top: 1px solid #bfdbfe;
+            border-right: 1px solid #bfdbfe;
+            border-bottom: 1px solid #bfdbfe;
+            border-radius: 0 8px 8px 0;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+        }
+
+        .theory-box h3 {
+            color: #1e3a8a;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theory-box p, .theory-box ul, .theory-box ol {
+            margin-bottom: 8px;
+            color: #1e293b;
+        }
+
+        .theory-box ul, .theory-box ol {
+            padding-left: 22px;
+        }
+
+        .prereq-box {
+            background: var(--prereq-bg);
+            border-left: 5px solid #9333ea;
+            border-top: 1px solid #e9d5ff;
+            border-right: 1px solid #e9d5ff;
+            border-bottom: 1px solid #e9d5ff;
+            border-radius: 0 8px 8px 0;
+            padding: 15px 20px;
+            margin-bottom: 16px;
+            break-inside: avoid;
+        }
+
+        .prereq-box h3 {
+            color: var(--prereq-text);
+            font-size: 14.5px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prereq-box ul, .prereq-box ol {
+            padding-left: 22px;
+        }
+
+        /* Formula Table */
+        .formula-card {
+            background: #ffffff;
+            border: 2px solid #0f766e;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            break-inside: avoid;
+        }
+
+        .formula-card-header {
+            background: #0f766e;
+            color: #ffffff;
+            padding: 8px 16px;
+            font-weight: 700;
+            font-size: 13.5px;
+        }
+
+        .formula-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12.8px;
+        }
+
+        .formula-table th {
+            background: #f0fdfa;
+            color: #115e59;
+            text-align: left;
+            padding: 8px 12px;
+            border-bottom: 1px solid #99f6e4;
+            font-weight: 700;
+        }
+
+        .formula-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: middle;
+        }
+
+        .formula-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Exercise Card */
+        .exercise-card {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            margin-bottom: 22px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+
+        .exercise-header {
+            background: #f1f5f9;
+            padding: 12px 18px;
+            border-bottom: 1px solid #cbd5e1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            break-after: avoid;
+        }
+
+        .exercise-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge-type {
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 999px;
+        }
+
+        .badge-star {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #f59e0b;
+        }
+
+        .badge-book {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #60a5fa;
+        }
+
+        .exercise-body {
+            padding: 16px 18px;
+        }
+
+        .enunciado-geral {
+            background: #f8fafc;
+            border-left: 4px solid #64748b;
+            padding: 10px 14px;
+            margin-bottom: 14px;
+            font-weight: 500;
+            color: #1e293b;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .subitem-block {
+            margin-top: 14px;
+            margin-bottom: 16px;
+        }
+
+        .subitem-enunciado {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-left: 4px solid #2563eb;
+            padding: 8px 14px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #1e3a8a;
+            break-after: avoid;
+        }
+
+        /* Code-Style Resolution Table */
+        .code-resolution {
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            background: #ffffff;
+        }
+
+        .code-header {
+            background: #1e293b;
+            color: #cbd5e1;
+            padding: 6px 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            break-after: avoid;
+        }
+
+        .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .dot.red { background: #ef4444; }
+        .dot.yellow { background: #f59e0b; }
+        .dot.green { background: #10b981; }
+        .code-title { margin-left: 6px; font-weight: 500; color: #94a3b8; }
+
+        .step-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .step-row {
+            border-bottom: 1px solid #e2e8f0;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .step-row:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .step-row:last-child {
+            border-bottom: none;
+        }
+
+        .line-num {
+            width: 38px;
+            min-width: 38px;
+            text-align: right;
+            padding: 8px 8px 8px 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #64748b;
+            background: #f1f5f9;
+            border-right: 2px solid #cbd5e1;
+            vertical-align: middle;
+            user-select: none;
+        }
+
+        .step-math {
+            width: 52%;
+            padding: 8px 12px;
+            vertical-align: middle;
+            font-size: 13.5px;
+            color: #0f172a;
+            overflow-x: auto;
+        }
+
+        .step-comment {
+            width: 44%;
+            padding: 8px 12px;
+            vertical-align: middle;
+            font-family: 'Inter', sans-serif;
+            font-size: 12.2px;
+            color: #065f46;
+            background: rgba(236, 253, 245, 0.55);
+            border-left: 1px dashed #6ee7b7;
+            line-height: 1.45;
+        }
+
+        .comment-prefix {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: #059669;
+            margin-right: 4px;
+        }
+
+        .final-answer {
+            background: #ecfdf5;
+            border: 1.5px solid #10b981;
+            border-radius: 6px;
+            padding: 8px 14px;
+            font-weight: 600;
+            color: #065f46;
+            font-size: 13px;
+            margin-top: 6px;
+            break-inside: avoid;
+        }
+
+        .graph-box {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-top: 10px;
+            break-inside: avoid;
+        }
+
+        /* Recapitulation Box */
+        .recap-box {
+            background: #fffbeb;
+            border: 2px solid #f59e0b;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            break-inside: avoid;
+        }
+
+        .recap-box h3 {
+            color: #b45309;
+            font-size: 15.5px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .recap-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .recap-card {
+            background: #ffffff;
+            border: 1px solid #fde68a;
+            border-radius: 6px;
+            padding: 10px 12px;
+            font-size: 12.5px;
+        }
+
+        .recap-card strong {
+            color: #92400e;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Print optimization */
+        @page {
+            size: A4 portrait;
+            margin: 12mm 10mm 12mm 10mm;
+        }
+
+        @media print {
+            body {
+                background: #ffffff;
+                padding: 0;
+                font-size: 12px;
+            }
+            .container {
+                max-width: 100%;
+                padding: 0;
+                box-shadow: none;
+            }
+            .topic-section {
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- HEADER -->
+    <div class="doc-header">
+        <div class="badge-course">CM314 • Cálculo 4 • UFPR • Preparação Prova 2</div>
+        <h1>Caderno de Resolução Integral e Teoria — Lista Nº 5</h1>
+        <div class="subtitle">Aplicações das EDOs de Segunda Ordem: Oscilações e Vibrações Mecânicas (MHS, Amortecimento, Forçamento e Ressonância)</div>
+        <div class="header-meta">
+            <span><strong>Aluno:</strong> Vitor Hugo D. Lima</span>
+            <span><strong>Docente:</strong> Profa. Dra. Ana Gabriela Martínez</span>
+            <span><strong>Metodologia:</strong> Código Comentado Linha a Linha + Zero Pressuposição de Base</span>
+        </div>
+    </div>
+
+    <!-- LEGENDA DE CLASSIFICAÇÃO -->
+    <div class="legend-box">
+        <span class="legend-title">Legenda de Classificação dos Exercícios:</span>
+        <div class="legend-item"><span>⭐</span> <strong>Formato provável de cair em prova</strong> (Foco máximo!)</div>
+        <div class="legend-item"><span>📖</span> <strong>Exercício introdutório ao tema</strong> (Constrói a base)</div>
+        <div class="legend-item"><span>❌</span> <strong>Não cai na P2</strong> (Fora da ementa da prova)</div>
+    </div>
+
+    <!-- CHECKLIST GERAL DA LISTA 5 -->
+    <div class="checklist-card">
+        <h2>📋 Introdução à Lista 5 — Checklist de Tópicos e Subtópicos</h2>
+        <p style="margin-bottom: 12px; color: #475569; font-size: 12.8px;">A Profa. Ana Gabriela confirmou expressamente que <strong>Oscilações Mecânicas</strong> será cobrada na Prova 2. Abaixo está o roteiro completo dos 7 exercícios desta lista divididos em 5 tópicos sequenciais:</p>
+        <div class="checklist-grid">
+            <div class="chk-topic">
+                <div class="chk-topic-title">☐ Tópico 1: Vibrações Livres Sem Amortecimento (Ex. 1)</div>
+                <ul class="chk-sublist">
+                    <li>Lei de Hooke e Equação do MHS (\(mx'' + kx = 0\))</li>
+                    <li>Frequência natural (\(\omega_0 = \sqrt{k/m}\)) e Período (\(T = 2\pi/\omega_0\))</li>
+                    <li>Conversão para forma Amplitude-Fase \(x(t) = A\cos(\omega_0 t - \phi)\)</li>
+                </ul>
+            </div>
+            <div class="chk-topic">
+                <div class="chk-topic-title">☐ Tópico 2: Vibrações Forçadas e Ressonância Pura (Ex. 2 e 3)</div>
+                <ul class="chk-sublist">
+                    <li>Força externa periódica \(f(t) = F_0 \cos(\Omega t)\) sem atrito</li>
+                    <li>Caso \(\Omega \neq \omega_0\): solução limitada (superposição de ondas)</li>
+                    <li>Caso \(\Omega = \omega_0\): Ressonância Pura (\(t\text{sen}(\omega_0 t)\), amplitude ilimitada)</li>
+                </ul>
+            </div>
+            <div class="chk-topic">
+                <div class="chk-topic-title">☐ Tópico 3: Vibrações Livres Amortecidas (Ex. 4)</div>
+                <ul class="chk-sublist">
+                    <li>Equação \(my'' + cy' + ky = 0\) com amortecimento viscoso \(c > 0\)</li>
+                    <li>Os 3 regimes: Subcrítico (\(\Delta < 0\)), Crítico (\(\Delta = 0\)) e Supercrítico (\(\Delta > 0\))</li>
+                    <li>Prova de que toda solução livre amortecida é transiente (\(\lim_{t\to\infty} y(t) = 0\))</li>
+                </ul>
+            </div>
+            <div class="chk-topic">
+                <div class="chk-topic-title">☐ Tópico 4: Vibrações Forçadas Amortecidas (Ex. 5 e 6)</div>
+                <ul class="chk-sublist">
+                    <li>Decomposição \(y(t) = y_{tr}(t) + y_{est}(t)\) (Transiente + Permanente)</li>
+                    <li>Fórmula geral da Amplitude Estacionária \(A(\Omega)\) e Ressonância Prática</li>
+                    <li>Análise gráfica e significado físico quando \(t \to \infty\)</li>
+                </ul>
+            </div>
+            <div class="chk-topic" style="grid-column: span 2;">
+                <div class="chk-topic-title">☐ Tópico 5: O Pêndulo Simples e Linearização para Pequenos Ângulos (Ex. 7)</div>
+                <ul class="chk-sublist">
+                    <li>Da equação não-linear \(\theta'' + \frac{g}{L}\text{sen}(\theta) = 0\) para a EDO linear \(\theta'' + \frac{g}{L}\theta = 0\) usando \(\text{sen}(\theta) \approx \theta\)</li>
+                    <li>Cálculo da frequência angular \(\omega_0 = \sqrt{g/L}\), amplitude em radianos e período \(T\) do pêndulo</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TÓPICO 1: VIBRAÇÕES LIVRES SEM AMORTECIMENTO - MHS (EX 1)         -->
+    <!-- ================================================================= -->
+    <div class="topic-section">
+        <div class="topic-banner">
+            <h2>Tópico 1: Vibrações Livres Sem Amortecimento — Movimento Harmônico Simples (MHS)</h2>
+            <span class="topic-range">Exercício 1 (Itens a, b, c, d)</span>
+        </div>
+
+        <div class="prereq-box">
+            <h3>🧠 O que você precisa lembrar de Física Básica, Trigonometria e da Lista 4 (Pré-Requisitos)</h3>
+            <ul>
+                <li><strong>1. Significado Físico das Derivadas no Tempo \(t\) (Física 1 / Cálculo 1):</strong>
+                    <ul>
+                        <li><strong>Posição / Deslocamento \(x(t)\):</strong> Distância da massa até a posição de equilíbrio (em metros, \(\text{m}\)).</li>
+                        <li><strong>Velocidade \(v(t) = x'(t) = \frac{dx}{dt}\):</strong> É a <strong>1ª derivada</strong> da posição em relação ao tempo (em \(\text{m/s}\)).</li>
+                        <li><strong>Aceleração \(a(t) = x''(t) = \frac{d^2x}{dt^2}\):</strong> É a <strong>2ª derivada</strong> da posição em relação ao tempo (em \(\text{m/s}^2\)).</li>
+                    </ul>
+                </li>
+                <li><strong>2. Identidade do Cosseno da Diferença \(\cos(\alpha - \beta)\) (Trigonometria):</strong>
+                    \[\cos(\omega_0 t - \phi) = \cos(\phi)\cos(\omega_0 t) + \text{sen}(\phi)\text{sen}(\omega_0 t)\]
+                    Multiplicando tudo por uma amplitude \(A > 0\):
+                    \[A\cos(\omega_0 t - \phi) = \underbrace{(A\cos\phi)}_{= c_1}\cos(\omega_0 t) + \underbrace{(A\,\text{sen}\,\phi)}_{= c_2}\text{sen}(\omega_0 t)\]
+                    Elevando ao quadrado e somando (\(c_1^2 + c_2^2 = A^2(\cos^2\phi + \text{sen}^2\phi) = A^2\)), descobrimos como transformar \(c_1\cos(\omega_0 t) + c_2\text{sen}(\omega_0 t)\) em uma única onda \(A\cos(\omega_0 t - \phi)\)!
+                </li>
+                <li><strong>3. Cuidado com o Quadrante do Ângulo de Fase \(\phi\):</strong> Como \(\cos\phi = \frac{c_1}{A}\) e \(\text{sen}\,\phi = \frac{c_2}{A}\), temos \(\text{tg}(\phi) = \frac{c_2}{c_1}\). Olhe sempre para o sinal de \(c_1\) (cosseno) e de \(c_2\) (seno) para saber em qual quadrante o ângulo \(\phi\) está!</li>
+            </ul>
+        </div>
+
+        <div class="theory-box">
+            <h3>📘 Introdução ao Tema: O Sistema Massa-Mola Ideal (Sem Atrito)</h3>
+            <p>Pela <strong>Lei de Hooke</strong>, uma mola esticada ou comprimida de uma distância \(x(t)\) puxa a massa de volta com uma força restauradora \(F_{\text{mola}} = -k x(t)\). Pela <strong>2ª Lei de Newton</strong> (\(F = m \cdot a = m x''(t)\)), igualamos as duas forças:</p>
+            \[m x''(t) = -k x(t) \quad \implies \quad m x''(t) + k x(t) = 0\]
+            <p>Dividindo tudo pela massa \(m\) e definindo a <strong>Frequência Natural</strong> \(\omega_0 = \sqrt{\frac{k}{m}}\) (logo \(\omega_0^2 = \frac{k}{m}\)), chegamos na equação clássica do MHS:</p>
+            \[x''(t) + \omega_0^2 x(t) = 0 \quad \implies \quad x(t) = c_1 \cos(\omega_0 t) + c_2 \text{sen}(\omega_0 t) = A \cos(\omega_0 t - \phi)\]
+        </div>
+
+        <div class="formula-card">
+            <div class="formula-card-header">📐 Formulário Completo — Movimento Harmônico Simples (MHS Livre)</div>
+            <table class="formula-table">
+                <thead>
+                    <tr>
+                        <th style="width: 28%;">Grandeza Física</th>
+                        <th style="width: 36%;">Fórmula Matemática</th>
+                        <th style="width: 36%;">Unidade (SI) e Interpretação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Frequência Natural (\(\omega_0\))</strong></td>
+                        <td>\(\omega_0 = \sqrt{\frac{k}{m}}\)</td>
+                        <td>\(\text{rad/s}\) — Rapidez angular com que o sistema oscila sozinho.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Período (\(T\)) e Frequência (\(f\))</strong></td>
+                        <td>\(T = \frac{2\pi}{\omega_0}, \qquad f = \frac{1}{T} = \frac{\omega_0}{2\pi}\)</td>
+                        <td>\(T\) em segundos (\(\text{s}\)) = tempo para dar 1 oscilação completa.<br>\(f\) em Hertz (\(\text{Hz}\)) = oscilações por segundo.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Amplitude (\(A\))</strong></td>
+                        <td>\(A = \sqrt{c_1^2 + c_2^2}\)</td>
+                        <td>\(\text{m}\) — Deslocamento máximo da massa a partir do equilíbrio (sempre \(A > 0\)).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ângulo de Fase (\(\phi\))</strong></td>
+                        <td>\(\cos\phi = \frac{c_1}{A}, \quad \text{sen}\,\phi = \frac{c_2}{A} \implies \text{tg}(\phi) = \frac{c_2}{c_1}\)</td>
+                        <td>\(\text{rad}\) — Deslocamento horizontal da onda cosseno no instante inicial.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- EXERCÍCIO 1 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>⭐</span> Exercício 1 — Sistema Massa-Mola Sem Amortecimento (Completo)</div>
+                <span class="badge-type badge-star">Formato Provável de Prova</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>1.</strong> Uma massa de \(m = 2\text{ kg}\) está presa a uma mola de constante elástica \(k = 8\text{ N/m}\) sobre uma superfície horizontal sem atrito. Seja \(x(t)\) o deslocamento da massa em relação à posição de equilíbrio. Lembre que o movimento é governado pela equação diferencial:
+                    \[m x''(t) + k x(t) = 0\]
+                    Sabendo que, no instante \(t = 0\), a massa está \(0,30\text{ m}\) à direita da posição de equilíbrio e possui velocidade inicial de \(-0,40\text{ m/s}\):
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        <strong>1. (a)</strong> Escreva a equação diferencial e determine a solução geral. Qual é o valor da frequência natural do sistema?
+                    </div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(2 x''(t) + 8 x(t) = 0\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Substituímos os dados do enunciado: massa m = 2 kg e constante da mola k = 8 N/m na equação mx'' + kx = 0.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(x''(t) + 4 x(t) = 0\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Dividimos toda a equação por m = 2 para deixá-la na forma padrão x'' + ω<sub>0</sub><sup>2</sup> x = 0.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\omega_0 = \sqrt{\frac{k}{m}} = \sqrt{\frac{8}{2}} = \sqrt{4} = 2\text{ rad/s}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Calculamos a frequência natural ω<sub>0</sub> (que é a raiz quadrada do número 4 que multiplica x).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(r^2 + 4 = 0 \implies r^2 = -4 \implies r = \pm 2i \quad (\alpha = 0, \;\; \beta = 2)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Montamos a equação característica (como aprendemos na Lista 4) e achamos as raízes imaginárias puras.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(x(t) = c_1 \cos(2t) + c_2 \sin(2t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Escrevemos a solução geral do movimento harmônico simples.</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 1(a): Equação diferencial: \(2x''(t) + 8x(t) = 0\) (ou \(x''(t) + 4x(t) = 0\)). Solução geral: \(x(t) = c_1 \cos(2t) + c_2 \text{sen}(2t)\). Frequência natural: \(\omega_0 = 2\text{ rad/s}\).</div>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        <strong>1. (b)</strong> Determine a solução que satisfaz as condições iniciais.
+                    </div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(x(0) = 0,30 = \frac{3}{10}\text{ m} \qquad \text{e} \qquad x'(0) = v(0) = -0,40 = -\frac{4}{10}\text{ m/s}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Traduzimos o texto para matemática: '0,30 m à direita' significa x(0) = +0,30; 'velocidade inicial de -0,40' significa x'(0) = -0,40.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(x(0) = 0,30 \implies c_1 \cos(0) + c_2 \sin(0) = 0,30 \implies c_1(1) + 0 = 0,30 \implies c_1 = 0,30\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Substituímos t = 0 na solução geral x(t). Como cos(0) = 1 e sen(0) = 0, achamos c<sub>1</sub> = 0,30 na hora!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(x'(t) = -2c_1 \sin(2t) + 2c_2 \cos(2t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Derivamos x(t) usando a Regra da Cadeia para obter a função velocidade v(t) = x'(t).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(x'(0) = -0,40 \implies -2c_1 \sin(0) + 2c_2 \cos(0) = -0,40 \implies 2c_2 = -0,40 \implies c_2 = -0,20\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Substituímos t = 0 na derivada x'(t) e isolamos c<sub>2</sub> = -0,40 / 2 = -0,20.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(x(t) = 0,30\cos(2t) - 0,20\sin(2t) \quad \left(\text{ou } x(t) = \frac{3}{10}\cos(2t) - \frac{1}{5}\sin(2t)\right)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Substituímos c<sub>1</sub> = 0,30 e c<sub>2</sub> = -0,20 na solução geral.</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 1(b): \(x(t) = 0,30\cos(2t) - 0,20\,\text{sen}(2t)\).</div>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        <strong>1. (c)</strong> Escreva a solução do item (b) na forma \(x(t) = A\cos(\omega t - \phi)\).
+                    </div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(c_1 = 0,30 \qquad \text{e} \qquad c_2 = -0,20\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Identificamos os coeficientes que multiplicam o cosseno (c<sub>1</sub>) e o seno (c<sub>2</sub>).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(A = \sqrt{c_1^2 + c_2^2} = \sqrt{(0,30)^2 + (-0,20)^2} = \sqrt{0,09 + 0,04} = \sqrt{0,13} \approx 0,3606\text{ m}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Calculamos a amplitude A pelo Teorema de Pitágoras (em fração exata: √(13/100) = √13/10 m).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\tan(\phi) = \frac{c_2}{c_1} = \frac{-0,20}{0,30} = -\frac{2}{3}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Usamos a relação tg(ϕ) = c<sub>2</sub> / c<sub>1</sub> deduzida nos slides da professora.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(\text{Como } c_1 = A\cos\phi > 0 \text{ e } c_2 = A\sin\phi < 0 \implies \phi \in 4^\circ\text{ Quadrante}: \;\; \phi = -\text{arctg}\left(\frac{2}{3}\right) \approx -0,588\text{ rad}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Cosseno positivo e seno negativo indicam o 4º quadrante, logo ϕ = -arctg(2/3).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(x(t) = \sqrt{0,13}\,\cos\left(2t - \phi\right) = \frac{\sqrt{13}}{10}\cos\left(2t + \text{arctg}\left(\frac{2}{3}\right)\right)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Substituímos A, ω<sub>0</sub> = 2 e ϕ = -arctg(2/3) (note que -ϕ fica +arctg(2/3)).</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 1(c): \(x(t) = \sqrt{0,13}\,\cos(2t - \phi) = \frac{\sqrt{13}}{10}\cos\left(2t + \text{arctg}\left(\frac{2}{3}\right)\right)\), onde \(\phi = -\text{arctg}(2/3) \approx -0,588\text{ rad}\).</div>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        <strong>1. (d)</strong> Determine a amplitude e o período do movimento.
+                    </div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(A = \sqrt{0,13} = \frac{\sqrt{13}}{10}\text{ m} \approx 0,3606\text{ m}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> A amplitude A já foi obtida no item (c): é o afastamento máximo em relação ao equilíbrio.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(T = \frac{2\pi}{\omega_0} = \frac{2\pi}{2} = \pi\text{ segundos} \approx 3,1416\text{ s}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Calculamos o período dividindo 2π pela frequência natural ω<sub>0</sub> = 2 rad/s.</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 1(d): Amplitude \(A = \frac{\sqrt{13}}{10}\text{ m} \approx 0,36\text{ m}\) e Período \(T = \pi\text{ s} \approx 3,14\text{ s}\).</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESUMINHO DO TÓPICO 1 -->
+        <div class="recap-box">
+            <h3>💡 Resuminho & Recapitulação — Tópico 1 (MHS Livre)</h3>
+            <div class="recap-grid">
+                <div class="recap-card">
+                    <strong>1. Tradução Rápida do Enunciado para o P.V.I.</strong>
+                    • "À direita / abaixo do equilíbrio" \(\implies x(0) > 0\).<br>
+                    • "À esquerda / acima do equilíbrio" \(\implies x(0) < 0\).<br>
+                    • "Solto a partir do repouso" \(\implies x'(0) = 0\).<br>
+                    • "Impulsionado com velocidade inicial" \(\implies x'(0) = v_0\).
+                </div>
+                <div class="recap-card">
+                    <strong>2. Conversão \(c_1\cos + c_2\text{sen} \to A\cos(\omega_0 t - \phi)\)</strong>
+                    • \(A = \sqrt{c_1^2 + c_2^2}\) (sempre positivo!).<br>
+                    • \(\text{tg}(\phi) = \frac{c_2}{c_1}\) (o que multiplica o <strong>seno</strong> vai em cima; o que multiplica o <strong>cosseno</strong> vai embaixo!).
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TÓPICO 2: VIBRAÇÕES FORÇADAS SEM AMORTECIMENTO E RESSONÂNCIA      -->
+    <!-- ================================================================= -->
+    <div class="topic-section">
+        <div class="topic-banner">
+            <h2>Tópico 2: Vibrações Forçadas Sem Amortecimento e Ressonância Pura</h2>
+            <span class="topic-range">Exercícios 2 e 3</span>
+        </div>
+
+        <div class="prereq-box">
+            <h3>🧠 O que você precisa lembrar sobre Funções Limitadas vs. Ilimitadas (Pré-Requisitos)</h3>
+            <ul>
+                <li><strong>1. Quando uma função é Limitada? (Cálculo 1):</strong> As funções \(\cos(\theta)\) e \(\text{sen}(\theta)\) nunca passam de \(1\) nem ficam menores que \(-1\), ou seja: \(|\cos(\theta)| \le 1\) e \(|\text{sen}(\theta)| \le 1\). Pela <em>Desigualdade Triangular</em> (\(|a + b| \le |a| + |b|\)), qualquer soma de senos e cossenos com coeficientes constantes é <strong>sempre limitada</strong>:
+                \[|c_1 \cos(\omega_0 t) + c_2 \cos(\Omega t)| \le |c_1|\cdot|\cos(\omega_0 t)| + |c_2|\cdot|\cos(\Omega t)| \le |c_1| + |c_2| = M \quad (\text{Limitada!})\]</li>
+                <li><strong>2. Quando uma função Oscilante é Ilimitada?</strong> Quando aparece a variável tempo <strong>\(t\) multiplicando o seno ou o cosseno</strong>: \(t\,\text{sen}(\omega_0 t)\). À medida que o tempo \(t \to \infty\), nos picos onde \(\text{sen}(\omega_0 t) = \pm 1\), a função atinge valores \(\pm t \to \pm\infty\). Logo, a amplitude cresce sem limite (<strong>ilimitada</strong>)!</li>
+            </ul>
+        </div>
+
+        <div class="theory-box">
+            <h3>📘 Introdução ao Tema: Força Externa Periódica e o Fenômeno da Ressonância</h3>
+            <p>Quando aplicamos uma força externa periódica \(f(t) = F_0 \cos(\Omega t)\) de <strong>frequência externa \(\Omega\)</strong> sobre um sistema sem atrito de <strong>frequência natural \(\omega_0 = \sqrt{k/m}\)</strong>, a EDO não homogênea é:</p>
+            \[y''(t) + \omega_0^2 y(t) = \frac{F_0}{m} \cos(\Omega t)\]
+            <p>Pelo Método dos Coeficientes a Determinar (Lista 4), existem <strong>dois mundos completamente diferentes</strong> dependendo de \(\Omega\) ser igual ou diferente de \(\omega_0\):</p>
+            <ol>
+                <li><strong>Fora de Ressonância (\(\Omega \neq \omega_0\)):</strong> \(\cos(\Omega t)\) não colide com \(y_h(t)\). O palpite é \(y_p(t) = A\cos(\Omega t) + B\text{sen}(\Omega t)\) (inclusive \(B=0\) pois não há \(y'\) na EDO!). A solução permanece <strong>limitada</strong> para todo \(t \ge 0\).</li>
+                <li><strong>Em Ressonância Pura (\(\Omega = \omega_0\)):</strong> A frequência da força externa empata com a frequência natural da mola! Ocorre colisão com \(y_h(t)\), obrigando a multiplicar o palpite por \(t\):
+                \[y_p(t) = t\left[A\cos(\omega_0 t) + B\,\text{sen}(\omega_0 t)\right]\]
+                A amplitude cresce linearmente com o tempo \(t\), tornando a oscilação <strong>ilimitada</strong> (capaz de quebrar a mola ou colapsar estruturas!).</li>
+            </ol>
+        </div>
+
+        <!-- EXERCÍCIO 2 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>⭐</span> Exercício 2 — Comparação: Oscilação Limitada vs. Ressonância Ilimitada</div>
+                <span class="badge-type badge-star">Formato Muito Provável de Prova</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>2.</strong> Considere o sistema massa-mola sem amortecimento:
+                    \[y''(t) + 16y(t) = f(t)\]
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        <strong>2. (a)</strong> Seja \(f(t) = 8\cos(2t)\). Represente graficamente a solução que satisfaz \(y(0) = 1\) e \(y'(0) = 0\). Mostre que a solução é limitada.
+                    </div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(y'' + 16y = 0 \implies r^2 + 16 = 0 \implies r = \pm 4i \implies \omega_0 = 4\text{ rad/s}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> ETAPA 1 (Homogênea): Achamos a frequência natural do sistema: ω<sub>0</sub> = √16 = 4 rad/s.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(y_h(t) = c_1 \cos(4t) + c_2 \sin(4t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Solução da homogênea associada.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(f(t) = 8\cos(2t) \implies \Omega = 2 \neq \omega_0 = 4 \quad (\text{Sem Ressonância!})\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> ETAPA 2 (Particular): Como a frequência externa Ω = 2 é diferente da natural ω<sub>0</sub> = 4, não há ressonância.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(y_p(t) = A\cos(2t) + B\sin(2t) \implies y_p''(t) = -4A\cos(2t) - 4B\sin(2t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Propomos o palpite padrão e derivamos duas vezes (derivada segunda de cos(2t) traz fator -2<sup>2</sup> = -4).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(y_p'' + 16y_p = (-4A + 16A)\cos(2t) + (-4B + 16B)\sin(2t) = 8\cos(2t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Substituímos na EDO y'' + 16y = 8cos(2t).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">06</td>
+            <td class="step-math">\(12A = 8 \implies A = \frac{8}{12} = \frac{2}{3}; \qquad 12B = 0 \implies B = 0 \implies y_p(t) = \frac{2}{3}\cos(2t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Igualamos os coeficientes e descobrimos A = 2/3 e B = 0.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">07</td>
+            <td class="step-math">\(y(t) = c_1 \cos(4t) + c_2 \sin(4t) + \frac{2}{3}\cos(2t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> ETAPA 3 (P.V.I.): Montamos a solução geral y(t) = y<sub>h</sub>(t) + y<sub>p</sub>(t) antes de aplicar as condições iniciais.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">08</td>
+            <td class="step-math">\(y(0) = 1 \implies c_1(1) + c_2(0) + \frac{2}{3}(1) = 1 \implies c_1 = 1 - \frac{2}{3} = \frac{1}{3}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Aplicamos y(0) = 1 e encontramos c<sub>1</sub> = 1/3.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">09</td>
+            <td class="step-math">\(y'(t) = -4c_1 \sin(4t) + 4c_2 \cos(4t) - \frac{4}{3}\sin(2t) \implies y'(0) = 4c_2 = 0 \implies c_2 = 0\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Derivamos y(t) e aplicamos y'(0) = 0. Como sen(0) = 0, sobra 4c<sub>2</sub> = 0 ⇒ c<sub>2</sub> = 0.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">10</td>
+            <td class="step-math">\(y(t) = \frac{1}{3}\cos(4t) + \frac{2}{3}\cos(2t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Solução exata do P.V.I.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">11</td>
+            <td class="step-math">\(|y(t)| = \left|\frac{1}{3}\cos(4t) + \frac{2}{3}\cos(2t)\right| \le \frac{1}{3}|\cos(4t)| + \frac{2}{3}|\cos(2t)| \le \frac{1}{3}(1) + \frac{2}{3}(1) = 1\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> ETAPA 4 (Prova de que é limitada): Pela Desigualdade Triangular e |cos| ≤ 1, provamos que |y(t)| ≤ 1 para todo t!</td>
+        </tr>
+</tbody></table></div>
+                    <div class="graph-box">
+                        <svg width="280" height="120" viewBox="0 0 280 120" style="background: #fff; border: 1px solid #cbd5e1; border-radius: 6px; flex-shrink: 0;">
+                            <line x1="15" y1="60" x2="265" y2="60" stroke="#94a3b8" stroke-width="1.2"/>
+                            <line x1="20" y1="10" x2="20" y2="110" stroke="#94a3b8" stroke-width="1.2"/>
+                            <line x1="15" y1="20" x2="265" y2="20" stroke="#cbd5e1" stroke-dasharray="4,3"/>
+                            <line x1="15" y1="100" x2="265" y2="100" stroke="#cbd5e1" stroke-dasharray="4,3"/>
+                            <path d="M 20 20 C 35 20, 45 95, 65 95 C 85 95, 95 45, 110 20 C 125 45, 135 95, 155 95 C 175 95, 185 20, 200 20 C 215 20, 225 95, 245 95" fill="none" stroke="#2563eb" stroke-width="2.2"/>
+                            <text x="23" y="17" fill="#475569" font-size="9">+1</text>
+                            <text x="23" y="109" fill="#475569" font-size="9">-1</text>
+                            <text x="150" y="15" fill="#2563eb" font-size="10" font-weight="bold">y(t) limitada entre -1 e +1</text>
+                        </svg>
+                        <div style="font-size: 12.2px; color: #334155;">
+                            <strong>Análise Gráfica 2(a):</strong><br>
+                            A solução \(y(t) = \frac{1}{3}\cos(4t) + \frac{2}{3}\cos(2t)\) é periódica e nunca ultrapassa as linhas tracejadas \(y = 1\) e \(y = -1\), pois \(\Omega = 2 \neq \omega_0 = 4\).
+                        </div>
+                    </div>
+                    <div class="final-answer">✓ Resposta 2(a): \(y(t) = \frac{1}{3}\cos(4t) + \frac{2}{3}\cos(2t)\), que é limitada pois \(|y(t)| \le 1, \forall t \in \mathbb{R}\).</div>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        <strong>2. (b)</strong> Seja \(f(t) = 8\cos(4t)\). Represente graficamente a solução que satisfaz \(y(0) = 1\) e \(y'(0) = 0\). Mostre que a solução é ilimitada. A que se deve este comportamento? Qual é a diferença com o item anterior?
+                    </div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(y'' + 16y = 8\cos(4t) \implies \Omega = 4 = \omega_0 \quad (\text{RESSONÂNCIA PURA!})\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> ETAPA 1: Aqui a frequência externa Ω = 4 é IGUAL à frequência natural ω<sub>0</sub> = 4! Ocorre ressonância!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(y_p(t) = t\left[A\cos(4t) + B\sin(4t)\right] = At\cos(4t) + Bt\sin(4t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> ETAPA 2: Pela regra da ressonância, multiplicamos o palpite trigonométrico por t.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(y_p'(t) = A\cos(4t) - 4At\sin(4t) + B\sin(4t) + 4Bt\cos(4t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Derivamos y<sub>p</sub>(t) usando a Regra do Produto em Atcos(4t) e em Btsen(4t).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(y_p''(t) = -8A\sin(4t) - 16At\cos(4t) + 8B\cos(4t) - 16Bt\sin(4t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Calculamos a 2ª derivada e agrupamos os termos semelhantes.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(y_p'' + 16y_p = -8A\sin(4t) + 8B\cos(4t) = 8\cos(4t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Substituímos na EDO: os termos com 't' (-16At + 16At) se cancelam! Sobra -8Asen(4t) + 8Bcos(4t) = 8cos(4t).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">06</td>
+            <td class="step-math">\(-8A = 0 \implies A = 0; \qquad 8B = 8 \implies B = 1 \implies y_p(t) = t\sin(4t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Igualamos os coeficientes e obtemos A = 0 e B = 1. Logo, a solução particular é y<sub>p</sub>(t) = tsen(4t)!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">07</td>
+            <td class="step-math">\(y(t) = c_1 \cos(4t) + c_2 \sin(4t) + t\sin(4t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> ETAPA 3 (P.V.I.): Montamos a solução geral somando y<sub>h</sub>(t) + y<sub>p</sub>(t).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">08</td>
+            <td class="step-math">\(y(0) = 1 \implies c_1(1) + 0 + 0 = 1 \implies c_1 = 1\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Aplicamos y(0) = 1 e achamos c<sub>1</sub> = 1.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">09</td>
+            <td class="step-math">\(y'(t) = -4c_1\sin(4t) + 4c_2\cos(4t) + \sin(4t) + 4t\cos(4t) \implies y'(0) = 4c_2 = 0 \implies c_2 = 0\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Derivamos y(t) e aplicamos y'(0) = 0, descobrindo c<sub>2</sub> = 0.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">10</td>
+            <td class="step-math">\(y(t) = \cos(4t) + t\sin(4t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Solução final do P.V.I.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">11</td>
+            <td class="step-math">\(\text{Para } t_n = \frac{\pi}{8} + \frac{n\pi}{2}: \;\; \sin(4t_n) = \pm 1 \implies |y(t_n)| = t_n \to +\infty \text{ quando } n \to \infty\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> ETAPA 4 (Prova de que é ilimitada): Nos instantes em que sen(4t) = 1, y(t<sub>n</sub>) = t<sub>n</sub>, que cresce até o infinito!</td>
+        </tr>
+</tbody></table></div>
+                    <div class="graph-box">
+                        <svg width="280" height="130" viewBox="0 0 280 130" style="background: #fff; border: 1px solid #cbd5e1; border-radius: 6px; flex-shrink: 0;">
+                            <line x1="15" y1="65" x2="265" y2="65" stroke="#94a3b8" stroke-width="1.2"/>
+                            <line x1="20" y1="10" x2="20" y2="120" stroke="#94a3b8" stroke-width="1.2"/>
+                            <!-- Envelope +t and -t -->
+                            <line x1="20" y1="60" x2="255" y2="10" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="4,3"/>
+                            <line x1="20" y1="70" x2="255" y2="120" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="4,3"/>
+                            <!-- Growing oscillation -->
+                            <path d="M 20 58 Q 30 78 40 65 Q 52 42 64 65 Q 78 96 92 65 Q 108 26 124 65 Q 140 108 156 65 Q 172 16 188 65 Q 204 118 220 65 Q 236 8 250 65" fill="none" stroke="#dc2626" stroke-width="2"/>
+                            <text x="145" y="18" fill="#dc2626" font-size="9.5" font-weight="bold">Envelope +t (Ressonância)</text>
+                        </svg>
+                        <div style="font-size: 12.2px; color: #334155;">
+                            <strong>Diferença Física entre (a) e (b):</strong><br>
+                            No item (b), a frequência da força externa (\(\Omega = 4\)) coincide exatamente com a frequência natural do sistema (\(\omega_0 = 4\)). A força empurra a massa sempre a favor do movimento, injetando energia continuamente e gerando o fenômeno de <strong>Ressonância Pura</strong> (amplitude ilimitada).
+                        </div>
+                    </div>
+                    <div class="final-answer">✓ Resposta 2(b): \(y(t) = \cos(4t) + t\,\text{sen}(4t)\). É ilimitada devido ao termo \(t\,\text{sen}(4t)\), provocado pela <strong>ressonância</strong> (\(\Omega = \omega_0 = 4\text{ rad/s}\)).</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXERCÍCIO 3 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>⭐</span> Exercício 3 — Identificação e Cálculo de Sistema em Ressonância</div>
+                <span class="badge-type badge-star">Formato Provável de Prova</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>3.</strong> Um sistema massa-mola é submetido a uma força externa periódica, e o movimento é descrito pela equação:
+                    \[y''(t) + 4y(t) = 6\cos(2t)\]
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>3. (a)</strong> Determine a solução geral da equação.</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(y'' + 4y = 0 \implies r^2 + 4 = 0 \implies r = \pm 2i \implies \omega_0 = 2\text{ rad/s}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> PASSO 1 (Homogênea): Resolvemos a equação característica e identificamos ω<sub>0</sub> = 2 rad/s.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(y_h(t) = c_1 \cos(2t) + c_2 \sin(2t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Escrevemos a solução homogênea.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(g(t) = 6\cos(2t) \implies \Omega = 2 = \omega_0 \implies y_p(t) = t\left[A\cos(2t) + B\sin(2t)\right]\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> PASSO 2 (Particular): Como Ω = ω<sub>0</sub> = 2, há ressonância! Multiplicamos o palpite por t.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(y_p'(t) = (A\cos 2t + B\sin 2t) + t(-2A\sin 2t + 2B\cos 2t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Calculamos a 1ª derivada de y<sub>p</sub>(t) pela Regra do Produto.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(y_p''(t) = (-4A\sin 2t + 4B\cos 2t) + t(-4A\cos 2t - 4B\sin 2t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Calculamos a 2ª derivada de y<sub>p</sub>(t).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">06</td>
+            <td class="step-math">\(y_p'' + 4y_p = -4A\sin(2t) + 4B\cos(2t) + \underbrace{t(-4A\cos 2t - 4B\sin 2t + 4A\cos 2t + 4B\sin 2t)}_{= 0} = 6\cos(2t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Substituímos na EDO y'' + 4y = 6cos(2t). Os termos multiplicados por t se cancelam!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">07</td>
+            <td class="step-math">\(-4A = 0 \implies A = 0; \qquad 4B = 6 \implies B = \frac{6}{4} = \frac{3}{2}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Igualamos os coeficientes de sen(2t) e cos(2t) e achamos A = 0 e B = 3/2.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">08</td>
+            <td class="step-math">\(y_p(t) = \frac{3}{2}t\sin(2t) \implies y(t) = c_1 \cos(2t) + c_2 \sin(2t) + \frac{3}{2}t\sin(2t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Somamos y<sub>h</sub>(t) + y<sub>p</sub>(t) para obter a solução geral.</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 3(a): \(y(t) = c_1 \cos(2t) + c_2 \text{sen}(2t) + \frac{3}{2}t\,\text{sen}(2t)\).</div>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>3. (b)</strong> Este sistema está em ressonância? Justifique.</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(\omega_0 = \sqrt{4} = 2\text{ rad/s} \qquad \text{e} \qquad \Omega = 2\text{ rad/s}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Comparamos a frequência natural do sistema sem amortecimento (ω<sub>0</sub>) com a frequência da força externa (Ω).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\Omega = \omega_0 = 2\text{ rad/s} \implies \text{SIM, o sistema está em ressonância pura!}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como não há amortecimento (c = 0) e as duas frequências são idênticas, ocorre ressonância mecânica.</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 3(b): <strong>Sim</strong>, pois o sistema não possui amortecimento e a frequência da força externa (\(\Omega = 2\text{ rad/s}\)) coincide exatamente com a frequência natural do sistema (\(\omega_0 = \sqrt{4} = 2\text{ rad/s}\)).</div>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>3. (c)</strong> Qual é o comportamento da amplitude da oscilação ao longo do tempo?</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(\text{Amplitude da parcela particular } y_p(t) = \left(\frac{3}{2}t\right)\sin(2t) \implies A(t) \propto \frac{3}{2}t\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> O fator que multiplica o seno na solução particular é (3/2)t.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\lim_{t \to \infty} \frac{3}{2}t = +\infty \quad (\text{Crescimento linear ilimitado})\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> À medida que o tempo t passa, a amplitude das oscilações cresce linearmente e tende ao infinito.</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 3(c): A amplitude da oscilação <strong>cresce linearmente e ilimitadamente com o tempo \(t\)</strong> (proporcional a \(\frac{3}{2}t\)), tendendo a \(+\infty\) quando \(t \to \infty\).</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESUMINHO DO TÓPICO 2 -->
+        <div class="recap-box">
+            <h3>💡 Resuminho & Recapitulação — Tópico 2 (Ressonância Sem Amortecimento)</h3>
+            <div class="recap-grid">
+                <div class="recap-card">
+                    <strong>1. Como bater o olho e identificar Ressonância?</strong>
+                    Na equação \(y'' + \omega_0^2 y = F_0 \cos(\Omega t)\):<br>
+                    Tire a raiz quadrada do número que multiplica \(y\) (\(\omega_0\)) e compare com o número dentro do cosseno (\(\Omega\)). Se \(\Omega = \omega_0\), <strong>é Ressonância!</strong>
+                </div>
+                <div class="recap-card">
+                    <strong>2. Dica de Ouro no Palpite de Ressonância Sem Atrito</strong>
+                    Em \(y'' + \omega_0^2 y = F_0\cos(\omega_0 t)\) (sem termo \(y'\)), a solução particular \(y_p(t) = t[A\cos(\omega_0 t) + B\text{sen}(\omega_0 t)]\) sempre dá \(A = 0\) e \(B = \frac{F_0}{2\omega_0}\), ou seja: \(y_p(t) = \frac{F_0}{2\omega_0} t\,\text{sen}(\omega_0 t)\)!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TÓPICO 3: VIBRAÇÕES LIVRES AMORTECIDAS E TRANSIENTE (EX 4)        -->
+    <!-- ================================================================= -->
+    <div class="topic-section">
+        <div class="topic-banner">
+            <h2>Tópico 3: Vibrações Livres Amortecidas e Caráter Transiente</h2>
+            <span class="topic-range">Exercício 4</span>
+        </div>
+
+        <div class="prereq-box">
+            <h3>🧠 O que você precisa lembrar de Limites (Teorema do Confronto e L'Hôpital - Cálculo 1)</h3>
+            <ul>
+                <li><strong>1. Teorema do Confronto (ou do Sanduíche):</strong> O limite de uma função que vai para zero (\(e^{-\gamma t} \to 0\), com \(\gamma > 0\)) multiplicada por uma função limitada (\(\cos(\omega_d t)\) ou \(\text{sen}(\omega_d t)\), que ficam presas entre \(-1\) e \(+1\)) é <strong>sempre zero</strong>:
+                \[\lim_{t \to \infty} \underbrace{e^{-\gamma t}}_{\to 0} \cdot \underbrace{[c_1\cos(\omega_d t) + c_2\,\text{sen}(\omega_d t)]}_{\text{Limitada}} = 0\]</li>
+                <li><strong>2. Limite de \(t e^{-\gamma t}\) pela Regra de L'Hôpital:</strong> Como vimos na Lista 4 (Ex. 15), a exponencial no denominador vence qualquer polinômio:
+                \[\lim_{t \to \infty} t e^{-\gamma t} = \lim_{t \to \infty} \frac{t}{e^{\gamma t}} \overset{\text{L'H}}{=} \lim_{t \to \infty} \frac{1}{\gamma e^{\gamma t}} = 0\]</li>
+            </ul>
+        </div>
+
+        <div class="theory-box">
+            <h3>📘 Introdução ao Tema: Amortecimento Viscoso e os 3 Regimes Físicos</h3>
+            <p>Na vida real (amortecedores de carros, resistência do ar/fluido), existe uma força de atrito viscoso proporcional e contrária à velocidade: \(F_{\text{atrito}} = -c y'(t)\), com \(c > 0\). Pela 2ª Lei de Newton (\(m y'' = -k y - c y'\)), a EDO torna-se:</p>
+            \[m y''(t) + c y'(t) + k y(t) = 0 \quad \implies \quad \text{Eq. Característica: } m r^2 + c r + k = 0\]
+            <p>Pela fórmula de Bhaskara, as raízes são \(r = \frac{-c \pm \sqrt{c^2 - 4mk}}{2m}\). O sinal do discriminante \(\Delta = c^2 - 4mk\) define os <strong>3 Regimes de Amortecimento</strong> (conforme os slides 48 a 55 da Profa. Ana Gabriela):</p>
+        </div>
+
+        <div class="formula-card">
+            <div class="formula-card-header">📐 Tabela Oficial dos 3 Regimes de Vibrações Livres Amortecidas (\(m, c, k > 0\))</div>
+            <table class="formula-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Regime de Amortecimento</th>
+                        <th style="width: 23%;">Condição em \(c\) e \(\Delta\)</th>
+                        <th style="width: 28%;">Solução Geral \(y(t)\)</th>
+                        <th style="width: 24%;">Comportamento Físico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1. Subcrítico</strong><br><em>(Subamortecido)</em></td>
+                        <td>\(c < 2\sqrt{mk}\)<br>(\(\Delta < 0\), raízes complexas)</td>
+                        <td>\(y(t) = e^{-\gamma t}[c_1\cos(\omega_d t) + c_2\,\text{sen}(\omega_d t)]\)<br>onde \(\gamma = \frac{c}{2m}\) e \(\omega_d = \sqrt{\frac{k}{m} - \gamma^2}\)</td>
+                        <td>Oscila passando pelo equilíbrio com amplitude caindo exponencialmente até parar (\(y \to 0\)).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. Crítico</strong><br><em>(Criticamente amortecido)</em></td>
+                        <td>\(c = 2\sqrt{mk}\)<br>(\(\Delta = 0\), raiz dupla)</td>
+                        <td>\(y(t) = (c_1 + c_2 t)e^{-\gamma t}\)<br>onde \(\gamma = \frac{c}{2m}\)</td>
+                        <td>Retorna ao equilíbrio o mais rápido possível <strong>sem oscilar</strong> (\(y \to 0\)).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. Supercrítico</strong><br><em>(Superamortecido)</em></td>
+                        <td>\(c > 2\sqrt{mk}\)<br>(\(\Delta > 0\), raízes reais \(< 0\))</td>
+                        <td>\(y(t) = c_1 e^{r_1 t} + c_2 e^{r_2 t}\)<br>com \(r_1, r_2 < 0\)</td>
+                        <td>Atrito muito forte: retorna lentamente ao equilíbrio <strong>sem oscilar</strong> (\(y \to 0\)).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- EXERCÍCIO 4 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>⭐</span> Exercício 4 — Demonstração de que Toda Vibração Livre Amortecida é Transiente</div>
+                <span class="badge-type badge-star">Formato Provável de Prova</span>
+            </div>
+            <div class="exercise-body">
+                <div class="subitem-enunciado">
+                    <strong>4.</strong> Considere o sistema de vibrações livres amortecidas, modelado pela equação diferencial \(m y''(t) + c y'(t) + k y(t) = 0\), onde \(m > 0, c > 0, k > 0\). Mostre que toda solução dessa equação é <strong>transiente</strong>, isto é, \(\lim_{t\to\infty} y(t) = 0\), para quaisquer valores \(m, c, k > 0\).
+                </div>
+                <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(m r^2 + c r + k = 0 \implies r = \frac{-c \pm \sqrt{c^2 - 4mk}}{2m}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Montamos a equação característica e aplicamos Bhaskara. Analisaremos os 3 casos possíveis do discriminante Δ = c<sup>2</sup> - 4mk.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\text{CASO 1 (Subcrítico, } c^2 - 4mk < 0\text{): } r = -\frac{c}{2m} \pm i\omega_d, \quad \text{onde } \gamma = \frac{c}{2m} > 0 \text{ e } \omega_d = \frac{\sqrt{4mk - c^2}}{2m}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Quando Δ < 0, as raízes são complexas com parte real negativa -γ = -c/(2m) < 0 (pois c > 0 e m > 0).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(y(t) = e^{-\gamma t}\left[c_1\cos(\omega_d t) + c_2\sin(\omega_d t)\right] \implies \lim_{t\to\infty} y(t) = 0\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como γ > 0, temos e<sup>-γ t</sup> → 0, que multiplicado por seno e cosseno (limitados) tende a 0 pelo Teorema do Confronto!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(\text{CASO 2 (Crítico, } c^2 - 4mk = 0\text{): } r_1 = r_2 = -\frac{c}{2m} = -\gamma < 0\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Quando Δ = 0, temos uma raiz real dupla estritamente negativa -γ < 0.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(y(t) = (c_1 + c_2 t)e^{-\gamma t} = \frac{c_1}{e^{\gamma t}} + c_2 \frac{t}{e^{\gamma t}} \implies \lim_{t\to\infty} y(t) = 0 + c_2(0) = 0\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Pela Regra de L'Hôpital (lim t/e<sup>γ t</sup> = lim 1/(γ e<sup>γ t</sup>) = 0), ambas as parcelas vão para zero!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">06</td>
+            <td class="step-math">\(\text{CASO 3 (Supercrítico, } c^2 - 4mk > 0\text{): } r_1 = \frac{-c + \sqrt{c^2 - 4mk}}{2m}, \;\; r_2 = \frac{-c - \sqrt{c^2 - 4mk}}{2m}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Quando Δ > 0, temos duas raízes reais distintas. Precisamos mostrar que AMBAS são negativas!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">07</td>
+            <td class="step-math">\(m, k > 0 \implies 4mk > 0 \implies c^2 - 4mk < c^2 \implies \sqrt{c^2 - 4mk} < c\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como subtraímos um número positivo (4mk) de c<sup>2</sup>, a raiz quadrada fica menor que c!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">08</td>
+            <td class="step-math">\(-c + \sqrt{c^2 - 4mk} < 0 \implies r_1 < 0 \;\;\text{e claramente}\;\; r_2 = \frac{-c - \sqrt{c^2 - 4mk}}{2m} < 0\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Assim, tanto r<sub>1</sub> quanto r<sub>2</sub> são estritamente negativos!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">09</td>
+            <td class="step-math">\(y(t) = c_1 e^{r_1 t} + c_2 e^{r_2 t} \implies \lim_{t\to\infty} y(t) = c_1(0) + c_2(0) = 0 \quad (\text{C.Q.D.})\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Com expoentes negativos, ambas as exponenciais decaem para zero. Logo, toda solução é transiente!</td>
+        </tr>
+</tbody></table></div>
+                <div class="final-answer">✓ Conclusão 4: Nos três regimes possíveis (subcrítico, crítico e supercrítico), a condição \(m, c, k > 0\) garante que a parte real das raízes características seja estritamente negativa, fazendo com que \(\lim_{t\to\infty} y(t) = 0\) (solução transiente).</div>
+            </div>
+        </div>
+
+        <!-- RESUMINHO DO TÓPICO 3 -->
+        <div class="recap-box">
+            <h3>💡 Resuminho & Recapitulação — Tópico 3 (Amortecimento Livre)</h3>
+            <div class="recap-grid">
+                <div class="recap-card">
+                    <strong>1. O que significa "Solução Transiente"?</strong>
+                    Significa "passageira" ou "transitória": é uma oscilação ou movimento que <strong>morre com o passar do tempo</strong> (\(\lim_{t\to\infty} y(t) = 0\)) por causa do atrito \(c > 0\).
+                </div>
+                <div class="recap-card">
+                    <strong>2. Qual dos 3 casos oscila?</strong>
+                    Apenas o caso <strong>Subcrítico (\(\Delta < 0\), \(c < 2\sqrt{mk}\))</strong> tem seno e cosseno e oscila! Os casos Crítico (\(\Delta = 0\)) e Supercrítico (\(\Delta > 0\)) não têm seno nem cosseno, voltando ao zero sem oscilar.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TÓPICO 4: VIBRAÇÕES FORÇADAS AMORTECIDAS (EX 5 E 6)               -->
+    <!-- ================================================================= -->
+    <div class="topic-section">
+        <div class="topic-banner">
+            <h2>Tópico 4: Vibrações Forçadas Amortecidas — Transiente vs. Estacionária</h2>
+            <span class="topic-range">Exercícios 5 e 6</span>
+        </div>
+
+        <div class="prereq-box">
+            <h3>🧠 O que você precisa lembrar de Trigonometria e Derivadas (Pré-Requisitos)</h3>
+            <ul>
+                <li><strong>1. Identidade do Cosseno da Soma \(\cos(\Omega t + \phi)\):</strong>
+                \[\cos(\Omega t + \phi) = \cos(\phi)\cos(\Omega t) - \text{sen}(\phi)\text{sen}(\Omega t)\]
+                Note que quando há um sinal de \(+\) dentro do cosseno, aparece um sinal de \(-\) no termo dos senos!</li>
+                <li><strong>2. Como achar o Mínimo de uma Função (Otimização de Cálculo 1):</strong> Na observação do Exercício 6(a), a amplitude \(A(\Omega)\) é máxima quando a função dentro da raiz no denominador, \(D(\Omega) = (\omega^2 - \Omega^2)^2 + 4\gamma^2\Omega^2\), é <strong>mínima</strong>. Derivando \(D(\Omega)\) em relação a \(\Omega\) e igualando a zero:
+                \[D'(\Omega) = 2(\omega^2 - \Omega^2)(-2\Omega) + 8\gamma^2\Omega = 4\Omega\left[-(\omega^2 - \Omega^2) + 2\gamma^2\right] = 0 \implies \Omega_r = \sqrt{\omega^2 - 2\gamma^2}\]</li>
+            </ul>
+        </div>
+
+        <div class="theory-box">
+            <h3>📘 Introdução ao Tema: Solução Transiente (\(y_{tr}\)) vs. Regime Permanente (\(y_{est}\))</h3>
+            <p>Quando um sistema <strong>com amortecimento (\(c > 0\))</strong> sofre a ação de uma força externa periódica \(F_0 \cos(\Omega t)\):</p>
+            \[m y''(t) + c y'(t) + k y(t) = F_0 \cos(\Omega t)\]
+            <p>A solução geral não homogênea é a soma de duas partes com significados físicos fundamentais:</p>
+            \[y(t) = \underbrace{y_h(t)}_{\text{Transiente } (y_{tr})} + \underbrace{y_p(t)}_{\text{Estacionária / Permanente } (y_{est})}\]
+            <ul>
+                <li><strong>Solução Transiente \(y_{tr}(t) = y_h(t)\):</strong> Depende das condições iniciais e contém a exponencial negativa \(e^{-\gamma t}\). Como vimos no Exercício 4, <strong>ela desaparece com o tempo (\(\lim_{t\to\infty} y_{tr}(t) = 0\))</strong>!</li>
+                <li><strong>Solução Estacionária / Regime Permanente \(y_{est}(t) = y_p(t) = A\cos(\Omega t) + B\,\text{sen}(\Omega t)\):</strong> Não tem exponencial amortecedora! É a resposta mantida pela força externa que <strong>permanece para sempre</strong> depois que a parte transiente morre.</li>
+            </ul>
+        </div>
+
+        <!-- EXERCÍCIO 5 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>⭐</span> Exercício 5 — Sistema Amortecido Forçado: Transiente e Permanente</div>
+                <span class="badge-type badge-star">Formato Muito Provável de Prova</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>5.</strong> Considere o sistema massa-mola amortecido submetido à força externa periódica, modelado pela equação diferencial:
+                    \[y''(t) + 2y'(t) + 4y(t) = 8\cos(3t)\]
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>5. (a)</strong> Determine a solução geral da equação diferencial.</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(y'' + 2y' + 4y = 0 \implies r^2 + 2r + 4 = 0\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> ETAPA 1 (Homogênea / Transiente): Montamos a equação característica da EDO homogênea associada.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\Delta = 2^2 - 4(1)(4) = 4 - 16 = -12 < 0 \implies r = \frac{-2 \pm \sqrt{-12}}{2} = \frac{-2 \pm 2i\sqrt{3}}{2} = -1 \pm i\sqrt{3}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Calculamos as raízes complexas conjugadas: α = -1 e β = √3.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(y_h(t) = e^{-t}\left[c_1\cos(\sqrt{3}\,t) + c_2\sin(\sqrt{3}\,t)\right]\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Escrevemos a solução homogênea.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(y_p(t) = A\cos(3t) + B\sin(3t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> ETAPA 2 (Particular / Permanente): Para g(t) = 8cos(3t), propomos a combinação de cos(3t) e sen(3t).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(y_p'(t) = -3A\sin(3t) + 3B\cos(3t) \implies y_p''(t) = -9A\cos(3t) - 9B\sin(3t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Calculamos a 1ª e a 2ª derivadas de y<sub>p</sub>(t) pela Regra da Cadeia.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">06</td>
+            <td class="step-math">\(y_p'' + 2y_p' + 4y_p = (-9A\cos 3t - 9B\sin 3t) + 2(-3A\sin 3t + 3B\cos 3t) + 4(A\cos 3t + B\sin 3t) = 8\cos(3t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Substituímos y<sub>p</sub>'', 2y<sub>p</sub>' e 4y<sub>p</sub> no lado esquerdo da EDO.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">07</td>
+            <td class="step-math">\((-5A + 6B)\cos(3t) + (-6A - 5B)\sin(3t) = 8\cos(3t) + 0\sin(3t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Agrupamos os coeficientes de cos(3t) (-9A + 4A = -5A) e de sen(3t) (-9B + 4B = -5B).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">08</td>
+            <td class="step-math">\(\begin{cases} -5A + 6B = 8 \\ -6A - 5B = 0 \implies B = -\frac{6}{5}A \end{cases}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Montamos o sistema 2x2 e isolamos B = -(6/5)A na 2ª equação.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">09</td>
+            <td class="step-math">\(-5A + 6\left(-\frac{6}{5}A\right) = 8 \implies -\frac{25A + 36A}{5} = 8 \implies -\frac{61}{5}A = 8 \implies A = -\frac{40}{61}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Substituímos B na 1ª equação, tiramos o MMC (-5 = -25/5) e achamos A = -40/61.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">10</td>
+            <td class="step-math">\(B = -\frac{6}{5}\left(-\frac{40}{61}\right) = +\frac{48}{61} \implies y_p(t) = -\frac{40}{61}\cos(3t) + \frac{48}{61}\sin(3t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Calculamos B = 48/61 e montamos a solução particular y<sub>p</sub>(t).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">11</td>
+            <td class="step-math">\(y(t) = e^{-t}\left[c_1\cos(\sqrt{3}\,t) + c_2\sin(\sqrt{3}\,t)\right] - \frac{40}{61}\cos(3t) + \frac{48}{61}\sin(3t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Somamos y<sub>h</sub>(t) + y<sub>p</sub>(t) para obter a solução geral.</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 5(a): \(y(t) = e^{-t}\left[c_1\cos(\sqrt{3}\,t) + c_2\,\text{sen}(\sqrt{3}\,t)\right] - \frac{40}{61}\cos(3t) + \frac{48}{61}\text{sen}(3t)\).</div>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        <strong>5. (b)</strong> Identifique na solução do item anterior quais termos correspondem à solução transiente e quais correspondem à solução de regime permanente.
+                    </div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(y_{tr}(t) = y_h(t) = e^{-t}\left[c_1\cos(\sqrt{3}\,t) + c_2\sin(\sqrt{3}\,t)\right]\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Solução Transiente: é o termo homogêneo multiplicado pela exponencial amortecedora e<sup>-t</sup>.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(y_{est}(t) = y_p(t) = -\frac{40}{61}\cos(3t) + \frac{48}{61}\sin(3t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Solução de Regime Permanente (Estacionária): é a solução particular periódica que oscila na frequência externa 3 rad/s.</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 5(b): Transiente: \(y_{tr}(t) = e^{-t}[c_1\cos(\sqrt{3}\,t) + c_2\,\text{sen}(\sqrt{3}\,t)]\). Regime permanente: \(y_{est}(t) = -\frac{40}{61}\cos(3t) + \frac{48}{61}\text{sen}(3t)\).</div>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        <strong>5. (c)</strong> Descreva o comportamento da solução \(y(t)\) quando \(t \to \infty\). Em particular, determine qual componente da solução permanece e explique o significado físico desse comportamento.
+                    </div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(\lim_{t \to \infty} y_{tr}(t) = \lim_{t \to \infty} e^{-t}\left[c_1\cos(\sqrt{3}\,t) + c_2\sin(\sqrt{3}\,t)\right] = 0\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Quando t → ∞, o fator de amortecimento e<sup>-t</sup> tende a zero, extinguindo completamente a componente transiente.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(y(t) \approx y_{est}(t) = -\frac{40}{61}\cos(3t) + \frac{48}{61}\sin(3t) \quad (\text{para } t \text{ grande})\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Permanece apenas a solução estacionária y<sub>est</sub>(t), com amplitude constante A = √[(-40/61)² + (48/61)²] = 8/√61.</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 5(c): Quando \(t \to \infty\), a componente transiente \(y_{tr}(t)\) anula-se devido ao amortecimento (\(e^{-t} \to 0\)), e <strong>permanece apenas a componente estacionária \(y_{est}(t)\)</strong>. <strong>Significado físico:</strong> após um intervalo de tempo inicial, o efeito das condições iniciais desaparece pelo atrito e o sistema passa a oscilar indefinidamente com amplitude constante na mesma frequência (\(\Omega = 3\text{ rad/s}\)) da força externa aplicada.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXERCÍCIO 6 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>⭐</span> Exercício 6 — Dedução Geral da Vibração Forçada Amortecida e Caso Prático</div>
+                <span class="badge-type badge-star">Formato Provável de Prova</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>6.</strong> Considere o problema das vibrações forçadas amortecidas: \(m y'' + c y' + k y = F_0 \cos(\Omega t)\).
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        <strong>6. (a)</strong> Mostre que uma solução particular desta equação linear não homogênea é dada por \(y_p(t) = A\cos(\Omega t - \phi)\) (ou \(A\cos(\Omega t + \tilde{\phi})\)), onde:
+                        \[A = \frac{F_0 / m}{\sqrt{(\omega^2 - \Omega^2)^2 + 4\gamma^2\Omega^2}}, \quad \text{sendo } \omega = \sqrt{k/m} \text{ e } \gamma = c/(2m).\]
+                    </div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(y'' + \frac{c}{m}y' + \frac{k}{m}y = \frac{F_0}{m}\cos(\Omega t) \implies y'' + 2\gamma y' + \omega^2 y = \frac{F_0}{m}\cos(\Omega t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Dividimos toda a EDO pela massa m e substituímos as definições c/m = 2γ e k/m = ω<sup>2</sup>.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(y_p(t) = C_1 \cos(\Omega t) + C_2 \sin(\Omega t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Propomos a solução particular pelo Método dos Coeficientes a Determinar.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(y_p'(t) = -\Omega C_1 \sin(\Omega t) + \Omega C_2 \cos(\Omega t) \;\;\text{e}\;\; y_p''(t) = -\Omega^2 C_1 \cos(\Omega t) - \Omega^2 C_2 \sin(\Omega t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Calculamos a 1ª e a 2ª derivadas de y<sub>p</sub>(t).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(\left[(\omega^2 - \Omega^2)C_1 + 2\gamma\Omega C_2\right]\cos(\Omega t) + \left[-2\gamma\Omega C_1 + (\omega^2 - \Omega^2)C_2\right]\sin(\Omega t) = \frac{F_0}{m}\cos(\Omega t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Substituímos na EDO e agrupamos os termos que multiplicam cos(Ω t) e sen(Ω t).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(\begin{cases} (\omega^2 - \Omega^2)C_1 + (2\gamma\Omega)C_2 = \frac{F_0}{m} \\ -(2\gamma\Omega)C_1 + (\omega^2 - \Omega^2)C_2 = 0 \end{cases}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Igualamos os coeficientes dos dois lados, formando um sistema linear 2x2 nas incógnitas C<sub>1</sub> e C<sub>2</sub>.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">06</td>
+            <td class="step-math">\(C_1 = \frac{(\omega^2 - \Omega^2)(F_0/m)}{(\omega^2 - \Omega^2)^2 + 4\gamma^2\Omega^2}, \qquad C_2 = \frac{(2\gamma\Omega)(F_0/m)}{(\omega^2 - \Omega^2)^2 + 4\gamma^2\Omega^2}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Resolvendo o sistema (por substituição ou regra de Cramer), encontramos C<sub>1</sub> e C<sub>2</sub>.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">07</td>
+            <td class="step-math">\(A = \sqrt{C_1^2 + C_2^2} = \frac{F_0/m}{(\omega^2 - \Omega^2)^2 + 4\gamma^2\Omega^2}\sqrt{(\omega^2 - \Omega^2)^2 + (2\gamma\Omega)^2} = \frac{F_0 / m}{\sqrt{(\omega^2 - \Omega^2)^2 + 4\gamma^2\Omega^2}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Convertendo para a forma Amplitude-Fase, calculamos A = √(C₁² + C₂²) e simplificamos a raiz!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">08</td>
+            <td class="step-math">\(\tan(-\phi) = -\frac{C_2}{C_1} = -\frac{2\gamma\Omega}{\omega^2 - \Omega^2} \quad \left(\text{ou } \tan(\phi) = \frac{2\gamma\Omega}{\omega^2 - \Omega^2}\right)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> E a fase satisfaz tg(ϕ) = C<sub>2</sub> / C<sub>1</sub>, concluindo a demonstração!</td>
+        </tr>
+</tbody></table></div>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        <strong>6. (b)</strong> Determine a solução geral da E.D.O. não homogênea: \(y_{GNH}(t) = y_p(t) + y_{GH}(t)\) (para o caso subamortecido \(\tilde{\omega} = \sqrt{\omega^2 - \gamma^2} > 0\)).
+                    </div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(r^2 + 2\gamma r + \omega^2 = 0 \implies r = -\gamma \pm i\sqrt{\omega^2 - \gamma^2} = -\gamma \pm i\tilde{\omega}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Na parte homogênea subamortecida (γ < ω), as raízes características são -γ ± iω̃.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(y_{GH}(t) = e^{-\gamma t}\left[c_1\cos(\tilde{\omega}t) + c_2\sin(\tilde{\omega}t)\right] \quad (\text{Solução Transiente})\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Montamos a solução geral da homogênea.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(y_{GNH}(t) = \underbrace{\frac{F_0 / m}{\sqrt{(\omega^2 - \Omega^2)^2 + 4\gamma^2\Omega^2}}\cos(\Omega t - \phi)}_{y_p(t) \text{ (Estacionária)}} + \underbrace{e^{-\gamma t}\left[c_1\cos(\tilde{\omega}t) + c_2\sin(\tilde{\omega}t)\right]}_{y_{GH}(t) \text{ (Transiente)}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Somamos a solução particular estacionária do item (a) com a solução homogênea transiente.</td>
+        </tr>
+</tbody></table></div>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado">
+                        <strong>6. (c)</strong> Encontre a solução geral da equação \(y'' + 2y' + 5y = 4\cos(2t)\). Represente graficamente a solução transiente, a estacionária e a solução geral, isto é, a soma das anteriores.
+                    </div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(r^2 + 2r + 5 = 0 \implies \Delta = 4 - 20 = -16 \implies r = \frac{-2 \pm 4i}{2} = -1 \pm 2i\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> ETAPA 1 (Transiente): Achamos as raízes características da homogênea: α = -1 e β = 2.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(y_{tr}(t) = y_{GH}(t) = e^{-t}\left[c_1\cos(2t) + c_2\sin(2t)\right]\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Escrevemos a solução transiente.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(y_p(t) = A\cos(2t) + B\sin(2t) \implies y_p' = -2A\sin 2t + 2B\cos 2t \implies y_p'' = -4A\cos 2t - 4B\sin 2t\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> ETAPA 2 (Estacionária): Propomos y<sub>p</sub>(t) para g(t) = 4cos(2t) e calculamos suas derivadas.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(y_p'' + 2y_p' + 5y_p = (-4A + 4B + 5A)\cos(2t) + (-4B - 4A + 5B)\sin(2t) = 4\cos(2t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Substituímos na EDO y'' + 2y' + 5y = 4cos(2t).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\((A + 4B)\cos(2t) + (-4A + B)\sin(2t) = 4\cos(2t) + 0\sin(2t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Simplificamos os coeficientes (-4A + 5A = A e -4B + 5B = B).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">06</td>
+            <td class="step-math">\(\begin{cases} A + 4B = 4 \\ -4A + B = 0 \implies B = 4A \end{cases}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Da 2ª equação descobrimos imediatamente que B = 4A!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">07</td>
+            <td class="step-math">\(A + 4(4A) = 4 \implies 17A = 4 \implies A = \frac{4}{17} \implies B = \frac{16}{17}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Substituindo B = 4A na 1ª equação, achamos A = 4/17 e B = 16/17.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">08</td>
+            <td class="step-math">\(y_{est}(t) = y_p(t) = \frac{4}{17}\cos(2t) + \frac{16}{17}\sin(2t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Montamos a solução estacionária (cuja amplitude constante vale √[(4/17)² + (16/17)²] = 4/√17 ≈ 0,97).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">09</td>
+            <td class="step-math">\(y(t) = e^{-t}\left[c_1\cos(2t) + c_2\sin(2t)\right] + \frac{4}{17}\cos(2t) + \frac{16}{17}\sin(2t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Solução geral completa (soma da transiente com a estacionária).</td>
+        </tr>
+</tbody></table></div>
+                    <div class="graph-box">
+                        <svg width="310" height="135" viewBox="0 0 310 135" style="background: #fff; border: 1px solid #cbd5e1; border-radius: 6px; flex-shrink: 0;">
+                            <line x1="15" y1="68" x2="295" y2="68" stroke="#94a3b8" stroke-width="1.2"/>
+                            <line x1="20" y1="10" x2="20" y2="125" stroke="#94a3b8" stroke-width="1.2"/>
+                            <!-- Transient (decaying dashed orange) -->
+                            <path d="M 20 18 Q 35 110 50 42 Q 65 88 80 56 Q 95 76 110 64 Q 125 70 140 67 L 290 68" fill="none" stroke="#f59e0b" stroke-width="1.8" stroke-dasharray="4,3"/>
+                            <!-- Steady-state (periodic blue) -->
+                            <path d="M 20 60 Q 35 30 50 68 Q 65 106 80 68 Q 95 30 110 68 Q 125 106 140 68 Q 155 30 170 68 Q 185 106 200 68 Q 215 30 230 68 Q 245 106 260 68 Q 275 30 290 68" fill="none" stroke="#2563eb" stroke-width="1.6" opacity="0.6"/>
+                            <!-- Total y(t) (bold emerald converging to blue) -->
+                            <path d="M 20 12 Q 35 72 50 42 Q 65 120 80 60 Q 95 24 110 66 Q 125 108 140 68 Q 155 30 170 68 Q 185 106 200 68 Q 215 30 230 68 Q 245 106 260 68 Q 275 30 290 68" fill="none" stroke="#059669" stroke-width="2.2"/>
+                            <text x="25" y="16" fill="#f5960b" font-size="9" font-weight="bold">-- Transiente (→ 0)</text>
+                            <text x="125" y="16" fill="#2563eb" font-size="9" font-weight="bold">— Estacionária</text>
+                            <text x="215" y="16" fill="#059669" font-size="9" font-weight="bold">— Total y(t)</text>
+                        </svg>
+                        <div style="font-size: 12.2px; color: #334155;">
+                            <strong>Interpretação Gráfica 6(c):</strong><br>
+                            • A curva tracejada laranja (\(y_{tr}\)) decai rapidamente para zero devido a \(e^{-t}\).<br>
+                            • A curva azul (\(y_{est}\)) mantém amplitude constante.<br>
+                            • A curva verde (\(y = y_{tr} + y_{est}\)) começa irregular, mas logo se funde perfeitamente com a onda estacionária azul!
+                        </div>
+                    </div>
+                    <div class="final-answer">✓ Resposta 6(c): \(y(t) = e^{-t}\left[c_1\cos(2t) + c_2\,\text{sen}(2t)\right] + \frac{4}{17}\cos(2t) + \frac{16}{17}\text{sen}(2t)\).</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESUMINHO DO TÓPICO 4 -->
+        <div class="recap-box">
+            <h3>💡 Resuminho & Recapitulação — Tópico 4 (Forçadas com Amortecimento)</h3>
+            <div class="recap-grid">
+                <div class="recap-card">
+                    <strong>1. A Amplitude Explode se Houver Amortecimento?</strong>
+                    <strong>NUNCA!</strong> Na presença de amortecimento (\(c > 0\), logo \(\gamma > 0\)), o denominador \(\sqrt{(\omega^2 - \Omega^2)^2 + 4\gamma^2\Omega^2}\) nunca zera! Portanto, a solução é <strong>sempre limitada</strong> (não existe explosão para o infinito se \(c > 0\)).
+                </div>
+                <div class="recap-card">
+                    <strong>2. Quem é Quem na Resposta Final?</strong>
+                    • Tem \(c_1, c_2\) e exponencial \(e^{-\gamma t}\)? É a <strong>Solução Transiente</strong> (\(y_{tr} = y_h\)).<br>
+                    • Tem números fixos multiplicando \(\cos(\Omega t)\) e \(\text{sen}(\Omega t)\)? É a <strong>Solução Estacionária / Regime Permanente</strong> (\(y_{est} = y_p\)).
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TÓPICO 5: PÊNDULO SIMPLES LINEARIZADO (EX 7)                      -->
+    <!-- ================================================================= -->
+    <div class="topic-section">
+        <div class="topic-banner">
+            <h2>Tópico 5: O Pêndulo Simples e Linearização para Pequenas Oscilações</h2>
+            <span class="topic-range">Exercício 7 (Itens a, b, c)</span>
+        </div>
+
+        <div class="prereq-box">
+            <h3>🧠 O que você precisa lembrar do Limite Trigonométrico Fundamental (Cálculo 1)</h3>
+            <ul>
+                <li><strong>Aproximação de Pequenos Ângulos (\(\text{sen}\,\theta \approx \theta\)):</strong> Do Cálculo 1, sabemos que \(\lim_{\theta \to 0} \frac{\text{sen}\,\theta}{\theta} = 1\) (quando \(\theta\) é medido em <strong>radianos</strong>!). Isso significa que, para ângulos pequenos (como \(\theta_0 = 0,1\text{ rad} \approx 5,7^\circ\)), o valor numérico de \(\text{sen}(\theta)\) é praticamente idêntico ao próprio ângulo \(\theta\):
+                \[\text{sen}(0,1) \approx 0,09983 \approx 0,1\]
+                Graças a isso, trocamos \(\text{sen}\,\theta\) por \(\theta\) na EDO do pêndulo, transformando uma EDO não-linear difícil em um Movimento Harmônico Simples idêntico ao da mola!</li>
+            </ul>
+        </div>
+
+        <!-- EXERCÍCIO 7 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>📖</span> Exercício 7 — O Pêndulo Simples Linearizado</div>
+                <span class="badge-type badge-book">Introdutório / Aplicação Clássica</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>7.</strong> Um pêndulo simples é constituído por uma massa \(m\) presa à extremidade de uma haste de comprimento \(L\), que pode oscilar livremente em um plano vertical. Seja \(\theta(t)\) o ângulo formado pela haste com a direção vertical. Para pequenas oscilações, utiliza-se a aproximação \(\text{sen}\,\theta \approx \theta\), obtendo-se a EDO linear de segunda ordem:
+                    \[\theta''(t) + \frac{g}{L}\theta(t) = 0\]
+                    Considere um pêndulo de comprimento \(L = 1\text{ m}\) e utilize \(g = 9,8\text{ m/s}^2\). As condições iniciais são: \(\theta(0) = 0,1\text{ rad}\), \(\theta'(0) = 0\).
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>7. (a)</strong> Determine a solução da EDO linearizada.</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(\theta''(t) + \frac{9,8}{1}\theta(t) = 0 \implies \theta''(t) + 9,8\,\theta(t) = 0\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Substituímos g = 9,8 m/s<sup>2</sup> e L = 1 m na EDO linearizada do pêndulo.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\omega_0 = \sqrt{\frac{g}{L}} = \sqrt{9,8} \approx 3,1305\text{ rad/s}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Identificamos a frequência angular natural do pêndulo: ω<sub>0</sub> = √9,8 rad/s.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(r^2 + 9,8 = 0 \implies r = \pm i\sqrt{9,8} \implies \theta(t) = c_1\cos(\sqrt{9,8}\,t) + c_2\sin(\sqrt{9,8}\,t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Escrevemos a solução geral da equação homogênea.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(\theta(0) = 0,1 \implies c_1\cos(0) + c_2\sin(0) = 0,1 \implies c_1 = 0,1\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Aplicamos a posição angular inicial θ(0) = 0,1 rad e achamos c<sub>1</sub> = 0,1.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(\theta'(t) = -\sqrt{9,8}\,c_1\sin(\sqrt{9,8}\,t) + \sqrt{9,8}\,c_2\cos(\sqrt{9,8}\,t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Derivamos θ(t) para obter a velocidade angular θ'(t).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">06</td>
+            <td class="step-math">\(\theta'(0) = 0 \implies \sqrt{9,8}\,c_2(1) = 0 \implies c_2 = 0\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como o pêndulo foi solto do repouso (θ'(0) = 0), a constante do seno zera (c<sub>2</sub> = 0)!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">07</td>
+            <td class="step-math">\(\theta(t) = 0,1\cos(\sqrt{9,8}\,t) \approx 0,1\cos(3,13\,t)\text{ rad}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Substituímos c<sub>1</sub> = 0,1 e c<sub>2</sub> = 0 na solução geral.</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 7(a): \(\theta(t) = 0,1\cos(\sqrt{9,8}\,t)\text{ rad} \approx 0,1\cos(3,13\,t)\text{ rad}\).</div>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>7. (b)</strong> Determine a amplitude e o período das oscilações.</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(A = \sqrt{c_1^2 + c_2^2} = \sqrt{(0,1)^2 + 0^2} = 0,1\text{ rad}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> A amplitude angular máxima é o próprio ângulo inicial de onde o pêndulo foi solto em repouso: A = 0,1 rad.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(T = \frac{2\pi}{\omega_0} = \frac{2\pi}{\sqrt{9,8}} \approx \frac{6,2832}{3,1305} \approx 2,007\text{ segundos}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Calculamos o período T = 2π / ω<sub>0</sub> (aproximadamente 2 segundos para um pêndulo de 1 metro!).</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 7(b): Amplitude \(A = 0,1\text{ rad}\) e Período \(T = \frac{2\pi}{\sqrt{9,8}} \approx 2,01\text{ s}\).</div>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>7. (c)</strong> Escreva a solução na forma \(\theta(t) = A\cos(\omega t - \phi)\).</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(c_1 = 0,1 > 0 \;\;\text{e}\;\; c_2 = 0 \implies \tan(\phi) = \frac{c_2}{c_1} = \frac{0}{0,1} = 0 \implies \phi = 0\text{ rad}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como não há termo em seno (c<sub>2</sub> = 0) e c<sub>1</sub> > 0, o ângulo de fase é ϕ = 0!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\theta(t) = 0,1\cos(\sqrt{9,8}\,t - 0) = 0,1\cos(\sqrt{9,8}\,t)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> A solução do item (a) já está naturalmente na forma Amplitude-Fase com ϕ = 0.</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 7(c): \(\theta(t) = 0,1\cos(\sqrt{9,8}\,t)\) (com \(A = 0,1\text{ rad}\), \(\omega = \sqrt{9,8}\text{ rad/s}\) e fase \(\phi = 0\)).</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESUMINHO DO TÓPICO 5 -->
+        <div class="recap-box">
+            <h3>💡 Resuminho & Recapitulação — Tópico 5 (Pêndulo vs. Massa-Mola)</h3>
+            <div class="recap-grid">
+                <div class="recap-card">
+                    <strong>1. Semelhança Total: Mola vs. Pêndulo</strong>
+                    • <strong>Massa-Mola:</strong> \(x'' + \frac{k}{m}x = 0 \implies \omega_0 = \sqrt{k/m}\).<br>
+                    • <strong>Pêndulo:</strong> \(\theta'' + \frac{g}{L}\theta = 0 \implies \omega_0 = \sqrt{g/L}\). (Curiosidade física: o período do pêndulo não depende da massa \(m\), só do comprimento \(L\)!).
+                </div>
+                <div class="recap-card">
+                    <strong>2. Solto do Repouso (\(\theta'(0) = 0\) ou \(x'(0) = 0\))</strong>
+                    Sempre que a velocidade inicial em \(t=0\) for <strong>zero</strong> em um sistema livre sem amortecimento, a constante \(c_2\) do seno dá <strong>zero</strong>! A solução fica direto \(x(t) = x_0 \cos(\omega_0 t)\) com amplitude \(A = |x_0|\) e fase \(\phi = 0\)!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

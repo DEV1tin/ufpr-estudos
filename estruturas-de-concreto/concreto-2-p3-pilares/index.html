@@ -1,0 +1,2587 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Concreto II — Guia Passo a Passo (P3: Imperfeições e Pilares)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --surface-alt: #f8fafc;
+      --ink: #0f172a;
+      --ink-muted: #475569;
+      --ink-light: #64748b;
+      --border: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --primary: #1d4ed8;
+      --primary-soft: #eff6ff;
+      --primary-border: #bfdbfe;
+      --teal: #0f766e;
+      --teal-soft: #f0fdfa;
+      --teal-border: #99f6e4;
+      --amber: #b45309;
+      --amber-soft: #fffbeb;
+      --amber-border: #fde68a;
+      --red: #b91c1c;
+      --red-soft: #fef2f2;
+      --red-border: #fecaca;
+      --purple: #6d28d9;
+      --purple-soft: #f5f3ff;
+      --purple-border: #ddd6fe;
+      --radius: 14px;
+      --shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Sticky Navigation */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.94);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 0.65rem 1.25rem;
+    }
+    .topbar-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+    .brand-tag {
+      background: #2563eb;
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.16rem 0.45rem;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .nav-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.28rem;
+    }
+    .nav-pill {
+      background: rgba(255,255,255,0.08);
+      color: #e2e8f0;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 7px;
+      padding: 0.32rem 0.6rem;
+      font-size: 0.77rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+    .nav-pill:hover, .nav-pill.active {
+      background: #2563eb;
+      color: #fff;
+      border-color: #60a5fa;
+    }
+    .top-actions {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+      white-space: nowrap;
+    }
+    .btn-ghost {
+      background: rgba(245, 158, 11, 0.16);
+      color: #fcd34d;
+      border: 1px solid rgba(245, 158, 11, 0.38);
+      border-radius: 7px;
+      padding: 0.32rem 0.68rem;
+      font-size: 0.77rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-ghost:hover { background: rgba(245, 158, 11, 0.28); }
+
+    /* Container */
+    .container {
+      max-width: 1240px;
+      margin: 1.5rem auto 4rem;
+      padding: 0 1.25rem;
+    }
+
+    /* Hero Dashboard Summary */
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 1.75rem 2rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      margin: 0 0 0.45rem;
+      font-size: 1.62rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .hero p {
+      margin: 0 0 1.25rem;
+      color: #cbd5e1;
+      font-size: 0.94rem;
+      max-width: 900px;
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.85rem;
+    }
+    .kpi-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.15s, background 0.15s;
+      display: block;
+    }
+    .kpi-card:hover {
+      background: rgba(255,255,255,0.14);
+      transform: translateY(-2px);
+    }
+    .kpi-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #93c5fd;
+      font-weight: 700;
+    }
+    .kpi-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin: 0.15rem 0 0.35rem;
+      color: #fff;
+    }
+    .kpi-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: #6ee7b7;
+      font-weight: 600;
+    }
+
+    /* Exercise Section Cards */
+    .topic-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+    .topic-section.hidden-tab { display: none; }
+    .topic-header {
+      padding: 1.35rem 1.75rem;
+      background: var(--surface-alt);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .topic-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.22rem 0.6rem;
+      border-radius: 999px;
+      margin-bottom: 0.35rem;
+    }
+    .badge-blue { background: var(--primary-soft); color: var(--primary); border: 1px solid var(--primary-border); }
+    .badge-teal { background: var(--teal-soft); color: var(--teal); border: 1px solid var(--teal-border); }
+    .badge-amber { background: var(--amber-soft); color: var(--amber); border: 1px solid var(--amber-border); }
+    .badge-purple { background: var(--purple-soft); color: var(--purple); border: 1px solid var(--purple-border); }
+    .badge-red { background: var(--red-soft); color: var(--red); border: 1px solid var(--red-border); }
+
+    .topic-header h2 {
+      margin: 0;
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+    .topic-meta {
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      margin-top: 0.2rem;
+    }
+    .topic-body {
+      padding: 1.5rem 1.75rem;
+    }
+
+    /* Formula Block Pills */
+    .code-pill {
+      display: inline-flex;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      font-weight: 700;
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fcd34d;
+      border-radius: 6px;
+      padding: 0.08rem 0.42rem;
+      cursor: pointer;
+      vertical-align: middle;
+      margin: 0 0.15rem;
+      transition: all 0.12s;
+    }
+    .code-pill:hover {
+      background: #f59e0b;
+      color: #fff;
+      border-color: #d97706;
+      transform: translateY(-1px);
+    }
+
+    /* Grids & Cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .card-box {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.15rem;
+    }
+    .card-box h4 {
+      margin: 0 0 0.6rem;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    /* Roteiro Receita Box */
+    .roteiro-box {
+      background: linear-gradient(135deg, #f0fdfa 0%, #eff6ff 100%);
+      border: 1px solid #99f6e4;
+      border-left: 5px solid #0f766e;
+      border-radius: 12px;
+      padding: 1.1rem 1.35rem;
+      margin-bottom: 1.35rem;
+    }
+    .roteiro-box h3 {
+      margin: 0 0 0.6rem;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #0f766e;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+    .roteiro-flow {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 0.7rem;
+      margin-top: 0.6rem;
+    }
+    .roteiro-step {
+      background: rgba(255,255,255,0.88);
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      padding: 0.7rem 0.85rem;
+      font-size: 0.83rem;
+      color: #1e293b;
+    }
+    .roteiro-step strong.r-tag {
+      display: block;
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #1d4ed8;
+      margin-bottom: 0.25rem;
+    }
+
+    /* Step Blocks */
+    .step-card {
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1rem;
+      background: #fff;
+    }
+    .step-card.teal { border-left-color: var(--teal); }
+    .step-card.amber { border-left-color: #d97706; }
+    .step-card.purple { border-left-color: var(--purple); }
+    .step-card.red { border-left-color: var(--red); }
+
+    .step-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.65rem;
+    }
+    .step-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 7px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .step-card.teal .step-num { background: var(--teal); }
+    .step-card.amber .step-num { background: #d97706; }
+    .step-card.purple .step-num { background: var(--purple); }
+    .step-card.red .step-num { background: var(--red); }
+
+    .formula-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.65rem 1rem;
+      margin: 0.55rem 0;
+    }
+    .formula-math {
+      flex: 1 1 260px;
+      min-width: 0;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+    .formula-ref {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    /* Callouts */
+    .callout {
+      border-radius: 10px;
+      padding: 0.85rem 1.1rem;
+      margin: 0.9rem 0;
+      font-size: 0.9rem;
+    }
+    .callout-info { background: var(--primary-soft); border: 1px solid var(--primary-border); color: #1e3a8a; }
+    .callout-warn { background: var(--amber-soft); border: 1px solid var(--amber-border); color: #78350f; }
+    .callout-ok { background: var(--teal-soft); border: 1px solid var(--teal-border); color: #134e4a; }
+    .callout-danger { background: var(--red-soft); border: 1px solid var(--red-border); color: #7f1d1d; }
+
+    /* SVG Figures */
+    .svg-panel {
+      background: #ffffff;
+      border: 1px solid var(--border-strong);
+      border-radius: 12px;
+      padding: 1rem;
+      margin: 1rem 0 1.25rem;
+      text-align: center;
+    }
+    .svg-panel svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+    .svg-caption {
+      margin-top: 0.55rem;
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin: 0.75rem 0 1rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.83rem;
+    }
+    th, td {
+      padding: 0.5rem 0.65rem;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+    th {
+      background: #f1f5f9;
+      font-weight: 700;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+    td.left, th.left { text-align: left; }
+    tr:last-child td { border-bottom: none; }
+    tr.active-row { background: #dbeafe !important; font-weight: 700; }
+    tr:hover td { background: #f8fafc; }
+    .hi-ok { color: #0f766e; font-weight: 800; background: #f0fdfa; }
+    .hi-warn { color: #b45309; font-weight: 800; background: #fffbeb; }
+    .hi-red { color: #b91c1c; font-weight: 800; background: #fef2f2; }
+
+    /* Interactive Controls */
+    .combo-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.85rem;
+      justify-content: center;
+    }
+    .combo-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 0.35rem 0.68rem;
+      border-radius: 7px;
+      border: 1px solid var(--border-strong);
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer;
+      transition: all 0.14s;
+    }
+    .combo-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .combo-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .readout-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      gap: 0.55rem;
+      margin: 0.65rem 0;
+    }
+    .readout-item {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.45rem 0.65rem;
+      text-align: center;
+    }
+    .readout-item span { display: block; font-size: 0.7rem; color: var(--ink-light); font-weight: 600; }
+    .readout-item strong { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--ink); }
+
+    /* Enunciado Box */
+    .enunciado-box {
+      background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+      border: 1px solid #cbd5e1;
+      border-left: 5px solid #0f172a;
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.15rem;
+      font-size: 0.89rem;
+      color: #1e293b;
+    }
+    .enunciado-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.55rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 1px dashed #cbd5e1;
+    }
+    .enunciado-head strong {
+      font-size: 0.93rem;
+      color: #0f172a;
+      letter-spacing: -0.01em;
+    }
+    .enunciado-src {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #334155;
+      background: #e2e8f0;
+      padding: 0.16rem 0.5rem;
+      border-radius: 6px;
+    }
+    .enunciado-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(250px, 1fr);
+      gap: 1rem;
+      align-items: start;
+    }
+    @media (max-width: 780px) {
+      .enunciado-grid { grid-template-columns: 1fr; }
+    }
+    .enunciado-text p { margin: 0 0 0.5rem; }
+    .enunciado-text p:last-child { margin-bottom: 0; }
+    .enunciado-data {
+      background: rgba(255,255,255,0.8);
+      border: 1px solid #dbeafe;
+      border-radius: 8px;
+      padding: 0.65rem 0.9rem;
+      font-size: 0.83rem;
+    }
+    .enunciado-data ul {
+      margin: 0.25rem 0 0.35rem;
+      padding-left: 1.15rem;
+    }
+    .enunciado-data li { margin-bottom: 0.18rem; }
+
+    /* Question Divider */
+    .q-block {
+      border-top: 2px dashed var(--border);
+      padding-top: 1.4rem;
+      margin-top: 1.4rem;
+    }
+    .q-block:first-of-type {
+      border-top: none;
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    /* Result Banner */
+    .result-banner {
+      background: linear-gradient(90deg, #0f766e, #0d9488);
+      color: #fff;
+      border-radius: 10px;
+      padding: 0.85rem 1.2rem;
+      margin-top: 0.9rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .result-banner .res-label { font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.92; font-weight: 700; }
+    .result-banner .res-val { font-size: 1.02rem; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
+
+    /* Formula Drawer Modal */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.5);
+      z-index: 200;
+      display: none;
+      justify-content: flex-end;
+    }
+    .drawer-backdrop.open { display: flex; }
+    .drawer {
+      width: min(520px, 95vw);
+      background: #fff;
+      height: 100%;
+      overflow-y: auto;
+      padding: 1.5rem;
+      box-shadow: -8px 0 30px rgba(15,23,42,0.18);
+    }
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .drawer-close {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.35rem 0.7rem;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .drawer-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.8rem;
+      background: var(--surface-alt);
+    }
+    .drawer-card.highlight {
+      border-color: #f59e0b;
+      background: #fffbeb;
+      box-shadow: 0 0 0 3px rgba(245,158,11,0.18);
+    }
+    .drawer-search {
+      width: 100%;
+      padding: 0.55rem 0.8rem;
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-size: 0.88rem;
+    }
+
+    @media print {
+      .topbar, .combo-controls, .btn-ghost, .drawer-backdrop { display: none !important; }
+      .topic-section.hidden-tab { display: block !important; }
+      body { background: #fff; }
+      .topic-section { box-shadow: none; break-inside: avoid-page; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Bar -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-tag">Concreto II • P3</span>
+        <span>Imperfeições &amp; Pilares — Guia Passo a Passo</span>
+      </div>
+      <nav class="nav-pills" id="topicNav">
+        <button class="nav-pill active" data-target="all">Ver Todos</button>
+        <button class="nav-pill" data-target="sec-roteiro">🗺️ Mapa Passo a Passo</button>
+        <button class="nav-pill" data-target="sec-imp">1. Imperfeições &amp; 2ª Ordem</button>
+        <button class="nav-pill" data-target="sec-intro">2. Intro Pilares</button>
+        <button class="nav-pill" data-target="sec-fcn">3. Flexão Composta Normal</button>
+        <button class="nav-pill" data-target="sec-fco">4. Flexão Composta Oblíqua</button>
+      </nav>
+      <div class="top-actions">
+        <button class="btn-ghost" id="openDrawerBtn">📖 Formulário Cap. 9 e 10</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Hero Summary -->
+    <section class="hero">
+      <h1>Guia Didático Passo a Passo — Concreto II (P3: Capítulos 9 e 10)</h1>
+      <p>Resolução explicada das três provas online (SIGA/UFPR — TC522) e do Exemplo 10.1.3 do Caderno de Exercícios cobrindo <strong>Imperfeições Geométricas e Efeitos de 2ª Ordem</strong>, <strong>Introdução ao Dimensionamento de Pilares</strong>, <strong>Flexão Composta Normal (Polígono de Segurança)</strong> e <strong>Flexão Composta Oblíqua (Poliedro e Plano de $N_{sd}$)</strong>. Cada bloco traz primeiro a <strong>receita geral ("por onde começar e qual fórmula usar")</strong> e depois a aplicação comentada nos cálculos. Clique em qualquer tag <span class="code-pill">[9.1]</span> para abrir a equação da apostila.</p>
+      <div class="kpi-grid">
+        <a class="kpi-card" href="#sec-roteiro" onclick="selectTopic('all')">
+          <div class="kpi-label">Visão Geral • Cap. 9 e 10</div>
+          <div class="kpi-title">Mapa Mestre Passo a Passo</div>
+          <div class="kpi-val">Os 4 fluxos exatos da prova</div>
+        </a>
+        <a class="kpi-card" href="#sec-imp" onclick="selectTopic('all')">
+          <div class="kpi-label">8ª Avaliação • 4 Questões</div>
+          <div class="kpi-title">Imperfeições &amp; 2ª Ordem</div>
+          <div class="kpi-val">Globais, Locais, λe vs λ1, Msd,tot</div>
+        </a>
+        <a class="kpi-card" href="#sec-intro" onclick="selectTopic('all')">
+          <div class="kpi-label">9ª Avaliação • 4 Questões</div>
+          <div class="kpi-title">Introdução a Pilares</div>
+          <div class="kpi-val">Msd,min • As,min/máx • af, ae, s • ℓe</div>
+        </a>
+        <a class="kpi-card" href="#sec-fcn" onclick="selectTopic('all')">
+          <div class="kpi-label">10ª Avaliação • 15 Itens</div>
+          <div class="kpi-title">Flexo-Compressão Normal</div>
+          <div class="kpi-val">7 interfaces → Polígono → Semi-infinito</div>
+        </a>
+        <a class="kpi-card" href="#sec-fco" onclick="selectTopic('all')">
+          <div class="kpi-label">Caderno • Ex. 10.1.3 (p. 235–388)</div>
+          <div class="kpi-title">Flexo-Compressão Oblíqua</div>
+          <div class="kpi-val">αLN = 0°..90° → Plano Nsd → Resiste ✓</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- SEÇÃO 0: MAPA MESTRE PASSO A PASSO                        -->
+    <!-- ========================================================= -->
+    <section class="topic-section" id="sec-roteiro">
+      <div class="topic-header">
+        <div>
+          <span class="topic-badge badge-teal">Método de Estudo • Receita de Prova</span>
+          <h2>🗺️ Mapa Mestre: Os 4 Fluxos de Resolução da P3</h2>
+          <div class="topic-meta">Baseado integralmente em <em>Notas de Estruturas de Concreto Armado</em> (Prof. Marco André Argenta, Capítulos 9 e 10 + Fluxogramas E.1 e F.1)</div>
+        </div>
+      </div>
+      <div class="topic-body">
+        <div class="grid-2">
+          <div class="card-box" style="border-top: 4px solid var(--primary);">
+            <h4>1. Cap. 9 — Imperfeições &amp; 2ª Ordem <span class="code-pill" data-code="9.1">[9.1–9.14]</span></h4>
+            <ol style="margin:0; padding-left:1.2rem; font-size:0.85rem; color:#334155;">
+              <li style="margin-bottom:0.4rem;"><strong>Imperfeição Global ou Local?</strong>
+                <br>• Sempre comece calculando $\theta_1$ <button class="code-pill" data-code="9.1">[9.1]</button> com $\ell_e$ em <strong>metros</strong> e confira os limites $[1/300;\, 1/200]$.
+                <br>• Se for <strong>Global</strong>: ache $\theta_a$ usando $n$ níveis <button class="code-pill" data-code="9.3">[9.3]</button> e multiplique $N_{sd}\cdot\ell_e\cdot\theta_a$ <button class="code-pill" data-code="9.5">[9.5]</button>.
+                <br>• Se for <strong>Local</strong>: ache $e_l = \theta_1 \ell_e / 2$ <button class="code-pill" data-code="9.2">[9.2]</button> e multiplique $M_l = N_{sd}\cdot e_l$.</li>
+              <li style="margin-bottom:0.4rem;"><strong>Regra da Mão Direita (Crucial!):</strong> Momento em torno de $x$ ($M_{sd,x}$) dobra a peça na direção $y$ $\implies$ use $h = h_y$. Momento em torno de $y$ ($M_{sd,y}$) dobra em $x$ $\implies$ use $h = h_x$.</li>
+              <li style="margin-bottom:0.4rem;"><strong>Esbeltez $\lambda_e$ vs Limite $\lambda_1$:</strong> Calcule $\lambda_e = \sqrt{12}\ell_f/h$ <button class="code-pill" data-code="9.8">[9.8]</button>, ache $\alpha_b$ ($1{,}0$ se houver carga transversal, ou $0{,}6+0{,}4 M_b/M_a$ sem carga transversal) <button class="code-pill" data-code="9.9">[9.9]</button>, calcule $e_1 = M_a/N_{sd}$ e $\lambda_1 \in [35; 90]$.</li>
+              <li><strong>Decisão:</strong> Se $\lambda_e \le \lambda_1$, pare (só 1ª ordem). Se $\lambda_e &gt; \lambda_1$, aplique Pilar Padrão com Rigidez Aproximada <button class="code-pill" data-code="9.13">[9.13]</button>.</li>
+            </ol>
+          </div>
+
+          <div class="card-box" style="border-top: 4px solid var(--teal);">
+            <h4>2. Cap. 10 — Introdução a Pilares <span class="code-pill" data-code="10.1">[10.1–10.11]</span></h4>
+            <ol style="margin:0; padding-left:1.2rem; font-size:0.85rem; color:#334155;">
+              <li style="margin-bottom:0.4rem;"><strong>Momento Mínimo $M_{sd,\min}$:</strong> Use <button class="code-pill" data-code="10.11">[10.11]</button> com $h$ <strong>obrigatoriamente em metros</strong>! Para $M_{sd,\min,x}$ use $h_y$; para $M_{sd,\min,y}$ use $h_x$.</li>
+              <li style="margin-bottom:0.4rem;"><strong>Limites de Armadura:</strong> $A_{s,\min}$ é o <em>maior</em> entre $0{,}15 N_{sd}/f_{yd}$ e $0{,}004 A_c$ <button class="code-pill" data-code="10.3">[10.3]</button>; $A_{s,\max} = 0{,}08 A_c$ <button class="code-pill" data-code="10.4">[10.4]</button>; $\phi_{\max} = h_{\min}/8$ <button class="code-pill" data-code="10.5">[10.5]</button>.</li>
+              <li style="margin-bottom:0.4rem;"><strong>Espaçamentos Construtivos:</strong>
+                <br>• Entre faces ($a_f$): maior entre $20\text{ mm}$, $\phi_l$ e $1{,}2 d_{\max}$ <button class="code-pill" data-code="10.7">[10.7]</button>.
+                <br>• Entre eixos ($a_e$): menor entre $2 h_{\min}$ e $400\text{ mm}$ <button class="code-pill" data-code="10.8">[10.8]</button>.
+                <br>• Estribos ($s$): menor entre $200\text{ mm}$, $h_{\min}$ e $C_s\phi_l$ ($C_s=12$ p/ CA-50) <button class="code-pill" data-code="10.9">[10.9]</button>.</li>
+              <li><strong>Comprimento Equivalente $\ell_e$:</strong> Primeiro ache a distância entre eixos das vigas $\ell = \ell_0 + h_{\text{sup}}/2 + h_{\text{inf}}/2$; depois faça $\ell_e = \min(\ell_0 + h_{\text{pilar}};\, \ell)$ <button class="code-pill" data-code="10.1">[10.1]</button>.</li>
+            </ol>
+          </div>
+
+          <div class="card-box" style="border-top: 4px solid var(--purple);">
+            <h4>3. Cap. 10 — Flexão Composta Normal <span class="code-pill" data-code="10fcn">[E.1]</span></h4>
+            <ol style="margin:0; padding-left:1.2rem; font-size:0.85rem; color:#334155;">
+              <li style="margin-bottom:0.4rem;"><strong>Setup (Constantes e Geometria):</strong> Calcule $f_{cd}, f_{yd}, \varepsilon_{yd}, A_s, d', d$ e as coordenadas $n_i$ de cada barra em relação ao CG. Calcule $\sigma_c = -\eta_c f_{cd}$ com $\eta_c = 0{,}9\alpha_c = 0{,}765$ <button class="code-pill" data-code="10.21">[10.21]</button>.</li>
+              <li style="margin-bottom:0.4rem;"><strong>7 Posições da Linha Neutra:</strong> Reta $a$ ($-\infty$), $1\text{-}2$ ($0$), $2\text{-}3$, $3\text{-}4$, $4\text{-}4a$ ($d$), $4a\text{-}5$ ($h_n$) e Reta $b$ ($+\infty$) <button class="code-pill" data-code="4fcn">[4fcn]</button>.</li>
+              <li style="margin-bottom:0.4rem;"><strong>Bloco de Concreto ($y, A_{cc}, S_{ct}$):</strong> Para $x &gt; 0$, $y = \min(\zeta_c x; h_n)$ ($y=h_n$ na Reta $b$), $A_{cc} = h_t y$ e $S_{ct} = A_{cc}\frac{h_n - y}{2}$ <button class="code-pill" data-code="5fcn">[5fcn]</button> <button class="code-pill" data-code="6fcn">[6fcn]</button>.</li>
+              <li style="margin-bottom:0.4rem;"><strong>Deformações &amp; Tensões no Aço:</strong> Pegue $(\varepsilon_c, \varepsilon_s)$ na Tabela 10.1 <button class="code-pill" data-code="T10.1">[T10.1]</button>, interpole $\varepsilon_{si}$ com $d_i$ <button class="code-pill" data-code="10.22">[10.22]</button> e aplique $\sigma_{si} = E_s\varepsilon_{si}$ limitado a $\pm f_{yd}$ <button class="code-pill" data-code="10.23">[10.23]</button>.</li>
+              <li><strong>Polígono &amp; Semi-infinito:</strong> Some concreto + aço para obter $(N_{Rd}, M_{Rd,t})$ nos 7 pontos <button class="code-pill" data-code="10.29">[10.29]</button> e teste as 6 arestas no sentido horário <button class="code-pill" data-code="10fcn">[10fcn]</button>.</li>
+            </ol>
+          </div>
+
+          <div class="card-box" style="border-top: 4px solid var(--red);">
+            <h4>4. Cap. 10 — Flexão Composta Oblíqua <span class="code-pill" data-code="10.rot">[F.1]</span></h4>
+            <ol style="margin:0; padding-left:1.2rem; font-size:0.85rem; color:#334155;">
+              <li style="margin-bottom:0.4rem;"><strong>Coordenadas em $(x,y)$:</strong> Liste todos os vértices $v_i$ e barras $b_j$ da seção no sistema original $(x,y)$ com origem no centroide.</li>
+              <li style="margin-bottom:0.4rem;"><strong>Rotação p/ $(t,n)$ por $\alpha_{LN}$:</strong> Para cada ângulo ($0^\circ; 22{,}5^\circ; 45^\circ; 67{,}5^\circ; 90^\circ$), rotacione vértices e barras <button class="code-pill" data-code="10.rot">[10.rot]</button>, ache $h_n, d_n, d_{ni}$ e as interfaces que cercam $N_{sd}$.</li>
+              <li style="margin-bottom:0.4rem;"><strong>Concreto (Green) + Aço + Volta:</strong> Ache $n_I = n_t - y$, intercepte as arestas <button class="code-pill" data-code="10.24">[10.24]</button>, calcule $A_{cc}, S_{ct}, S_{cn}$ <button class="code-pill" data-code="10.26">[10.26]</button>, inverta o sinal de $M_{Rd,n}$ <button class="code-pill" data-code="10.31">[10.31]</button> e converta $(M_{Rd,t}, M_{Rd,n}) \to (M_{Rd,x}, M_{Rd,y})$ <button class="code-pill" data-code="10.19">[10.19]</button>.</li>
+              <li><strong>Plano de $N_{sd}$ &amp; Semi-infinito 2D:</strong> Interpole $I_0..I_{90}$ na cota $N_{sd}$ <button class="code-pill" data-code="10.41">[10.41]</button> e verifique se $(M_{sd,x}; M_{sd,y})$ está dentro do polígono <button class="code-pill" data-code="10.39">[10.39]</button>.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="callout callout-info" style="margin-bottom:0;">
+          <strong>💡 Convenção de Sinais da Apostila (Não Erre Isso!):</strong>
+          <strong>Compressão é sempre NEGATIVA</strong> ($\sigma_c &lt; 0$, $N_{sd} &lt; 0$, encurtamento $\varepsilon &lt; 0$) e <strong>Tração é sempre POSITIVA</strong> ($N_{Rd,a} &gt; 0$, alongamento $\varepsilon &gt; 0$). Para momentos, aplica-se a <strong>regra da mão direita</strong>: se $N_{sd} &lt; 0$ está em $y &gt; 0$, o momento é $M_{sd,x} = N_{sd}\cdot e_y &lt; 0$ (gira no sentido negativo do eixo $x$, comprimindo a borda superior $+n$).
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- SEÇÃO 1: IMPERFEIÇÕES GEOMÉTRICAS E 2ª ORDEM              -->
+    <!-- ========================================================= -->
+    <section class="topic-section" id="sec-imp">
+      <div class="topic-header">
+        <div>
+          <span class="topic-badge badge-blue">Tema 1 • 8ª Avaliação (Capítulo 9)</span>
+          <h2>1. Imperfeições Geométricas e Efeitos de Segunda Ordem</h2>
+          <div class="topic-meta">Fonte: <code>Prova Online Imperfeições.pdf</code> (4 questões) • Fórmulas: <button class="code-pill" data-code="9.1">[9.1]</button> <button class="code-pill" data-code="9.2">[9.2]</button> <button class="code-pill" data-code="9.3">[9.3]</button> <button class="code-pill" data-code="9.5">[9.5]</button> <button class="code-pill" data-code="9.8">[9.8]</button> <button class="code-pill" data-code="9.9">[9.9]</button> <button class="code-pill" data-code="9.13">[9.13]</button></div>
+        </div>
+      </div>
+
+      <div class="topic-body">
+        <!-- Roteiro Geral do Capítulo 9 -->
+        <div class="roteiro-box">
+          <h3>🧭 Roteiro de Resolução — Passo a Passo do Capítulo 9</h3>
+          <p style="margin:0; font-size:0.86rem; color:#1e293b;">Antes de fazer qualquer conta, siga esta sequência fixa de decisão:</p>
+          <div class="roteiro-flow">
+            <div class="roteiro-step">
+              <strong class="r-tag">Passo A • Ângulo $\theta_1$</strong>
+              Calcule $\theta_1 = \frac{1}{100\sqrt{\ell_e}}$ com $\ell_e$ <strong>em metros</strong> <button class="code-pill" data-code="9.1">[9.1]</button>. Se der menor que $1/300$, adote $1/300$; se der maior que $1/200$, adote $1/200$. <strong>Nunca arredonde em radianos</strong> para os cálculos seguintes!
+            </div>
+            <div class="roteiro-step">
+              <strong class="r-tag">Passo B • Global vs Local</strong>
+              <strong>Global:</strong> ache $\theta_a$ com $n$ níveis <button class="code-pill" data-code="9.3">[9.3]</button> e $M_g = N_{sd}\ell_e\theta_a$ <button class="code-pill" data-code="9.5">[9.5]</button>.<br>
+              <strong>Local:</strong> ache $e_l = \theta_1\ell_e/2$ <button class="code-pill" data-code="9.2">[9.2]</button> e $M_l = N_{sd}e_l$.
+            </div>
+            <div class="roteiro-step">
+              <strong class="r-tag">Passo C • Esbeltez ($\lambda_e$ e $\lambda_1$)</strong>
+              Identifique a dimensão $h$ pela <strong>regra da mão direita</strong>. Calcule $\lambda_e = \sqrt{12}\ell_f/h$ <button class="code-pill" data-code="9.8">[9.8]</button>, determine $\alpha_b$ e $e_1 = M_a/N_{sd}$, e ache $\lambda_1 \in [35; 90]$ <button class="code-pill" data-code="9.9">[9.9]</button>.
+            </div>
+            <div class="roteiro-step">
+              <strong class="r-tag">Passo D • 2ª Ordem Local</strong>
+              Compare: se $\lambda_e \le \lambda_1 \implies$ só 1ª ordem. Se $\lambda_e &gt; \lambda_1 \implies$ calcule $C$ e $M_{sd,tot}$ pelas Eqs. <button class="code-pill" data-code="9.13">[9.13]</button> e <button class="code-pill" data-code="9.14">[9.14]</button>.
+            </div>
+          </div>
+        </div>
+
+        <!-- SVG Regra da Mão Direita -->
+        <div class="svg-panel">
+          <svg viewBox="0 0 880 220" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs>
+              <marker id="arrow-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0,1 L10,5 L0,9 z" fill="#1d4ed8"/>
+              </marker>
+              <marker id="arrow-t" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0,1 L10,5 L0,9 z" fill="#0f766e"/>
+              </marker>
+            </defs>
+            <!-- Left box: Direction X (moment around x -> bending along y -> h = hy) -->
+            <rect x="20" y="16" width="405" height="188" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+            <text x="222" y="40" text-anchor="middle" font-size="13" font-weight="800" fill="#1d4ed8">Momento na Direção X (em torno do eixo x)</text>
+            <rect x="75" y="75" width="120" height="72" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+            <!-- axes -->
+            <line x1="55" y1="111" x2="225" y2="111" stroke="#0f172a" stroke-width="1.4" marker-end="url(#arrow-b)"/>
+            <text x="228" y="115" font-size="12" font-weight="800" fill="#0f172a">x</text>
+            <line x1="135" y1="168" x2="135" y2="55" stroke="#64748b" stroke-width="1.2" stroke-dasharray="3,3"/>
+            <text x="142" y="62" font-size="11" font-weight="700" fill="#64748b">y</text>
+            <!-- double arrow for Msd,x -->
+            <path d="M 105,111 A 14,14 0 1,1 105,112" fill="none"/>
+            <text x="135" y="102" text-anchor="middle" font-size="11" font-weight="800" fill="#b91c1c">Msd,x (gira em torno de x)</text>
+            <!-- dimensions -->
+            <text x="135" y="162" text-anchor="middle" font-size="11" font-weight="700" fill="#475569">hx</text>
+            <text x="64" y="115" text-anchor="end" font-size="12" font-weight="800" fill="#b91c1c">hy</text>
+            <!-- explanation -->
+            <text x="242" y="88" font-size="11.5" font-weight="700" fill="#0f172a">Pela Regra da Mão Direita:</text>
+            <text x="242" y="106" font-size="11" fill="#334155">Polegar em x → dedos curvam</text>
+            <text x="242" y="122" font-size="11" fill="#334155">tracionando/comprimindo ao</text>
+            <text x="242" y="138" font-size="11" fill="#334155">longo de y.</text>
+            <rect x="242" y="150" width="165" height="36" rx="7" fill="#eff6ff" stroke="#93c5fd"/>
+            <text x="324" y="172" text-anchor="middle" font-size="12" font-weight="800" fill="#1d4ed8">Usar h = hy na fórmula!</text>
+
+            <!-- Right box: Direction Y (moment around y -> bending along x -> h = hx) -->
+            <rect x="455" y="16" width="405" height="188" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+            <text x="657" y="40" text-anchor="middle" font-size="13" font-weight="800" fill="#0f766e">Momento na Direção Y (em torno do eixo y)</text>
+            <rect x="510" y="75" width="120" height="72" fill="#ccfbf1" stroke="#0f766e" stroke-width="2"/>
+            <line x1="490" y1="111" x2="650" y2="111" stroke="#64748b" stroke-width="1.2" stroke-dasharray="3,3"/>
+            <text x="653" y="115" font-size="11" font-weight="700" fill="#64748b">x</text>
+            <line x1="570" y1="168" x2="570" y2="55" stroke="#0f172a" stroke-width="1.4" marker-end="url(#arrow-t)"/>
+            <text x="578" y="62" font-size="12" font-weight="800" fill="#0f172a">y</text>
+            <text x="570" y="102" text-anchor="middle" font-size="11" font-weight="800" fill="#b91c1c">Msd,y (gira em torno de y)</text>
+            <text x="570" y="162" text-anchor="middle" font-size="12" font-weight="800" fill="#b91c1c">hx</text>
+            <text x="498" y="115" text-anchor="end" font-size="11" font-weight="700" fill="#475569">hy</text>
+            <text x="675" y="88" font-size="11.5" font-weight="700" fill="#0f172a">Pela Regra da Mão Direita:</text>
+            <text x="675" y="106" font-size="11" fill="#334155">Polegar em y → dedos curvam</text>
+            <text x="675" y="122" font-size="11" fill="#334155">tracionando/comprimindo ao</text>
+            <text x="675" y="138" font-size="11" fill="#334155">longo de x.</text>
+            <rect x="675" y="150" width="165" height="36" rx="7" fill="#f0fdfa" stroke="#5eead4"/>
+            <text x="757" y="172" text-anchor="middle" font-size="12" font-weight="800" fill="#0f766e">Usar h = hx na fórmula!</text>
+          </svg>
+          <div class="svg-caption">Figura 1.1 — Regra da mão direita aplicada na P3 (conforme Seção 9.3.2 / Fig. 9.8 da apostila): o eixo do momento e a dimensão $h$ usada em $\lambda_e$ e $\lambda_1$ são sempre cruzados.</div>
+        </div>
+
+        <!-- QUESTÃO 1 -->
+        <div class="q-block">
+          <div class="enunciado-box">
+            <div class="enunciado-head">
+              <strong>📋 Questão 1 — Imperfeições Geométricas Globais</strong>
+              <span class="enunciado-src">Prova Online Imperfeições • p. 1</span>
+            </div>
+            <div class="enunciado-grid">
+              <div class="enunciado-text">
+                <p>Com relação às imperfeições geométricas globais, determine o ângulo do desaprumo do lance de pilar ($\theta_1$), o ângulo do desaprumo global ($\theta_a$) e o momento fletor adicional ($M_l$, equivalente a $M_g$ da Eq. 9.5) para serem considerados em projeto de um pilar com comprimento equivalente de $5{,}1\text{ m}$ e solicitado por uma força axial de cálculo de $116{,}0\text{ kN}$. A edificação possui $28$ níveis. <em>ATENÇÃO: não arredonde os valores de $\theta_1$ e de $\theta_a$ em radianos para os cálculos.</em></p>
+              </div>
+              <div class="enunciado-data">
+                <strong>Dados de Entrada:</strong>
+                <ul>
+                  <li>$\ell_e = 5{,}1\text{ m} = 510\text{ cm}$</li>
+                  <li>$N_{sd} = 116{,}0\text{ kN}$</li>
+                  <li>$n = 28\text{ níveis}$</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-header">
+              <div class="step-title"><span class="step-num">1</span> Calcular $\theta_1$ em radianos, checar limites e converter para graus</div>
+              <span class="formula-ref"><button class="code-pill" data-code="9.1">[9.1]</button></span>
+            </div>
+            <p style="margin:0 0 0.4rem;">Começamos sempre pelo ângulo de desaprumo de um lance isolado ($\theta_1$), entrando com $\ell_e$ obrigatoriamente em <strong>metros</strong>:</p>
+            <div class="formula-row">
+              <div class="formula-math">$$\theta_1 = \frac{1}{100\sqrt{\ell_e}} = \frac{1}{100\sqrt{5{,}1}} = \frac{1}{225{,}8318} = 0{,}00442807\text{ rad}$$</div>
+            </div>
+            <p style="margin:0.4rem 0;">Verificamos os limites normativos: $\frac{1}{300} = 0{,}003333\text{ rad} \le 0{,}00442807 \le 0{,}005000\text{ rad} = \frac{1}{200}$ (<strong>OK, dentro da faixa!</strong>). Convertendo para graus ($\times 180/\pi$):</p>
+            <div class="formula-row">
+              <div class="formula-math">$$\theta_1[^\circ] = 0{,}00442807 \times \frac{180}{\pi} = 0{,}25371^\circ \approx \mathbf{0{,}254^\circ}$$</div>
+            </div>
+          </div>
+
+          <div class="step-card teal">
+            <div class="step-header">
+              <div class="step-title"><span class="step-num">2</span> Calcular o ângulo de desaprumo global $\theta_a$ (usando $n = 28$ níveis)</div>
+              <span class="formula-ref"><button class="code-pill" data-code="9.3">[9.3]</button></span>
+            </div>
+            <p style="margin:0 0 0.4rem;">Como o edifício tem $n = 28$ níveis, o desaprumo global $\theta_a$ atenua $\theta_1$ estatisticamente (é menos provável todos os 28 andares entortarem para o mesmo lado):</p>
+            <div class="formula-row">
+              <div class="formula-math">$$\theta_a = \theta_1 \sqrt{\frac{1}{2} + \frac{1}{2n}} = 0{,}00442807 \times \sqrt{0{,}5 + \frac{1}{56}} = 0{,}00442807 \times 0{,}719623 = 0{,}00318655\text{ rad}$$</div>
+            </div>
+            <div class="formula-row">
+              <div class="formula-math">$$\theta_a[^\circ] = 0{,}00318655 \times \frac{180}{\pi} = 0{,}18258^\circ \approx \mathbf{0{,}183^\circ}$$</div>
+            </div>
+          </div>
+
+          <div class="step-card purple">
+            <div class="step-header">
+              <div class="step-title"><span class="step-num">3</span> Calcular o momento adicional na base do lance ($M_g$ / $M_l$)</div>
+              <span class="formula-ref"><button class="code-pill" data-code="9.5">[9.5]</button></span>
+            </div>
+            <p style="margin:0 0 0.4rem;">Como $\theta_a$ é muito pequeno, $\tan(\theta_a) \approx \theta_a\text{ (rad)}$. O deslocamento horizontal relativo entre topo e base do lance é $e_{g,\text{rel}} = \ell_e \cdot \theta_a$, e o momento adicional vale (usando $\ell_e = 510\text{ cm}$ para sair direto em $\text{kNcm}$):</p>
+            <div class="formula-row">
+              <div class="formula-math">$$M_g = N_{sd} \cdot \ell_e \cdot \theta_a = 116{,}0 \times 510 \times 0{,}00318655 = 188{,}516 \approx \mathbf{188{,}52\text{ kNcm}}$$</div>
+            </div>
+          </div>
+
+          <div class="result-banner">
+            <div><span class="res-label">Gabarito Conferido — Q1 (Imperfeições Globais)</span></div>
+            <div class="res-val">θ₁ = 0,254° &nbsp;|&nbsp; θa = 0,183° &nbsp;|&nbsp; Ml = 188,52 kNcm</div>
+          </div>
+        </div>
+
+        <!-- QUESTÃO 2 -->
+        <div class="q-block">
+          <div class="enunciado-box">
+            <div class="enunciado-head">
+              <strong>📋 Questão 2 — Imperfeições Geométricas Locais</strong>
+              <span class="enunciado-src">Prova Online Imperfeições • p. 2</span>
+            </div>
+            <div class="enunciado-grid">
+              <div class="enunciado-text">
+                <p>Com relação às imperfeições geométricas locais, determine o ângulo do desaprumo do lance do pilar ($\theta_1$), a excentricidade ($e_l$) e o momento fletor adicional ($M_l$) para serem considerados em projeto de um pilar com comprimento equivalente em certo lance de $3{,}5\text{ m}$ e solicitado por uma força axial de cálculo de $31{,}1\text{ kN}$. <em>ATENÇÃO: não arredonde os valores de $\theta_1$ em radianos para os cálculos.</em></p>
+              </div>
+              <div class="enunciado-data">
+                <strong>Dados de Entrada:</strong>
+                <ul>
+                  <li>$\ell_e = 3{,}5\text{ m} = 350\text{ cm} = 3500\text{ mm}$</li>
+                  <li>$N_{sd} = 31{,}1\text{ kN}$</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-card amber">
+            <div class="step-header">
+              <div class="step-title"><span class="step-num">1</span> Calcular $\theta_1$ e verificar a trava no limite superior $1/200$</div>
+              <span class="formula-ref"><button class="code-pill" data-code="9.1">[9.1]</button></span>
+            </div>
+            <div class="formula-row">
+              <div class="formula-math">$$\theta_{1,\text{calc}} = \frac{1}{100\sqrt{3{,}5}} = 0{,}0053452\text{ rad} \; &gt; \; \frac{1}{200} = 0{,}005000\text{ rad}$$</div>
+            </div>
+            <div class="callout callout-warn" style="margin:0.5rem 0;">
+              <strong>⚠️ Atenção à trava normativa:</strong> Para lances curtos ($\ell_e &lt; 4{,}0\text{ m}$), $\frac{1}{100\sqrt{\ell_e}}$ ultrapassa $\frac{1}{200}$. Portanto, <strong>trava-se $\theta_1 = \frac{1}{200} = 0{,}005\text{ rad}$</strong>! Em graus: $0{,}005 \times \frac{180}{\pi} = 0{,}28648^\circ \approx \mathbf{0{,}286^\circ}$.
+            </div>
+          </div>
+
+          <div class="step-card teal">
+            <div class="step-header">
+              <div class="step-title"><span class="step-num">2</span> Calcular a excentricidade local $e_l$ (falta de retilineidade)</div>
+              <span class="formula-ref"><button class="code-pill" data-code="9.2">[9.2]</button></span>
+            </div>
+            <p style="margin:0 0 0.4rem;">A falta de retilineidade atinge seu máximo a meia altura do lance, produzindo excentricidade $e_l = \theta_1 \frac{\ell_e}{2}$:</p>
+            <div class="formula-row">
+              <div class="formula-math">$$e_l = 0{,}005 \times \frac{3500\text{ mm}}{2} = \mathbf{8{,}75\text{ mm}} = 0{,}875\text{ cm}$$</div>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-header">
+              <div class="step-title"><span class="step-num">3</span> Calcular o momento fletor adicional $M_l$</div>
+              <span class="formula-ref"><button class="code-pill" data-code="9.2">[9.2]</button></span>
+            </div>
+            <div class="formula-row">
+              <div class="formula-math">$$M_l = N_{sd} \cdot e_l = 31{,}1\text{ kN} \times 0{,}875\text{ cm} = 27{,}2125 \approx \mathbf{27{,}21\text{ kNcm}}$$</div>
+            </div>
+          </div>
+
+          <div class="result-banner">
+            <div><span class="res-label">Gabarito Conferido — Q2 (Imperfeições Locais)</span></div>
+            <div class="res-val">θ₁ = 0,286° &nbsp;|&nbsp; el = 8,75 mm &nbsp;|&nbsp; Ml = 27,21 kNcm</div>
+          </div>
+        </div>
+
+        <!-- QUESTÃO 3 -->
+        <div class="q-block">
+          <div class="enunciado-box">
+            <div class="enunciado-head">
+              <strong>📋 Questão 3 — Esbeltez e Dispensa de 2ª Ordem (Sem Carga Transversal)</strong>
+              <span class="enunciado-src">Prova Online Imperfeições • p. 3</span>
+            </div>
+            <div class="enunciado-grid">
+              <div class="enunciado-text">
+                <p>Considere um pilar biapoiado de dimensões $h_x = 56{,}0\text{ cm}$ e $h_y = 21{,}0\text{ cm}$, de comprimento efetivo de $3{,}8\text{ m}$ em ambas as direções, solicitado por uma força axial de cálculo de $44{,}5\text{ kN}$ sem cargas transversais. Sabendo que na direção $x$, o tramo do pilar está submetido a um momento de cálculo de $5{,}0\text{ kNm}$ no topo e um momento de cálculo de $22{,}0\text{ kNm}$ na base e que estes momentos tracionam a mesma face, determine a esbeltez ($\lambda_e$), a esbeltez limite de referência ($\lambda_1$) e se os efeitos de segunda ordem do pilar devem ser considerados para esta direção (use a regra da mão direita com os momentos).</p>
+              </div>
+              <div class="enunciado-data">
+                <strong>Dados de Entrada (Direção X $\implies h = h_y$):</strong>
+                <ul>
+                  <li>$h_x = 56{,}0\text{ cm}$ | $h_y = 21{,}0\text{ cm}$</li>
+                  <li>$\ell_f = \ell_e = 3{,}8\text{ m} = 380\text{ cm}$ (biapoiado)</li>
+                  <li>$N_{sd} = 44{,}5\text{ kN}$ (sem carga transversal)</li>
+                  <li>$M_{\text{topo}} = 500\text{ kNcm}$, $M_{\text{base}} = 2200\text{ kNcm}$ (mesma face)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-header">
+              <div class="step-title"><span class="step-num">1</span> Identificar $h$ pela regra da mão direita e calcular $\lambda_e$</div>
+              <span class="formula-ref"><button class="code-pill" data-code="9.8">[9.8]</button></span>
+            </div>
+            <p style="margin:0 0 0.4rem;">A análise é na <strong>direção $x$</strong> (momentos girando em torno do eixo $x$), o que produz flexão ao longo de $y$. Logo, a dimensão da seção perpendicular ao eixo do momento é $h = h_y = 21{,}0\text{ cm}$:</p>
+            <div class="formula-row">
+              <div class="formula-math">$$\lambda_e = \frac{\sqrt{12}\,\ell_f}{h_y} = \frac{\sqrt{12}\times 380}{21{,}0} = 62{,}6837 \approx \mathbf{62{,}68}$$</div>
+            </div>
+          </div>
+
+          <div class="step-card teal">
+            <div class="step-header">
+              <div class="step-title"><span class="step-num">2</span> Calcular $\alpha_b$ (biapoiado sem carga transversal)</div>
+              <span class="formula-ref"><button class="code-pill" data-code="9.9">[9.9]</button></span>
+            </div>
+            <p style="margin:0 0 0.4rem;">$M_a$ é sempre o maior momento em módulo ($M_a = 2200\text{ kNcm}$) e $M_b$ é o menor ($M_b = +500\text{ kNcm}$, sinal <strong>positivo</strong> pois os dois tracionam a mesma face):</p>
+            <div class="formula-row">
+              <div class="formula-math">$$\alpha_b = 0{,}6 + 0{,}4\frac{M_b}{M_a} = 0{,}6 + 0{,}4\left(\frac{+500}{2200}\right) = 0{,}69091 \quad (0{,}4 \le 0{,}69091 \le 1{,}0 \;\checkmark)$$</div>
+            </div>
+          </div>
+
+          <div class="step-card purple">
+            <div class="step-header">
+              <div class="step-title"><span class="step-num">3</span> Calcular $e_1$ e a esbeltez limite de referência $\lambda_1$</div>
+              <span class="formula-ref"><button class="code-pill" data-code="9.9">[9.9]</button></span>
+            </div>
+            <div class="formula-row">
+              <div class="formula-math">$$e_1 = \frac{M_a}{N_{sd}} = \frac{2200}{44{,}5} = 49{,}4382\text{ cm}$$</div>
+            </div>
+            <div class="formula-row">
+              <div class="formula-math">$$\lambda_1 = \frac{25}{\alpha_b} + \frac{12{,}5\, e_1}{\alpha_b\, h_y} = \frac{25}{0{,}69091} + \frac{12{,}5 \times 49{,}4382}{0{,}69091 \times 21{,}0} = 36{,}184 + 42{,}593 = 78{,}777 \approx \mathbf{78{,}78}$$</div>
+            </div>
+            <p style="margin:0.35rem 0 0; font-size:0.86rem;">Limites de $\lambda_1$: $35 \le 78{,}78 \le 90$ (mantém $78{,}78$).</p>
+          </div>
+
+          <div class="step-card amber">
+            <div class="step-header">
+              <div class="step-title"><span class="step-num">4</span> Comparar $\lambda_e$ com $\lambda_1$ e decidir</div>
+            </div>
+            <p style="margin:0;">Como $\lambda_e = 62{,}68 \le \lambda_1 = 78{,}78$, a deformação transversal não amplifica o momento de forma relevante: consideram-se <strong>somente efeitos de primeira ordem</strong>.</p>
+          </div>
+
+          <div class="result-banner">
+            <div><span class="res-label">Gabarito Conferido — Q3</span></div>
+            <div class="res-val">λe = 62,68 &nbsp;|&nbsp; λ₁ = 78,78 &nbsp;|&nbsp; Somente efeitos de 1ª ordem</div>
+          </div>
+        </div>
+
+        <!-- QUESTÃO 4 -->
+        <div class="q-block">
+          <div class="enunciado-box">
+            <div class="enunciado-head">
+              <strong>📋 Questão 4 — Esbeltez e Momento Total de 2ª Ordem (Com Carga Transversal)</strong>
+              <span class="enunciado-src">Prova Online Imperfeições • p. 4</span>
+            </div>
+            <div class="enunciado-grid">
+              <div class="enunciado-text">
+                <p>Considere um pilar biapoiado de dimensões $h_x = 56{,}0\text{ cm}$ e $h_y = 25{,}0\text{ cm}$, de comprimento efetivo de $8{,}0\text{ m}$ em ambas as direções, solicitado por uma força axial de cálculo de $65{,}8\text{ kN}$ e uma carga transversal de $9{,}9\text{ kN/m}$. Sabendo que na direção $y$, o tramo do pilar está submetido a um momento de cálculo de $6{,}0\text{ kNm}$ no topo e um momento de cálculo de $5{,}0\text{ kNm}$ na base e que estes momentos não tracionam a mesma face, determine a esbeltez ($\lambda_e$), a esbeltez limite de referência ($\lambda_1$) e o momento solicitante total no pilar ($M_{sd}$) (use a regra da mão direita com os momentos).</p>
+              </div>
+              <div class="enunciado-data">
+                <strong>Dados de Entrada (Direção Y $\implies h = h_x$):</strong>
+                <ul>
+                  <li>$h_x = 56{,}0\text{ cm}$ | $h_y = 25{,}0\text{ cm}$</li>
+                  <li>$\ell_f = \ell_e = 8{,}0\text{ m} = 800\text{ cm}$</li>
+                  <li>$N_{sd} = 65{,}8\text{ kN}$ | $q = 9{,}9\text{ kN/m}$</li>
+                  <li>$M_{\text{topo}} = 600\text{ kNcm}$, $M_{\text{base}} = 500\text{ kNcm}$ (faces opostas)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-header">
+              <div class="step-title"><span class="step-num">1</span> Calcular $\lambda_e$ usando $h = h_x = 56{,}0\text{ cm}$</div>
+              <span class="formula-ref"><button class="code-pill" data-code="9.8">[9.8]</button></span>
+            </div>
+            <p style="margin:0 0 0.4rem;">Momento em torno de $y \implies$ flexão ao longo de $x \implies h = h_x = 56{,}0\text{ cm}$:</p>
+            <div class="formula-row">
+              <div class="formula-math">$$\lambda_e = \frac{\sqrt{12}\times 800}{56{,}0} = 49{,}4872 \approx \mathbf{49{,}49}$$</div>
+            </div>
+          </div>
+
+          <div class="step-card teal">
+            <div class="step-header">
+              <div class="step-title"><span class="step-num">2</span> Determinar $\alpha_b$ e a esbeltez limite $\lambda_1$</div>
+              <span class="formula-ref"><button class="code-pill" data-code="9.9">[9.9]</button></span>
+            </div>
+            <p style="margin:0 0 0.4rem;">Como o pilar biapoiado possui <strong>carga transversal</strong> ($q = 9{,}9\text{ kN/m}$), o caso <strong>b</strong> da Eq. 9.9 impõe diretamente $\alpha_b = 1{,}0$ (não se usa $0{,}6 + 0{,}4 M_b/M_a$!). Em seguida, calculamos $e_1$ e $\lambda_1$:</p>
+            <div class="formula-row">
+              <div class="formula-math">$$e_1 = \frac{M_a}{N_{sd}} = \frac{600}{65{,}8} = 9{,}1185\text{ cm}$$</div>
+            </div>
+            <div class="formula-row">
+              <div class="formula-math">$$\lambda_{1,\text{calc}} = \frac{25}{1{,}0} + \frac{12{,}5 \times 9{,}1185}{1{,}0 \times 56{,}0} = 25 + 2{,}0354 = 27{,}035 &lt; 35 \implies \mathbf{\lambda_1 = 35}$$</div>
+            </div>
+          </div>
+
+          <div class="step-card purple">
+            <div class="step-header">
+              <div class="step-title"><span class="step-num">3</span> Calcular $M_{sd,tot}$ pelo Método do Pilar Padrão com Rigidez Aproximada</div>
+              <span class="formula-ref"><button class="code-pill" data-code="9.13">[9.13]</button> <button class="code-pill" data-code="9.14">[9.14]</button></span>
+            </div>
+            <p style="margin:0 0 0.4rem;">Como $\lambda_e = 49{,}49 &gt; \lambda_1 = 35$ (e $\lambda_e \le 90$), devemos calcular o efeito de 2ª ordem. Primeiro verificamos que $M_{sd,1} = 600\text{ kNcm} &gt; M_{sd,\min,y} = 65{,}8(0{,}015 + 0{,}03\times 0{,}56)\times 100 = 209{,}24\text{ kNcm}$. Aplicando as Eqs. 9.14 e 9.13 da apostila (p. 172) com $N_{sd} = 65{,}8\text{ kN}$, $h = 56{,}0\text{ cm}$, $\lambda_e = 49{,}4872$, $\alpha_b = 1{,}0$ e $M_{sd,1} = 600\text{ kNcm}$:</p>
+            <div class="formula-row">
+              <div class="formula-math">$$C = N_{sd}^2 h^2 (\lambda_e^2 - 3840)^2 + 38400\, N_{sd}\alpha_b h M_{sd,1}(\lambda_e^2 + 3840) + 368640000\,\alpha_b^2 M_{sd,1}^2$$
+              $$C = 2{,}6272\times 10^{13} + 5{,}3392\times 10^{14} + 1{,}3271\times 10^{14} = 6{,}9290\times 10^{14}$$</div>
+            </div>
+            <div class="formula-row">
+              <div class="formula-math">$$M_{sd,tot} = N_{sd}h\left(\frac{\lambda_e^2}{38400} - \frac{1}{10}\right) + \frac{\alpha_b M_{sd,1}}{2} + \frac{\sqrt{C}}{38400} = -133{,}48 + 300{,}00 + 685{,}50 = \mathbf{852{,}02\text{ kNcm}}$$</div>
+            </div>
+            <div class="callout callout-warn" style="margin-bottom:0;">
+              <strong>🔎 Transparência sobre o gabarito do item 3 no PDF:</strong> O gabarito automático do SIGA marca <code>Msd = 704,983 kNcm</code>, enquanto a aplicação literal das Eqs. 9.13 e 9.14 da apostila (com $h = h_x = 56\text{ cm}$, $\alpha_b = 1{,}0$ e $M_{sd,1} = 600\text{ kNcm}$) fornece <strong>852,02 kNcm</strong> (observe que a carga $q = 9{,}9\text{ kN/m}$ funciona na questão apenas como gatilho para impor $\alpha_b = 1{,}0$, pois se $q\ell^2/8 = 7920\text{ kNcm}$ fosse usado como $M_{sd,1}$, teríamos $\lambda_1 = 51{,}87$ e não $35$). Guarde o fluxo exato das Eqs. 9.13–9.14, pois é o mesmo utilizado no Exemplo 10.1.1 (p. 224 do Caderno de Exercícios).
+            </div>
+          </div>
+
+          <div class="result-banner">
+            <div><span class="res-label">Resultados — Q4 (2ª Ordem)</span></div>
+            <div class="res-val">λe = 49,49 &nbsp;|&nbsp; λ₁ = 35 &nbsp;|&nbsp; Eq. 9.13: 852,02 kNcm (SIGA: 704,983 kNcm)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- SEÇÃO 2: INTRODUÇÃO A PILARES                             -->
+    <!-- ========================================================= -->
+    <section class="topic-section" id="sec-intro">
+      <div class="topic-header">
+        <div>
+          <span class="topic-badge badge-teal">Tema 2 • 9ª Avaliação (Capítulo 10)</span>
+          <h2>2. Introdução ao Dimensionamento de Pilares</h2>
+          <div class="topic-meta">Fonte: <code>Prova Online Intro Pilares.pdf</code> (4 questões) • Fórmulas: <button class="code-pill" data-code="10.1">[10.1]</button> <button class="code-pill" data-code="10.3">[10.3]</button> <button class="code-pill" data-code="10.4">[10.4]</button> <button class="code-pill" data-code="10.5">[10.5]</button> <button class="code-pill" data-code="10.7">[10.7]</button> <button class="code-pill" data-code="10.8">[10.8]</button> <button class="code-pill" data-code="10.9">[10.9]</button> <button class="code-pill" data-code="10.11">[10.11]</button></div>
+        </div>
+      </div>
+
+      <div class="topic-body">
+        <div class="roteiro-box">
+          <h3>🧭 Roteiro de Resolução — Checklist Normativo do Capítulo 10</h3>
+          <div class="roteiro-flow">
+            <div class="roteiro-step">
+              <strong class="r-tag">1. Momento Mínimo</strong>
+              $M_{sd,\min} = N_{sd}(0{,}015 + 0{,}03 h)$ <button class="code-pill" data-code="10.11">[10.11]</button>.<br>
+              <strong>Pegadinha:</strong> $h$ entra <strong>em metros</strong> e no eixo perpendicular ($M_x \to h_y$, $M_y \to h_x$). Converta $\text{kNm} \to \text{kNcm}$ ($\times 100$).
+            </div>
+            <div class="roteiro-step">
+              <strong class="r-tag">2. Taxas e Bitola</strong>
+              $A_{s,\min} = \max(0{,}15 N_{sd}/f_{yd};\, 0{,}004 A_c)$ <button class="code-pill" data-code="10.3">[10.3]</button>;<br>
+              $A_{s,\max} = 0{,}08 A_c$ <button class="code-pill" data-code="10.4">[10.4]</button>;<br>
+              $10\text{ mm} \le \phi_l \le h_{\min}/8$ <button class="code-pill" data-code="10.5">[10.5]</button>.
+            </div>
+            <div class="roteiro-step">
+              <strong class="r-tag">3. Espaçamentos</strong>
+              $a_f = \max(20\text{ mm};\, \phi_l;\, 1{,}2 d_{\max})$ <button class="code-pill" data-code="10.7">[10.7]</button>;<br>
+              $a_e = \min(2 h_{\min};\, 400\text{ mm})$ <button class="code-pill" data-code="10.8">[10.8]</button>;<br>
+              $s = \min(200\text{ mm};\, h_{\min};\, 12\phi_l)$ <button class="code-pill" data-code="10.9">[10.9]</button>.
+            </div>
+            <div class="roteiro-step">
+              <strong class="r-tag">4. Comprimento $\ell_e$</strong>
+              Ache a distância entre eixos das vigas $\ell = \ell_0 + \frac{h_{\text{sup}}}{2} + \frac{h_{\text{inf}}}{2}$ e depois compare: $\ell_e = \min(\ell_0 + h_{\text{pilar}};\, \ell)$ <button class="code-pill" data-code="10.1">[10.1]</button>.
+            </div>
+          </div>
+        </div>
+
+        <!-- Q1 -->
+        <div class="q-block">
+          <div class="enunciado-box">
+            <div class="enunciado-head">
+              <strong>📋 Questão 1 — Momentos Solicitantes Mínimos</strong>
+              <span class="enunciado-src">Prova Online Intro Pilares • p. 1</span>
+            </div>
+            <p style="margin:0;">Determine o valor dos momentos solicitantes mínimos em torno de ambas as direções principais da seção transversal de um pilar de dimensões $h_x = 51{,}0\text{ cm}$ e $h_y = 73{,}0\text{ cm}$ e solicitado por uma carga axial de cálculo de $99{,}5\text{ kN}$.</p>
+          </div>
+          <div class="grid-2">
+            <div class="step-card">
+              <div class="step-header">
+                <div class="step-title"><span class="step-num">1</span> Em torno de $x$ ($M_{sd,\min,x} \to$ usa $h_y$)</div>
+                <span class="formula-ref"><button class="code-pill" data-code="10.11">[10.11]</button></span>
+              </div>
+              <p style="margin:0 0 0.4rem; font-size:0.86rem;">Converter $h_y = 73{,}0\text{ cm} = 0{,}73\text{ m}$:</p>
+              <div class="formula-row">
+                <div class="formula-math">$$M_{sd,\min,x} = 99{,}5(0{,}015 + 0{,}03\times 0{,}73) = 3{,}67155\text{ kNm} = \mathbf{367{,}16\text{ kNcm}}$$</div>
+              </div>
+            </div>
+            <div class="step-card teal">
+              <div class="step-header">
+                <div class="step-title"><span class="step-num">2</span> Em torno de $y$ ($M_{sd,\min,y} \to$ usa $h_x$)</div>
+                <span class="formula-ref"><button class="code-pill" data-code="10.11">[10.11]</button></span>
+              </div>
+              <p style="margin:0 0 0.4rem; font-size:0.86rem;">Converter $h_x = 51{,}0\text{ cm} = 0{,}51\text{ m}$:</p>
+              <div class="formula-row">
+                <div class="formula-math">$$M_{sd,\min,y} = 99{,}5(0{,}015 + 0{,}03\times 0{,}51) = 3{,}01485\text{ kNm} = \mathbf{301{,}49\text{ kNcm}}$$</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="q-block">
+          <div class="enunciado-box">
+            <div class="enunciado-head">
+              <strong>📋 Questão 2 — Armaduras Mínima, Máxima e Bitola Máxima</strong>
+              <span class="enunciado-src">Prova Online Intro Pilares • p. 2</span>
+            </div>
+            <p style="margin:0;">Determine o valor da máxima e da mínima área de armaduras de aço CA-50 que um pilar de dimensões $h_x = 65{,}0\text{ cm}$ e $h_y = 89{,}0\text{ cm}$ (na direção $y$) e solicitado por uma carga axial de cálculo de $143{,}2\text{ kN}$ pode ter. Determine também o máximo valor da bitola que pode ser utilizada (calculado, não comercial).</p>
+          </div>
+          <div class="step-card">
+            <div class="step-header">
+              <div class="step-title"><span class="step-num">1</span> Constantes preliminares e Armadura Mínima ($A_{s,\min}$)</div>
+              <span class="formula-ref"><button class="code-pill" data-code="10.3">[10.3]</button></span>
+            </div>
+            <p style="margin:0 0 0.4rem;">$A_c = 65{,}0 \times 89{,}0 = 5785{,}0\text{ cm}^2$ e $f_{yd} = \frac{50}{1{,}15} = 43{,}478\text{ kN/cm}^2$. Calculamos os dois critérios:</p>
+            <div class="formula-row">
+              <div class="formula-math">$$A_{s,\min} = \max\left(\frac{0{,}15 \times 143{,}2}{43{,}478};\; 0{,}004 \times 5785\right) = \max(0{,}494;\; 23{,}14) = \mathbf{23{,}14\text{ cm}^2}$$</div>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="step-card teal">
+              <div class="step-header">
+                <div class="step-title"><span class="step-num">2</span> Armadura Máxima ($A_{s,\max}$)</div>
+                <span class="formula-ref"><button class="code-pill" data-code="10.4">[10.4]</button></span>
+              </div>
+              <div class="formula-row">
+                <div class="formula-math">$$A_{s,\max} = 0{,}08 A_c = 0{,}08 \times 5785 = \mathbf{462{,}8\text{ cm}^2}$$</div>
+              </div>
+            </div>
+            <div class="step-card purple">
+              <div class="step-header">
+                <div class="step-title"><span class="step-num">3</span> Bitola Máxima Teórica ($\phi_{\max}$)</div>
+                <span class="formula-ref"><button class="code-pill" data-code="10.5">[10.5]</button></span>
+              </div>
+              <div class="formula-row">
+                <div class="formula-math">$$\phi_{\max} = \frac{h_{\min}}{8} = \frac{650\text{ mm}}{8} = 81{,}25\text{ mm} \approx \mathbf{81{,}2\text{ mm}}$$</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="q-block">
+          <div class="enunciado-box">
+            <div class="enunciado-head">
+              <strong>📋 Questão 3 — Espaçamentos entre Barras Longitudinais e Estribos</strong>
+              <span class="enunciado-src">Prova Online Intro Pilares • p. 3</span>
+            </div>
+            <p style="margin:0;">Determine os espaçamentos máximos e mínimos entre as barras da armadura longitudinal e entre os estribos para um pilar de seção transversal com dimensões $h_x = 64{,}0\text{ cm}$ e $h_y = 54{,}0\text{ cm}$, armaduras longitudinais de bitola $40{,}0\text{ mm}$ de aço CA-50. A bitola disponível para o estribo é $5{,}0\text{ mm}$ e o máximo diâmetro do agregado graúdo do concreto é de $11{,}0\text{ mm}$.</p>
+          </div>
+          <div class="grid-3">
+            <div class="step-card">
+              <div class="step-header">
+                <div class="step-title"><span class="step-num">1</span> Espaçamento mínimo entre faces ($a_f$)</div>
+                <span class="formula-ref"><button class="code-pill" data-code="10.7">[10.7]</button></span>
+              </div>
+              <div class="formula-row">
+                <div class="formula-math">$$a_f = \max\begin{cases}20\text{ mm}\\\phi_l = 40{,}0\text{ mm}\\1{,}2 d_{\max} = 13{,}2\text{ mm}\end{cases} = \mathbf{4{,}0\text{ cm}}$$</div>
+              </div>
+            </div>
+            <div class="step-card teal">
+              <div class="step-header">
+                <div class="step-title"><span class="step-num">2</span> Espaçamento máximo entre eixos ($a_e$)</div>
+                <span class="formula-ref"><button class="code-pill" data-code="10.8">[10.8]</button></span>
+              </div>
+              <div class="formula-row">
+                <div class="formula-math">$$a_e = \min\begin{cases}2 h_{\min} = 108\text{ cm}\\400\text{ mm} = 40{,}0\text{ cm}\end{cases} = \mathbf{40{,}0\text{ cm}}$$</div>
+              </div>
+            </div>
+            <div class="step-card purple">
+              <div class="step-header">
+                <div class="step-title"><span class="step-num">3</span> Espaçamento dos estribos ($s$)</div>
+                <span class="formula-ref"><button class="code-pill" data-code="10.9">[10.9]</button></span>
+              </div>
+              <div class="formula-row">
+                <div class="formula-math">$$s = \min\begin{cases}200\text{ mm} = 20{,}0\text{ cm}\\h_{\min} = 54{,}0\text{ cm}\\12\phi_l = 48{,}0\text{ cm}\end{cases} = \mathbf{20{,}0\text{ cm}}$$</div>
+              </div>
+            </div>
+          </div>
+          <div class="callout callout-info" style="margin-top:0;">
+            <strong>💡 Observação normativa sobre a Eq. 10.10 <button class="code-pill" data-code="10.10">[10.10]</button>:</strong> Como $\phi_t = 5{,}0\text{ mm} &lt; \phi_l/4 = 10{,}0\text{ mm}$, a apostila (p. 176) prevê a verificação extra $s \le 90000\frac{\phi_t^2}{\phi_l f_{yk}} = 90000\frac{5^2}{40 \times 500} = 112{,}5\text{ mm} = 11{,}25\text{ cm}$. Na prova online, o gabarito considerou apenas os três limites principais da Eq. 10.9 (<strong>20,0 cm</strong>), usando $\phi_t$ e $d_{\max}$ como dados para testar $a_f$.
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="q-block">
+          <div class="enunciado-box">
+            <div class="enunciado-head">
+              <strong>📋 Questão 4 — Comprimento Equivalente ($\ell_e$) e Distância entre Eixos ($\ell$)</strong>
+              <span class="enunciado-src">Prova Online Intro Pilares • p. 3</span>
+            </div>
+            <p style="margin:0;">Determine o comprimento equivalente de um pilar de dimensões $h_x = 64{,}0\text{ cm}$ e $h_y = 36{,}0\text{ cm}$ na direção $y$, sabendo que nesta direção o pilar está travado por uma viga de $69{,}0\text{ cm}$ de altura no pavimento superior do tramo e uma viga de $52{,}0\text{ cm}$ de altura no pavimento inferior do tramo. A distância entre as faces internas destas vigas é de $5{,}4\text{ m}$. Calcule também a distância entre os eixos das vigas que travam este pilar no tramo.</p>
+          </div>
+
+          <div class="svg-panel">
+            <svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+              <!-- Vigas e pilar -->
+              <rect x="120" y="18" width="260" height="44" fill="#cbd5e1" stroke="#334155" stroke-width="1.5"/>
+              <text x="145" y="44" font-size="11" font-weight="700" fill="#1e293b">Viga sup. hsup = 69 cm</text>
+              <line x1="115" y1="40" x2="405" y2="40" stroke="#b91c1c" stroke-width="1.2" stroke-dasharray="5,3"/>
+
+              <rect x="232" y="62" width="36" height="106" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+              <text x="250" y="118" text-anchor="middle" font-size="10.5" font-weight="800" fill="#1d4ed8">hy=36</text>
+
+              <rect x="120" y="168" width="260" height="34" fill="#cbd5e1" stroke="#334155" stroke-width="1.5"/>
+              <text x="145" y="189" font-size="11" font-weight="700" fill="#1e293b">Viga inf. hinf = 52 cm</text>
+              <line x1="115" y1="185" x2="405" y2="185" stroke="#b91c1c" stroke-width="1.2" stroke-dasharray="5,3"/>
+
+              <!-- Cotas -->
+              <line x1="420" y1="62" x2="420" y2="168" stroke="#0f766e" stroke-width="2"/>
+              <line x1="414" y1="62" x2="426" y2="62" stroke="#0f766e" stroke-width="2"/>
+              <line x1="414" y1="168" x2="426" y2="168" stroke="#0f766e" stroke-width="2"/>
+              <text x="434" y="119" font-size="12" font-weight="800" fill="#0f766e">ℓ₀ = 540,0 cm</text>
+
+              <line x1="560" y1="40" x2="560" y2="185" stroke="#b91c1c" stroke-width="2"/>
+              <line x1="554" y1="40" x2="566" y2="40" stroke="#b91c1c" stroke-width="2"/>
+              <line x1="554" y1="185" x2="566" y2="185" stroke="#b91c1c" stroke-width="2"/>
+              <text x="574" y="112" font-size="12" font-weight="800" fill="#b91c1c">ℓ = 600,5 cm</text>
+              <text x="574" y="128" font-size="10.5" fill="#475569">(entre eixos das vigas)</text>
+            </svg>
+            <div class="svg-caption">Figura 2.1 — Idealização do lance de pilar na direção $y$ ($h_y = 36{,}0\text{ cm}$): $\ell_e = \min(\ell_0 + h_y;\, \ell) = 576{,}0\text{ cm}$.</div>
+          </div>
+
+          <div class="grid-2">
+            <div class="step-card">
+              <div class="step-header">
+                <div class="step-title"><span class="step-num">1</span> Distância entre eixos das vigas ($\ell$)</div>
+              </div>
+              <div class="formula-row">
+                <div class="formula-math">$$\ell = \ell_0 + \frac{h_{\text{sup}}}{2} + \frac{h_{\text{inf}}}{2} = 540 + \frac{69{,}0}{2} + \frac{52{,}0}{2} = \mathbf{600{,}5\text{ cm}}$$</div>
+              </div>
+            </div>
+            <div class="step-card teal">
+              <div class="step-header">
+                <div class="step-title"><span class="step-num">2</span> Comprimento equivalente ($\ell_e$)</div>
+                <span class="formula-ref"><button class="code-pill" data-code="10.1">[10.1]</button></span>
+              </div>
+              <div class="formula-row">
+                <div class="formula-math">$$\ell_e = \min(\ell_0 + h_y;\; \ell) = \min(540 + 36{,}0;\; 600{,}5) = \mathbf{576{,}0\text{ cm}}$$</div>
+              </div>
+            </div>
+          </div>
+          <div class="result-banner">
+            <div><span class="res-label">Gabarito Conferido — Q4</span></div>
+            <div class="res-val">ℓe = 576,0 cm &nbsp;|&nbsp; ℓ = 600,5 cm</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- SEÇÃO 3: FLEXÃO COMPOSTA NORMAL (POLÍGONO DE SEGURANÇA)   -->
+    <!-- ========================================================= -->
+    <section class="topic-section" id="sec-fcn">
+      <div class="topic-header">
+        <div>
+          <span class="topic-badge badge-purple">Tema 3 • 10ª Avaliação (Capítulo 10 — FCN)</span>
+          <h2>3. Dimensionamento de Pilares à Flexão Composta Normal</h2>
+          <div class="topic-meta">Fonte: <code>Prova Online Flexão Composta Normal.pdf</code> (15 itens) • Fórmulas: <button class="code-pill" data-code="10.21">[10.21]</button> <button class="code-pill" data-code="T10.1">[T10.1]</button> <button class="code-pill" data-code="10.22">[10.22]</button> <button class="code-pill" data-code="10.23">[10.23]</button> <button class="code-pill" data-code="10.29">[10.29]</button> <button class="code-pill" data-code="10fcn">[10fcn]</button></div>
+        </div>
+      </div>
+
+      <div class="topic-body">
+        <!-- Conceito FCN: Começando do Zero -->
+        <div class="callout callout-info" style="margin-bottom:1.1rem;">
+          <strong>🧠 Começando do Zero — O que é Flexão Composta Normal?</strong><br>
+          Imagine um pilar levando uma carga vertical de compressão ($N_{sd}$) que <strong>não passa exatamente no centro</strong> (centroide) da seção, mas sim deslocada de uma excentricidade $e_y$ sobre o eixo vertical $y$. Pela estática básica, uma força deslocada do centro equivale a colocar a mesma força no centro <strong>mais um momento fletor</strong> $M_{sd} = N_{sd}\cdot e_y$. Quando isso ocorre sobre um dos eixos de simetria da seção (e as barras de aço também são simétricas em relação a esse eixo), chamamos de <strong>Flexão Composta Normal (FCN)</strong> — "normal" porque a Linha Neutra (LN) permanece perfeitamente reta e perpendicular ao eixo onde a carga está (aqui, LN horizontal paralela ao eixo $x$).
+          <br><br>
+          <strong>Por que em pilares não calculamos $x$ direto como em vigas?</strong><br>
+          Em uma <em>viga</em>, $N_{sd} = 0$, então há apenas uma incógnita ($x$) e você resolve direto. Em um <em>pilar</em>, $N_{sd}$ e $M_{sd}$ atuam juntos: cada posição possível da linha neutra $x$ (desde $-\infty$ até $+\infty$) gera um par diferente de resistências $(N_{Rd};\, M_{Rd,t})$. Como não sabemos onde a LN vai parar para essa carga específica, fazemos o <strong>caminho inverso</strong>: fixamos a linha neutra nas <strong>7 posições fronteiriças entre os domínios de ruptura</strong>, calculamos $(N_{Rd};\, M_{Rd,t})$ em cada uma e ligamos os 7 pontos formando um <strong>Polígono de Segurança</strong>. Se o ponto pedido $(N_{sd};\, M_{sd,t})$ cair <em>dentro</em> desse polígono, o pilar passa!
+          <div style="margin-top:0.65rem; font-size:0.84rem; display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:0.5rem;">
+            <div style="background:rgba(255,255,255,0.82); padding:0.5rem 0.65rem; border-radius:7px; border:1px solid #bfdbfe;"><strong>⚠️ Os 2 Referenciais (Não confunda!):</strong><br>• <strong>Eixo $x$ e $d_i$ (Deformações):</strong> nasce no <em>topo comprimido</em> e desce até $h_n = 70\text{ cm}$. Mede onde está a LN e a altura útil de cada barra.<br>• <strong>Eixo $n$ (Momentos):</strong> nasce no <em>centroide (CG)</em> e aponta p/ cima ($+35$ no topo, $-35$ na base). Mede o braço de alavanca $n_{si}$!</div>
+            <div style="background:rgba(255,255,255,0.82); padding:0.5rem 0.65rem; border-radius:7px; border:1px solid #bfdbfe;"><strong>Reta a &amp; Dom. 1 (Tração pura/excêntrica):</strong> Toda a seção ou quase toda está esticando. Como o concreto não resiste à tração no ELU, desprezamos o concreto ($N_{Rd,c}=0$) e só o aço segura.</div>
+            <div style="background:rgba(255,255,255,0.82); padding:0.5rem 0.65rem; border-radius:7px; border:1px solid #bfdbfe;"><strong>Dom. 2 &amp; Dom. 3 (Ruptura dúctil):</strong> Parte superior comprime e inferior traciona com o aço escoando ($\varepsilon_s \ge \varepsilon_{yd}$). Na fronteira <code>3–4</code> ocorre o <strong>momento resistente máximo</strong> da seção!</div>
+            <div style="background:rgba(255,255,255,0.82); padding:0.5rem 0.65rem; border-radius:7px; border:1px solid #bfdbfe;"><strong>Dom. 4, 4a, 5 &amp; Reta b (Alta compressão):</strong> Concreto esmaga no topo ($-3{,}5\text{‰}$) antes do aço inferior escoar. Na <code>Reta b</code> (compressão pura), não há giro e toda a seção encurta igualmente em $-2{,}0\text{‰}$.</div>
+          </div>
+        </div>
+
+        <!-- Roteiro Geral FCN -->
+        <div class="roteiro-box">
+          <h3>🧭 Roteiro Passo a Passo FCN (Fluxograma E.1 da Apostila, p. 219)</h3>
+          <div class="roteiro-flow">
+            <div class="roteiro-step">
+              <strong class="r-tag">1fcn–3fcn • Setup &amp; Solicitação</strong>
+              Calcule $f_{cd}, f_{yd}, \varepsilon_{yd}, \sigma_c = -\eta_c f_{cd}$, $A_s$, $d'$, $d$ e as coordenadas $n_i$ (positiva acima do CG, negativa abaixo). Calcule $M_{sd,t} = N_{sd}\cdot e_y$ pela regra da mão direita.
+            </div>
+            <div style="background:rgba(255,255,255,0.88); border:1px solid #cbd5e1; border-radius:9px; padding:0.7rem 0.85rem; font-size:0.83rem; color:#1e293b;">
+              <strong class="r-tag">4fcn–6fcn • LN e Concreto</strong>
+              Calcule $x$ nos 7 limites (reta $a$, 1-2, 2-3, 3-4, 4-4a, 4a-5, reta $b$). Para $x &gt; 0$, ache a altura do bloco comprimido $y = \zeta_c x$ (ou $h_n$ na reta $b$), $A_{cc} = h_t y$ e $S_{ct} = A_{cc}\frac{h_n - y}{2}$.
+            </div>
+            <div class="roteiro-step">
+              <strong class="r-tag">7fcn–9fcn • Aço e Soma</strong>
+              Para cada um dos 7 pontos, pegue $(\varepsilon_c, \varepsilon_s)$ na Tabela 10.1, interpole $\varepsilon_{si}$, ache $\sigma_{si} \in [-f_{yd}; +f_{yd}]$ e some $N_{Rd} = N_{Rd,c} + N_{Rd,s}$ e $M_{Rd,t} = M_{Rd,tc} + M_{Rd,ts}$.
+            </div>
+            <div class="roteiro-step">
+              <strong class="r-tag">10fcn • Polígono &amp; Decisão</strong>
+              Ligue os 7 pontos no sentido horário e aplique o <strong>Semi-infinito Plano da Esquerda</strong>. Comece com <code>Rp = Falsa</code>; sempre que $A_{Nsd}$ e $SI_p$ forem ambas verdadeiras, inverta <code>Rp</code>.
+            </div>
+          </div>
+        </div>
+
+        <!-- Enunciado -->
+        <div class="enunciado-box">
+          <div class="enunciado-head">
+            <strong>📋 Enunciado Completo — 10ª Avaliação (Questão 1, itens 1 a 15)</strong>
+            <span class="enunciado-src">Prova Online Flexão Composta Normal • p. 2–5</span>
+          </div>
+          <div class="enunciado-grid">
+            <div class="enunciado-text">
+              <p>Um pilar de concreto <strong>C50</strong> com dimensões $h_x = 35{,}0\text{ cm}$ e $h_y = 70{,}0\text{ cm}$, com $4$ barras de <strong>CA-50</strong> com $22{,}0\text{ mm}$ de bitola conforme figura na armadura longitudinal e estribos com bitola de $5{,}0\text{ mm}$ na armadura transversal, protegidas por um cobrimento nominal de $4{,}5\text{ cm}$, está solicitado por uma carga axial de cálculo de $N_{sd} = -2576{,}1\text{ kN}$ posicionada a $18{,}3\text{ cm}$ do centroide sobre o eixo $y$ da seção.</p>
+              <p>Determine os valores de $(N_{Rd}, M_{Rd,t})$ na reta $a$, nas interfaces $1\text{-}2$, $2\text{-}3$, $3\text{-}4$, $4\text{-}4a$, $4a\text{-}5$ e na reta $b$. Construa o polígono aproximado de segurança e verifique se o pilar resiste à solicitação.</p>
+            </div>
+            <div class="enunciado-data">
+              <strong>Resumo dos Dados:</strong>
+              <ul>
+                <li>Seção: $h_x = h_t = 35{,}0\text{ cm}$, $h_y = h_n = 70{,}0\text{ cm}$</li>
+                <li>Concreto: C50 ($f_{ck} = 5{,}0\text{ kN/cm}^2$, Grupo I)</li>
+                <li>Aço: CA-50 ($b_s = 4\phi 22{,}0\text{ mm}$), $\phi_t = 5{,}0\text{ mm}$, $c_{\text{nom}} = 4{,}5\text{ cm}$</li>
+                <li>Solicitação: $N_{sd} = -2576{,}1\text{ kN}$, $e_y = +18{,}3\text{ cm}$</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- SVG Seção Transversal -->
+        <div class="svg-panel">
+          <svg viewBox="0 0 820 310" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs>
+              <marker id="arr-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0,1 L10,5 L0,9 z" fill="#0f172a"/>
+              </marker>
+            </defs>
+            <!-- Section rectangle (scale: 3.2 px/cm -> 35x70 = 112x224 px) -->
+            <rect x="130" y="42" width="112" height="224" fill="#f1f5f9" stroke="#0f172a" stroke-width="2.2"/>
+            <!-- Stirrup -->
+            <rect x="144" y="56" width="84" height="196" rx="4" fill="none" stroke="#d97706" stroke-width="2"/>
+            <!-- Axes x,t and y,n -->
+            <line x1="95" y1="154" x2="295" y2="154" stroke="#0f172a" stroke-width="1.3" marker-end="url(#arr-k)"/>
+            <text x="302" y="158" font-size="12" font-weight="800" fill="#0f172a">x, t</text>
+            <line x1="186" y1="292" x2="186" y2="18" stroke="#0f172a" stroke-width="1.3" marker-end="url(#arr-k)"/>
+            <text x="193" y="25" font-size="12" font-weight="800" fill="#0f172a">y, n (+)</text>
+
+            <!-- 4 Bars (d'=6.1 -> 19.5px from edge) -->
+            <circle cx="150" cy="62" r="5.5" fill="#16a34a" stroke="#0f172a" stroke-width="1.2"/>
+            <text x="150" y="52" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0f172a">3</text>
+            <circle cx="222" cy="62" r="5.5" fill="#16a34a" stroke="#0f172a" stroke-width="1.2"/>
+            <text x="222" y="52" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0f172a">4</text>
+            <circle cx="150" cy="246" r="5.5" fill="#16a34a" stroke="#0f172a" stroke-width="1.2"/>
+            <text x="150" y="236" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0f172a">1</text>
+            <circle cx="222" cy="246" r="5.5" fill="#16a34a" stroke="#0f172a" stroke-width="1.2"/>
+            <text x="222" y="236" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0f172a">2</text>
+
+            <!-- Nsd point at +18.3 cm -->
+            <circle cx="186" cy="95.4" r="5.5" fill="#dc2626" stroke="#fff" stroke-width="1.5"/>
+            <text x="255" y="99" font-size="11.5" font-weight="800" fill="#dc2626">Nsd = -2576,1 kN (ey = +18,3 cm)</text>
+            <line x1="193" y1="95.4" x2="250" y2="95.4" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,2"/>
+
+            <!-- Cotas externas -->
+            <text x="186" y="286" text-anchor="middle" font-size="11.5" font-weight="700" fill="#334155">hx = ht = 35,0 cm</text>
+            <text x="88" y="158" text-anchor="end" font-size="11.5" font-weight="700" fill="#334155">hy = hn = 70,0 cm</text>
+
+            <!-- Right side summary card inside SVG -->
+            <rect x="440" y="34" width="350" height="240" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+            <text x="460" y="60" font-size="13" font-weight="800" fill="#0f172a">Coordenadas das Barras (Referencial CG)</text>
+            <text x="460" y="84" font-size="11.5" fill="#334155">• d' = cnom + φt + φ/2 = 4,5 + 0,5 + 1,1 = 6,1 cm</text>
+            <text x="460" y="106" font-size="11.5" fill="#334155">• d  = hy - d' = 70,0 - 6,1 = 63,9 cm</text>
+            <text x="460" y="132" font-size="11.5" font-weight="700" fill="#1d4ed8">• Barras 3 e 4 (borda comprimida sup.):</text>
+            <text x="472" y="150" font-size="11.5" fill="#334155">d₃ = d₄ = 6,1 cm  |  n₃ = n₄ = +28,9 cm</text>
+            <text x="460" y="176" font-size="11.5" font-weight="700" fill="#0f766e">• Barras 1 e 2 (borda tracionada/menos compr.):</text>
+            <text x="472" y="194" font-size="11.5" fill="#334155">d₁ = d₂ = 63,9 cm |  n₁ = n₂ = -28,9 cm</text>
+            <line x1="460" y1="212" x2="770" y2="212" stroke="#cbd5e1"/>
+            <text x="460" y="234" font-size="11.5" font-weight="800" fill="#b91c1c">Solicitação de Cálculo:</text>
+            <text x="460" y="254" font-size="11.5" font-weight="700" fill="#b91c1c">Msd,t = Nsd · ey = -2576,1 × 18,3 = -47.142,63 kNcm</text>
+          </svg>
+          <div class="svg-caption">Figura 3.1 — Seção $35 \times 70\text{ cm}$, posicionamento das $4\phi 22{,}0\text{ mm}$ e convenção de sinais ($d_i$ desce a partir da borda comprimida superior; $n_i$ sobe a partir do CG).</div>
+        </div>
+
+        <!-- SVG 3.1b: Os 7 perfis de deformação nos domínios -->
+        <div class="svg-panel">
+          <svg viewBox="0 0 910 215" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <text x="455" y="20" text-anchor="middle" font-size="12.5" font-weight="800" fill="#0f172a">Como a Linha Neutra (LN) desce pelos 7 pontos do Polígono de Segurança (Encurtamento − à esq. | Alongamento + à dir.)</text>
+            <!-- 7 mini-diagrams spaced by 125px starting x=65 -->
+            <!-- Common top y=52 (0), d y=155 (63.9cm), bottom y=166 (70cm). Scale y=52 + 1.63*cm -->
+            <!-- 1. Reta a: eps_c=+10, eps_s=+10 -->
+            <g transform="translate(30,0)">
+              <text x="45" y="42" text-anchor="middle" font-size="10.5" font-weight="800" fill="#6d28d9">① Reta a (x=-∞)</text>
+              <line x1="45" y1="52" x2="45" y2="166" stroke="#94a3b8" stroke-width="1.4"/>
+              <polygon points="45,52 75,52 75,166 45,166" fill="#16a34a" fill-opacity="0.22" stroke="#16a34a" stroke-width="1.6"/>
+              <text x="77" y="60" font-size="9" font-weight="700" fill="#15803d">+10‰</text>
+              <text x="77" y="160" font-size="9" font-weight="700" fill="#15803d">+10‰</text>
+              <text x="45" y="185" text-anchor="middle" font-size="9.5" fill="#475569">Só tração</text>
+              <text x="45" y="198" text-anchor="middle" font-size="9.5" font-weight="700" fill="#0f766e">Acc = 0</text>
+            </g>
+            <!-- 2. 1-2: eps_c=0, eps_s=+10 -->
+            <g transform="translate(155,0)">
+              <text x="45" y="42" text-anchor="middle" font-size="10.5" font-weight="800" fill="#1d4ed8">② 1–2 (x=0)</text>
+              <line x1="45" y1="52" x2="45" y2="166" stroke="#94a3b8" stroke-width="1.4"/>
+              <polygon points="45,52 75,155 78,166 45,166" fill="#16a34a" fill-opacity="0.22" stroke="#16a34a" stroke-width="1.6"/>
+              <circle cx="45" cy="52" r="3" fill="#dc2626"/>
+              <text x="51" y="60" font-size="9" font-weight="700" fill="#334155">0‰</text>
+              <text x="78" y="160" font-size="9" font-weight="700" fill="#15803d">+10‰</text>
+              <text x="45" y="185" text-anchor="middle" font-size="9.5" fill="#475569">LN no topo</text>
+              <text x="45" y="198" text-anchor="middle" font-size="9.5" font-weight="700" fill="#0f766e">Acc = 0</text>
+            </g>
+            <!-- 3. 2-3: x=16.57 -> y_ln=79, eps_c=-3.5, eps_s=+10 -->
+            <g transform="translate(280,0)">
+              <text x="45" y="42" text-anchor="middle" font-size="10.5" font-weight="800" fill="#1d4ed8">③ 2–3 (x=16,6)</text>
+              <line x1="45" y1="52" x2="45" y2="166" stroke="#94a3b8" stroke-width="1.4"/>
+              <polygon points="45,52 30,52 45,79" fill="#dc2626" fill-opacity="0.25" stroke="#dc2626" stroke-width="1.4"/>
+              <polygon points="45,79 75,155 78,166 45,166" fill="#16a34a" fill-opacity="0.2" stroke="#16a34a" stroke-width="1.4"/>
+              <circle cx="45" cy="79" r="3" fill="#dc2626"/>
+              <text x="28" y="61" text-anchor="end" font-size="9" font-weight="700" fill="#b91c1c">-3,5‰</text>
+              <text x="77" y="160" font-size="9" font-weight="700" fill="#15803d">+10‰</text>
+              <text x="45" y="185" text-anchor="middle" font-size="9.5" fill="#475569">Aço escoa</text>
+              <text x="45" y="198" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1d4ed8">y = 13,25 cm</text>
+            </g>
+            <!-- 4. 3-4: x=40.15 -> y_ln=117, eps_c=-3.5, eps_s=+2.07 -->
+            <g transform="translate(405,0)">
+              <text x="45" y="42" text-anchor="middle" font-size="10.5" font-weight="800" fill="#b45309">④ 3–4 (x=40,2)</text>
+              <line x1="45" y1="52" x2="45" y2="166" stroke="#94a3b8" stroke-width="1.4"/>
+              <polygon points="45,52 28,52 45,117" fill="#dc2626" fill-opacity="0.28" stroke="#dc2626" stroke-width="1.4"/>
+              <polygon points="45,117 57,155 60,166 45,166" fill="#16a34a" fill-opacity="0.2" stroke="#16a34a" stroke-width="1.4"/>
+              <circle cx="45" cy="117" r="3" fill="#dc2626"/>
+              <text x="26" y="61" text-anchor="end" font-size="9" font-weight="700" fill="#b91c1c">-3,5‰</text>
+              <text x="61" y="160" font-size="9" font-weight="700" fill="#15803d">+2,07</text>
+              <text x="45" y="185" text-anchor="middle" font-size="9.5" font-weight="700" fill="#b45309">Máx. Mrd!</text>
+              <text x="45" y="198" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1d4ed8">y = 32,12 cm</text>
+            </g>
+            <!-- 5. 4-4a: x=d=63.9 -> y_ln=155, eps_c=-3.5, eps_s=0 -->
+            <g transform="translate(530,0)">
+              <text x="45" y="42" text-anchor="middle" font-size="10.5" font-weight="800" fill="#1d4ed8">⑤ 4–4a (x=d)</text>
+              <line x1="45" y1="52" x2="45" y2="166" stroke="#94a3b8" stroke-width="1.4"/>
+              <polygon points="45,52 25,52 45,155" fill="#dc2626" fill-opacity="0.28" stroke="#dc2626" stroke-width="1.4"/>
+              <circle cx="45" cy="155" r="3" fill="#dc2626"/>
+              <text x="23" y="61" text-anchor="end" font-size="9" font-weight="700" fill="#b91c1c">-3,5‰</text>
+              <text x="51" y="159" font-size="9" font-weight="700" fill="#334155">0‰</text>
+              <text x="45" y="185" text-anchor="middle" font-size="9.5" fill="#475569">LN na arm. inf.</text>
+              <text x="45" y="198" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1d4ed8">y = 51,12 cm</text>
+            </g>
+            <!-- 6. 4a-5: x=h=70 -> y_ln=166, eps_c=-3.5, eps_s=-0.305 -->
+            <g transform="translate(655,0)">
+              <text x="45" y="42" text-anchor="middle" font-size="10.5" font-weight="800" fill="#1d4ed8">⑥ 4a–5 (x=hy)</text>
+              <line x1="45" y1="52" x2="45" y2="166" stroke="#94a3b8" stroke-width="1.4"/>
+              <polygon points="45,52 24,52 45,166" fill="#dc2626" fill-opacity="0.32" stroke="#dc2626" stroke-width="1.4"/>
+              <circle cx="45" cy="166" r="3" fill="#dc2626"/>
+              <text x="22" y="61" text-anchor="end" font-size="9" font-weight="700" fill="#b91c1c">-3,5‰</text>
+              <text x="50" y="162" font-size="8.5" font-weight="700" fill="#b91c1c">-0,31</text>
+              <text x="45" y="185" text-anchor="middle" font-size="9.5" fill="#475569">LN na base</text>
+              <text x="45" y="198" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1d4ed8">y = 56,00 cm</text>
+            </g>
+            <!-- 7. Reta b: x=+inf -> eps_c=-2.0, eps_s=-2.0 -->
+            <g transform="translate(780,0)">
+              <text x="45" y="42" text-anchor="middle" font-size="10.5" font-weight="800" fill="#b91c1c">⑦ Reta b (x=+∞)</text>
+              <line x1="45" y1="52" x2="45" y2="166" stroke="#94a3b8" stroke-width="1.4"/>
+              <polygon points="45,52 30,52 30,166 45,166" fill="#dc2626" fill-opacity="0.34" stroke="#dc2626" stroke-width="1.6"/>
+              <text x="27" y="61" text-anchor="end" font-size="9" font-weight="700" fill="#b91c1c">-2,0‰</text>
+              <text x="27" y="160" text-anchor="end" font-size="9" font-weight="700" fill="#b91c1c">-2,0‰</text>
+              <text x="45" y="185" text-anchor="middle" font-size="9.5" fill="#475569">Compr. pura</text>
+              <text x="45" y="198" text-anchor="middle" font-size="9.5" font-weight="700" fill="#b91c1c">y = 70,00 cm</text>
+            </g>
+          </svg>
+          <div class="svg-caption">Figura 3.1b — Evolução física da deformação na seção: da tração uniforme (①) até a compressão uniforme (⑦), o bloco comprimido (vermelho) cresce enquanto a tração (verde) encolhe.</div>
+        </div>
+
+        <!-- Passo 1 -->
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-title"><span class="step-num">1</span> Dados Preliminares, Convenção de Sinais e Constantes da Seção (<code>1fcn–3fcn</code>)</div>
+            <span class="formula-ref"><button class="code-pill" data-code="10.21">[10.21]</button> <button class="code-pill" data-code="10.11">[10.11]</button></span>
+          </div>
+          <p style="margin:0 0 0.55rem; font-size:0.88rem; color:#334155;"><strong>O que estamos fazendo aqui e por quê?</strong><br>
+          1. <strong>Materiais em cálculo:</strong> Dividimos as resistências características pelos coeficientes de segurança ($\gamma_c = 1{,}4$ para o concreto e $\gamma_s = 1{,}15$ para o aço). No concreto comprimido, multiplicamos $f_{cd}$ por $\alpha_c = 0{,}85$ (efeito Rüsch de cargas mantidas) e por mais $0{,}9$ (regra de pilares, Seção 10.7.2, para compensar eventuais reduções de largura comprimida): daí vem $\eta_c = 0{,}9 \times 0{,}85 = 0{,}765$ e o sinal negativo em $\sigma_c = -2{,}732\text{ kN/cm}^2$ (compressão).<br>
+          2. <strong>Deformação limite do aço ($\varepsilon_{yd}$):</strong> É quanto o aço CA-50 aguenta esticar ou encurtar antes de entrar no patamar plástico ($\sigma = \pm f_{yd}$). Pela Lei de Hooke, $\varepsilon_{yd} = f_{yd}/E_s = 2{,}070\text{‰}$. Qualquer barra com $|\varepsilon_{si}| \ge 2{,}070\text{‰}$ trabalha com tensão travada em $\pm 43{,}478\text{ kN/cm}^2$!</p>
+          <div class="grid-2" style="margin-bottom:0.55rem;">
+            <div>
+              <p style="margin:0 0 0.4rem;"><strong>Concreto C50 (Grupo I):</strong></p>
+              <div class="formula-row">
+                <div class="formula-math">$$f_{cd} = \frac{5{,}0}{1{,}4} = 3{,}571\text{ kN/cm}^2 \quad \alpha_c = 0{,}85 \quad \zeta_c = 0{,}8$$
+                $$\eta_c = 0{,}9\alpha_c = 0{,}765 \implies \sigma_c = -\eta_c f_{cd} = -2{,}732\text{ kN/cm}^2$$
+                $$\varepsilon_{cu} = 3{,}5\text{‰} \qquad \varepsilon_{c2} = 2{,}0\text{‰}$$</div>
+              </div>
+            </div>
+            <div>
+              <p style="margin:0 0 0.4rem;"><strong>Aço CA-50 ($4\phi 22{,}0\text{ mm}$) e Geometria Útil:</strong></p>
+              <div class="formula-row">
+                <div class="formula-math">$$f_{yd} = \frac{50}{1{,}15} = 43{,}478\text{ kN/cm}^2 \quad \varepsilon_{yd} = \frac{43{,}478}{21000} = 2{,}070\text{‰}$$
+                $$A_s = 4\frac{\pi\cdot 2{,}2^2}{4} = 15{,}205\text{ cm}^2 \quad \left(\frac{A_s}{b_s} = 3{,}8013\text{ cm}^2/\text{barra}\right)$$
+                $$A_{s,\min} = \max\left(\frac{0{,}15(2576{,}1)}{43{,}478};\, 0{,}004\cdot 2450\right) = 9{,}80 &lt; 15{,}205 &lt; A_{s,\max} = 196{,}0\text{ cm}^2\;\checkmark$$</div>
+              </div>
+            </div>
+          </div>
+          <p style="margin:0; font-size:0.86rem; color:#1e293b;"><strong>Geometria das barras e Momento Solicitante ($M_{sd,t}$):</strong><br>
+          • Distância da borda ao centro da barra: $d' = c_{\text{nom}} + \phi_t + \frac{\phi_l}{2} = 4{,}5 + 0{,}5 + 1{,}1 = 6{,}1\text{ cm}$. Logo $d = 70{,}0 - 6{,}1 = 63{,}9\text{ cm}$.<br>
+          • Braço ao centroide ($h_y/2 = 35{,}0\text{ cm}$): barras superiores 3 e 4 ficam em $n_{3,4} = +(35{,}0 - 6{,}1) = +28{,}9\text{ cm}$; inferiores 1 e 2 em $n_{1,2} = -28{,}9\text{ cm}$.<br>
+          • Pela <em>regra da mão direita</em>, $N_{sd} = -2576{,}1\text{ kN}$ em $e_y = +18{,}3\text{ cm}$ produz $M_{sd,t} = -2576{,}1 \times 18{,}3 = \mathbf{-47142{,}63\text{ kNcm}}$ (supera o momento mínimo $M_{sd,\min,x} = 2576{,}1(0{,}015+0{,}03\times 0{,}70)\times 100 = 9273{,}96\text{ kNcm}$ ✓).</p>
+        </div>
+
+        <!-- Passo 2 -->
+        <div class="step-card teal">
+          <div class="step-header">
+            <div class="step-title"><span class="step-num">2</span> Posições da Linha Neutra ($x$) e Parcela do Concreto ($y, A_{cc}, S_{ct}$) (<code>4fcn–6fcn</code>)</div>
+            <span class="formula-ref"><button class="code-pill" data-code="4fcn">[4fcn]</button> <button class="code-pill" data-code="5fcn">[5fcn]</button> <button class="code-pill" data-code="6fcn">[6fcn]</button></span>
+          </div>
+          <p style="margin:0 0 0.5rem;"><strong>Como achamos $x$ nos pontos <code>2–3</code> e <code>3–4</code>?</strong> É pura semelhança de triângulos no diagrama de deformações! O triângulo superior tem base $|\varepsilon_c|$ e altura $x$; o triângulo inferior tem base $|\varepsilon_s|$ e altura $d - x$. Igualando as inclinações: $\frac{x}{d} = \frac{|\varepsilon_c|}{|\varepsilon_c| + |\varepsilon_s|}$:<br>
+          • No limite <code>2–3</code>: $\varepsilon_c = -3{,}5\text{‰}$ e $\varepsilon_s = +10{,}0\text{‰} \implies x_{2-3} = 63{,}9\frac{3{,}5}{3{,}5 + 10{,}0} = 16{,}567\text{ cm}$.<br>
+          • No limite <code>3–4</code>: $\varepsilon_c = -3{,}5\text{‰}$ e $\varepsilon_s = +\varepsilon_{yd} = +2{,}070\text{‰} \implies x_{3-4} = 63{,}9\frac{3{,}5}{3{,}5 + 2{,}070} = 40{,}150\text{ cm}$.<br>
+          <strong>Por que $S_{ct} = A_{cc}\frac{h_n - y}{2}$?</strong> Na <code>Reta a</code> e em <code>1–2</code>, não há concreto comprimido ($A_{cc}=0$). Nos demais casos, o bloco retangular equivalente tem altura $y = 0{,}8 x$ (exceto na <code>Reta b</code>, onde toda a seção comprime uniformemente e $y = h_n = 70{,}0\text{ cm}$). O centroide desse retângulo comprimido está a $\frac{y}{2}$ do topo, e o CG da seção está a $\frac{h_n}{2}$ do topo — logo o braço de alavanca do concreto é $\frac{h_n}{2} - \frac{y}{2} = \frac{h_n - y}{2}$. Na <code>Reta b</code>, o bloco ocupa toda a seção ($y = h_n$), seu centroide coincide com o CG, e portanto $S_{ct} = 0$ (compressão centrada não gera momento!).</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th class="left">Interface</th>
+                  <th>Fórmula de $x$</th>
+                  <th>$x$ (cm)</th>
+                  <th>$y$ (cm)</th>
+                  <th>$A_{cc} = h_t y$ ($\text{cm}^2$)</th>
+                  <th>$S_{ct} = A_{cc}\frac{h_n - y}{2}$ ($\text{cm}^3$)</th>
+                  <th>$N_{Rd,c} = \sigma_c A_{cc}$ (kN)</th>
+                  <th>$M_{Rd,tc} = \sigma_c S_{ct}$ (kNcm)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="left"><strong>Reta $a$</strong></td><td>$x_a = -\infty$</td><td>$-\infty$</td><td>$0{,}000$</td><td>$0{,}00$</td><td>$0{,}00$</td><td>$0{,}000$</td><td>$0{,}000$</td></tr>
+                <tr><td class="left"><strong>1–2</strong></td><td>$x_{1-2} = 0$</td><td>$0{,}000$</td><td>$0{,}000$</td><td>$0{,}00$</td><td>$0{,}00$</td><td>$0{,}000$</td><td>$0{,}000$</td></tr>
+                <tr><td class="left"><strong>2–3</strong></td><td>$d\frac{3{,}5}{3{,}5+10}$</td><td>$16{,}567$</td><td>$13{,}253$</td><td>$463{,}87$</td><td>$13161{,}44$</td><td>$-1267{,}350$</td><td>$-35958{,}944$</td></tr>
+                <tr><td class="left"><strong>3–4</strong></td><td>$d\frac{3{,}5}{3{,}5+\varepsilon_{yd}}$</td><td>$40{,}150$</td><td>$32{,}120$</td><td>$1124{,}19$</td><td>$21292{,}33$</td><td>$-3071{,}457$</td><td>$-58173{,}685$</td></tr>
+                <tr><td class="left"><strong>4–4a</strong></td><td>$x_{4-4a} = d$</td><td>$63{,}900$</td><td>$51{,}120$</td><td>$1789{,}20$</td><td>$16890{,}05$</td><td>$-4888{,}350$</td><td>$-46146{,}024$</td></tr>
+                <tr><td class="left"><strong>4a–5</strong></td><td>$x_{4a-5} = h_y$</td><td>$70{,}000$</td><td>$56{,}000$</td><td>$1960{,}00$</td><td>$13720{,}00$</td><td>$-5355{,}000$</td><td>$-37485{,}000$</td></tr>
+                <tr><td class="left"><strong>Reta $b$</strong></td><td>$x_b = +\infty$</td><td>$+\infty$</td><td>$70{,}000$</td><td>$2450{,}00$</td><td>$0{,}00$</td><td>$-6693{,}750$</td><td>$0{,}000$</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Passo 3 -->
+        <div class="step-card purple">
+          <div class="step-header">
+            <div class="step-title"><span class="step-num">3</span> Deformações, Tensões nas Barras e Esforços Resistentes Totais (<code>7fcn–9fcn</code>)</div>
+            <span class="formula-ref"><button class="code-pill" data-code="T10.1">[T10.1]</button> <button class="code-pill" data-code="10.22">[10.22]</button> <button class="code-pill" data-code="10.23">[10.23]</button> <button class="code-pill" data-code="10.29">[10.29]</button></span>
+          </div>
+          <p style="margin:0 0 0.55rem;"><strong>Como calculamos a força e o momento de cada barra?</strong> Pela hipótese de Bernoulli (<em>seção plana continua plana</em>), a deformação varia em linha reta da fibra superior ($\varepsilon_c$ em $d_i=0$) até a armadura inferior ($\varepsilon_s$ em $d_i=d$). Para achar a deformação de qualquer barra na profundidade $d_i$, interpolamos: $\varepsilon_{si} = (\varepsilon_s - \varepsilon_c)\frac{d_i}{d} + \varepsilon_c$. Depois, multiplicamos por $E_s/1000 = 21\text{ kN/cm}^2$ (para converter $\text{‰}$ em adimensional) e <strong>travamos</strong> em $\pm f_{yd} = \pm 43{,}478\text{ kN/cm}^2$. Como há $2$ barras em cima ($A_{s,\text{sup}} = 2 \times 3{,}8013 = 7{,}6027\text{ cm}^2$, em $n=+28{,}9\text{ cm}$) e $2$ barras embaixo ($A_{s,\text{inf}} = 7{,}6027\text{ cm}^2$, em $n=-28{,}9\text{ cm}$), fica super direto:</p>
+
+          <div class="grid-2" style="margin-bottom:0.75rem;">
+            <div class="card-box">
+              <h4>① Reta $a$ ($x = -\infty$, tração uniforme pura)</h4>
+              <p style="margin:0; font-size:0.83rem;"><strong>Física:</strong> Todas as fibras esticam juntas no limite de tração do aço ($\varepsilon_c = \varepsilon_s = +10{,}0\text{‰}$).<br>
+              • $\sigma_{s1..4} = 21(10{,}0) = 210 &gt; 43{,}478 \implies \sigma_{si} = +43{,}478\text{ kN/cm}^2$.<br>
+              • $N_{Rd,s} = 4 \times 3{,}8013 \times 43{,}478 = +661{,}098\text{ kN}$.<br>
+              • $M_{Rd,ts} = 7{,}6027(43{,}478)(+28{,}9) + 7{,}6027(43{,}478)(-28{,}9) = 0$ (simetria cancela!).<br>
+              <strong>Total:</strong> $N_{Rd,a} = \mathbf{661{,}098\text{ kN}}$ | $M_{Rd,a} = \mathbf{0{,}0\text{ kNcm}}$.</p>
+            </div>
+            <div class="card-box">
+              <h4>② Interface 1–2 ($x = 0{,}0\text{ cm}$, LN na borda superior)</h4>
+              <p style="margin:0; font-size:0.83rem;"><strong>Física:</strong> Topo em $0\text{‰}$, base em $+10{,}0\text{‰}$. Concreto ainda todo tracionado ($N_{Rd,c}=0$).<br>
+              • Barras 3,4 ($d_i=6{,}1$): $\varepsilon_{s3,4} = 10\frac{6{,}1}{63{,}9} = +0{,}955\text{‰} \implies \sigma_{3,4} = 21(0{,}955) = +20{,}047\text{ kN/cm}^2$ (não escoam!).<br>
+              • Barras 1,2 ($d_i=63{,}9$): $\varepsilon_{s1,2} = +10{,}0\text{‰} \implies \sigma_{1,2} = +43{,}478\text{ kN/cm}^2$.<br>
+              • $N_{Rd,s} = 7{,}6027(20{,}047 + 43{,}478) = \mathbf{482{,}96\text{ kN}}$.<br>
+              • $M_{Rd,ts} = 7{,}6027[20{,}047(+28{,}9) + 43{,}478(-28{,}9)] = \mathbf{-5148{,}194\text{ kNcm}}$.</p>
+            </div>
+            <div class="card-box">
+              <h4>③ Interface 2–3 ($x = 16{,}567\text{ cm}$, LN entra na seção)</h4>
+              <p style="margin:0; font-size:0.83rem;"><strong>Física:</strong> Topo rompe no concreto ($\varepsilon_c = -3{,}5\text{‰}$) e base no aço ($\varepsilon_s = +10{,}0\text{‰}$).<br>
+              • Barras 3,4: $\varepsilon_{s3,4} = (10+3{,}5)\frac{6{,}1}{63{,}9} - 3{,}5 = -2{,}211\text{‰} \implies 21(-2{,}211) = -46{,}43 \implies \sigma_{3,4} = -43{,}478$.<br>
+              • Barras 1,2: $\varepsilon_{s1,2} = +10{,}0\text{‰} \implies \sigma_{1,2} = +43{,}478$.<br>
+              • <strong>Por que $N_{Rd,s} = 0$?</strong> As forças de cima ($-330{,}55\text{ kN}$) e de baixo ($+330{,}55\text{ kN}$) são iguais e opostas (binário puro!): $M_{Rd,ts} = -330{,}55(28{,}9) - 330{,}55(28{,}9) = -19105{,}24\text{ kNcm}$.<br>
+              <strong>Total:</strong> $N_{Rd,2-3} = -1267{,}35 + 0 = \mathbf{-1267{,}347\text{ kN}}$ | $M_{Rd,2-3} = -35958{,}94 - 19105{,}24 = \mathbf{-55064{,}181\text{ kNcm}}$.</p>
+            </div>
+            <div class="card-box">
+              <h4>④ Interface 3–4 ($x = 40{,}150\text{ cm}$, ponto de momento máximo)</h4>
+              <p style="margin:0; font-size:0.83rem;"><strong>Física:</strong> Concreto em $-3{,}5\text{‰}$ e aço inferior exatamente no limiar de escoamento ($+\varepsilon_{yd} = +2{,}070\text{‰}$).<br>
+              • Barras 3,4: $\varepsilon_{s3,4} = (2{,}07+3{,}5)\frac{6{,}1}{63{,}9} - 3{,}5 = -2{,}968\text{‰} \implies \sigma_{3,4} = -43{,}478$.<br>
+              • Barras 1,2: $\varepsilon_{s1,2} = +2{,}070\text{‰} \implies \sigma_{1,2} = +43{,}478$.<br>
+              • Novamente o aço forma um binário puro ($N_{Rd,s}=0$, $M_{Rd,ts}=-19105{,}24$), somado ao maior momento do concreto ($M_{Rd,tc}=-58170{,}0$).<br>
+              <strong>Total:</strong> $N_{Rd,3-4} = \mathbf{-3071{,}566\text{ kN}}$ | $M_{Rd,3-4} = \mathbf{-77275{,}22\text{ kNcm}}$.</p>
+            </div>
+            <div class="card-box">
+              <h4>⑤ Interface 4–4a ($x = 63{,}900\text{ cm}$, LN sobre a armadura 1,2)</h4>
+              <p style="margin:0; font-size:0.83rem;"><strong>Física:</strong> A LN desceu até a altura útil $d$: as barras inferiores ficam com deformação nula ($\varepsilon_s = 0\text{‰}$).<br>
+              • Barras 3,4: $\varepsilon_{s3,4} = (0+3{,}5)\frac{6{,}1}{63{,}9} - 3{,}5 = -3{,}166\text{‰} \implies \sigma_{3,4} = -43{,}478$.<br>
+              • Barras 1,2: $\varepsilon_{s1,2} = 0\text{‰} \implies \sigma_{1,2} = 0{,}0$ (não trabalham!).<br>
+              • $N_{Rd,s} = 7{,}6027(-43{,}478) = -330{,}55\text{ kN}$; $M_{Rd,ts} = -330{,}55(+28{,}9) = -9552{,}62\text{ kNcm}$.<br>
+              <strong>Total:</strong> $N_{Rd,4-4a} = -4888{,}09 - 330{,}55 = \mathbf{-5218{,}643\text{ kN}}$ | $M_{Rd,4-4a} = \mathbf{-55696{,}476\text{ kNcm}}$.</p>
+            </div>
+            <div class="card-box">
+              <h4>⑥ Interface 4a–5 ($x = 70{,}000\text{ cm}$, LN na borda inferior)</h4>
+              <p style="margin:0; font-size:0.83rem;"><strong>Física:</strong> Toda a altura $h_y = 70\text{ cm}$ está comprimida! Na Tabela 10.1, $\varepsilon_s = -3{,}5\frac{70-63{,}9}{70} = -0{,}305\text{‰}$ (por semelhança desde o fundo onde $\varepsilon=0$).<br>
+              • Barras 3,4: $\varepsilon_{s3,4} = -3{,}195\text{‰} \implies \sigma_{3,4} = -43{,}478$.<br>
+              • Barras 1,2: $\varepsilon_{s1,2} = -0{,}305\text{‰} \implies \sigma_{1,2} = 21(-0{,}305) = -6{,}405\text{ kN/cm}^2$ (já comprimidas!).<br>
+              • $N_{Rd,s} = 7{,}6027(-43{,}478 - 6{,}405) = -379{,}24\text{ kN}$; $M_{Rd,ts} = 7{,}6027(-43{,}478 + 6{,}405)(28{,}9) = -8145{,}4\text{ kNcm}$.<br>
+              <strong>Total:</strong> $N_{Rd,4a-5} = \mathbf{-5733{,}964\text{ kN}}$ | $M_{Rd,4a-5} = \mathbf{-45628{,}617\text{ kNcm}}$.</p>
+            </div>
+          </div>
+
+          <div class="callout callout-danger">
+            <strong>⑦ Reta $b$ ($x = +\infty$, compressão uniforme centrada) — Cuidado com as 2 pegadinhas clássicas!</strong><br>
+            1. <strong>Por que a deformação cai para $-\varepsilon_{c2} = -2{,}0\text{‰}$?</strong> Quando há flexão, parte da seção ajuda a restringir a borda mais comprimida, permitindo que ela chegue a $-3{,}5\text{‰}$. Na compressão uniforme centrada, <em>toda a seção encurta por igual</em> e o concreto esmaga já em $-2{,}0\text{‰}$! Como $|-2{,}0\text{‰}| &lt; \varepsilon_{yd} = 2{,}070\text{‰}$, o aço CA-50 <strong>ainda está no trecho elástico (não escoa!)</strong>: $\sigma_{si} = 21\times (-2{,}0) = -42{,}000\text{ kN/cm}^2 \implies N_{Rd,s} = 15{,}205 \times (-42{,}0) = -638{,}62\text{ kN}$.<br>
+            2. <strong>Tensão do concreto:</strong> Continua usando $\eta_c = 0{,}9\alpha_c = 0{,}765$ (Seção 10.7.2 da apostila): $N_{Rd,c} = -2{,}732 \times 2450 = -6693{,}40\text{ kN}$.<br>
+            <strong>Total Reta $b$:</strong> $N_{Rd,b} = -6693{,}40 - 638{,}62 = \mathbf{-7332{,}024\text{ kN}}$ | $M_{Rd,b} = \mathbf{0{,}0\text{ kNcm}}$ (simetria total anula o momento).
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th class="left">Ponto do Polígono</th>
+                  <th>$x$ (cm)</th>
+                  <th>$N_{Rd,c}$ (kN)</th>
+                  <th>$N_{Rd,s}$ (kN)</th>
+                  <th>$N_{Rd}$ Total (kN)</th>
+                  <th>$M_{Rd,tc}$ (kNcm)</th>
+                  <th>$M_{Rd,ts}$ (kNcm)</th>
+                  <th>$M_{Rd,t}$ Total (kNcm)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="left"><strong>Reta $a$</strong></td><td>$-\infty$</td><td>$0{,}00$</td><td>$+661{,}10$</td><td class="hi-ok">$661{,}098$</td><td>$0{,}00$</td><td>$0{,}00$</td><td class="hi-ok">$0{,}0$</td></tr>
+                <tr><td class="left"><strong>Dom. 1–2</strong></td><td>$0{,}000$</td><td>$0{,}00$</td><td>$+482{,}96$</td><td class="hi-ok">$482{,}96$</td><td>$0{,}00$</td><td>$-5148{,}19$</td><td class="hi-ok">$-5148{,}194$</td></tr>
+                <tr><td class="left"><strong>Dom. 2–3</strong></td><td>$16{,}567$</td><td>$-1267{,}35$</td><td>$0{,}00$</td><td class="hi-ok">$-1267{,}347$</td><td>$-35958{,}94$</td><td>$-19105{,}24$</td><td class="hi-ok">$-55064{,}181$</td></tr>
+                <tr><td class="left"><strong>Dom. 3–4</strong></td><td>$40{,}150$</td><td>$-3071{,}57$</td><td>$0{,}00$</td><td class="hi-ok">$-3071{,}566$</td><td>$-58169{,}98$</td><td>$-19105{,}24$</td><td class="hi-ok">$-77275{,}22$</td></tr>
+                <tr><td class="left"><strong>Dom. 4–4a</strong></td><td>$63{,}900$</td><td>$-4888{,}09$</td><td>$-330{,}55$</td><td class="hi-ok">$-5218{,}643$</td><td>$-46143{,}86$</td><td>$-9552{,}62$</td><td class="hi-ok">$-55696{,}476$</td></tr>
+                <tr><td class="left"><strong>Dom. 4a–5</strong></td><td>$70{,}000$</td><td>$-5354{,}72$</td><td>$-379{,}24$</td><td class="hi-ok">$-5733{,}964$</td><td>$-37483{,}22$</td><td>$-8145{,}40$</td><td class="hi-ok">$-45628{,}617$</td></tr>
+                <tr><td class="left"><strong>Reta $b$</strong></td><td>$+\infty$</td><td>$-6693{,}40$</td><td>$-638{,}62$</td><td class="hi-ok">$-7332{,}024$</td><td>$0{,}00$</td><td>$0{,}00$</td><td class="hi-ok">$0{,}0$</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Passo 4: Polígono Interativo + Semi-Infinito Plano -->
+        <div class="step-card amber">
+          <div class="step-header">
+            <div class="step-title"><span class="step-num">4</span> Leitura do Polígono e Método do Semi-Infinito Plano da Esquerda (<code>10fcn</code>)</div>
+            <span class="formula-ref"><button class="code-pill" data-code="10fcn">[10fcn]</button></span>
+          </div>
+          <p style="margin:0 0 0.55rem;"><strong>Por que o polígono faz uma "barriga" até o Domínio 3–4?</strong> Isso é uma característica física incrível do concreto armado: quando um pilar recebe uma compressão moderada (até cerca de $40\%$ da carga máxima, ponto <code>3–4</code>), a compressão fecha eventuais fissuras e aumenta a área de concreto comprimido sem impedir o aço inferior de escoar — por isso o <em>momento resistente cresce</em> até $77.275\text{ kNcm}$! Passando daí, a seção fica comprimida demais e sobra menos margem para flexão, caindo até $0$ na <code>Reta b</code>.<br><br>
+          <strong>Como funciona o Método do Semi-Infinito Plano da Esquerda (teste matemático para saber se $P_s$ está dentro)?</strong><br>
+          Assumimos no início que $P_s = (-2576{,}1;\, -47142{,}63)$ está <strong>FORA</strong> (<code>Rp = Falsa</code>). Imagine traçar uma linha horizontal na altura $M_{sd} = -47142{,}63$ indo de $P_s$ para a direita (rumo ao infinito positivo). Cada vez que essa linha cruza uma aresta do polígono à direita de $P_s$, ela atravessa a fronteira e alterna nosso estado (Fora $\leftrightarrow$ Dentro). Para verificar se cruza à direita em cada aresta $i \to j$ (sentido horário):<br>
+          • <strong>Teste 1 ($A_{Nsd}$):</strong> $M_{sd}$ está entre $M_{Rd,i}$ e $M_{Rd,j}$? (Ex.: na aresta crítica <code>Dom. 2: 1-2 → 2-3</code>, $(-5148{,}19 &gt; -47142{,}63) \neq (-55064{,}18 &gt; -47142{,}63) \implies \text{Verdadeira} \neq \text{Falsa} \implies \mathbf{A_{Nsd} = \text{Verdadeira}}$).<br>
+          • <strong>Teste 2 ($SI_p$):</strong> calculamos a coordenada $N_{\text{lim}}$ na reta dessa aresta para $M = M_{sd}$ e vemos se $N_{sd} &lt; N_{\text{lim}}$. Na mesma aresta <code>Dom. 2</code>:
+          $$N_{\text{lim}} = (N_{23}-N_{12})\frac{M_{sd}-M_{12}}{M_{23}-M_{12}} + N_{12} = (-1267{,}35 - 482{,}96)\frac{-47142{,}63 + 5148{,}19}{-55064{,}18 + 5148{,}19} + 482{,}96 = -989{,}58\text{ kN}$$
+          Como $N_{sd} = -2576{,}1 &lt; -989{,}58 \implies \mathbf{SI_p = \text{Verdadeira}}$! Como ambos deram Verdadeiro, <code>Rp</code> inverte para <strong>Verdadeira</strong> (entrou no polígono!). Na aresta <code>4a–5</code>, $A_{Nsd}$ é Verdadeira, mas $N_{sd} = -2576{,}1 &gt; -5656{,}47$ ($SI_p$ Falsa — o ponto está à direita dela, não à esquerda!), então <code>Rp</code> não muda e termina <strong>Verdadeira</strong>!</p>
+
+          <div class="combo-controls" id="edgeBtns">
+            <button class="combo-btn active" data-edge="-1">Polígono Completo</button>
+            <button class="combo-btn" data-edge="0">Dom 1 (a → 1-2)</button>
+            <button class="combo-btn" data-edge="1">Dom 2 (1-2 → 2-3)</button>
+            <button class="combo-btn" data-edge="2">Dom 3 (2-3 → 3-4)</button>
+            <button class="combo-btn" data-edge="3">Dom 4 (3-4 → 4-4a)</button>
+            <button class="combo-btn" data-edge="4">Dom 4a (4-4a → 4a-5)</button>
+            <button class="combo-btn" data-edge="5">Dom 5 (4a-5 → b)</button>
+          </div>
+
+          <div class="readout-strip">
+            <div class="readout-item"><span>Aresta Selecionada</span><strong id="ro-edge">Todas (Sentido Horário)</strong></div>
+            <div class="readout-item"><span>Alt. Ms ($A_{Nsd}$)</span><strong id="ro-ansd">Inicia Rp = Falsa</strong></div>
+            <div class="readout-item"><span>$N_{\text{lim}}$ na reta</span><strong id="ro-nlim">—</strong></div>
+            <div class="readout-item"><span>Semi-inf. Esq. ($SI_p$)</span><strong id="ro-sip">—</strong></div>
+            <div class="readout-item"><span>Estado $R_p$ após aresta</span><strong id="ro-rp">Verdadeira (DENTRO)</strong></div>
+          </div>
+
+          <div class="svg-panel" style="margin-bottom:0.85rem;">
+            <svg id="polygonSvg" viewBox="0 0 880 390" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif"></svg>
+            <div class="svg-caption">Figura 3.2 — Polígono simplificado de segurança ($N_{Rd}$ vs $M_{Rd,t}$) e localização do ponto de solicitação $P_s = (-2576{,}1\text{ kN};\; -47142{,}63\text{ kNcm})$.</div>
+          </div>
+
+          <div class="table-wrap" style="margin-bottom:0;">
+            <table id="semiInfTable">
+              <thead>
+                <tr>
+                  <th class="left">Aresta ($i \to j$)</th>
+                  <th>$M_{Rd,i}$ (kNcm)</th>
+                  <th>$M_{Rd,j}$ (kNcm)</th>
+                  <th>$A_{Nsd}$: $(M_{Rd,i} &gt; M_{sd}) \neq (M_{Rd,j} &gt; M_{sd})$</th>
+                  <th>$N_{\text{lim}}$ (kN)</th>
+                  <th>$SI_p$: $N_{sd} &lt; N_{\text{lim}}$</th>
+                  <th>$R_p$ (Acumulado)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-edge="0"><td class="left"><strong>Dom. 1 ($a \to 1\text{-}2$)</strong></td><td>$0{,}0$</td><td>$-5148{,}19$</td><td>Falsa</td><td>$-970{,}13$</td><td>Verdadeira</td><td>Falsa</td></tr>
+                <tr data-edge="1"><td class="left"><strong>Dom. 2 ($1\text{-}2 \to 2\text{-}3$)</strong></td><td>$-5148{,}19$</td><td>$-55064{,}18$</td><td class="hi-ok">Verdadeira</td><td>$-989{,}58$</td><td class="hi-ok">Verdadeira</td><td class="hi-ok">Verdadeira (Inverteu!)</td></tr>
+                <tr data-edge="2"><td class="left"><strong>Dom. 3 ($2\text{-}3 \to 3\text{-}4$)</strong></td><td>$-55064{,}18$</td><td>$-77275{,}22$</td><td>Falsa</td><td>$-623{,}87$</td><td>Verdadeira</td><td>Verdadeira</td></tr>
+                <tr data-edge="3"><td class="left"><strong>Dom. 4 ($3\text{-}4 \to 4\text{-}4a$)</strong></td><td>$-77275{,}22$</td><td>$-55696{,}48$</td><td>Falsa</td><td>$-6069{,}75$</td><td>Falsa</td><td>Verdadeira</td></tr>
+                <tr data-edge="4"><td class="left"><strong>Dom. 4a ($4\text{-}4a \to 4a\text{-}5$)</strong></td><td>$-55696{,}48$</td><td>$-45628{,}62$</td><td class="hi-warn">Verdadeira</td><td>$-5656{,}47$</td><td>Falsa</td><td>Verdadeira</td></tr>
+                <tr data-edge="5"><td class="left"><strong>Dom. 5 ($4a\text{-}5 \to b$)</strong></td><td>$-45628{,}62$</td><td>$0{,}0$</td><td>Falsa</td><td>$-5680{,}94$</td><td>Falsa</td><td class="hi-ok">Verdadeira (Final)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="result-banner">
+          <div><span class="res-label">Verificação Final — Item 15 da Prova</span></div>
+          <div class="res-val">Rp final = Verdadeira → Resiste à flexo compressão normal ✓</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- SEÇÃO 4: FLEXÃO COMPOSTA OBLÍQUA (EXEMPLO 10.1.3)         -->
+    <!-- ========================================================= -->
+    <section class="topic-section" id="sec-fco">
+      <div class="topic-header">
+        <div>
+          <span class="topic-badge badge-red">Tema 4 • Caderno de Exercícios (Capítulo 10 — FCO)</span>
+          <h2>4. Dimensionamento de Pilares à Flexão Composta Oblíqua (Ex. 10.1.3)</h2>
+          <div class="topic-meta">Fonte: <code>CadernodeExercícios-EstruturasConcreto-2021.pdf</code> (p. 235–388) • Fórmulas: <button class="code-pill" data-code="10.rot">[10.rot]</button> <button class="code-pill" data-code="10.24">[10.24]</button> <button class="code-pill" data-code="10.26">[10.26]</button> <button class="code-pill" data-code="10.31">[10.31]</button> <button class="code-pill" data-code="10.19">[10.19]</button> <button class="code-pill" data-code="10.41">[10.41]</button> <button class="code-pill" data-code="10.39">[10.39]</button></div>
+        </div>
+      </div>
+
+      <div class="topic-body">
+        <!-- Conceito FCO: Começando do Zero -->
+        <div class="callout callout-info" style="margin-bottom:1.1rem;">
+          <strong>🧠 Começando do Zero — O que muda da FCN para a FCO?</strong><br>
+          Na FCN (seção anterior), a carga normal estava alinhada em um eixo de simetria, então sabíamos de cara que a Linha Neutra era horizontal. Agora, na <strong>Flexão Composta Oblíqua (FCO)</strong>, a carga $N_{sd} = -850\text{ kN}$ está deslocada nos <strong>dois eixos ao mesmo tempo</strong> ($e_x = 3{,}0\text{ cm}$ e $e_y = 5{,}0\text{ cm}$), empurrando o canto superior direito ($v_1$) da seção e gerando simultaneamente $M_{sd,x} = -4250\text{ kNcm}$ e $M_{sd,y} = +2550\text{ kNcm}$.
+          <br><br>
+          <strong>O grande desafio da FCO (por que tem tanta rotação e conta?):</strong> Quando empurramos um retângulo pela diagonal, <em>a Linha Neutra também inclina</em> para um ângulo $\alpha_{LN}$ desconhecido — e, por causa da geometria retangular ($20 \times 30\text{ cm}$), o ângulo da linha neutra <strong>não é igual</strong> ao ângulo da carga ($\varphi_s = \arctan(3/5) = 30{,}96^\circ$)! Como a forma da área comprimida muda para um triângulo ou trapézio inclinado, precisamos de 3 ferramentas novas:
+          <div style="margin-top:0.6rem; font-size:0.84rem; display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:0.5rem;">
+            <div style="background:rgba(255,255,255,0.82); padding:0.5rem 0.65rem; border-radius:7px; border:1px solid #bfdbfe;"><strong>1. Varredura em $\alpha_{LN}$ + Rotação $(t,n)$:</strong> Como não sabemos $\alpha_{LN}$, testamos 5 ângulos no 1º quadrante ($0^\circ; 22{,}5^\circ; 45^\circ; 67{,}5^\circ; 90^\circ$ — os outros 3 quadrantes são espelhos por simetria). Giramos a seção de $\alpha_{LN}$ para alinhar o eixo $t$ com a LN e deixar o cálculo igual ao da FCN!</div>
+            <div style="background:rgba(255,255,255,0.82); padding:0.5rem 0.65rem; border-radius:7px; border:1px solid #bfdbfe;"><strong>2. Teorema de Green ($A_{cc}, S_{ct}, S_{cn}$):</strong> Como a zona comprimida inclinada vira um triângulo ou trapézio, não existe mais uma fórmula única $h_t \cdot y$. O Teorema de Green calcula área e momentos estáticos de <em>qualquer polígono</em> apenas somando seus vértices no sentido anti-horário!</div>
+            <div style="background:rgba(255,255,255,0.82); padding:0.5rem 0.65rem; border-radius:7px; border:1px solid #bfdbfe;"><strong>3. Poliedro 3D $\to$ Plano de $N_{sd}$ (2D):</strong> Em 3D temos $(N_{Rd}, M_{Rd,x}, M_{Rd,y})$. Para verificar nossa carga fixa $N_{sd}=-850\text{ kN}$, "fatiamos" o poliedro na altura exata $-850\text{ kN}$ (interpolando $I_0..I_{90}$) e testamos o ponto $(M_{sd,x}, M_{sd,y})$ em 2D!</div>
+          </div>
+        </div>
+
+        <!-- Roteiro Geral FCO -->
+        <div class="roteiro-box">
+          <h3>🧭 Roteiro Passo a Passo FCO (Fluxograma F.1 da Apostila, p. 220)</h3>
+          <div class="roteiro-flow">
+            <div class="roteiro-step">
+              <strong class="r-tag">1fco–5fco • Geometria &amp; (x,y)</strong>
+              Confira dimensões, armaduras e momento mínimo. Liste os 4 vértices $v_i$ (anti-horário!) e as 8 barras $b_j$ em $(x,y)$ com origem no CG.
+            </div>
+            <div class="roteiro-step">
+              <strong class="r-tag">6fco–13fco • Rotação &amp; Green</strong>
+              Para cada $\alpha_{LN}$ ($0^\circ$ a $90^\circ$), rotacione p/ $(t,n)$, ache $h_n, d_n, x, y$, intercepte $n_I = n_t - y$ nas arestas e aplique Green ($A_{cc}, S_{ct}, S_{cn}$).
+            </div>
+            <div class="roteiro-step">
+              <strong class="r-tag">14fco–17fco • Aço, Sinal &amp; (x,y)</strong>
+              Calcule $\varepsilon_{si}, \sigma_{si}$, some concreto + aço lembrando de <strong>trocar o sinal</strong> de $M_{Rd,n}$ <button class="code-pill" data-code="10.31">[10.31]</button> e rotacione de volta $(M_{Rd,t}, M_{Rd,n}) \to (M_{Rd,x}, M_{Rd,y})$.
+            </div>
+            <div class="roteiro-step">
+              <strong class="r-tag">18fco–20fco • Plano de Nsd</strong>
+              Para cada $\alpha_{LN}$, pegue o par de interfaces que cerca $N_{sd}$, interpole $I_{\alpha_{LN}} = (I_{\alpha,x}; I_{\alpha,y})$ <button class="code-pill" data-code="10.41">[10.41]</button> e faça o semi-infinito plano em 2D.
+            </div>
+          </div>
+        </div>
+
+        <!-- Enunciado -->
+        <div class="enunciado-box">
+          <div class="enunciado-head">
+            <strong>📋 Enunciado Completo — 10.1.3 Pilar na Flexo-Compressão Oblíqua</strong>
+            <span class="enunciado-src">Caderno de Exercícios • p. 235–388</span>
+          </div>
+          <div class="enunciado-grid">
+            <div class="enunciado-text">
+              <p>Verifique se para um pilar de seção transversal de largura em $x$ de $20\text{ cm}$ e largura em $y$ de $30\text{ cm}$ é possível posicionar uma carga axial de compressão de $N_{sd} = -850\text{ kN}$ a uma distância de $5{,}0\text{ cm}$ do centroide da seção na direção do eixo $y$ e $3{,}0\text{ cm}$ do centroide da seção na direção do eixo $x$.</p>
+              <p>Este pilar possui ao todo $8$ barras em sua armadura, sendo $4$ próximas a cada vértice e outras $4$ próximas aos pontos médios das arestas, moldado em concreto <strong>C35</strong> e armaduras de aço <strong>CA-50</strong> com bitola de $20\text{ mm}$, estribos de $5\text{ mm}$ e cobrimento nominal de $2{,}5\text{ cm}$.</p>
+            </div>
+            <div class="enunciado-data">
+              <strong>Dados de Entrada:</strong>
+              <ul>
+                <li>Seção: $h_x = 20{,}0\text{ cm}$, $h_y = 30{,}0\text{ cm}$ ($A_c = 600{,}0\text{ cm}^2$)</li>
+                <li>Concreto: C35 ($f_{ck} = 3{,}5\text{ kN/cm}^2$) | Aço: CA-50</li>
+                <li>Armadura: $8\phi 20{,}0\text{ mm}$ ($A_s = 25{,}133\text{ cm}^2$), $\phi_t = 5\text{ mm}$, $c_{\text{nom}} = 2{,}5\text{ cm}$</li>
+                <li>Solicitação: $N_{sd} = -850{,}0\text{ kN}$, $e_x = +3{,}0\text{ cm}$, $e_y = +5{,}0\text{ cm}$</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- SVG 4.1: Seção Original (x,y) vs Rotacionada 45° (t,n) -->
+        <div class="svg-panel">
+          <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs>
+              <marker id="arr-fco" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0,1 L10,5 L0,9 z" fill="#0f172a"/>
+              </marker>
+            </defs>
+
+            <!-- LEFT: Sistema Original (x,y) -->
+            <rect x="20" y="14" width="350" height="292" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+            <text x="195" y="36" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1d4ed8">1. Sistema Original (x, y)</text>
+            <rect x="120" y="75" width="120" height="180" fill="#fff" stroke="#0f172a" stroke-width="2"/>
+            <rect x="132" y="87" width="96" height="156" rx="3" fill="none" stroke="#d97706" stroke-width="1.6"/>
+            <line x1="75" y1="165" x2="310" y2="165" stroke="#0f172a" stroke-width="1.2" marker-end="url(#arr-fco)"/>
+            <text x="315" y="169" font-size="11.5" font-weight="800" fill="#0f172a">x</text>
+            <line x1="180" y1="280" x2="180" y2="52" stroke="#0f172a" stroke-width="1.2" marker-end="url(#arr-fco)"/>
+            <text x="187" y="58" font-size="11.5" font-weight="800" fill="#0f172a">y</text>
+
+            <text x="245" y="73" font-size="10" font-weight="700" fill="#475569">v₁(10;15)</text>
+            <text x="115" y="73" text-anchor="end" font-size="10" font-weight="700" fill="#475569">v₂(-10;15)</text>
+            <text x="115" y="267" text-anchor="end" font-size="10" font-weight="700" fill="#475569">v₃(-10;-15)</text>
+            <text x="245" y="267" font-size="10" font-weight="700" fill="#475569">v₄(10;-15)</text>
+
+            <circle cx="216" cy="99" r="4.5" fill="#16a34a" stroke="#0f172a" stroke-width="1"/>
+            <circle cx="180" cy="99" r="4.5" fill="#16a34a" stroke="#0f172a" stroke-width="1"/>
+            <circle cx="144" cy="99" r="4.5" fill="#16a34a" stroke="#0f172a" stroke-width="1"/>
+            <circle cx="144" cy="165" r="4.5" fill="#16a34a" stroke="#0f172a" stroke-width="1"/>
+            <circle cx="144" cy="231" r="4.5" fill="#16a34a" stroke="#0f172a" stroke-width="1"/>
+            <circle cx="180" cy="231" r="4.5" fill="#16a34a" stroke="#0f172a" stroke-width="1"/>
+            <circle cx="216" cy="231" r="4.5" fill="#16a34a" stroke="#0f172a" stroke-width="1"/>
+            <circle cx="216" cy="165" r="4.5" fill="#16a34a" stroke="#0f172a" stroke-width="1"/>
+
+            <text x="223" y="96" font-size="9.5" font-weight="800" fill="#0f766e">b₁</text>
+            <text x="187" y="94" font-size="9.5" font-weight="800" fill="#0f766e">b₂</text>
+            <text x="131" y="96" font-size="9.5" font-weight="800" fill="#0f766e">b₃</text>
+            <text x="131" y="160" font-size="9.5" font-weight="800" fill="#0f766e">b₄</text>
+            <text x="131" y="236" font-size="9.5" font-weight="800" fill="#0f766e">b₅</text>
+            <text x="187" y="242" font-size="9.5" font-weight="800" fill="#0f766e">b₆</text>
+            <text x="223" y="236" font-size="9.5" font-weight="800" fill="#0f766e">b₇</text>
+            <text x="223" y="160" font-size="9.5" font-weight="800" fill="#0f766e">b₈</text>
+
+            <circle cx="198" cy="135" r="5" fill="#dc2626" stroke="#fff" stroke-width="1.4"/>
+            <text x="206" y="132" font-size="10.5" font-weight="800" fill="#dc2626">Nsd (3; 5)</text>
+            <text x="195" y="294" text-anchor="middle" font-size="10.5" font-weight="700" fill="#334155">hx = 20 cm | hy = 30 cm | d' = 4,0 cm</text>
+
+            <!-- RIGHT: Sistema Rotacionado αLN = 45° (t,n) -->
+            <rect x="400" y="14" width="460" height="292" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+            <text x="630" y="36" text-anchor="middle" font-size="12.5" font-weight="800" fill="#0f766e">2. Seção Rotacionada em αLN = 45° (Sistema t, n — Interface 3–4)</text>
+
+            <polygon points="613.8,58.9 528.9,143.8 533.7,148.5 703.4,148.5" fill="#3b82f6" fill-opacity="0.22"/>
+            <polygon points="613.8,58.9 528.9,143.8 656.2,271.1 741.1,186.2" fill="none" stroke="#0f172a" stroke-width="2"/>
+            <line x1="470" y1="165" x2="800" y2="165" stroke="#0f172a" stroke-width="1.2" marker-end="url(#arr-fco)"/>
+            <text x="806" y="169" font-size="11.5" font-weight="800" fill="#0f172a">t</text>
+            <line x1="635" y1="286" x2="635" y2="46" stroke="#0f172a" stroke-width="1.2" marker-end="url(#arr-fco)"/>
+            <text x="642" y="53" font-size="11.5" font-weight="800" fill="#0f172a">n (+)</text>
+
+            <line x1="490" y1="148.5" x2="775" y2="148.5" stroke="#2563eb" stroke-width="2"/>
+            <text x="772" y="143" text-anchor="end" font-size="10" font-weight="800" fill="#1d4ed8">Reta limite y (nI = 2,748)</text>
+            <line x1="490" y1="170.9" x2="775" y2="170.9" stroke="#dc2626" stroke-width="1.6" stroke-dasharray="5,3"/>
+            <text x="772" y="183" text-anchor="end" font-size="10" font-weight="800" fill="#dc2626">Linha Neutra x₃₋₄ = 18,662 cm</text>
+
+            <circle cx="613.8" cy="58.9" r="3.5" fill="#1d4ed8"/>
+            <text x="613.8" y="51" text-anchor="middle" font-size="10" font-weight="800" fill="#1d4ed8">A₁=V₁</text>
+            <circle cx="528.9" cy="143.8" r="3.5" fill="#1d4ed8"/>
+            <text x="520" y="140" text-anchor="end" font-size="10" font-weight="800" fill="#1d4ed8">A₂=V₂</text>
+            <circle cx="533.7" cy="148.5" r="3.5" fill="#1d4ed8"/>
+            <text x="522" y="157" text-anchor="end" font-size="10" font-weight="800" fill="#1d4ed8">A₃</text>
+            <circle cx="703.4" cy="148.5" r="3.5" fill="#1d4ed8"/>
+            <text x="712" y="142" font-size="10" font-weight="800" fill="#1d4ed8">A₄</text>
+            <text x="656.2" y="283" text-anchor="middle" font-size="10" font-weight="700" fill="#475569">V₃ (borda +tracionada b₅)</text>
+            <text x="748" y="196" font-size="10" font-weight="700" fill="#475569">V₄</text>
+
+            <text x="630" y="297" text-anchor="middle" font-size="10.5" font-weight="700" fill="#0f766e">Área hachurada = Acc = 222,284 cm² (sentido anti-horário A₁→A₂→A₃→A₄)</text>
+          </svg>
+          <div class="svg-caption">Figura 4.1 — Comparação entre a seção original $(x,y)$ e a mesma seção girada em $\alpha_{LN} = 45^\circ$ no sistema $(t,n)$, mostrando o trapézio de concreto comprimido $A_1 A_2 A_3 A_4$ na interface 3–4.</div>
+        </div>
+
+        <!-- Passo 1 -->
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-title"><span class="step-num">1</span> Materiais, Disposições Construtivas e Mapa de Coordenadas $(x, y)$ (<code>1fco–5fco</code>)</div>
+            <span class="formula-ref"><button class="code-pill" data-code="10.21">[10.21]</button> <button class="code-pill" data-code="10.11">[10.11]</button></span>
+          </div>
+          <p style="margin:0 0 0.55rem; font-size:0.87rem; color:#334155;"><strong>O que fazemos antes de girar qualquer eixo?</strong> Primeiro conferimos se o pilar atende às exigências básicas da NBR 6118 (dimensão mínima, taxa de aço, bitola e momento mínimo). Depois, colocamos a origem $(0;0)$ no centroide da seção e anotamos as coordenadas $(x, y)$ dos $4$ vértices e das $8$ barras. <strong>Regra de ouro:</strong> numere os vértices $v_1 \to v_2 \to v_3 \to v_4$ sempre no <strong>sentido anti-horário</strong>, pois o Teorema de Green só dá área positiva nesse sentido!<br>
+          <strong>Por que $M_{sd,x}$ é negativo e $M_{sd,y}$ é positivo?</strong> Pela <em>regra da mão direita</em>: a carga de compressão ($N_{sd} = -850\text{ kN}$, entrando na tela) em $e_y = +5\text{ cm}$ gira no sentido negativo do eixo $x$ ($M_{sd,x} = -850\times 5 = -4250\text{ kNcm}$), enquanto em $e_x = +3\text{ cm}$ gira no sentido positivo do eixo $y$ ($M_{sd,y} = +850\times 3 = +2550\text{ kNcm}$).</p>
+          <div class="grid-2" style="margin-bottom:0.4rem;">
+            <div>
+              <p style="margin:0 0 0.35rem;"><strong>Constantes dos Materiais e Solicitações:</strong></p>
+              <div class="formula-row">
+                <div class="formula-math">$$f_{cd} = \frac{3{,}5}{1{,}4} = 2{,}5\text{ kN/cm}^2 \quad \eta_c = 0{,}9(0{,}85) = 0{,}765$$
+                $$\sigma_c = -\eta_c f_{cd} = -1{,}913\text{ kN/cm}^2 \quad \zeta_c = 0{,}8$$
+                $$f_{yd} = \frac{50}{1{,}15} = 43{,}478\text{ kN/cm}^2 \quad \varepsilon_{yd} = 2{,}070\text{‰}$$
+                $$A_s = 8\frac{\pi\cdot 2{,}0^2}{4} = 25{,}133\text{ cm}^2 \quad \left(\frac{A_s}{b_s} = 3{,}142\text{ cm}^2/\text{barra}\right)$$
+                $$M_{sd,x} = -4250{,}0\text{ kNcm} \qquad M_{sd,y} = +2550{,}0\text{ kNcm}$$</div>
+              </div>
+            </div>
+            <div>
+              <p style="margin:0 0 0.35rem;"><strong>Verificações Normativas e Coordenadas ($d' = 2{,}5+0{,}5+1{,}0 = 4{,}0\text{ cm}$):</strong></p>
+              <div class="formula-row">
+                <div class="formula-math">$$h_{\min} = 20{,}0 &gt; 19\text{ cm}\;\checkmark \qquad A_{s,\min} = 2{,}93 &lt; 25{,}133 &lt; A_{s,\max} = 48{,}0\text{ cm}^2\;\checkmark$$
+                $$M_{sd,\min,x} = 850(0{,}015+0{,}03\times 0{,}30)\cdot 100 = 2040{,}0 &lt; 4250{,}0\text{ kNcm}\;\checkmark$$
+                $$M_{sd,\min,y} = 850(0{,}015+0{,}03\times 0{,}20)\cdot 100 = 1785{,}0 &lt; 2550{,}0\text{ kNcm}\;\checkmark$$
+                $$\text{Vértices: } v_1(10;15),\; v_2(-10;15),\; v_3(-10;-15),\; v_4(10;-15)$$
+                $$\text{Barras: } b_1(6;11), b_2(0;11), b_3(-6;11), b_4(-6;0), b_5(-6;-11), b_6(0;-11), b_7(6;-11), b_8(6;0)$$</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Passo 2 -->
+        <div class="step-card teal">
+          <div class="step-header">
+            <div class="step-title"><span class="step-num">2</span> Rotação $(x,y) \to (t,n)$ e Dimensões Efetivas para $\alpha_{LN} = 45{,}0^\circ$ (<code>6fco–8fco</code>)</div>
+            <span class="formula-ref"><button class="code-pill" data-code="10.rot">[10.rot]</button></span>
+          </div>
+          <p style="margin:0 0 0.5rem;"><strong>Por que rotacionamos as coordenadas?</strong> Ao adotar uma inclinação de linha neutra $\alpha_{LN} = 45^\circ$, giramos o sistema de referência de modo que a linha neutra fique paralela ao novo eixo horizontal $t$. Assim, todas as fibras com mesma cota $n$ têm exatamente a mesma deformação! As equações de rotação são:
+          $$t = x\cos(\alpha_{LN}) - y\operatorname{sen}(\alpha_{LN}) \qquad n = x\operatorname{sen}(\alpha_{LN}) + y\cos(\alpha_{LN})$$
+          <strong>Exemplo numérico passo a passo (Vértice $v_1$ e Barra $b_5$ para $\alpha_{LN} = 45^\circ$, com $\cos 45^\circ = \operatorname{sen} 45^\circ = 0{,}70711$):</strong></p>
+          <div class="formula-row">
+            <div class="formula-math">$$v_1(10;15):\quad t_1 = 10(0{,}70711) - 15(0{,}70711) = -3{,}536\text{ cm} \qquad n_1 = 10(0{,}70711) + 15(0{,}70711) = +17{,}678\text{ cm}$$
+            $$b_5(-6;-11):\quad t_{b5} = -6(0{,}70711) - (-11)(0{,}70711) = +3{,}536\text{ cm} \qquad n_{b5} = -6(0{,}70711) + (-11)(0{,}70711) = -12{,}021\text{ cm}$$</div>
+          </div>
+          <p style="margin:0.45rem 0;">Repetindo para os 4 vértices: $V_1(-3{,}536;\, 17{,}678)$, $V_2(-17{,}678;\, 3{,}536)$, $V_3(3{,}536;\, -17{,}678)$, $V_4(17{,}678;\, -3{,}536)$. Agora extraímos as medidas na nova direção vertical $n$:</p>
+          <div class="formula-row">
+            <div class="formula-math">$$\text{Cota do topo (fibra + compr.): } n_t = \max(n_{vi}) = +17{,}678\text{ cm (vértice } V_1\text{)}$$
+            $$\text{Altura total da seção: } h_n = |\max(n_{vi})| + |\min(n_{vi})| = |17{,}678| + |-17{,}678| = 35{,}356\text{ cm}$$
+            $$\text{Altura útil: } d_n = \max(n_t - n_{bi}) = 17{,}678 - (-12{,}021) = 29{,}699\text{ cm (barra mais tracionada } b_5\text{)}$$</div>
+          </div>
+        </div>
+
+        <!-- Passo 3 -->
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-title"><span class="step-num">3</span> Área Comprimida Inclinada e Teorema de Green (Interface <code>3–4</code> em $45^\circ$, <code>9fco–13fco</code>)</div>
+            <span class="formula-ref"><button class="code-pill" data-code="10.24">[10.24]</button> <button class="code-pill" data-code="10.26">[10.26]</button></span>
+          </div>
+          <p style="margin:0 0 0.5rem;"><strong>1. Onde passa a reta limite do concreto comprimido ($n_I$)?</strong><br>
+          Na interface <code>3–4</code> ($\varepsilon_c = -3{,}5\text{‰}$, $\varepsilon_s = +2{,}07\text{‰}$), calculamos $x_{3-4} = 29{,}699\frac{3{,}5}{3{,}5+2{,}07} = 18{,}662\text{ cm}$ e a altura do bloco retangular comprimido $y_{3-4} = 0{,}8\times 18{,}662 = 14{,}930\text{ cm}$. Como o bloco comprimido desce $y$ a partir do topo $n_t$, a linha horizontal que o limita está na cota:
+          $$n_I = n_t - y = 17{,}678 - 14{,}930 = \mathbf{2{,}748\text{ cm}}$$
+          <em>(Nota: na p. 309 do Caderno aparece impresso <code>9,607</code> por erro de digitação nessa linha, mas todas as contas seguintes do próprio Caderno usam corretamente <code>2,748</code>.)</em></p>
+
+          <p style="margin:0 0 0.45rem;"><strong>2. Quais arestas do retângulo são cortadas por $n_I = 2{,}748\text{ cm}$?</strong><br>
+          • $V_1 \to V_2$ ($n$ vai de $17{,}678$ a $3{,}536$): toda <strong>acima</strong> de $2{,}748 \implies$ entra inteira no concreto comprimido.<br>
+          • $V_2 \to V_3$ ($n$ vai de $3{,}536$ a $-17{,}678$): <strong>cruza</strong> $2{,}748$! Aplicando a Eq. <button class="code-pill" data-code="10.24">[10.24]</button>: $t_I = -17{,}678 + (2{,}748 - 3{,}536)\frac{3{,}536+17{,}678}{-17{,}678-3{,}536} = \mathbf{-16{,}890\text{ cm}} \implies A_3(-16{,}890;\, 2{,}748)$.<br>
+          • $V_3 \to V_4$ ($n$ vai de $-17{,}678$ a $-3{,}536$): toda <strong>abaixo</strong> de $2{,}748$ (região tracionada, desprezada).<br>
+          • $V_4 \to V_1$ ($n$ vai de $-3{,}536$ a $17{,}678$): <strong>cruza</strong> $2{,}748$! Pela Eq. <button class="code-pill" data-code="10.24">[10.24]</button>: $t_I = 17{,}678 + (2{,}748 + 3{,}536)\frac{-3{,}536-17{,}678}{17{,}678+3{,}536} = \mathbf{+11{,}394\text{ cm}} \implies A_4(+11{,}394;\, 2{,}748)$.</p>
+
+          <p style="margin:0 0 0.4rem;"><strong>3. Aplicando o Teorema de Green no trapézio anti-horário $A_1(-3{,}536;\,17{,}678) \to A_2(-17{,}678;\,3{,}536) \to A_3(-16{,}890;\,2{,}748) \to A_4(11{,}394;\,2{,}748) \to A_1$:</strong></p>
+          <div class="formula-row">
+            <div class="formula-math">$$A_{cc} = \frac{1}{2}\Big[(-17{,}678-3{,}536)(3{,}536-17{,}678) + (-16{,}890-17{,}678)(2{,}748-3{,}536) + (11{,}394-16{,}890)(2{,}748-2{,}748) + (-3{,}536+11{,}394)(17{,}678-2{,}748)\Big] = \mathbf{222{,}284\text{ cm}^2}$$
+            $$S_{ct} = +1719{,}997\text{ cm}^3 \text{ (centroide acima do CG, } n&gt;0\text{)} \qquad S_{cn} = -777{,}215\text{ cm}^3 \text{ (trapézio deslocado p/ esq., } t&lt;0\text{)}$$
+            $$N_{Rd,c} = \sigma_c A_{cc} = -425{,}229\text{ kN} \qquad M_{Rd,tc} = \sigma_c S_{ct} = -3290{,}354\text{ kNcm} \qquad M_{Rd,nc} = \sigma_c S_{cn} = (-1{,}913)(-777{,}215) = +1486{,}812\text{ kNcm}$$</div>
+          </div>
+        </div>
+
+        <!-- Passo 4 -->
+        <div class="step-card purple">
+          <div class="step-header">
+            <div class="step-title"><span class="step-num">4</span> Tensões nas 8 Barras, Sinal de $M_{Rd,n}$ e Volta para $(x, y)$ (<code>14fco–17fco</code>)</div>
+            <span class="formula-ref"><button class="code-pill" data-code="10.22">[10.22]</button> <button class="code-pill" data-code="10.31">[10.31]</button> <button class="code-pill" data-code="10.19">[10.19]</button></span>
+          </div>
+          <p style="margin:0 0 0.5rem;"><strong>1. Deformação e tensão barra por barra:</strong> Usamos a mesma fórmula da FCN, agora com $d_{ni} = n_t - n_{bi}$ e $d_n = 29{,}699\text{ cm}$. Veja 2 exemplos abertos ($\varepsilon_c = -3{,}5\text{‰}$, $\varepsilon_s = +2{,}07\text{‰}$):<br>
+          • <strong>Barra $b_1$</strong> ($d_{n1} = 17{,}678 - 12{,}021 = 5{,}657\text{ cm}$): $\varepsilon_{s1} = (2{,}07+3{,}5)\frac{5{,}657}{29{,}699} - 3{,}5 = -2{,}439\text{‰} \implies \sigma = 21(-2{,}439) = -51{,}22 \implies \mathbf{-43{,}478\text{ kN/cm}^2}$ (escoou à compressão!).<br>
+          • <strong>Barra $b_4$</strong> ($d_{n4} = 17{,}678 - (-4{,}243) = 21{,}921\text{ cm}$): $\varepsilon_{s4} = (2{,}07+3{,}5)\frac{21{,}921}{29{,}699} - 3{,}5 = +0{,}611\text{‰} \implies \sigma = 21(0{,}611) = \mathbf{+12{,}831\text{ kN/cm}^2}$ (regime elástico à tração!).</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Barra</th>
+                  <th>$t_{bi}$ (cm)</th>
+                  <th>$n_{bi}$ (cm)</th>
+                  <th>$d_{ni} = n_t - n_{bi}$ (cm)</th>
+                  <th>$\varepsilon_{si}$ (‰)</th>
+                  <th>$\sigma_{si}$ ($\text{kN/cm}^2$)</th>
+                  <th>$\sigma_{si}\cdot n_{si}$</th>
+                  <th>$\sigma_{si}\cdot t_{si}$</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>$b_1$</strong></td><td>$-3{,}536$</td><td>$+12{,}021$</td><td>$5{,}657$</td><td>$-2{,}439$</td><td class="hi-red">$-43{,}478$</td><td>$-522{,}65$</td><td>$+153{,}74$</td></tr>
+                <tr><td><strong>$b_2$</strong></td><td>$-7{,}778$</td><td>$+7{,}778$</td><td>$9{,}900$</td><td>$-1{,}643$</td><td>$-34{,}503$</td><td>$-268{,}36$</td><td>$+268{,}36$</td></tr>
+                <tr><td><strong>$b_3$</strong></td><td>$-12{,}021$</td><td>$+3{,}536$</td><td>$14{,}142$</td><td>$-0{,}848$</td><td>$-17{,}808$</td><td>$-62{,}97$</td><td>$+214{,}07$</td></tr>
+                <tr><td><strong>$b_4$</strong></td><td>$-4{,}243$</td><td>$-4{,}243$</td><td>$21{,}921$</td><td>$+0{,}611$</td><td>$+12{,}831$</td><td>$-54{,}44$</td><td>$-54{,}44$</td></tr>
+                <tr><td><strong>$b_5$</strong></td><td>$+3{,}536$</td><td>$-12{,}021$</td><td>$29{,}699$</td><td>$+2{,}070$</td><td class="hi-ok">$+43{,}470$</td><td>$-522{,}55$</td><td>$+153{,}71$</td></tr>
+                <tr><td><strong>$b_6$</strong></td><td>$+7{,}778$</td><td>$-7{,}778$</td><td>$25{,}456$</td><td>$+1{,}274$</td><td>$+26{,}754$</td><td>$-208{,}09$</td><td>$+208{,}09$</td></tr>
+                <tr><td><strong>$b_7$</strong></td><td>$+12{,}021$</td><td>$-3{,}536$</td><td>$21{,}214$</td><td>$+0{,}479$</td><td>$+10{,}059$</td><td>$-35{,}57$</td><td>$+120{,}92$</td></tr>
+                <tr><td><strong>$b_8$</strong></td><td>$+4{,}243$</td><td>$+4{,}243$</td><td>$13{,}435$</td><td>$-0{,}980$</td><td>$-20{,}580$</td><td>$-87{,}32$</td><td>$-87{,}32$</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p style="margin:0 0 0.45rem;"><strong>2. Por que trocamos o sinal de $M_{Rd,n}$ (Eq. 10.31) e voltamos para $(x,y)$ (Eq. 10.19)?</strong><br>
+          Quando a seção está inclinada a $45^\circ$, a resultante comprimida não está alinhada com o eixo $n$ (ela está deslocada para a esquerda, $t &lt; 0$). Isso cria um momento "parasita" em torno de $n$ ($M_{Rd,n} \neq 0$). Pela <em>regra da mão direita</em>, uma força de compressão em $t &gt; 0$ gera um momento positivo em $n$ e negativo em $t$; portanto, para manter os dois momentos compatibilizados na mesma convenção antes de rodar de volta, a apostila troca o sinal de $M_{Rd,n}$ na Eq. <button class="code-pill" data-code="10.31">[10.31]</button> ($M_{Rd,n} = -M_{Rd,nc} - M_{Rd,ns}$). Depois, giramos o vetor $(M_{Rd,t};\, M_{Rd,n})$ de volta para os eixos originais $(x, y)$:</p>
+          <div class="formula-row">
+            <div class="formula-math">$$N_{Rd,s} = 3{,}142(-23{,}255) = -73{,}058\text{ kN} \implies N_{Rd,45,3-4} = -425{,}229 - 73{,}058 = \mathbf{-498{,}287\text{ kN}}$$
+            $$M_{Rd,t} = -3290{,}354 - 5535{,}416 = -8825{,}770\text{ kNcm} \qquad M_{Rd,n} = -1486{,}812 - 3069{,}780 = -4556{,}592\text{ kNcm}$$
+            $$M_{Rd,x} = M_{Rd,t}\cos 45^\circ + M_{Rd,n}\operatorname{sen} 45^\circ = (-8825{,}77)(0{,}70711) + (-4556{,}592)(0{,}70711) = \mathbf{-9462{,}759\text{ kNcm}}$$
+            $$M_{Rd,y} = -M_{Rd,t}\operatorname{sen} 45^\circ + M_{Rd,n}\cos 45^\circ = -(-8825{,}77)(0{,}70711) + (-4556{,}592)(0{,}70711) = \mathbf{+3018{,}765\text{ kNcm}}$$</div>
+          </div>
+          <div class="callout callout-info" style="margin-bottom:0;">
+            <strong>💡 Dica de prova:</strong> No Caderno (p. 312), a equação impressa mostra sinais trocados no texto, mas o valor final calculado é exatamente <strong>$M_{Rd,x} = -9462{,}759\text{ kNcm}$</strong> e <strong>$M_{Rd,y} = +3018{,}765\text{ kNcm}$</strong>, que vêm diretamente das Eqs. <button class="code-pill" data-code="10.19">[10.19]</button> e <button class="code-pill" data-code="10.31">[10.31]</button> mostradas acima!
+          </div>
+        </div>
+
+        <!-- Passo 5 -->
+        <div class="step-card teal">
+          <div class="step-header">
+            <div class="step-title"><span class="step-num">5</span> Fatiando o Poliedro 3D no Plano de $N_{sd} = -850{,}0\text{ kN}$ (<code>18fco–19fco</code>)</div>
+            <span class="formula-ref"><button class="code-pill" data-code="10.41">[10.41]</button></span>
+          </div>
+          <p style="margin:0 0 0.5rem;"><strong>Por que fazemos esse corte e qual o atalho que economiza contas?</strong><br>
+          Cada ângulo $\alpha_{LN}$ tem 7 interfaces de domínio, formando uma superfície em 3D $(N_{Rd}, M_{Rd,x}, M_{Rd,y})$. Porém, na prática (Seção 10.8.2 da apostila, p. 190), não precisamos calcular todas as 35 combinações se soubermos em que faixa está a nossa carga $N_{sd} = -850{,}0\text{ kN}$: basta pegar, para cada ângulo, o ponto imediatamente <em>menos comprimido</em> ($N_{Rd,a} &gt; -850$) e o imediatamente <em>mais comprimido</em> ($N_{Rd,p} &lt; -850$). Aqui, em todos os 5 ângulos, $N_{sd} = -850{,}0\text{ kN}$ cai exatamente no <strong>Domínio 4</strong> (entre <code>3–4</code> e <code>4–4a</code>)!<br><br>
+          <strong>Conta aberta da interpolação para $\alpha_{LN} = 45^\circ$ (Eq. 10.41):</strong> Entre $-498{,}287\text{ kN}$ e $-1570{,}597\text{ kN}$, a carga $-850{,}0\text{ kN}$ está na fração:
+          $$f = \frac{|-850{,}0 - (-498{,}287)|}{|-1570{,}597 - (-498{,}287)|} = \frac{351{,}713}{1072{,}310} = 0{,}3280 \text{ (32,8\% do caminho de 3–4 para 4–4a!)}$$
+          $$I_{45,x} = -9462{,}759 + 0{,}3280(-5699{,}567 - (-9462{,}759)) = \mathbf{-8228{,}448\text{ kNcm}}$$
+          $$I_{45,y} = 3018{,}765 + 0{,}3280(2051{,}930 - 3018{,}765) = \mathbf{+2701{,}647\text{ kNcm}}$$</p>
+          <div class="table-wrap" style="margin-bottom:0;">
+            <table>
+              <thead>
+                <tr>
+                  <th>$\alpha_{LN}$</th>
+                  <th>Ponto Anterior <code>3–4</code> $(N_{Rd}; M_{Rd,x}; M_{Rd,y})$</th>
+                  <th>Ponto Posterior <code>4–4a</code> $(N_{Rd}; M_{Rd,x}; M_{Rd,y})$</th>
+                  <th>Interseção $I_{\alpha,x}$ (kNcm)</th>
+                  <th>Interseção $I_{\alpha,y}$ (kNcm)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>$0{,}0^\circ$</strong></td><td>$(-538{,}003;\, -13247{,}207;\, 0{,}0)$</td><td>$(-1400{,}998;\, -8168{,}239;\, 0{,}0)$</td><td class="hi-ok">$-11411{,}017$</td><td class="hi-ok">$0{,}000$</td></tr>
+                <tr><td><strong>$22{,}5^\circ$</strong></td><td>$(-558{,}354;\, -11862{,}752;\, 1352{,}175)$</td><td>$(-1493{,}599;\, -7195{,}247;\, 950{,}170)$</td><td class="hi-ok">$-10407{,}241$</td><td class="hi-ok">$+1226{,}814$</td></tr>
+                <tr><td><strong>$45{,}0^\circ$</strong></td><td>$(-498{,}287;\, -9462{,}759;\, 3018{,}765)$</td><td>$(-1570{,}597;\, -5699{,}567;\, 2051{,}930)$</td><td class="hi-ok">$-8228{,}448$</td><td class="hi-ok">$+2701{,}647$</td></tr>
+                <tr><td><strong>$67{,}5^\circ$</strong></td><td>$(-465{,}851;\, -5728{,}170;\, 5147{,}733)$</td><td>$(-1544{,}552;\, -3811{,}965;\, 3324{,}821)$</td><td class="hi-ok">$-5045{,}768$</td><td class="hi-ok">$+4498{,}554$</td></tr>
+                <tr><td><strong>$90{,}0^\circ$</strong></td><td>$(-464{,}170;\, 0{,}0;\, 7676{,}446)$</td><td>$(-1317{,}483;\, 0{,}0;\, 5103{,}179)$</td><td class="hi-ok">$0{,}000$</td><td class="hi-ok">$+6512{,}930$</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Passo 6: Polígono Interativo FCO -->
+        <div class="step-card amber">
+          <div class="step-header">
+            <div class="step-title"><span class="step-num">6</span> Verificação 2D no Plano de $N_{sd}$ e Semi-Infinito Plano da Esquerda (<code>20fco</code>)</div>
+            <span class="formula-ref"><button class="code-pill" data-code="10.39">[10.39]</button></span>
+          </div>
+          <p style="margin:0 0 0.65rem;"><strong>Por que fechamos o polígono em $(0{,}0;\, 0{,}0)$?</strong> Os pontos $I_0 \to I_{22{,}5} \to I_{45} \to I_{67{,}5} \to I_{90}$ desenham a fronteira segura do 1º quadrante para $N_{sd} = -850\text{ kN}$. Para usar o método do <strong>Semi-Infinito Plano da Esquerda em 2D</strong> (mesma lógica da FCN, agora com $M_{sd,x} = -4250{,}0$ na horizontal e $M_{sd,y} = +2550{,}0$ na vertical), fechamos o polígono ligando $I_{90}$ à origem $(0;0)$.<br>
+          • Na aresta <code>I₂₂,₅ → I₄₅</code>, $M_{sd,y} = 2550$ está entre $1226{,}81$ e $2701{,}65$ ($A_{Nsd} = \text{Verdadeira}$), mas na reta $M_{x,\lim} = -8452{,}48$, e $M_{sd,x} = -4250 &gt; -8452{,}48$ (está à <em>direita</em> da borda externa, portanto $SI_p = \text{Falsa}$, e <code>Rp</code> continua Falsa).<br>
+          • Na última aresta <code>I₉₀ → (0;0)</code>, $M_{sd,y} = 2550$ está entre $6512{,}93$ e $0$ ($A_{Nsd} = \text{Verdadeira}$) e $M_{x,\lim} = 0{,}0$, logo $-4250 &lt; 0{,}0 \implies SI_p = \text{Verdadeira}$! Como ambas são verdadeiras, <code>Rp</code> vira <strong>Verdadeira</strong> (ponto dentro da região segura!):</p>
+
+          <div class="combo-controls" id="fcoEdgeBtns">
+            <button class="combo-btn active" data-edge="-1">Plano de Nsd Completo</button>
+            <button class="combo-btn" data-edge="0">I₀ → I₂₂,₅</button>
+            <button class="combo-btn" data-edge="1">I₂₂,₅ → I₄₅</button>
+            <button class="combo-btn" data-edge="2">I₄₅ → I₆₇,₅</button>
+            <button class="combo-btn" data-edge="3">I₆₇,₅ → I₉₀</button>
+            <button class="combo-btn" data-edge="4">I₉₀ → (0; 0)</button>
+          </div>
+
+          <div class="readout-strip">
+            <div class="readout-item"><span>Aresta Selecionada</span><strong id="fco-ro-edge">Todas (Sentido Horário)</strong></div>
+            <div class="readout-item"><span>Alt. $M_{sd,y}$ ($A_{Nsd}$)</span><strong id="fco-ro-ansd">Inicia Rp = Falsa</strong></div>
+            <div class="readout-item"><span>$M_{x,\lim}$ na reta</span><strong id="fco-ro-mlim">—</strong></div>
+            <div class="readout-item"><span>Semi-inf. Esq. ($SI_p$)</span><strong id="fco-ro-sip">—</strong></div>
+            <div class="readout-item"><span>Estado $R_p$ após aresta</span><strong id="fco-ro-rp">Verdadeira (DENTRO)</strong></div>
+          </div>
+
+          <div class="svg-panel" style="margin-bottom:0.85rem;">
+            <svg id="fcoPolySvg" viewBox="0 0 880 370" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif"></svg>
+            <div class="svg-caption">Figura 4.2 — Polígono de momentos resistentes no plano $N_{sd} = -850{,}0\text{ kN}$ e verificação do ponto $P_s = (-4250{,}0;\, +2550{,}0)$ no 1º quadrante da segurança.</div>
+          </div>
+
+          <div class="table-wrap" style="margin-bottom:0;">
+            <table id="fcoSemiInfTable">
+              <thead>
+                <tr>
+                  <th class="left">Aresta ($a \to p$)</th>
+                  <th>$I_{a,y}$ (kNcm)</th>
+                  <th>$I_{p,y}$ (kNcm)</th>
+                  <th>$A_{Nsd}$: $(I_{a,y} &gt; M_{sd,y}) \neq (I_{p,y} &gt; M_{sd,y})$</th>
+                  <th>$M_{x,\lim}$ (kNcm)</th>
+                  <th>$SI_p$: $M_{sd,x} &lt; M_{x,\lim}$</th>
+                  <th>$R_p$ (Acumulado)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-edge="0"><td class="left"><strong>$I_0 \to I_{22{,}5}$</strong></td><td>$0{,}00$</td><td>$1226{,}81$</td><td>Falsa</td><td>$-9324{,}61$</td><td>Falsa ($-4250 &gt; -9324{,}61$)</td><td>Falsa</td></tr>
+                <tr data-edge="1"><td class="left"><strong>$I_{22{,}5} \to I_{45}$</strong></td><td>$1226{,}81$</td><td>$2701{,}65$</td><td class="hi-warn">Verdadeira</td><td>$-8452{,}48$</td><td>Falsa ($-4250 &gt; -8452{,}48$)</td><td>Falsa</td></tr>
+                <tr data-edge="2"><td class="left"><strong>$I_{45} \to I_{67{,}5}$</strong></td><td>$2701{,}65$</td><td>$4498{,}55$</td><td>Falsa</td><td>$-8497{,}05$</td><td>Falsa ($-4250 &gt; -8497{,}05$)</td><td>Falsa</td></tr>
+                <tr data-edge="3"><td class="left"><strong>$I_{67{,}5} \to I_{90}$</strong></td><td>$4498{,}55$</td><td>$6512{,}93$</td><td>Falsa</td><td>$-9926{,}66$</td><td>Falsa ($-4250 &gt; -9926{,}66$)</td><td>Falsa</td></tr>
+                <tr data-edge="4"><td class="left"><strong>$I_{90} \to (0{,}0;\, 0{,}0)$</strong></td><td>$6512{,}93$</td><td>$0{,}00$</td><td class="hi-ok">Verdadeira</td><td>$0{,}00$</td><td class="hi-ok">Verdadeira ($-4250 &lt; 0$)</td><td class="hi-ok">Verdadeira (Final!)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="result-banner">
+          <div><span class="res-label">Verificação Final — Exemplo 10.1.3 (p. 388)</span></div>
+          <div class="res-val">Rp final = Verdadeira → O pilar resiste à flexo-compressão oblíqua ✓</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Formula Reference Drawer -->
+  <div class="drawer-backdrop" id="formulaDrawer">
+    <div class="drawer">
+      <div class="drawer-header">
+        <div>
+          <h3 style="margin:0; font-size:1.1rem;">Consulta Rápida — Formulário Cap. 9 e 10</h3>
+          <span style="font-size:0.78rem; color:var(--ink-muted);">Equações oficiais de NotasEstruturasConcreto-2021.pdf</span>
+        </div>
+        <button class="drawer-close" id="closeDrawerBtn">✕ Fechar</button>
+      </div>
+      <input type="text" class="drawer-search" id="drawerSearch" placeholder="Buscar por código (ex: 9.1, 10.11, T10.1) ou palavra-chave..." />
+      <div id="drawerList"></div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. FORMULA DATABASE (Capítulos 9 e 10 — Apostila 2021)
+    // =========================================================================
+    const FORMULAS = {
+      "9.1": { form: "Cap. 9 — p. 165", title: "Ângulo de Desaprumo do Lance (θ1)", desc: "ℓe,i obrigatoriamente em metros. Não arredondar em radianos para os cálculos.", tex: "$$\\theta_1 = \\frac{1}{100\\sqrt{\\ell_{e,i}}} \\quad \\left(\\frac{1}{300} \\le \\theta_1 \\le \\frac{1}{200}\\right)$$" },
+      "9.2": { form: "Cap. 9 — p. 165", title: "Imperfeição Local: Excentricidade e Momento (el, Ml)", desc: "Falta de retilineidade ao longo do lance do pilar.", tex: "$$e_{l,i} = \\theta_1\\frac{\\ell_{e,i}}{2} \\qquad M_{l,i} = N_{sd,i}\\, e_{l,i}$$" },
+      "9.3": { form: "Cap. 9 — p. 165", title: "Ângulo de Desaprumo Global (θa)", desc: "n é o número de prumadas/níveis. Se predominar laje sem viga, θa = θ1.", tex: "$$\\theta_a = \\theta_1\\sqrt{\\frac{1}{2} + \\frac{1}{2n}}$$" },
+      "9.5": { form: "Cap. 9 — p. 166", title: "Momento da Imperfeição Global (Mg,i)", desc: "Momento adicional no lance i devido ao desaprumo global θa (em radianos).", tex: "$$M_{g,i} = N_{sd,i}\\,\\ell_{e,i}\\,\\theta_a$$" },
+      "9.8": { form: "Cap. 9 — p. 171", title: "Esbeltez do Lance (λex, λey)", desc: "Seção retangular: h é a dimensão perpendicular ao eixo do momento (regra da mão direita).", tex: "$$\\lambda_{ex} = \\frac{\\sqrt{12}\\,\\ell_{f,x}}{h_x} \\qquad \\lambda_{ey} = \\frac{\\sqrt{12}\\,\\ell_{f,y}}{h_y}$$" },
+      "9.9": { form: "Cap. 9 — p. 171", title: "Esbeltez Limite de Referência (λ1) e αb", desc: "Se λe ≤ λ1, despreza-se a 2ª ordem local. Sem carga transf.: αb = 0,6 + 0,4(Mb/Ma) ∈ [0,4; 1,0]. Com carga transf.: αb = 1,0.", tex: "$$\\lambda_1 = \\frac{25}{\\alpha_b} + \\frac{12{,}5\\,e_1}{\\alpha_b\\,h} \\quad (35 \\le \\lambda_1 \\le 90) \\qquad e_1 = \\frac{M_a}{N_{sd}}$$" },
+      "9.13": { form: "Cap. 9 — p. 172", title: "Pilar Padrão com Rigidez Aproximada (Msd,tot)", desc: "Solução da equação do 2º grau para Mrd = Msd,tot (válida para λe ≤ 90).", tex: "$$M_{sd,tot} = N_{sd}h\\left(\\frac{\\lambda_e^2}{38400} - \\frac{1}{10}\\right) + \\frac{\\alpha_b M_{sd,1}}{2} + \\frac{\\sqrt{C}}{38400}$$" },
+      "9.14": { form: "Cap. 9 — p. 172", title: "Discriminante C do Pilar Padrão", desc: "Usar Msd,1 = max(Msd,1; Msd,min) e h na direção da flexão.", tex: "$$C = N_{sd}^2 h^2(\\lambda_e^2 - 3840)^2 + 38400\\,N_{sd}\\alpha_b h M_{sd,1}(\\lambda_e^2 + 3840) + 368640000\\,\\alpha_b^2 M_{sd,1}^2$$" },
+      "10.1": { form: "Cap. 10 — p. 173", title: "Comprimento Equivalente do Pilar (ℓe)", desc: "ℓ0 é a distância livre entre faces internas das vigas; ℓ é a distância entre eixos das vigas.", tex: "$$\\ell_e = \\ell_0 + h \\le \\ell \\qquad \\ell = \\ell_0 + \\frac{h_{\\text{sup}}}{2} + \\frac{h_{\\text{inf}}}{2}$$" },
+      "10.3": { form: "Cap. 10 — p. 174", title: "Armadura Longitudinal Mínima (As,min)", desc: "Maior valor entre 15% de Nsd/fyd e 0,4% da área de concreto.", tex: "$$A_{s,\\min} = \\frac{0{,}15\\,N_{sd}}{f_{yd}} \\ge 0{,}004\\,A_c$$" },
+      "10.4": { form: "Cap. 10 — p. 175", title: "Armadura Longitudinal Máxima (As,max)", desc: "Limite máximo inclusive em regiões de emenda por transpasse.", tex: "$$A_{s,\\max} = 0{,}08\\,A_c$$" },
+      "10.5": { form: "Cap. 10 — p. 175", title: "Limites da Bitola Longitudinal (φl)", desc: "Não inferior a 10 mm nem superior a 1/8 da menor dimensão do pilar.", tex: "$$10\\text{ mm} \\le \\phi_l \\le \\frac{1}{8}h_{\\min}$$" },
+      "10.7": { form: "Cap. 10 — p. 175", title: "Espaçamento Mínimo entre Faces (af)", desc: "Espaçamento livre mínimo entre barras longitudinais.", tex: "$$a_f \\ge \\max(20\\text{ mm};\\; \\phi_l;\\; 1{,}2\\,d_{\\max})$$" },
+      "10.8": { form: "Cap. 10 — p. 175", title: "Espaçamento Máximo entre Eixos (ae)", desc: "Distância máxima entre eixos de barras longitudinais.", tex: "$$a_e \\le \\min(2\\,h_{\\min};\\; 400\\text{ mm})$$" },
+      "10.9": { form: "Cap. 10 — p. 176", title: "Espaçamento Máximo dos Estribos (s)", desc: "Cs = 12 para CA-50 e Cs = 25 para CA-25.", tex: "$$s \\le \\min(200\\text{ mm};\\; h_{\\min};\\; C_s\\phi_l)$$" },
+      "10.10": { form: "Cap. 10 — p. 176", title: "Estribo Fino (φt < φl / 4)", desc: "Verificação extra de flambagem da barra quando φt < φl/4 (fyk em MPa).", tex: "$$s \\le 90000\\left(\\frac{\\phi_t^2}{\\phi_l}\\right)\\frac{1}{f_{yk}}$$" },
+      "10.11": { form: "Cap. 10 — p. 176", title: "Momento Solicitante Mínimo (Msd,min)", desc: "h obrigatoriamente em metros; retorna momento em torno do eixo perpendicular.", tex: "$$M_{sd,\\min} = N_{sd}(0{,}015 + 0{,}03\\,h)$$" },
+      "10.21": { form: "Cap. 10 — p. 180", title: "Tensão no Concreto Comprimido (σc)", desc: "Para x > 0, usa-se ηc = 0,9 αc = 0,765 (para fck ≤ 50 MPa) por segurança.", tex: "$$\\sigma_c = -\\eta_c f_{cd} = -0{,}9\\alpha_c f_{cd}$$" },
+      "T10.1": { form: "Cap. 10 — p. 181", title: "Tabela 10.1 — Deformações Limites (εc, εs)", desc: "Encurtamentos são negativos e alongamentos positivos (em ‰).", tex: "$$\\text{a: }(+10,+10) \\quad \\text{1-2: }(0,+10) \\quad \\text{2-3: }(-\\varepsilon_{cu},+10)$$ $$\\text{3-4: }(-\\varepsilon_{cu},+\\varepsilon_{yd}) \\quad \\text{4-4a: }(-\\varepsilon_{cu},0) \\quad \\text{4a-5: }(-\\varepsilon_{cu},-\\varepsilon_{cu}\\tfrac{h_n-d}{h_n}) \\quad \\text{b: }(-\\varepsilon_{c2},-\\varepsilon_{c2})$$" },
+      "10.22": { form: "Cap. 10 — p. 181", title: "Deformação na Barra i (εsi)", desc: "Interpolação linear a partir da fibra mais encurtada (di medido a partir do topo).", tex: "$$\\varepsilon_{si} = (\\varepsilon_s - \\varepsilon_c)\\frac{d_i}{d} + \\varepsilon_c$$" },
+      "10.23": { form: "Cap. 10 — p. 181", title: "Tensão na Barra i (σsi)", desc: "Dividir εsi (em ‰) por 1000 antes de multiplicar por Es = 21000 kN/cm².", tex: "$$\\sigma_{si} = E_s\\,\\varepsilon_{si} \\qquad (-f_{yd} \\le \\sigma_{si} \\le +f_{yd})$$" },
+      "10.29": { form: "Cap. 10 — p. 184", title: "Resistências na Seção FCN (Nrd, Mrd,t)", desc: "Soma das parcelas de concreto e das bs barras da armadura.", tex: "$$N_{Rd} = \\sigma_c A_{cc} + \\frac{A_s}{b_s}\\sum_{i=1}^{b_s}\\sigma_{si} \\qquad M_{Rd,t} = \\sigma_c S_{ct} + \\frac{A_s}{b_s}\\sum_{i=1}^{b_s}\\sigma_{si}n_{si}$$" },
+      "4fcn": { form: "Cap. 10 — p. 192", title: "Posições da Linha Neutra (x)", desc: "7 pontos que definem o polígono simplificado na FCN.", tex: "$$x_a=-\\infty,\\; x_{12}=0,\\; x_{23}=d\\frac{\\varepsilon_{cu}}{\\varepsilon_{cu}+10},\\; x_{34}=d\\frac{\\varepsilon_{cu}}{\\varepsilon_{cu}+\\varepsilon_{yd}},\\; x_{44a}=d,\\; x_{4a5}=h_n,\\; x_b=+\\infty$$" },
+      "5fcn": { form: "Cap. 10 — p. 193", title: "Área de Concreto Comprimido (Acc)", desc: "Para x > 0: y = ζc x (na reta b, y = hn).", tex: "$$A_{cc} = h_t\\,y$$" },
+      "6fcn": { form: "Cap. 10 — p. 193", title: "Primeiro Momento de Área (Sct)", desc: "Distância do CG da seção até o CG do bloco comprimido multiplicada por Acc.", tex: "$$S_{ct} = A_{cc}\\frac{h_n - y}{2}$$" },
+      "10fcn": { form: "Cap. 10 — p. 188", title: "Semi-Infinito Plano da Esquerda", desc: "Percorrer arestas i→j no sentido horário. Começar Rp=Falsa; inverter se ANsd e SIp forem ambas verdadeiras.", tex: "$$A_{Nsd}: (M_{Rd,i}&gt;M_{sd})\\neq(M_{Rd,j}&gt;M_{sd}) \\qquad SI_p: N_{sd} &lt; (N_{Rd,j}-N_{Rd,i})\\frac{M_{sd}-M_{Rd,i}}{M_{Rd,j}-M_{Rd,i}} + N_{Rd,i}$$" },
+      "10.rot": { form: "Cap. 10 — p. 180", title: "Rotação de Coordenadas (x,y) → (t,n)", desc: "Converte vértices e barras do sistema original (x,y) para o sistema da linha neutra inclinada αLN.", tex: "$$t = x\\cos(\\alpha_{LN}) - y\\operatorname{sen}(\\alpha_{LN}) \\qquad n = x\\operatorname{sen}(\\alpha_{LN}) + y\\cos(\\alpha_{LN})$$" },
+      "10.24": { form: "Cap. 10 — p. 182", title: "Interseção da Reta Limite com as Arestas (tI)", desc: "Para nI = nt - y, verifica quais arestas j→j+1 cruzam a reta limite (tj ≤ tI ≤ tj+1).", tex: "$$t_I = t_j + (n_I - n_j)\\frac{t_{j+1}-t_j}{n_{j+1}-n_j}$$" },
+      "10.26": { form: "Cap. 10 — p. 183–184", title: "Teorema de Green: Acc, Sct e Scn", desc: "Vértices da região comprimida ordenados no sentido anti-horário fechando no ponto 1.", tex: "$$A_{cc}=\\frac{1}{2}\\sum_{j=1}^{v_n}(t_{j+1}+t_j)(n_{j+1}-n_j) \\quad S_{ct}=\\frac{1}{6}\\sum_{j=1}^{v_n}(n_{j+1}+n_j)(t_j n_{j+1}-t_{j+1}n_j) \\quad S_{cn}=\\frac{1}{6}\\sum_{j=1}^{v_n}(t_{j+1}+t_j)(t_j n_{j+1}-t_{j+1}n_j)$$" },
+      "10.31": { form: "Cap. 10 — p. 184", title: "Resistência em (t,n) com Sinal Trocado em Mrd,n", desc: "Compatibilização pela regra da mão direita: Mrd,n entra com sinal negativo.", tex: "$$M_{Rd,t} = M_{Rd,tc} + M_{Rd,ts} \\qquad M_{Rd,n} = -M_{Rd,nc} - M_{Rd,ns}$$" },
+      "10.19": { form: "Cap. 10 — p. 180/199", title: "Conversão dos Momentos (t,n) → (x,y)", desc: "Transporta o ponto do poliedro resistente para o sistema global da seção (x,y).", tex: "$$M_{Rd,x} = M_{Rd,t}\\cos(\\alpha_{LN}) + M_{Rd,n}\\operatorname{sen}(\\alpha_{LN}) \\qquad M_{Rd,y} = -M_{Rd,t}\\operatorname{sen}(\\alpha_{LN}) + M_{Rd,n}\\cos(\\alpha_{LN})$$" },
+      "10.41": { form: "Cap. 10 — p. 190", title: "Corte no Plano de Nsd (Pontos IαLN)", desc: "Interpola linearmente entre os pontos anterior (a) e posterior (p) que cercam Nsd.", tex: "$$I_{\\alpha,x} = M_{Rd,x,a} + \\frac{|N_{sd}-N_{Rd,a}|}{|N_{Rd,p}-N_{Rd,a}|}(M_{Rd,x,p}-M_{Rd,x,a}) \\qquad I_{\\alpha,y} = M_{Rd,y,a} + \\frac{|N_{sd}-N_{Rd,a}|}{|N_{Rd,p}-N_{Rd,a}|}(M_{Rd,y,p}-M_{Rd,y,a})$$" },
+      "10.39": { form: "Cap. 10 — p. 190", title: "Semi-Infinito Plano na FCO (2D em Mrd,x × Mrd,y)", desc: "Percorrer I0 → I22,5 → I45 → I67,5 → I90 → (0,0). Inverter Rp quando ambas forem verdadeiras.", tex: "$$A_{Nsd}: (I_{a,y}&gt;M_{sd,y})\\neq(I_{p,y}&gt;M_{sd,y}) \\qquad SI_p: M_{sd,x} &lt; (I_{p,x}-I_{a,x})\\frac{M_{sd,y}-I_{a,y}}{I_{p,y}-I_{a,y}} + I_{a,x}$$" }
+    };
+
+    // =========================================================================
+    // 2. TOPIC TAB SWITCHING
+    // =========================================================================
+    const navButtons = document.querySelectorAll('#topicNav .nav-pill');
+    const sections = document.querySelectorAll('.topic-section');
+
+    function selectTopic(target) {
+      navButtons.forEach(b => b.classList.toggle('active', b.dataset.target === target));
+      sections.forEach(s => {
+        if (target === 'all' || s.id === target) s.classList.remove('hidden-tab');
+        else s.classList.add('hidden-tab');
+      });
+      if (target !== 'all') window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    navButtons.forEach(btn => btn.addEventListener('click', () => selectTopic(btn.dataset.target)));
+
+    // =========================================================================
+    // 3. FORMULA DRAWER INTERACTIVITY
+    // =========================================================================
+    const drawer = document.getElementById('formulaDrawer');
+    const drawerList = document.getElementById('drawerList');
+    const drawerSearch = document.getElementById('drawerSearch');
+
+    function renderDrawer(highlightCode = null, filter = '') {
+      const f = filter.trim().toLowerCase();
+      drawerList.innerHTML = '';
+      Object.entries(FORMULAS).forEach(([code, item]) => {
+        const hay = `${code} ${item.title} ${item.desc} ${item.form}`.toLowerCase();
+        if (f && !hay.includes(f)) return;
+        const div = document.createElement('div');
+        div.className = 'drawer-card' + (highlightCode === code ? ' highlight' : '');
+        div.id = `drawer-card-${code}`;
+        div.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.3rem;">
+            <strong style="font-size:0.9rem; color:#0f172a;"><span class="code-pill" style="margin-left:0;">[${code}]</span> ${item.title}</strong>
+            <span style="font-size:0.72rem; color:#64748b;">${item.form}</span>
+          </div>
+          <p style="margin:0 0 0.45rem; font-size:0.82rem; color:#475569;">${item.desc}</p>
+          <div style="background:#fff; border:1px solid #e2e8f0; border-radius:6px; padding:0.4rem 0.6rem; overflow-x:auto; font-size:0.84rem;">${item.tex}</div>
+        `;
+        drawerList.appendChild(div);
+      });
+      renderKaTeX(drawerList);
+      if (highlightCode) {
+        const el = document.getElementById(`drawer-card-${highlightCode}`);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    document.getElementById('openDrawerBtn').addEventListener('click', () => {
+      drawer.classList.add('open');
+      renderDrawer();
+    });
+    document.getElementById('closeDrawerBtn').addEventListener('click', () => drawer.classList.remove('open'));
+    drawer.addEventListener('click', (e) => { if (e.target === drawer) drawer.classList.remove('open'); });
+    drawerSearch.addEventListener('input', (e) => renderDrawer(null, e.target.value));
+
+    document.addEventListener('click', (e) => {
+      const pill = e.target.closest('.code-pill');
+      if (pill && pill.dataset.code) {
+        drawer.classList.add('open');
+        drawerSearch.value = '';
+        renderDrawer(pill.dataset.code);
+      }
+    });
+
+    // =========================================================================
+    // 4. INTERACTIVE SAFETY POLYGON SVG (FCN)
+    // =========================================================================
+    const POLY_PTS = [
+      { id: 'a',    N: 661.098,   M: 0.0,        dx: 12,  dy: -10 },
+      { id: '1-2',  N: 482.96,    M: -5148.194,  dx: 12,  dy: 16  },
+      { id: '2-3',  N: -1267.347, M: -55064.181, dx: 12,  dy: 14  },
+      { id: '3-4',  N: -3071.566, M: -77275.22,  dx: 0,   dy: 20  },
+      { id: '4-4a', N: -5218.643, M: -55696.476, dx: -14, dy: 14  },
+      { id: '4a-5', N: -5733.964, M: -45628.617, dx: -16, dy: 12  },
+      { id: 'b',    N: -7332.024, M: 0.0,        dx: -12, dy: -10 }
+    ];
+
+    const EDGE_INFO = [
+      { name: 'Dom 1 (a → 1-2)',     ansd: 'Falsa',      nlim: '-970,13 kN',  sip: 'Verdadeira', rp: 'Falsa' },
+      { name: 'Dom 2 (1-2 → 2-3)',   ansd: 'Verdadeira', nlim: '-989,58 kN',  sip: 'Verdadeira', rp: 'Verdadeira (Inverte!)' },
+      { name: 'Dom 3 (2-3 → 3-4)',   ansd: 'Falsa',      nlim: '-623,87 kN',  sip: 'Verdadeira', rp: 'Verdadeira' },
+      { name: 'Dom 4 (3-4 → 4-4a)',  ansd: 'Falsa',      nlim: '-6069,75 kN', sip: 'Falsa',      rp: 'Verdadeira' },
+      { name: 'Dom 4a (4-4a → 4a-5)',ansd: 'Verdadeira', nlim: '-5656,47 kN', sip: 'Falsa',      rp: 'Verdadeira' },
+      { name: 'Dom 5 (4a-5 → b)',    ansd: 'Falsa',      nlim: '-5680,94 kN', sip: 'Falsa',      rp: 'Verdadeira (Final)' }
+    ];
+
+    function drawPolygon(activeEdge = -1) {
+      const svg = document.getElementById('polygonSvg');
+      // Map N from [-8000, +1200] -> [75, 835]
+      // Map M from [0, -86000] -> [55, 340] (going downward as moment becomes more negative, matching Fig. 10.10!)
+      const sx = n => 75 + ((n - (-8000)) / 9200) * 760;
+      const sy = m => 55 + ((-m) / 86000) * 285;
+
+      const polyCoords = POLY_PTS.map(p => `${sx(p.N).toFixed(1)},${sy(p.M).toFixed(1)}`).join(' ');
+
+      let semiInfSvg = '';
+      if (activeEdge >= 0) {
+        const pi = POLY_PTS[activeEdge];
+        const pj = POLY_PTS[activeEdge + 1];
+        const x1 = sx(pi.N), y1 = sy(pi.M), x2 = sx(pj.N), y2 = sy(pj.M);
+        // Extend infinite line and shade left half-plane (in screen coords: N < N_lim means smaller x!)
+        const tTop = (20 - y1) / (y2 - y1);
+        const tBot = (365 - y1) / (y2 - y1);
+        const xTop = x1 + tTop * (x2 - x1);
+        const xBot = x1 + tBot * (x2 - x1);
+        semiInfSvg = `
+          <polygon points="30,20 ${xTop.toFixed(1)},20 ${xBot.toFixed(1)},365 30,365" fill="#f59e0b" fill-opacity="0.16"/>
+          <line x1="${xTop.toFixed(1)}" y1="20" x2="${xBot.toFixed(1)}" y2="365" stroke="#d97706" stroke-width="2" stroke-dasharray="6,4"/>
+          <line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#b91c1c" stroke-width="4"/>
+        `;
+        const info = EDGE_INFO[activeEdge];
+        document.getElementById('ro-edge').textContent = info.name;
+        document.getElementById('ro-ansd').textContent = info.ansd;
+        document.getElementById('ro-nlim').textContent = info.nlim;
+        document.getElementById('ro-sip').textContent = info.sip;
+        document.getElementById('ro-rp').textContent = info.rp;
+      } else {
+        document.getElementById('ro-edge').textContent = 'Todas (Sentido Horário)';
+        document.getElementById('ro-ansd').textContent = 'Inicia Rp = Falsa';
+        document.getElementById('ro-nlim').textContent = '—';
+        document.getElementById('ro-sip').textContent = '—';
+        document.getElementById('ro-rp').textContent = 'Verdadeira (DENTRO)';
+      }
+
+      const nodesSvg = POLY_PTS.map(p => `
+        <circle cx="${sx(p.N).toFixed(1)}" cy="${sy(p.M).toFixed(1)}" r="4.5" fill="#1d4ed8" stroke="#fff" stroke-width="1.5"/>
+        <text x="${(sx(p.N)+p.dx).toFixed(1)}" y="${(sy(p.M)+p.dy).toFixed(1)}" text-anchor="${p.dx > 0 ? 'start' : (p.dx < 0 ? 'end' : 'middle')}" font-size="10.5" font-weight="700" fill="#1e293b">${p.id} (${Math.round(p.N)}, ${Math.round(p.M)})</text>
+      `).join('');
+
+      const psX = sx(-2576.1), psY = sy(-47142.63);
+
+      svg.innerHTML = `
+        <defs><clipPath id="polyClip"><rect x="30" y="20" width="820" height="345" rx="8"/></clipPath></defs>
+        <g clip-path="url(#polyClip)">
+          ${semiInfSvg}
+          <!-- Axes -->
+          <line x1="40" y1="${sy(0)}" x2="845" y2="${sy(0)}" stroke="#64748b" stroke-width="1.4"/>
+          <line x1="${sx(0)}" y1="25" x2="${sx(0)}" y2="360" stroke="#64748b" stroke-width="1.4"/>
+          <text x="840" y="${sy(0)-8}" text-anchor="end" font-size="11" font-weight="800" fill="#475569">Nrd [kN] (Tração +)</text>
+          <text x="48" y="${sy(0)-8}" text-anchor="start" font-size="11" font-weight="800" fill="#475569">(Compressão −) Nrd [kN]</text>
+          <text x="${sx(0)+8}" y="352" font-size="11" font-weight="800" fill="#475569">Mrd,t [kNcm]</text>
+
+          <!-- Polygon -->
+          <polygon points="${polyCoords}" fill="#2563eb" fill-opacity="0.14" stroke="#1d4ed8" stroke-width="2.4"/>
+          ${nodesSvg}
+
+          <!-- Ps Point -->
+          <line x1="40" y1="${psY.toFixed(1)}" x2="${psX.toFixed(1)}" y2="${psY.toFixed(1)}" stroke="#dc2626" stroke-width="1" stroke-dasharray="4,3"/>
+          <line x1="${psX.toFixed(1)}" y1="${sy(0)}" x2="${psX.toFixed(1)}" y2="${psY.toFixed(1)}" stroke="#dc2626" stroke-width="1" stroke-dasharray="4,3"/>
+          <circle cx="${psX.toFixed(1)}" cy="${psY.toFixed(1)}" r="6.5" fill="#dc2626" stroke="#fff" stroke-width="2"/>
+          <rect x="${(psX+10).toFixed(1)}" y="${(psY-24).toFixed(1)}" width="175" height="22" rx="5" fill="#fef2f2" stroke="#fca5a5"/>
+          <text x="${(psX+16).toFixed(1)}" y="${(psY-9).toFixed(1)}" font-size="11" font-weight="800" fill="#b91c1c">Ps (-2576,1 ; -47142,6)</text>
+        </g>
+      `;
+
+      document.querySelectorAll('#semiInfTable tbody tr').forEach(tr => {
+        tr.classList.toggle('active-row', Number(tr.dataset.edge) === activeEdge);
+      });
+    }
+
+    document.querySelectorAll('#edgeBtns .combo-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#edgeBtns .combo-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        drawPolygon(Number(btn.dataset.edge));
+      });
+    });
+    document.querySelectorAll('#semiInfTable tbody tr').forEach(tr => {
+      tr.style.cursor = 'pointer';
+      tr.addEventListener('click', () => {
+        const idx = Number(tr.dataset.edge);
+        document.querySelectorAll('#edgeBtns .combo-btn').forEach(b => b.classList.toggle('active', Number(b.dataset.edge) === idx));
+        drawPolygon(idx);
+      });
+    });
+
+    // =========================================================================
+    // 5. INTERACTIVE FCO PLANE Nsd POLYGON SVG (Ex. 10.1.3)
+    // =========================================================================
+    const FCO_PTS = [
+      { id: 'I₀',     x: -11411.017, y: 0.0,      dx: -6, dy: -12 },
+      { id: 'I₂₂,₅',  x: -10407.241, y: 1226.814, dx: -10, dy: -8 },
+      { id: 'I₄₅',    x: -8228.448,  y: 2701.647, dx: -10, dy: -10 },
+      { id: 'I₆₇,₅',  x: -5045.768,  y: 4498.554, dx: -8, dy: -10 },
+      { id: 'I₉₀',    x: 0.0,        y: 6512.930, dx: 12, dy: -4 },
+      { id: '(0;0)',  x: 0.0,        y: 0.0,      dx: 12, dy: -10 }
+    ];
+
+    const FCO_EDGES = [
+      { name: 'I₀ → I₂₂,₅',    ansd: 'Falsa',      mlim: '-9324,61 kNcm', sip: 'Falsa',      rp: 'Falsa' },
+      { name: 'I₂₂,₅ → I₄₅',   ansd: 'Verdadeira', mlim: '-8452,48 kNcm', sip: 'Falsa',      rp: 'Falsa' },
+      { name: 'I₄₅ → I₆₇,₅',   ansd: 'Falsa',      mlim: '-8497,05 kNcm', sip: 'Falsa',      rp: 'Falsa' },
+      { name: 'I₆₇,₅ → I₉₀',   ansd: 'Falsa',      mlim: '-9926,66 kNcm', sip: 'Falsa',      rp: 'Falsa' },
+      { name: 'I₉₀ → (0; 0)',  ansd: 'Verdadeira', mlim: '0,00 kNcm',     sip: 'Verdadeira', rp: 'Verdadeira (DENTRO!)' }
+    ];
+
+    function drawFcoPolygon(activeEdge = -1) {
+      const svg = document.getElementById('fcoPolySvg');
+      if (!svg) return;
+      // Map Mrd,x from [-12800, +1500] -> [70, 825]
+      // Map Mrd,y from [0, +7400] -> [325, 42]
+      const sx = mx => 70 + ((mx - (-12800)) / 14300) * 755;
+      const sy = my => 325 - (my / 7400) * 283;
+
+      const polyCoords = FCO_PTS.map(p => `${sx(p.x).toFixed(1)},${sy(p.y).toFixed(1)}`).join(' ');
+
+      let semiInfSvg = '';
+      if (activeEdge >= 0) {
+        const pi = FCO_PTS[activeEdge];
+        const pj = FCO_PTS[activeEdge + 1];
+        const x1 = sx(pi.x), y1 = sy(pi.y), x2 = sx(pj.x), y2 = sy(pj.y);
+        const tTop = (20 - y1) / (y2 - y1);
+        const tBot = (350 - y1) / (y2 - y1);
+        const xTop = x1 + tTop * (x2 - x1);
+        const xBot = x1 + tBot * (x2 - x1);
+        semiInfSvg = `
+          <polygon points="30,20 ${xTop.toFixed(1)},20 ${xBot.toFixed(1)},350 30,350" fill="#f59e0b" fill-opacity="0.16"/>
+          <line x1="${xTop.toFixed(1)}" y1="20" x2="${xBot.toFixed(1)}" y2="350" stroke="#d97706" stroke-width="2" stroke-dasharray="6,4"/>
+          <line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#b91c1c" stroke-width="4"/>
+        `;
+        const info = FCO_EDGES[activeEdge];
+        document.getElementById('fco-ro-edge').textContent = info.name;
+        document.getElementById('fco-ro-ansd').textContent = info.ansd;
+        document.getElementById('fco-ro-mlim').textContent = info.mlim;
+        document.getElementById('fco-ro-sip').textContent = info.sip;
+        document.getElementById('fco-ro-rp').textContent = info.rp;
+      } else {
+        document.getElementById('fco-ro-edge').textContent = 'Todas (Sentido Horário)';
+        document.getElementById('fco-ro-ansd').textContent = 'Inicia Rp = Falsa';
+        document.getElementById('fco-ro-mlim').textContent = '—';
+        document.getElementById('fco-ro-sip').textContent = '—';
+        document.getElementById('fco-ro-rp').textContent = 'Verdadeira (DENTRO)';
+      }
+
+      const nodesSvg = FCO_PTS.map(p => `
+        <circle cx="${sx(p.x).toFixed(1)}" cy="${sy(p.y).toFixed(1)}" r="4.5" fill="#0f766e" stroke="#fff" stroke-width="1.5"/>
+        <text x="${(sx(p.x)+p.dx).toFixed(1)}" y="${(sy(p.y)+p.dy).toFixed(1)}" text-anchor="${p.dx > 0 ? 'start' : (p.dx < 0 ? 'end' : 'middle')}" font-size="10.5" font-weight="700" fill="#1e293b">${p.id} (${Math.round(p.x)}; ${Math.round(p.y)})</text>
+      `).join('');
+
+      const psX = sx(-4250.0), psY = sy(2550.0);
+
+      svg.innerHTML = `
+        <defs><clipPath id="fcoClip"><rect x="30" y="20" width="820" height="330" rx="8"/></clipPath></defs>
+        <g clip-path="url(#fcoClip)">
+          ${semiInfSvg}
+          <!-- Axes -->
+          <line x1="40" y1="${sy(0)}" x2="840" y2="${sy(0)}" stroke="#64748b" stroke-width="1.4"/>
+          <line x1="${sx(0)}" y1="25" x2="${sx(0)}" y2="345" stroke="#64748b" stroke-width="1.4"/>
+          <text x="50" y="${sy(0)+16}" font-size="11" font-weight="800" fill="#475569">(−) Mrd,x [kNcm]</text>
+          <text x="${sx(0)+8}" y="38" font-size="11" font-weight="800" fill="#475569">Mrd,y [kNcm] (+)</text>
+
+          <!-- Polygon -->
+          <polygon points="${polyCoords}" fill="#0f766e" fill-opacity="0.15" stroke="#0f766e" stroke-width="2.4"/>
+          ${nodesSvg}
+
+          <!-- Ps Point -->
+          <line x1="${sx(0)}" y1="${psY.toFixed(1)}" x2="${psX.toFixed(1)}" y2="${psY.toFixed(1)}" stroke="#dc2626" stroke-width="1" stroke-dasharray="4,3"/>
+          <line x1="${psX.toFixed(1)}" y1="${sy(0)}" x2="${psX.toFixed(1)}" y2="${psY.toFixed(1)}" stroke="#dc2626" stroke-width="1" stroke-dasharray="4,3"/>
+          <circle cx="${psX.toFixed(1)}" cy="${psY.toFixed(1)}" r="6.5" fill="#dc2626" stroke="#fff" stroke-width="2"/>
+          <rect x="${(psX-185).toFixed(1)}" y="${(psY-26).toFixed(1)}" width="175" height="22" rx="5" fill="#fef2f2" stroke="#fca5a5"/>
+          <text x="${(psX-97).toFixed(1)}" y="${(psY-11).toFixed(1)}" text-anchor="middle" font-size="11" font-weight="800" fill="#b91c1c">Ps (-4250,0 ; +2550,0)</text>
+        </g>
+      `;
+
+      document.querySelectorAll('#fcoSemiInfTable tbody tr').forEach(tr => {
+        tr.classList.toggle('active-row', Number(tr.dataset.edge) === activeEdge);
+      });
+    }
+
+    document.querySelectorAll('#fcoEdgeBtns .combo-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#fcoEdgeBtns .combo-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        drawFcoPolygon(Number(btn.dataset.edge));
+      });
+    });
+    document.querySelectorAll('#fcoSemiInfTable tbody tr').forEach(tr => {
+      tr.style.cursor = 'pointer';
+      tr.addEventListener('click', () => {
+        const idx = Number(tr.dataset.edge);
+        document.querySelectorAll('#fcoEdgeBtns .combo-btn').forEach(b => b.classList.toggle('active', Number(b.dataset.edge) === idx));
+        drawFcoPolygon(idx);
+      });
+    });
+
+    // =========================================================================
+    // 6. KATEX AUTO-RENDER + INIT
+    // =========================================================================
+    function renderKaTeX(root = document.body) {
+      if (typeof renderMathInElement === 'function') {
+        renderMathInElement(root, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false }
+          ],
+          ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "svg"],
+          throwOnError: false
+        });
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      drawPolygon(-1);
+      drawFcoPolygon(-1);
+      const tabParam = new URLSearchParams(window.location.search).get('tab');
+      if (tabParam) selectTopic(tabParam);
+    });
+    window.addEventListener('load', () => {
+      renderKaTeX(document.body);
+    });
+  </script>
+</body>
+</html>

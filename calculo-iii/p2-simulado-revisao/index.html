@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fase 4: Revisão Relâmpago, Simulado Oficial P2 e Gabarito (CM314 - UFPR)</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '\\[', right: '\\]', display: true},
+                {left: '\\(', right: '\\)', display: false}
+            ],
+            throwOnError: false
+        });"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --primary: #be123c;
+            --primary-light: #ffe4e6;
+            --accent: #0f766e;
+            --border-color: #cbd5e1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.5;
+            font-size: 12.8px;
+            padding: 16px;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 28px 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .doc-header {
+            background: linear-gradient(135deg, #881337 0%, #0f172a 100%);
+            color: #ffffff;
+            padding: 14px 22px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            border-left: 8px solid #fb7185;
+        }
+
+        .doc-header .badge-course {
+            display: inline-block;
+            background: rgba(251, 113, 133, 0.2);
+            color: #fecdd3;
+            font-weight: 700;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 2px 8px;
+            border-radius: 999px;
+            margin-bottom: 4px;
+            border: 1px solid rgba(251, 113, 133, 0.4);
+        }
+
+        .doc-header h1 {
+            font-size: 19px;
+            font-weight: 800;
+            margin-bottom: 3px;
+        }
+
+        .doc-header .subtitle {
+            font-size: 12px;
+            color: #e2e8f0;
+            margin-bottom: 8px;
+        }
+
+        .header-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            font-size: 11px;
+            color: #cbd5e1;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 6px;
+        }
+
+        .section-banner {
+            background: linear-gradient(90deg, #9f1239 0%, #be123c 100%);
+            color: #ffffff;
+            padding: 7px 14px;
+            border-radius: 8px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            break-after: avoid;
+        }
+
+        .section-banner h2 {
+            font-size: 14.5px;
+            font-weight: 800;
+        }
+
+        .section-banner span {
+            font-size: 11px;
+            background: rgba(255,255,255,0.2);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        /* Cheat Sheet Grid */
+        .cheat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .cheat-card {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-top: 3.5px solid #0f766e;
+            border-radius: 8px;
+            padding: 8px 11px;
+            break-inside: avoid;
+        }
+
+        .cheat-card.indigo {
+            border-top-color: #4338ca;
+        }
+
+        .cheat-card.rose {
+            border-top-color: #be123c;
+        }
+
+        .cheat-card h3 {
+            font-size: 12.5px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 4px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 3px;
+        }
+
+        .cheat-card ul {
+            padding-left: 15px;
+            font-size: 11.2px;
+            color: #1e293b;
+            line-height: 1.38;
+        }
+
+        .cheat-card li {
+            margin-bottom: 2.5px;
+        }
+
+        .mini-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            margin-top: 3px;
+            background: #ffffff;
+        }
+
+        .mini-table th {
+            background: #f1f5f9;
+            color: #0f172a;
+            padding: 3.5px 6px;
+            text-align: left;
+            border: 1px solid #cbd5e1;
+            font-weight: 700;
+        }
+
+        .mini-table td {
+            padding: 3.5px 6px;
+            border: 1px solid #cbd5e1;
+        }
+
+        /* Exam Simulation Styling (UFPR Official Exam Look) */
+        .exam-sheet {
+            border: 2px solid #0f172a;
+            border-radius: 8px;
+            padding: 22px 26px;
+            background: #ffffff;
+            margin-top: 10px;
+        }
+
+        .ufpr-header {
+            border-bottom: 2px solid #0f172a;
+            padding-bottom: 12px;
+            margin-bottom: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .ufpr-title {
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #0f172a;
+        }
+
+        .ufpr-sub {
+            font-size: 12px;
+            color: #334155;
+            margin-top: 2px;
+        }
+
+        .ufpr-score-box {
+            border: 1.5px solid #0f172a;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .ufpr-warning {
+            background: #fef2f2;
+            border: 1px solid #f87171;
+            border-left: 5px solid #dc2626;
+            padding: 8px 12px;
+            font-weight: 700;
+            color: #991b1b;
+            font-size: 12px;
+            margin-bottom: 16px;
+            border-radius: 4px;
+        }
+
+        .exam-question {
+            margin-bottom: 16px;
+            padding-bottom: 14px;
+            border-bottom: 1px dashed #cbd5e1;
+            break-inside: avoid;
+        }
+
+        .exam-question:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .q-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: #0f172a;
+            background: #f1f5f9;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border-left: 4px solid #0f172a;
+        }
+
+        .q-pts {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #be123c;
+            background: #ffe4e6;
+            padding: 3px 8px;
+            border-radius: 999px;
+            border: 1px solid #fda4af;
+        }
+
+        .q-item {
+            margin-top: 8px;
+            padding-left: 10px;
+        }
+
+        /* 2-Page Scratch / Distance Buffer */
+        .page-break {
+            page-break-before: always;
+            break-before: page;
+        }
+
+        .scratch-sheet {
+            height: 245mm;
+            border: 2px dashed #94a3b8;
+            border-radius: 10px;
+            padding: 20px;
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 18px 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .scratch-top {
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid #cbd5e1;
+            padding: 10px 16px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            color: #475569;
+            font-size: 12.5px;
+        }
+
+        .scratch-bottom {
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid #cbd5e1;
+            padding: 8px 14px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 11.5px;
+            color: #64748b;
+        }
+
+        /* Code-Style Resolution Table */
+        .exercise-card {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            margin-bottom: 18px;
+            overflow: hidden;
+        }
+
+        .exercise-header {
+            background: #f1f5f9;
+            padding: 10px 16px;
+            border-bottom: 1px solid #cbd5e1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            break-after: avoid;
+        }
+
+        .exercise-num {
+            font-size: 14.5px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .badge-prova {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 9px;
+            border-radius: 999px;
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #f59e0b;
+        }
+
+        .subitem-block {
+            padding: 12px 16px;
+        }
+
+        .subitem-title {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-left: 4px solid #2563eb;
+            padding: 6px 12px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: #1e3a8a;
+            font-size: 12.5px;
+            break-after: avoid;
+        }
+
+        .code-resolution {
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 8px;
+            background: #ffffff;
+        }
+
+        .code-header {
+            background: #1e293b;
+            color: #cbd5e1;
+            padding: 5px 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            break-after: avoid;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .dot.red { background: #ef4444; }
+        .dot.yellow { background: #f59e0b; }
+        .dot.green { background: #10b981; }
+        .code-title { margin-left: 6px; font-weight: 500; color: #94a3b8; }
+
+        .step-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .step-row {
+            border-bottom: 1px solid #e2e8f0;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .step-row:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .step-row:last-child {
+            border-bottom: none;
+        }
+
+        .line-num {
+            width: 34px;
+            min-width: 34px;
+            text-align: right;
+            padding: 6px 6px 6px 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 600;
+            color: #64748b;
+            background: #f1f5f9;
+            border-right: 2px solid #cbd5e1;
+            vertical-align: middle;
+        }
+
+        .step-math {
+            width: 54%;
+            padding: 6px 10px;
+            vertical-align: middle;
+            font-size: 12.5px;
+            color: #0f172a;
+        }
+
+        .step-comment {
+            width: 46%;
+            padding: 6px 10px;
+            vertical-align: middle;
+            font-family: 'Inter', sans-serif;
+            font-size: 11.8px;
+            color: #065f46;
+            background: rgba(236, 253, 245, 0.55);
+            border-left: 1px dashed #6ee7b7;
+            line-height: 1.4;
+        }
+
+        .comment-prefix {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: #059669;
+            margin-right: 4px;
+        }
+
+        .answer-pill {
+            background: #ecfdf5;
+            border: 1.5px solid #10b981;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-weight: 700;
+            color: #065f46;
+            font-size: 12.2px;
+            margin-top: 4px;
+            break-inside: avoid;
+        }
+
+        @page {
+            size: A4 portrait;
+            margin: 10mm 10mm 10mm 10mm;
+        }
+
+        @media print {
+            body {
+                background: #ffffff;
+                padding: 0;
+            }
+            .container {
+                max-width: 100%;
+                padding: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- CAPA ENXUTA -->
+    <div class="doc-header">
+        <div class="badge-course">FASE 4 • REVISÃO FINAL & SIMULADO REALISTA • CM314 UFPR</div>
+        <h1>Formulário de Véspera + Simulado Oficial da Prova 2</h1>
+        <div class="subtitle">Mapeado no estilo cirúrgico da Profa. Dra. Ana Gabriela Martínez (Com Gabarito Comentado a 2 páginas de distância)</div>
+        <div class="header-meta">
+            <span><strong>Aluno:</strong> Vitor Hugo D. Lima</span>
+            <span><strong>Conteúdo:</strong> Listas 4, 5 e 6</span>
+            <span><strong>Estrutura:</strong> 1) Resumo Relâmpago • 2) Simulado (100 pts) • 3) 2 Páginas de Resolução • 4) Gabarito Linha a Linha</span>
+        </div>
+    </div>
+
+    <!-- PARTE 1: FORMULÁRIO RELÂMPAGO ENXUTO -->
+    <div class="section-banner">
+        <h2>⚡ Parte 1: Formulário Relâmpago de Véspera (Listas 4, 5 e 6)</h2>
+        <span>Consulta Rápida Pré-Prova</span>
+    </div>
+
+    <div class="cheat-grid">
+        <!-- Card 1: Homogêneas e Cauchy-Euler -->
+        <div class="cheat-card">
+            <h3>1. EDOs Homogêneas (Coef. Constantes vs. Cauchy-Euler)</h3>
+            <table class="mini-table">
+                <thead>
+                    <tr>
+                        <th>Caso</th>
+                        <th>\(ay'' + by' + cy = 0\)<br><small>(\(ar^2 + br + c = 0\))</small></th>
+                        <th>\(ax^2y'' + bxy' + cy = 0\)<br><small>(\(ar(r-1) + br + c = 0\))</small></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>\(\Delta > 0\)</strong><br><small>\(r_1 \neq r_2\)</small></td>
+                        <td>\(c_1 e^{r_1 x} + c_2 e^{r_2 x}\)</td>
+                        <td>\(c_1 x^{r_1} + c_2 x^{r_2}\)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>\(\Delta = 0\)</strong><br><small>\(r_1 = r_2 = r\)</small></td>
+                        <td>\(c_1 e^{rx} + c_2 \mathbf{x} e^{rx}\)</td>
+                        <td>\(c_1 x^r + c_2 x^r \mathbf{\ln|x|}\)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>\(\Delta < 0\)</strong><br><small>\(\lambda \pm i\mu\)</small></td>
+                        <td>\(e^{\lambda x}(c_1\cos\mu x + c_2\sin\mu x)\)</td>
+                        <td>\(x^{\lambda}[c_1\cos(\mu\ln x) + c_2\sin(\mu\ln x)]\)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul style="margin-top: 6px;">
+                <li><strong>Wronskiano:</strong> \(W(y_1, y_2) = y_1 y_2' - y_1' y_2 \neq 0 \implies\) L.I.</li>
+                <li><strong>Redução de Ordem:</strong> Se conhece \(y_1\), chute \(y_2(x) = v(x)y_1(x)\).</li>
+            </ul>
+        </div>
+
+        <!-- Card 2: Não Homogêneas (MCD e MVP) -->
+        <div class="cheat-card">
+            <h3>2. EDOs Não Homogêneas (\(y = y_h + y_p\))</h3>
+            <ul>
+                <li><strong>Coeficientes a Determinar (MCD):</strong> Apenas para coef. constantes e \(g(x)\) = polinômio, \(e^{\alpha x}\), \(\sin(\beta x)\) ou \(\cos(\beta x)\).
+                    <ul>
+                        <li><strong>Regra de Ouro da Ressonância:</strong> Se o chute inicial já aparece em \(y_h\), multiplique por \(x\) (ou \(x^2\) se for raiz dupla!).</li>
+                    </ul>
+                </li>
+                <li><strong>Variação de Parâmetros (MVP):</strong> Funciona para qualquer \(g(x)\) (ex: \(\text{tg } x, \sec x, e^x/x\)).
+                    <ol style="padding-left: 16px;">
+                        <li><strong>Cuidado 0:</strong> Divida por \(a(x)\) para deixar \(1\cdot y'' + P(x)y' + Q(x)y = g(x)\)!</li>
+                        <li>Solução: \(y_p = u_1(x)y_1(x) + u_2(x)y_2(x)\), onde:</li>
+                    </ol>
+                </li>
+            </ul>
+            \[u_1' = \frac{-y_2(x)g(x)}{W(y_1, y_2)} \quad \text{e} \quad u_2' = \frac{+y_1(x)g(x)}{W(y_1, y_2)}\]
+        </div>
+
+        <!-- Card 3: Oscilações Mecânicas (Lista 5) -->
+        <div class="cheat-card rose">
+            <h3>3. Oscilações Mecânicas (\(mu'' + cu' + ku = F_0\cos\Omega t\))</h3>
+            <ul>
+                <li><strong>MHS Livre (\(c=0\)):</strong> \(\omega_0 = \sqrt{k/m}\), Período \(T = \frac{2\pi}{\omega_0}\). Forma: \(u(t) = A\cos(\omega_0 t - \phi)\), com \(A = \sqrt{c_1^2 + c_2^2}\) e \(\tan\phi = c_2/c_1\).</li>
+                <li><strong>Amortecimento Livre (\(c > 0\), \(\Delta = c^2 - 4mk\)):</strong>
+                    <ul>
+                        <li>\(c^2 > 4mk\) (<strong>Superamortecido</strong>): volta a zero sem oscilar.</li>
+                        <li>\(c^2 = 4mk\) (<strong>Crítico</strong>, \(c_{\text{cr}} = 2\sqrt{mk}\)): limiar sem oscilação.</li>
+                        <li>\(c^2 < 4mk\) (<strong>Subamortecido</strong>): oscila com amortecimento \(e^{-\frac{c}{2m}t}\) e quase-frequência \(\tilde{\omega} = \frac{\sqrt{4mk - c^2}}{2m}\).</li>
+                    </ul>
+                </li>
+                <li><strong>Ressonância Pura (\(c=0, \Omega = \omega_0\)):</strong> Chute multiplicado por \(t\): \(u_p(t) = t(A\cos\omega_0 t + B\sin\omega_0 t) \implies\) amplitude explode!</li>
+            </ul>
+        </div>
+
+        <!-- Card 4: Séries Numéricas, Potências e Taylor (Lista 6) -->
+        <div class="cheat-card indigo">
+            <h3>4. Séries Numéricas, Potências e Maclaurin</h3>
+            <ul>
+                <li><strong>Testes Rápidos:</strong> Termo Geral (\(\lim a_n \neq 0 \Rightarrow\) Div.); Geométrica \(\sum r^n = \frac{a_1}{1-r}\) (\(|r|<1\)); \(p\)-série \(\sum \frac{1}{n^p}\) (Conv. \(\iff p>1\)); Comparação de Polinômios (\(\text{grau}_{\text{den}} - \text{grau}_{\text{num}} > 1 \Rightarrow\) Conv.).</li>
+                <li><strong>Alternadas \(\sum (-1)^n b_n\):</strong> 1) Se \(\sum b_n\) conv. \(\Rightarrow\) <strong>Absoluta</strong>; 2) Se \(\sum b_n\) div., mas \(b_n \downarrow 0\) (Leibniz) \(\Rightarrow\) <strong>Condicional</strong>.</li>
+                <li><strong>Teste da Razão &amp; Potências:</strong> \(L = \lim \left|\frac{u_{n+1}}{u_n}\right| < 1 \implies\) acha o intervalo aberto \((x_0-R, x_0+R)\). <strong>Sempre teste os 2 extremos!</strong></li>
+                <li><strong>Maclaurin (\(x_0=0\)):</strong> \(\frac{1}{1-x} = \sum x^n\) (\(R=1\)); \(e^x = \sum \frac{x^n}{n!}\) (\(R=\infty\)); \(\sin x = \sum \frac{(-1)^n x^{2n+1}}{(2n+1)!}\); \(\cos x = \sum \frac{(-1)^n x^{2n}}{(2n)!}\); \(\text{arctg } x = \sum \frac{(-1)^n x^{2n+1}}{2n+1}\). Coeficiente de Taylor: \(c_k = \frac{f^{(k)}(x_0)}{k!}\).</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- QUEBRA DE PÁGINA PARA O SIMULADO COMEÇAR LIMPO -->
+    <div class="page-break"></div>
+
+    <!-- PARTE 2: SIMULADO OFICIAL DA PROVA 2 -->
+    <div class="section-banner">
+        <h2>📝 Parte 2: Simulado Oficial da Prova 2 (Padrão Profa. Ana Gabriela)</h2>
+        <span>Tempo Sugerido: 1h50min • Sem Consulta ao Gabarito</span>
+    </div>
+
+    <div class="exam-sheet">
+        <div class="ufpr-header">
+            <div>
+                <div class="ufpr-title">Universidade Federal do Paraná — Departamento de Matemática</div>
+                <div class="ufpr-sub"><strong>CM314 – Cálculo 4</strong> • Segunda Prova (Simulado Oficial P2)</div>
+                <div class="ufpr-sub">Docente: Profa. Dra. Ana Gabriela Martínez</div>
+            </div>
+            <div class="ufpr-score-box">
+                Valor Total:<br><span style="font-size: 15px; color: #be123c;">100 Pontos</span>
+            </div>
+        </div>
+
+        <div class="ufpr-warning">
+            ⚠️ INSTRUÇÃO OFICIAL DE PROVA: Justifique todas suas respostas mostrando todos os passos e verificando as hipóteses dos teoremas/critérios utilizados. Respostas sem justificativa, mesmo que corretas, não serão consideradas.
+        </div>
+
+        <!-- QUESTÃO 1 -->
+        <div class="exam-question">
+            <div class="q-header">
+                <span class="q-title">Questão 1 — EDOs Homogêneas com Parâmetro e Cauchy-Euler</span>
+                <span class="q-pts">20 Pontos (10 + 10)</span>
+            </div>
+            <div class="q-item">
+                <strong>(a) [10 pts]</strong> Considere a equação diferencial linear homogênea com parâmetro \(\alpha > 0\):
+                \[y'' + 2\alpha y' + 9y = 0\]
+                Determine para quais valores reais de \(\alpha > 0\) todas as soluções da equação tendem a zero quando \(x \to +\infty\): <strong>(i)</strong> sem oscilar; <strong>(ii)</strong> oscilando em torno de zero. Em seguida, resolva o Problema de Valor Inicial (P.V.I.) para o caso \(\alpha = 3\) sujeito às condições \(y(0) = 1\) e \(y'(0) = 0\).
+            </div>
+            <div class="q-item">
+                <strong>(b) [10 pts]</strong> Encontre a solução geral da equação diferencial de Cauchy-Euler no intervalo \(x > 0\):
+                \[x^2 y'' - 3xy' + 4y = 0\]
+            </div>
+        </div>
+
+        <!-- QUESTÃO 2 -->
+        <div class="exam-question">
+            <div class="q-header">
+                <span class="q-title">Questão 2 — EDOs de 2ª Ordem Não Homogêneas</span>
+                <span class="q-pts">25 Pontos (12,5 + 12,5)</span>
+            </div>
+            <div class="q-item">
+                <strong>(a) [12,5 pts]</strong> Usando o <strong>Método dos Coeficientes a Determinar</strong>, encontre a solução geral da equação diferencial:
+                \[y'' - 4y' + 4y = 6e^{2x}\]
+            </div>
+            <div class="q-item">
+                <strong>(b) [12,5 pts]</strong> Usando o <strong>Método da Variação de Parâmetros</strong>, encontre a solução geral da equação diferencial no intervalo \(-\frac{\pi}{2} < x < \frac{\pi}{2}\):
+                \[y'' + y = \text{tg}(x)\]
+            </div>
+        </div>
+
+        <!-- QUESTÃO 3 -->
+        <div class="exam-question">
+            <div class="q-header">
+                <span class="q-title">Questão 3 — Aplicações: Oscilações Mecânicas e Ressonância</span>
+                <span class="q-pts">15 Pontos (7,5 + 7,5)</span>
+            </div>
+            <p style="margin-bottom: 6px;">Um sistema massa-mola com massa \(m = 1\text{ kg}\) e constante elástica \(k = 16\text{ N/m}\) é governado pela equação diferencial \(u'' + cu' + 16u = F(t)\), onde \(u(t)\) é o deslocamento (em metros) em relação à posição de equilíbrio no instante \(t \ge 0\) (em segundos).</p>
+            <div class="q-item">
+                <strong>(a) [7,5 pts]</strong> Na ausência de força externa (\(F(t) = 0\)), determine o valor do coeficiente de amortecimento \(c > 0\) para que o sistema seja <strong>criticamente amortecido</strong>. Além disso, se o sistema não tiver amortecimento (\(c = 0\)) e partir das condições iniciais \(u(0) = 1\) e \(u'(0) = 4\), escreva a solução na forma \(u(t) = A\cos(\omega_0 t - \phi)\), determinando explicitamente a frequência natural \(\omega_0\), a amplitude \(A\) e o período \(T\) do movimento.
+            </div>
+            <div class="q-item">
+                <strong>(b) [7,5 pts]</strong> Suponha novamente o sistema sem amortecimento (\(c = 0\)), submetido agora a uma força externa periódica \(F(t) = 8\cos(\Omega t)\). Para qual valor da frequência externa \(\Omega > 0\) ocorre o fenômeno de <strong>ressonância pura</strong>? Escreva a forma correta da solução particular \(u_p(t)\) para esse valor de \(\Omega\) <strong>(não precisa calcular as constantes)</strong> e explique qual é o comportamento físico da amplitude de oscilação quando \(t \to +\infty\).
+            </div>
+        </div>
+
+        <!-- QUESTÃO 4 -->
+        <div class="exam-question">
+            <div class="q-header">
+                <span class="q-title">Questão 4 — Séries Numéricas e Convergência Absoluta vs. Condicional</span>
+                <span class="q-pts">20 Pontos (10 + 10)</span>
+            </div>
+            <div class="q-item">
+                <strong>(a) [10 pts]</strong> Determine se as séries de termos positivos a seguir convergem ou divergem, justificando claramente o critério utilizado:<br>
+                <span style="display:inline-block; margin-top:4px; margin-right: 28px;"><strong>(i)</strong> \(\displaystyle \sum_{n=1}^{\infty} \frac{n + 3}{n^3 + 2n + 1}\)</span>
+                <span style="display:inline-block; margin-top:4px;"><strong>(ii)</strong> \(\displaystyle \sum_{n=1}^{\infty} \frac{3^n \cdot n!}{n^n}\) &nbsp;&nbsp;<em>(Dica: \(\lim_{n\to\infty} \left(1 + \frac{1}{n}\right)^n = e \approx 2,718\))</em>.</span>
+            </div>
+            <div class="q-item">
+                <strong>(b) [10 pts]</strong> Considere a série alternada:
+                \[\sum_{n=1}^{\infty} (-1)^{n+1} \frac{1}{\sqrt{n + 3}}\]
+                Decida se a série diverge, converge absolutamente ou converge condicionalmente. Justifique todas as etapas da sua análise.
+            </div>
+        </div>
+
+        <!-- QUESTÃO 5 -->
+        <div class="exam-question">
+            <div class="q-header">
+                <span class="q-title">Questão 5 — Séries de Potências e Série de Taylor</span>
+                <span class="q-pts">20 Pontos (10 + 10)</span>
+            </div>
+            <div class="q-item">
+                <strong>(a) [10 pts]</strong> Determine o raio de convergência \(R\) e o <strong>intervalo de convergência</strong> (incluindo a análise detalhada nos extremos do intervalo) da série de potências:
+                \[\sum_{n=1}^{\infty} \frac{(x - 2)^n}{n \cdot 3^n}\]
+            </div>
+            <div class="q-item">
+                <strong>(b) [10 pts]</strong> Usando o desenvolvimento conhecido da função exponencial \(e^u = \sum_{n=0}^{\infty} \frac{u^n}{n!}\), encontre a série de Taylor (Maclaurin) da função \(f(x) = x^2 e^{-x^3}\) em torno de \(x_0 = 0\) e indique seu raio de convergência \(R\). Em seguida, use a série obtida para determinar, <strong>sem calcular derivadas sucessivas</strong>, o valor exato de \(f^{(11)}(0)\) (a 11ª derivada de \(f\) no ponto \(0\)).
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- 2 PÁGINAS DE DISTÂNCIA (FOLHAS DE RESOLUÇÃO / RASCUNHO ANTES DO GABARITO) -->
+    <!-- ========================================================================= -->
+    <div class="page-break"></div>
+    <div class="scratch-sheet">
+        <div class="scratch-top">
+            <span>✏️ FOLHA DE RESOLUÇÃO DO SIMULADO — PÁGINA 1 DE 2</span>
+            <span>Distância de Segurança Anti-Spoiler (Gabarito em 2 páginas)</span>
+        </div>
+        <div class="scratch-bottom">
+            Use este espaço no seu tablet para resolver as Questões 1, 2 e 3 à caneta antes de conferir o Gabarito Comentado!
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+    <div class="scratch-sheet">
+        <div class="scratch-top">
+            <span>✏️ FOLHA DE RESOLUÇÃO DO SIMULADO — PÁGINA 2 DE 2</span>
+            <span>Distância de Segurança Anti-Spoiler (Gabarito na próxima página!)</span>
+        </div>
+        <div class="scratch-bottom">
+            Use este espaço no seu tablet para resolver as Questões 4 e 5 à caneta. O Gabarito Passo a Passo começa na página seguinte!
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- PARTE 3: GABARITO COMENTADO LINHA A LINHA                                 -->
+    <!-- ========================================================================= -->
+    <div class="page-break"></div>
+    <div class="section-banner">
+        <h2>✅ Parte 3: Gabarito Oficial Comentado Linha a Linha — Simulado P2</h2>
+        <span>100 Pontos Detalhados</span>
+    </div>
+
+    <!-- GABARITO Q1 -->
+    <div class="exercise-card">
+        <div class="exercise-header">
+            <span class="exercise-num">Gabarito — Questão 1 (EDOs Homogêneas &amp; Cauchy-Euler)</span>
+            <span class="badge-prova">20 Pontos</span>
+        </div>
+        <div class="subitem-block">
+            <div class="subitem-title">Item (a) — Parâmetro \(\alpha\) em \(y'' + 2\alpha y' + 9y = 0\) e P.V.I. para \(\alpha = 3\)</div>
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(r^2 + 2\alpha r + 9 = 0 \implies r = \frac{-2\alpha \pm \sqrt{4\alpha^2 - 36}}{2} = -\alpha \pm \sqrt{\alpha^2 - 9}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Montamos a equação característica trocando y^(n) por r^n e aplicamos Bhaskara simplificado.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\text{(i) Sem oscilar: } \alpha^2 - 9 \ge 0 \iff \mathbf{\alpha \ge 3}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Para não oscilar, não pode haver seno/cosseno, logo o discriminante deve ser ≥ 0 (raízes reais negativas, pois -α ± √(α²-9) < 0 para α ≥ 3).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\text{(ii) Oscilando: } \alpha^2 - 9 < 0 \;\; (\text{com } \alpha > 0) \iff \mathbf{0 < \alpha < 3}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Para oscilar tendendo a zero, as raízes devem ser complexas conjugadas com parte real negativa (-α < 0), o que ocorre para 0 < α < 3.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(\text{Para } \alpha = 3: \;\; r = -3 \text{ (raiz dupla)} \implies y(x) = c_1 e^{-3x} + c_2 x e^{-3x}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Quando α = 3, Δ = 0 e temos raiz dupla r = -3. Multiplicamos a segunda solução por x!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(y(0) = 1 \implies c_1 = 1; \quad y'(x) = -3e^{-3x} + c_2(e^{-3x} - 3xe^{-3x})\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Aplicamos y(0) = 1 achando c₁ = 1 e derivamos pela Regra do Produto para aplicar y'(0) = 0.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">06</td>
+            <td class="step-math">\(y'(0) = -3 + c_2 = 0 \implies c_2 = 3 \implies \mathbf{y(x) = e^{-3x} + 3xe^{-3x}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Substituindo x = 0 em y'(x), obtemos c₂ = 3 e fechamos a solução do P.V.I.!</td>
+        </tr>
+</tbody></table></div>
+            <div class="answer-pill">✅ Resposta Q1(a): (i) Sem oscilar: \(\alpha \ge 3\); (ii) Oscilando: \(0 < \alpha < 3\). P.V.I.: \(y(x) = e^{-3x} + 3xe^{-3x}\).</div>
+        </div>
+        <div class="subitem-block">
+            <div class="subitem-title">Item (b) — Cauchy-Euler: \(x^2 y'' - 3xy' + 4y = 0\) (\(x > 0\))</div>
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(y = x^r \implies x^2 r(r - 1)x^{r-2} - 3x r x^{r-1} + 4x^r = 0\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Equação de Cauchy-Euler: substituímos y = x^r, y' = r x^(r-1) e y'' = r(r-1)x^(r-2).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(r(r - 1) - 3r + 4 = 0 \implies r^2 - 4r + 4 = 0 \implies (r - 2)^2 = 0\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Lembrete: o coeficiente de r é (b - a) = -3 - 1 = -4. Fatorando o trinômio quadrado perfeito, achamos raiz dupla!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(r_1 = r_2 = 2 \implies \mathbf{y(x) = c_1 x^2 + c_2 x^2 \ln(x)} \quad (x > 0)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Cuidado clássico de prova: em Cauchy-Euler, raiz dupla multiplica por ln(x) (e NÃO por x)!</td>
+        </tr>
+</tbody></table></div>
+            <div class="answer-pill">✅ Resposta Q1(b): \(y(x) = c_1 x^2 + c_2 x^2 \ln(x)\).</div>
+        </div>
+    </div>
+
+    <!-- GABARITO Q2 -->
+    <div class="exercise-card">
+        <div class="exercise-header">
+            <span class="exercise-num">Gabarito — Questão 2 (EDOs Não Homogêneas: MCD e MVP)</span>
+            <span class="badge-prova">25 Pontos</span>
+        </div>
+        <div class="subitem-block">
+            <div class="subitem-title">Item (a) — Coeficientes a Determinar com Ressonância Dupla: \(y'' - 4y' + 4y = 6e^{2x}\)</div>
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(y'' - 4y' + 4y = 0 \implies r^2 - 4r + 4 = (r - 2)^2 = 0 \implies y_h(x) = c_1 e^{2x} + c_2 x e^{2x}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Passo 1 (Solução Homogênea): r = 2 é raiz DUPLA da característica, logo y<sub>h</sub> já contém e^(2x) e x·e^(2x)!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(g(x) = 6e^{2x} \implies \text{Chute inicial } A e^{2x} \text{ colide duas vezes!} \implies \mathbf{y_p(x) = A x^2 e^{2x}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Passo 2 (Regra da Ressonância no MCD): Como e^(2x) e x·e^(2x) já estão em y<sub>h</sub>, multiplicamos por x²!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(y_p' = A(2x + 2x^2)e^{2x}; \quad y_p'' = A(2 + 8x + 4x^2)e^{2x}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Derivamos y<sub>p</sub> duas vezes aplicando a Regra do Produto.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(y_p'' - 4y_p' + 4y_p = A\left[(2 + 8x + 4x^2) - 4(2x + 2x^2) + 4x^2\right]e^{2x} = 2A e^{2x}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Substituindo na EDO, todos os termos com x e x² se cancelam (isso sempre ocorre na ressonância!), sobrando apenas 2A·e^(2x).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(2A e^{2x} = 6e^{2x} \implies A = 3 \implies \mathbf{y(x) = c_1 e^{2x} + c_2 x e^{2x} + 3x^2 e^{2x}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Igualando a 6e^(2x), achamos A = 3 e somamos y<sub>h</sub> + y<sub>p</sub>.</td>
+        </tr>
+</tbody></table></div>
+            <div class="answer-pill">✅ Resposta Q2(a): \(y(x) = c_1 e^{2x} + c_2 x e^{2x} + 3x^2 e^{2x}\).</div>
+        </div>
+        <div class="subitem-block">
+            <div class="subitem-title">Item (b) — Variação de Parâmetros: \(y'' + y = \text{tg}(x)\)</div>
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(y'' + y = 0 \implies r^2 + 1 = 0 \implies r = \pm i \implies y_1 = \cos(x), \;\; y_2 = \sin(x)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Passo 1: Resolvemos a homogênea e identificamos y₁ = cos(x) e y₂ = sen(x).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(W(\cos x, \sin x) = \begin{vmatrix} \cos x & \sin x \\ -\sin x & \cos x \end{vmatrix} = \cos^2(x) + \sin^2(x) = 1\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Passo 2: Calculamos o Wronskiano W = y₁y₂' - y₁'y₂ = 1.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(u_1' = \frac{-y_2 g(x)}{W} = -\sin(x)\text{tg}(x) = -\frac{\sin^2(x)}{\cos(x)} = \frac{\cos^2(x) - 1}{\cos(x)} = \cos(x) - \sec(x)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Passo 3: Montamos u₁' usando tg(x) = sen(x)/cos(x) e a identidade sen²(x) = 1 - cos²(x).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(u_1(x) = \int (\cos x - \sec x)\,dx = \sin(x) - \ln|\sec x + \text{tg } x|\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Integramos u₁' (lembrando da integral tabelada de sec(x): ln|sec x + tg x|).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(u_2' = \frac{y_1 g(x)}{W} = \cos(x)\frac{\sin(x)}{\cos(x)} = \sin(x) \implies u_2(x) = \int \sin(x)\,dx = -\cos(x)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Passo 4: Montamos u₂', que simplifica direto para sen(x), cuja integral é -cos(x).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">06</td>
+            <td class="step-math">\(y_p = u_1 \cos x + u_2 \sin x = \sin x\cos x - \cos x\ln|\sec x + \text{tg } x| - \cos x\sin x\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Passo 5: Montamos y<sub>p</sub> = u₁y₁ + u₂y₂. Os termos sen(x)cos(x) se cancelam!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">07</td>
+            <td class="step-math">\(\mathbf{y(x) = c_1\cos(x) + c_2\sin(x) - \cos(x)\ln|\sec(x) + \text{tg}(x)|}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Escrevemos a solução geral y = y<sub>h</sub> + y<sub>p</sub>.</td>
+        </tr>
+</tbody></table></div>
+            <div class="answer-pill">✅ Resposta Q2(b): \(y(x) = c_1\cos(x) + c_2\sin(x) - \cos(x)\ln|\sec(x) + \text{tg}(x)|\).</div>
+        </div>
+    </div>
+
+    <!-- GABARITO Q3 -->
+    <div class="exercise-card">
+        <div class="exercise-header">
+            <span class="exercise-num">Gabarito — Questão 3 (Oscilações Mecânicas e Ressonância)</span>
+            <span class="badge-prova">15 Pontos</span>
+        </div>
+        <div class="subitem-block">
+            <div class="subitem-title">Item (a) — Amortecimento Crítico e MHS na forma Amplitude-Fase</div>
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(u'' + cu' + 16u = 0 \implies \Delta = c^2 - 4(1)(16) = c^2 - 64\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Na equação mu'' + cu' + ku = 0 com m = 1 e k = 16, o discriminante da característica é Δ = c² - 64.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\text{Amortecimento Crítico: } \Delta = 0 \iff c^2 = 64 \implies \mathbf{c = 8\text{ N}\cdot\text{s/m}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> O amortecimento crítico ocorre exatamente na fronteira Δ = 0 (como c > 0, c = 8).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\text{Para } c = 0: \;\; u'' + 16u = 0 \implies \mathbf{\omega_0 = \sqrt{16} = 4\text{ rad/s}} \quad \text{e} \quad \mathbf{T = \frac{2\pi}{4} = \frac{\pi}{2}\text{ s}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Sem amortecimento (MHS), a frequência natural é ω₀ = √(k/m) = 4 rad/s e o período é T = 2π/ω₀ = π/2 s.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(u(t) = c_1\cos(4t) + c_2\sin(4t); \quad u(0)=1 \Rightarrow c_1 = 1; \quad u'(0)=4c_2=4 \Rightarrow c_2 = 1\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Aplicando u(0) = 1 e u'(0) = 4 na solução geral livre, obtemos c₁ = 1 e c₂ = 1.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(A = \sqrt{c_1^2 + c_2^2} = \sqrt{1^2 + 1^2} = \mathbf{\sqrt{2}\text{ m}}; \quad \tan\phi = \frac{1}{1} = 1 \Rightarrow \phi = \frac{\pi}{4}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Calculamos a amplitude A = √2 m e o ângulo de fase φ = π/4 rad (45°).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">06</td>
+            <td class="step-math">\(\mathbf{u(t) = \sqrt{2}\cos\left(4t - \frac{\pi}{4}\right)\text{ m}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Escrevemos a equação do movimento na forma amplitude-fase pedida.</td>
+        </tr>
+</tbody></table></div>
+            <div class="answer-pill">✅ Resposta Q3(a): \(c_{\text{cr}} = 8\text{ N}\cdot\text{s/m}\); \(\omega_0 = 4\text{ rad/s}\), \(A = \sqrt{2}\text{ m}\), \(T = \frac{\pi}{2}\text{ s}\) e \(u(t) = \sqrt{2}\cos\left(4t - \frac{\pi}{4}\right)\).</div>
+        </div>
+        <div class="subitem-block">
+            <div class="subitem-title">Item (b) — Frequência de Ressonância Pura e Forma de \(u_p(t)\)</div>
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(u'' + 16u = 8\cos(\Omega t) \implies \text{Ressonância Pura ocorre quando } \mathbf{\Omega = \omega_0 = 4\text{ rad/s}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> A ressonância pura em um sistema não amortecido ocorre quando a frequência externa Ω iguala a frequência natural ω₀ = 4 rad/s.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\text{Para } \Omega = 4: \;\; \mathbf{u_p(t) = t\left(A\cos(4t) + B\sin(4t)\right)} \quad (\text{ou } B\,t\sin(4t))\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como cos(4t) e sen(4t) já resolvem a equação homogênea, multiplicamos o chute padrão por t!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\text{Quando } t \to +\infty, \text{ o fator } t \text{ faz a amplitude crescer ilimitadamente } (\to +\infty)!\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Explicação física: as oscilações crescem linearmente dentro do envelope ±B·t, levando ao colapso/ruptura da mola.</td>
+        </tr>
+</tbody></table></div>
+            <div class="answer-pill">✅ Resposta Q3(b): Ressonância em \(\Omega = 4\text{ rad/s}\); \(u_p(t) = t(A\cos 4t + B\sin 4t)\) com amplitude tendendo a \(+\infty\).</div>
+        </div>
+    </div>
+
+    <!-- GABARITO Q4 -->
+    <div class="exercise-card">
+        <div class="exercise-header">
+            <span class="exercise-num">Gabarito — Questão 4 (Séries Numéricas e Alternadas)</span>
+            <span class="badge-prova">20 Pontos</span>
+        </div>
+        <div class="subitem-block">
+            <div class="subitem-title">Item (a) — Testes de Convergência para (i) e (ii)</div>
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(\text{(i) } a_n = \frac{n + 3}{n^3 + 2n + 1} \sim \frac{n}{n^3} = \frac{1}{n^2} \quad (\text{escolhemos } b_n = \frac{1}{n^2})\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Item (i): Olhando apenas os maiores graus (grau 1 em cima, grau 3 embaixo), comparamos com a p-série ∑(1/n²).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(L = \lim_{n \to \infty} \frac{a_n}{1/n^2} = \lim_{n \to \infty} \frac{n^3 + 3n^2}{n^3 + 2n + 1} = 1 \quad (0 < L < \infty) \implies \mathbf{\text{(i) CONVERGE!}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Pelo Critério da Comparação no Limite, como L = 1 > 0 e ∑(1/n²) converge (p = 2 > 1), a série (i) CONVERGE!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\text{(ii) } a_n = \frac{3^n n!}{n^n} \implies L = \lim_{n \to \infty} \frac{a_{n+1}}{a_n} = \lim_{n \to \infty} \frac{3^{n+1}(n+1)!}{(n+1)^{n+1}} \cdot \frac{n^n}{3^n n!}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Item (ii): Como há fatorial n! e potência n^n, aplicamos o Teste da Razão!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(L = \lim_{n \to \infty} \frac{3 \cdot (n+1)n!}{(n+1)(n+1)^n} \cdot \frac{n^n}{n!} = 3 \cdot \lim_{n \to \infty} \frac{1}{(1 + 1/n)^n} = \frac{3}{e}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Simplificamos (n+1)! = (n+1)n! e (n+1)^(n+1) = (n+1)(n+1)^n. Como (1 + 1/n)^n → e ≈ 2,718, o limite vale L = 3/e.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(e \approx 2,718 < 3 \implies L = \frac{3}{e} > 1 \implies \mathbf{\text{(ii) DIVERGE (pelo Teste da Razão)!}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como 3 > e, a razão L = 3/e ≈ 1,103 é MAIOR que 1! Logo, pelo Teste da Razão, a série (ii) DIVERGE!</td>
+        </tr>
+</tbody></table></div>
+            <div class="answer-pill">✅ Resposta Q4(a): (i) Converge (Comparação no Limite com \(\sum 1/n^2\)); (ii) Diverge (Teste da Razão, \(L = 3/e > 1\)).</div>
+        </div>
+        <div class="subitem-block">
+            <div class="subitem-title">Item (b) — Classificação da Série Alternada \(\sum (-1)^{n+1} \frac{1}{\sqrt{n+3}}\)</div>
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(|a_n| = \frac{1}{\sqrt{n + 3}} = \frac{1}{(n + 3)^{1/2}} \sim \frac{1}{n^{1/2}} \quad (p\text{-série com } p = \frac{1}{2} \le 1)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Passo 1 (Testar Convergência Absoluta): Analisamos a série dos módulos ∑|a<sub>n</sub>|.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\lim_{n \to \infty} \frac{1/\sqrt{n+3}}{1/\sqrt{n}} = \lim_{n \to \infty} \sqrt{\frac{n}{n+3}} = 1 \implies \sum_{n=1}^{\infty} |a_n| \text{ DIVERGE!}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Pelo Critério da Comparação no Limite com ∑(1/n^(1/2)) (que diverge pois p = 1/2 ≤ 1), a série dos módulos DIVERGE! Não é absolutamente convergente.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(b_n = \frac{1}{\sqrt{n+3}} > 0: \;\; 1) \lim_{n \to \infty} \frac{1}{\sqrt{n+3}} = 0; \quad 2) \frac{1}{\sqrt{n+4}} < \frac{1}{\sqrt{n+3}} \text{ (decrescente!)}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Passo 2 (Critério de Leibniz): Verificamos que b<sub>n</sub> tende a zero e é estritamente decrescente (pois √(n+4) > √(n+3)).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(\text{Converge por Leibniz e } \sum |a_n| \text{ diverge} \implies \mathbf{\text{CONVERGE CONDICIONALMENTE!}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como passa no Critério de Leibniz mas diverge em módulo, concluímos que a série é Condicionalmente Convergente!</td>
+        </tr>
+</tbody></table></div>
+            <div class="answer-pill">✅ Resposta Q4(b): Converge Condicionalmente (converge por Leibniz, mas \(\sum \frac{1}{\sqrt{n+3}}\) diverge por comparação com \(p = 1/2 \le 1\)).</div>
+        </div>
+    </div>
+
+    <!-- GABARITO Q5 -->
+    <div class="exercise-card">
+        <div class="exercise-header">
+            <span class="exercise-num">Gabarito — Questão 5 (Série de Potências e Série de Taylor)</span>
+            <span class="badge-prova">20 Pontos</span>
+        </div>
+        <div class="subitem-block">
+            <div class="subitem-title">Item (a) — Raio e Intervalo de Convergência de \(\sum \frac{(x-2)^n}{n \cdot 3^n}\)</div>
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(u_n(x) = \frac{(x - 2)^n}{n \cdot 3^n} \implies L = \lim_{n \to \infty} \left|\frac{(x - 2)^{n+1}}{(n+1)3^{n+1}} \cdot \frac{n \cdot 3^n}{(x - 2)^n}\right| = \frac{|x - 2|}{3} \lim_{n \to \infty} \frac{n}{n+1} = \frac{|x - 2|}{3}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Passo 1 (Raio de Convergência): Aplicamos o Teste da Razão.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(L < 1 \iff \frac{|x - 2|}{3} < 1 \iff |x - 2| < 3 \iff -3 < x - 2 < 3 \iff -1 < x < 5 \quad (\mathbf{R = 3})\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> O raio de convergência é R = 3 (centrado em x₀ = 2), gerando o intervalo aberto (-1, 5). Testemos os extremos x = -1 e x = 5:</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\text{Em } x = -1: \;\; \sum_{n=1}^{\infty} \frac{(-1 - 2)^n}{n \cdot 3^n} = \sum_{n=1}^{\infty} \frac{(-3)^n}{n \cdot 3^n} = \sum_{n=1}^{\infty} \frac{(-1)^n}{n} \implies \text{CONVERGE (Leibniz!)}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Passo 2 (Extremo x = -1): Cortando 3^n, obtemos a Série Harmônica Alternada, que converge pelo Critério de Leibniz! Logo, x = -1 ENTRA.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(\text{Em } x = 5: \;\; \sum_{n=1}^{\infty} \frac{(5 - 2)^n}{n \cdot 3^n} = \sum_{n=1}^{\infty} \frac{3^n}{n \cdot 3^n} = \sum_{n=1}^{\infty} \frac{1}{n} \implies \text{DIVERGE (Harmônica } p=1\text{)}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Passo 3 (Extremo x = 5): Cortando 3^n, caímos na Série Harmônica ∑(1/n), que diverge! Logo, x = 5 NÃO entra.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(\mathbf{R = 3 \quad \text{e} \quad I = [-1, 5)}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Fechamos em -1 e deixamos aberto em 5: intervalo de convergência [-1, 5).</td>
+        </tr>
+</tbody></table></div>
+            <div class="answer-pill">✅ Resposta Q5(a): Raio \(R = 3\) e Intervalo de Convergência \(I = [-1, 5)\).</div>
+        </div>
+        <div class="subitem-block">
+            <div class="subitem-title">Item (b) — Série de Maclaurin de \(f(x) = x^2 e^{-x^3}\) e cálculo de \(f^{(11)}(0)\)</div>
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(e^u = \sum_{n=0}^{\infty} \frac{u^n}{n!} \quad (R = \infty) \implies e^{-x^3} = \sum_{n=0}^{\infty} \frac{(-x^3)^n}{n!} = \sum_{n=0}^{\infty} \frac{(-1)^n}{n!} x^{3n}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Passo 1: Substituímos u = -x³ na série de Maclaurin de e^u. Como (-x³)^n = (-1)^n · x^(3n), a série converge para todo x ∈ ℝ.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(f(x) = x^2 e^{-x^3} = x^2 \sum_{n=0}^{\infty} \frac{(-1)^n}{n!} x^{3n} = \mathbf{\sum_{n=0}^{\infty} \frac{(-1)^n}{n!} x^{3n+2}} \quad (\mathbf{R = \infty})\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Passo 2: Multiplicamos termo a termo por x², somando +2 no expoente de x: x^(3n+2). O raio continua R = ∞.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\text{Pela Fórmula de Taylor em } x_0 = 0: \;\; c_k = \frac{f^{(k)}(0)}{k!} \implies \text{Queremos o termo de grau } k = 11!\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Passo 3 (Achar f^(11)(0) sem derivar!): Na série de Maclaurin, o coeficiente de x<sup>11</sup> é sempre f^(11)(0) / 11!.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(3n + 2 = 11 \implies 3n = 9 \implies n = 3 \implies \text{Coeficiente de } x^{11} \text{ é } c_{11} = \frac{(-1)^3}{3!} = -\frac{1}{6}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Igualamos o expoente geral 3n + 2 a 11, descobrindo que o termo x<sup>11</sup> ocorre exatamente para n = 3!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(\frac{f^{(11)}(0)}{11!} = -\frac{1}{3!} \implies \mathbf{f^{(11)}(0) = -\frac{11!}{3!} = -\frac{11!}{6} = -6\,652\,800}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Igualando f^(11)(0)/11! a -1/3!, isolamos f^(11)(0) = -11!/6 (na prova você pode deixar indicado como -11!/3! ou -11!/6!).</td>
+        </tr>
+</tbody></table></div>
+            <div class="answer-pill">✅ Resposta Q5(b): \(f(x) = \sum_{n=0}^{\infty} \frac{(-1)^n}{n!} x^{3n+2}\) (\(R = \infty\)) e \(f^{(11)}(0) = -\frac{11!}{3!} = -\frac{11!}{6}\).</div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

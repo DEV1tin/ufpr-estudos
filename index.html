@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UFPR Estudos — Portal de Guias e Resoluções</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --primary: #1d4ed8;
+      --primary-soft: #eff6ff;
+      --teal: #0f766e;
+      --teal-soft: #f0fdfa;
+      --amber: #b45309;
+      --amber-soft: #fffbeb;
+      --purple: #6d28d9;
+      --purple-soft: #f5f3ff;
+      --radius: 16px;
+      --shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: #0f172a;
+      color: #fff;
+      padding: 0.9rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .topbar-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+    }
+    .badge {
+      background: #2563eb;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .repo-link {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    .repo-link:hover { color: #fff; }
+    main {
+      max-width: 960px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 3.5rem;
+      flex: 1;
+    }
+    .hero {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+    }
+    .hero h1 {
+      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.6rem;
+    }
+    .hero p {
+      color: var(--muted);
+      font-size: 1.02rem;
+      max-width: 68ch;
+    }
+    .section-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 0.9rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .subject-btn {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.4rem 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: var(--shadow);
+      transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .subject-btn:hover {
+      transform: translateY(-2px);
+      border-color: #94a3b8;
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.1);
+    }
+    .subject-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .code-pill {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+    }
+    .c-blue { background: var(--primary-soft); color: var(--primary); }
+    .c-purple { background: var(--purple-soft); color: var(--purple); }
+    .c-amber { background: var(--amber-soft); color: var(--amber); }
+    .c-teal { background: var(--teal-soft); color: var(--teal); }
+    .count {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .subject-btn h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      margin-bottom: 0.25rem;
+    }
+    .subject-btn p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .subject-arrow {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    footer {
+      text-align: center;
+      padding: 1.25rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="badge">UFPR</span>
+        <span>UFPR Estudos</span>
+      </div>
+      <a class="repo-link" href="https://github.com/DEV1tin/ufpr-estudos" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>UFPR Estudos</h1>
+      <p>
+        Página pessoal feita por mim para centralizar meus estudos da UFPR. Escolha uma matéria abaixo para acessar os guias interativos, resoluções passo a passo e materiais em HTML organizados em um só lugar.
+      </p>
+    </section>
+
+    <div class="section-label">Matérias Disponíveis</div>
+    <section class="grid">
+      <a class="subject-btn" href="./calculo-iii/">
+        <div>
+          <div class="subject-top">
+            <span class="code-pill c-blue">CM314</span>
+            <span class="count">7 projetos</span>
+          </div>
+          <h2>Cálculo III / IV</h2>
+          <p>EDOs de 1ª e 2ª ordem, vibrações mecânicas, séries, simulados e cola A4.</p>
+        </div>
+        <span class="subject-arrow">Abrir matéria →</span>
+      </a>
+
+      <a class="subject-btn" href="./analise-estrutural-iii/">
+        <div>
+          <div class="subject-top">
+            <span class="code-pill c-purple">TC516</span>
+            <span class="count">2 projetos</span>
+          </div>
+          <h2>Análise Estrutural III</h2>
+          <p>Guia definitivo dos métodos estruturais e relatório técnico do Trabalho 3.</p>
+        </div>
+        <span class="subject-arrow">Abrir matéria →</span>
+      </a>
+
+      <a class="subject-btn" href="./estruturas-de-concreto/">
+        <div>
+          <div class="subject-top">
+            <span class="code-pill c-amber">Concreto I &amp; II</span>
+            <span class="count">2 projetos</span>
+          </div>
+          <h2>Estruturas de Concreto</h2>
+          <p>Concreto I (Aproveitamento + BeamsDiagrams) e Concreto II (P3 Pilares e Imperfeições).</p>
+        </div>
+        <span class="subject-arrow">Abrir matéria →</span>
+      </a>
+
+      <a class="subject-btn" href="./saneamento-ambiental-ii/">
+        <div>
+          <div class="subject-top">
+            <span class="code-pill c-teal">TH510</span>
+            <span class="count">1 projeto</span>
+          </div>
+          <h2>Saneamento Ambiental II</h2>
+          <p>Guia definitivo da P2 (tratamento de esgotos até UASB) e Folha A4.</p>
+        </div>
+        <span class="subject-arrow">Abrir matéria →</span>
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    UFPR Estudos · Centralização de materiais em HTML no GitHub Pages
+  </footer>
+</body>
+</html>

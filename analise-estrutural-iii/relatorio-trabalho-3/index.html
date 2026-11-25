@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>TC-516 - Relatório do Trabalho 3</title>
+    <!-- MathJax para renderização de fórmulas matemáticas e eliminação de cifras de cifrão crús -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            background-color: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px 0;
+            color: #333;
+        }
+        .page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 25mm 20mm;
+            margin: 0 auto 30px auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            box-sizing: border-box;
+            position: relative;
+        }
+        h1 {
+            font-size: 22px;
+            text-align: center;
+            color: #1a365d;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #2b6cb0;
+            padding-bottom: 10px;
+        }
+        h2 {
+            font-size: 16px;
+            color: #2b6cb0;
+            margin-top: 25px;
+            border-left: 4px solid #1a365d;
+            padding-left: 10px;
+            margin-bottom: 15px;
+        }
+        h3 {
+            font-size: 13px;
+            color: #4a5568;
+            margin-top: 15px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        p, li {
+            font-size: 12px;
+            line-height: 1.6;
+            text-align: justify;
+        }
+        table.data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 11px;
+        }
+        table.data-table th, table.data-table td {
+            border: 1px solid #cbd5e0;
+            padding: 6px 8px;
+            text-align: center;
+        }
+        table.data-table th {
+            background-color: #ebf8ff;
+            color: #2b6cb0;
+            font-weight: bold;
+        }
+        .matrix-wrapper {
+            margin: 12px 0;
+            overflow-x: auto;
+        }
+        table.matrix-table {
+            border-collapse: collapse;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 9.5px;
+            margin: 0 auto;
+            border-left: 2px solid #2b6cb0;
+            border-right: 2px solid #2b6cb0;
+            border-radius: 4px;
+        }
+        table.matrix-table td {
+            padding: 3px 6px;
+            text-align: right;
+            min-width: 55px;
+            border: none;
+            color: #2d3748;
+        }
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        .header-table td {
+            border: 1px solid #1a365d;
+            padding: 10px;
+            font-size: 11px;
+        }
+        .logo-cell {
+            width: 15%;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            color: #1a365d;
+        }
+        .info-cell {
+            width: 55%;
+        }
+        .meta-cell {
+            width: 30%;
+            text-align: right;
+        }
+        .footer {
+            position: absolute;
+            bottom: 15mm;
+            left: 20mm;
+            right: 20mm;
+            font-size: 10px;
+            text-align: center;
+            color: #718096;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 5px;
+        }
+        .detalhe-calculo {
+            background-color: #f7fafc;
+            border-left: 3px solid #cbd5e0;
+            padding: 10px 15px;
+            margin: 10px 0;
+            font-size: 11.5px;
+            color: #4a5568;
+        }
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+                margin: 0;
+            }
+            .page {
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+                position: relative;
+                box-sizing: border-box;
+            }
+            .footer {
+                position: absolute;
+                bottom: 10mm;
+            }
+        }
+        .vector-flex-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        .vector-item {
+            margin: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PÁGINA 1: CAPA E IDENTIFICAÇÃO -->
+    <div class="page">
+        <table class="header-table">
+            <tr>
+                <td class="logo-cell">UFPR</td>
+                <td class="info-cell">
+                    <strong>UNIVERSIDADE FEDERAL DO PARANÁ</strong><br>
+                    Setor de Tecnologia - Departamento de Construção Civil (DCC)<br>
+                    Disciplina: TC-516 - Análise Estrutural III
+                </td>
+                <td class="meta-cell">
+                    <strong>TRABALHO 3</strong><br>
+                    Semestre: 2026/01 - Turma C<br>
+                    Data de Emissão: 20/06/2026
+                </td>
+            </tr>
+        </table>
+
+        <h1>Relatório Técnico: Trabalho 3</h1>
+        <p style="text-align: center; font-size: 14px; margin-top: 40px; font-weight: bold; color: #1a365d;">
+            Análise Estrutural de Pórtico Plano Não-Simétrico pelo Método da Rigidez Direta
+        </p>
+
+        <div style="margin-top: 80px;">
+            <h2>3.1 Identificação</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Nome do Integrante</th>
+                        <th>GRR</th>
+                        <th>Assinatura</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Vitor Hugo Bonfim de Lima</td>
+                        <td>GRR20174816</td>
+                        <td>Digital</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="margin-top: 40px;">
+            <h2>Metodologia Utilizada</h2>
+            <p>
+                Este memorial apresenta a análise estrutural completa de um pórtico plano de aço não-simétrico, submetido simultaneamente a ações mecânicas de vento, ações térmicas de incêndio e recalque de apoio vertical no engaste da direita. O método numérico adotado é o <strong>Método da Rigidez Direta</strong>. 
+            </p>
+            <p>
+                O cálculo do comportamento da estrutura segue os roteiros estabelecidos, sendo discretizado em nós e barras com comportamento elástico-linear de viga de Bernoulli. A formulação matricial e o solucionador numérico foram implementados e validados passo a passo com os dados de referência para garantir que todas as contas batam perfeitamente com a teoria.
+            </p>
+        </div>
+
+        <div class="footer">Página 1 de 6</div>
+    </div>
+
+    <!-- PÁGINA 2: GEOMETRIA E DISCRETIZAÇÃO -->
+    <div class="page">
+        <h2>3.2 Modelo Estrutural do Pórtico e Discretização</h2>
+        <h3>Dados de Entrada do Pórtico (GRR20174816):</h3>
+        <ul>
+            <li>Vão esquerdo ($L_1$): <strong>9.0 m</strong></li>
+            <li>Vão direito ($L_2$): <strong>15.0 m</strong></li>
+            <li>Altura das colunas ($H$): <strong>6.0 m</strong></li>
+            <li>Altura da cumeeira ($h_c$): <strong>2.5 m</strong></li>
+            <li>Distância entre pórticos consecutivos ($d$): <strong>5.0 m</strong></li>
+        </ul>
+
+        <h3>Graus de Liberdade e Discretização Espacial:</h3>
+        <p>
+            O pórtico plano é discretizado em 5 nós e 4 elementos de barra. Cada nó $i$ possui 3 graus de liberdade (GDLs) no sistema global: translação horizontal ($u_i$ na direção global X), translação vertical ($v_i$ na direção global Y) e rotação ($\theta_i$ no sentido anti-horário). A numeração dos GDLs para o nó $i$ segue a ordem $[3i-2, 3i-1, 3i]$. O sistema global possui, portanto, 15 GDLs no total.
+        </p>
+
+        <div class="detalhe-calculo">
+            <strong>Explicação do cálculo da conectividade:</strong><br>
+            Para cada elemento conectando o nó inicial $I(X_i, Y_i)$ ao nó final $F(X_f, Y_f)$, o comprimento $l$ é calculado por:
+            $$l = \sqrt{\Delta X^2 + \Delta Y^2}$$
+            Os cossenos e senos diretores ($\cos\beta$ e $\sin\beta$), necessários para rotacionar as propriedades locais para os eixos globais, são dados por:
+            $$\cos\beta = \frac{\Delta X}{l} = \frac{X_f - X_i}{l}, \quad \sin\beta = \frac{\Delta Y}{l} = \frac{Y_f - Y_i}{l}$$
+        </div>
+
+        <div style="text-align: center; margin: 20px 0;">
+            <svg width="100%" height="260" viewBox="0 0 600 360" style="background-color: #fafbfd; border: 1px solid #e2e8f0; border-radius: 4px;">
+                <!-- Eixos Globais -->
+                <g transform="translate(40, 310)" stroke="#718096" stroke-width="1.5">
+                    <line x1="0" y1="0" x2="30" y2="0" marker-end="url(#arrow)" />
+                    <line x1="0" y1="0" x2="0" y2="-30" marker-end="url(#arrow)" />
+                    <text x="35" y="4" font-size="10" fill="#718096" font-family="sans-serif">X</text>
+                    <text x="-4" y="-35" font-size="10" fill="#718096" font-family="sans-serif">Y</text>
+                </g>
+                <defs>
+                    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#718096" />
+                    </marker>
+                    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#e53e3e" />
+                    </marker>
+                    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#3182ce" />
+                    </marker>
+                </defs>
+
+                <!-- Vínculos Externos (Engastes) -->
+                <!-- Apoio A (Nó 1) -->
+                <line x1="60" y1="310" x2="100" y2="310" stroke="#4a5568" stroke-width="3" />
+                <line x1="65" y1="310" x2="60" y2="320" stroke="#718096" stroke-width="1.5" />
+                <line x1="75" y1="310" x2="70" y2="320" stroke="#718096" stroke-width="1.5" />
+                <line x1="85" y1="310" x2="80" y2="320" stroke="#718096" stroke-width="1.5" />
+                <line x1="95" y1="310" x2="90" y2="320" stroke="#718096" stroke-width="1.5" />
+
+                <!-- Apoio B (Nó 5) -->
+                <line x1="500" y1="310" x2="540" y2="310" stroke="#4a5568" stroke-width="3" />
+                <line x1="505" y1="310" x2="500" y2="320" stroke="#718096" stroke-width="1.5" />
+                <line x1="515" y1="310" x2="510" y2="320" stroke="#718096" stroke-width="1.5" />
+                <line x1="525" y1="310" x2="520" y2="320" stroke="#718096" stroke-width="1.5" />
+                <line x1="535" y1="310" x2="530" y2="320" stroke="#718096" stroke-width="1.5" />
+
+                <!-- Elementos de Barra (Linhas) -->
+                <!-- Elemento 1 (Pilar Esq) -->
+                <line x1="80" y1="310" x2="80" y2="134" stroke="#1a365d" stroke-width="4.5" stroke-linecap="round" />
+                <!-- Elemento 2 (Viga Esq) -->
+                <line x1="80" y1="134" x2="245" y2="60" stroke="#2b6cb0" stroke-width="4.5" stroke-linecap="round" />
+                <!-- Elemento 3 (Viga Dir) -->
+                <line x1="245" y1="60" x2="520" y2="134" stroke="#2b6cb0" stroke-width="4.5" stroke-linecap="round" />
+                <!-- Elemento 4 (Pilar Dir) -->
+                <line x1="520" y1="134" x2="520" y2="310" stroke="#1a365d" stroke-width="4.5" stroke-linecap="round" />
+
+                <!-- Indicações de Carga de Vento q1 no Pilar Esquerdo -->
+                <g stroke="#3182ce" stroke-width="1.2">
+                    <line x1="30" y1="280" x2="74" y2="280" marker-end="url(#arrow-blue)" />
+                    <line x1="30" y1="230" x2="74" y2="230" marker-end="url(#arrow-blue)" />
+                    <line x1="30" y1="180" x2="74" y2="180" marker-end="url(#arrow-blue)" />
+                    <line x1="30" y1="140" x2="74" y2="140" marker-end="url(#arrow-blue)" />
+                    <line x1="30" y1="280" x2="30" y2="140" stroke-dasharray="2 2" />
+                    <text x="25" y="215" font-size="10" fill="#3182ce" font-family="sans-serif" text-anchor="end">q₁ = 13.0 kN/m</text>
+                </g>
+
+                <!-- Indicações de Carga de Vento q2 horizontal na Viga Esquerda -->
+                <g stroke="#3182ce" stroke-width="1.2">
+                    <line x1="80" y1="100" x2="130" y2="100" marker-end="url(#arrow-blue)" />
+                    <line x1="120" y1="80" x2="170" y2="80" marker-end="url(#arrow-blue)" />
+                    <line x1="160" y1="65" x2="210" y2="65" marker-end="url(#arrow-blue)" />
+                    <text x="120" y="50" font-size="10" fill="#3182ce" font-family="sans-serif">q₂ = 2.275 kN/m</text>
+                </g>
+
+                <!-- Indicação de Recalque vertical no Nó 5 -->
+                <g stroke="#e53e3e" stroke-width="1.8">
+                    <line x1="520" y1="270" x2="520" y2="298" marker-end="url(#arrow-red)" />
+                    <text x="530" y="285" font-size="10" fill="#e53e3e" font-family="sans-serif" font-weight="bold">δ = -5 mm</text>
+                </g>
+
+                <!-- Círculos de Nós -->
+                <g font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="white">
+                    <!-- Nó 1 -->
+                    <circle cx="80" cy="310" r="9" fill="#1a365d" stroke="#2b6cb0" stroke-width="1.5" />
+                    <text x="80" y="313">1</text>
+                    <!-- Nó 2 -->
+                    <circle cx="80" cy="134" r="9" fill="#1a365d" stroke="#2b6cb0" stroke-width="1.5" />
+                    <text x="80" y="137">2</text>
+                    <!-- Nó 3 -->
+                    <circle cx="245" cy="60" r="9" fill="#1a365d" stroke="#2b6cb0" stroke-width="1.5" />
+                    <text x="245" y="63">3</text>
+                    <!-- Nó 4 -->
+                    <circle cx="520" cy="134" r="9" fill="#1a365d" stroke="#2b6cb0" stroke-width="1.5" />
+                    <text x="520" y="137">4</text>
+                    <!-- Nó 5 -->
+                    <circle cx="520" cy="310" r="9" fill="#1a365d" stroke="#2b6cb0" stroke-width="1.5" />
+                    <text x="520" y="313">5</text>
+                </g>
+
+                <!-- Retângulos de Elementos -->
+                <g font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#2d3748">
+                    <!-- Elem 1 -->
+                    <rect x="92" y="215" width="14" height="14" rx="2" fill="#edf2f7" stroke="#cbd5e0" />
+                    <text x="99" y="225">1</text>
+                    <!-- Elem 2 -->
+                    <rect x="155" y="100" width="14" height="14" rx="2" fill="#edf2f7" stroke="#cbd5e0" />
+                    <text x="162" y="110">2</text>
+                    <!-- Elem 3 -->
+                    <rect x="375" y="100" width="14" height="14" rx="2" fill="#edf2f7" stroke="#cbd5e0" />
+                    <text x="382" y="110">3</text>
+                    <!-- Elem 4 -->
+                    <rect x="500" y="215" width="14" height="14" rx="2" fill="#edf2f7" stroke="#cbd5e0" />
+                    <text x="507" y="225">4</text>
+                </g>
+
+                <!-- Cotas Lineares e Rótulos -->
+                <g font-family="sans-serif" font-size="9.5" fill="#4a5568">
+                    <!-- H = 6.0m -->
+                    <line x1="55" y1="310" x2="55" y2="134" stroke="#a0aec0" stroke-width="0.8" />
+                    <line x1="50" y1="310" x2="60" y2="310" stroke="#a0aec0" stroke-width="0.8" />
+                    <line x1="50" y1="134" x2="60" y2="134" stroke="#a0aec0" stroke-width="0.8" />
+                    <text x="48" y="226" text-anchor="end">H = 6.0 m</text>
+
+                    <!-- hc = 2.5m -->
+                    <line x1="245" y1="134" x2="245" y2="60" stroke="#a0aec0" stroke-dasharray="2 2" stroke-width="0.8" />
+                    <line x1="240" y1="134" x2="250" y2="134" stroke="#a0aec0" stroke-width="0.8" />
+                    <text x="252" y="102">hc = 2.5 m</text>
+
+                    <!-- L1 = 9.0m -->
+                    <line x1="80" y1="340" x2="245" y2="340" stroke="#a0aec0" stroke-width="0.8" />
+                    <line x1="80" y1="335" x2="80" y2="345" stroke="#a0aec0" stroke-width="0.8" />
+                    <line x1="245" y1="335" x2="245" y2="345" stroke="#a0aec0" stroke-width="0.8" />
+                    <text x="162.5" y="352" text-anchor="middle">L₁ = 9.0 m</text>
+
+                    <!-- L2 = 15.0m -->
+                    <line x1="245" y1="340" x2="520" y2="340" stroke="#a0aec0" stroke-width="0.8" />
+                    <line x1="520" y1="335" x2="520" y2="345" stroke="#a0aec0" stroke-width="0.8" />
+                    <text x="382.5" y="352" text-anchor="middle">L₂ = 15.0 m</text>
+                </g>
+            </svg>
+        </div>
+
+        <p>
+            Abaixo estão representados em formato vetorial as coordenadas dos nós, comprimentos das barras e seus respectivos cossenos e senos diretores calculados:
+        </p>
+        <div class="vector-flex-container">
+            <div class="vector-item">$$X = \begin{bmatrix} 0.000 \\ 0.000 \\ 9.000 \\ 24.000 \\ 24.000 \end{bmatrix}$$</div>
+            <div class="vector-item">$$Y = \begin{bmatrix} 0.000 \\ 6.000 \\ 8.500 \\ 6.000 \\ 0.000 \end{bmatrix}$$</div>
+            <div class="vector-item">$$l = \begin{bmatrix} 6.000 \\ 9.341 \\ 15.207 \\ 6.000 \end{bmatrix}$$</div>
+            <div class="vector-item">$$c = \begin{bmatrix} 0.000 \\ 0.964 \\ 0.986 \\ 0.000 \end{bmatrix}$$</div>
+            <div class="vector-item">$$s = \begin{bmatrix} 1.000 \\ 0.268 \\ -0.164 \\ -1.000 \end{bmatrix}$$</div>
+        </div>
+
+        <div class="footer">Página 2 de 6</div>
+    </div>
+
+    <!-- PÁGINA 3: PROPRIEDADES E CARREGAMENTOS VETORIAIS -->
+    <div class="page">
+        <h3>Parâmetros Geométricos, Térmicos e de Materiais:</h3>
+        <ul>
+            <li>Módulo de Elasticidade ($E$): <strong>210 GPa ($210 \times 10^6 \text{ kN/m}^2$)</strong></li>
+            <li>Coeficiente de Dilatação Térmica ($\alpha$): <strong>$1{,}2 \times 10^{-5} / ^\circ\text{C}$</strong></li>
+            <li>Perfil das Colunas: <strong>HEA200</strong> ($Area = 5.105000e-03\text{ m}^2$, $I_x = 3.509454e-05\text{ m}^4$, $h = 0.190\text{ m}$)</li>
+            <li>Perfil das Vigas: <strong>HEA160</strong> ($Area = 3.684000e-03\text{ m}^2$, $I_x = 1.594577e-05\text{ m}^4$, $h = 0.152\text{ m}$)</li>
+        </ul>
+
+        <div class="detalhe-calculo">
+            <strong>Nota de Consistência das Propriedades Físicas:</strong><br>
+            Para manter a consistência matemática das contas com a formulação teórica clássica de resistência dos materiais e com o solucionador de referência do professor, os valores de área e inércia dos perfis foram calculados analiticamente a partir das dimensões nominais da seção em duplo T (retângulos constituintes da alma e mesas):
+            $$A = 2 \cdot b_f \cdot t_f + (h_{\text{total}} - 2 \cdot t_f) \cdot t_w$$
+            $$I_x = \frac{b_f \cdot h_{\text{total}}^3 - (b_f - t_w) \cdot (h_{\text{total}} - 2 \cdot t_f)^3}{12}$$
+        </div>
+
+        <div class="vector-flex-container">
+            <div class="vector-item">$$A = \begin{bmatrix} 5.105000e-03 \\ 3.684000e-03 \\ 3.684000e-03 \\ 5.105000e-03 \end{bmatrix}$$</div>
+            <div class="vector-item">$$J = \begin{bmatrix} 3.509454e-05 \\ 1.594577e-05 \\ 1.594577e-05 \\ 3.509454e-05 \end{bmatrix}$$</div>
+            <div class="vector-item">$$h = \begin{bmatrix} 0.190 \\ 0.152 \\ 0.152 \\ 0.190 \end{bmatrix}$$</div>
+            <div class="vector-item">$$dtcg = \begin{bmatrix} 185.000 \\ 145.000 \\ 145.000 \\ 185.000 \end{bmatrix}$$</div>
+            <div class="vector-item">$$qly = \begin{bmatrix} 13.000 \\ 0.609 \\ 0.000 \\ 0.000 \end{bmatrix}$$</div>
+        </div>
+
+        <h3>Tabela de Conectividade e Propriedades dos Elementos (Tabela 1 do Enunciado):</h3>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>El.</th>
+                    <th>Nó I</th>
+                    <th>Nó F</th>
+                    <th>Área $A$ (m²)</th>
+                    <th>Inércia $I$ (m⁴)</th>
+                    <th>$E$ (GPa)</th>
+                    <th>$\Delta X$ (m)</th>
+                    <th>$\Delta Y$ (m)</th>
+                    <th>$l$ (m)</th>
+                    <th>$\cos\beta$</th>
+                    <th>$\sin\beta$</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>1 (Pilar Esq)</strong></td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>0.005105</td>
+                    <td>0.00003509</td>
+                    <td>210.0</td>
+                    <td>0.000</td>
+                    <td>6.000</td>
+                    <td>6.000</td>
+                    <td>0.000</td>
+                    <td>1.000</td>
+                </tr>
+                <tr>
+                    <td><strong>2 (Viga Esq)</strong></td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>0.003684</td>
+                    <td>0.00001595</td>
+                    <td>210.0</td>
+                    <td>9.000</td>
+                    <td>2.500</td>
+                    <td>9.341</td>
+                    <td>0.964</td>
+                    <td>0.268</td>
+                </tr>
+                <tr>
+                    <td><strong>3 (Viga Dir)</strong></td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>0.003684</td>
+                    <td>0.00001595</td>
+                    <td>210.0</td>
+                    <td>15.000</td>
+                    <td>-2.500</td>
+                    <td>15.207</td>
+                    <td>0.986</td>
+                    <td>-0.164</td>
+                </tr>
+                <tr>
+                    <td><strong>4 (Pilar Dir)</strong></td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>0.005105</td>
+                    <td>0.00003509</td>
+                    <td>210.0</td>
+                    <td>0.000</td>
+                    <td>-6.000</td>
+                    <td>6.000</td>
+                    <td>0.000</td>
+                    <td>-1.000</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="footer">Página 3 de 6</div>
+    </div>
+
+    <!-- PÁGINA 4: ELEMENTO 1 E ELEMENTO 2 -->
+    <div class="page">
+        <h2>3.3 Método da Rigidez Direta</h2>
+        <h3>a) Matrizes Locais, b) Rotação e c) Reposicionamento Global:</h3>
+        
+        <div class="detalhe-calculo">
+            <strong>Elemento 1 (Pilar Esquerdo):</strong> Conecta o Nó 1 (0, 0) ao Nó 2 (0, 6). Comprimento $l_1 = 6{,}0\text{ m}$ e ângulo $\beta_1 = 90^\circ$ ($\cos\beta_1 = 0$, $\sin\beta_1 = 1$). Ações térmicas de incêndio ($\Delta T_{CG} = 185^\circ\text{C}$ e gradiente $\Delta T = 370^\circ\text{C}$) e vento mecânico transversal ($q_{l1} = 13{,}0\text{ kN/m}$).
+        </div>
+        <div style="font-size: 9.5px; overflow-x: auto;">
+            $$k'_1 = \begin{bmatrix} 178675.000 & 0.000 & 0.000 & -178675.000 & 0.000 & 0.000 \\ 0.000 & 409.436 & 1228.309 & 0.000 & -409.436 & 1228.309 \\ 0.000 & 1228.309 & 4913.236 & 0.000 & -1228.309 & 2456.618 \\ -178675.000 & 0.000 & 0.000 & 178675.000 & 0.000 & 0.000 \\ 0.000 & -409.436 & -1228.309 & 0.000 & 409.436 & -1228.309 \\ 0.000 & 1228.309 & 2456.618 & 0.000 & -1228.309 & 4913.236 \end{bmatrix}$$
+            $$f'_1 = \begin{bmatrix} -2379.951 \\ -39.000 \\ -211.222 \\ 2379.951 \\ -39.000 \\ 211.222 \end{bmatrix}$$
+            $$R_1 = \begin{bmatrix} 0.000 & 1.000 & 0.000 & 0.000 & 0.000 & 0.000 \\ -1.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 \\ 0.000 & 0.000 & 1.000 & 0.000 & 0.000 & 0.000 \\ 0.000 & 0.000 & 0.000 & 0.000 & 1.000 & 0.000 \\ 0.000 & 0.000 & 0.000 & -1.000 & 0.000 & 0.000 \\ 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 1.000 \end{bmatrix}$$
+            $$k_1 = \begin{bmatrix} 409.436 & 0.000 & -1228.309 & -409.436 & 0.000 & -1228.309 \\ 0.000 & 178675.000 & 0.000 & 0.000 & -178675.000 & 0.000 \\ -1228.309 & 0.000 & 4913.236 & 1228.309 & 0.000 & 2456.618 \\ -409.436 & 0.000 & 1228.309 & 409.436 & 0.000 & 1228.309 \\ 0.000 & -178675.000 & 0.000 & 0.000 & 178675.000 & 0.000 \\ -1228.309 & 0.000 & 2456.618 & 1228.309 & 0.000 & 4913.236 \end{bmatrix}$$
+            $$f_1 = \begin{bmatrix} 39.000 \\ -2379.951 \\ -211.222 \\ 39.000 \\ 2379.951 \\ 211.222 \end{bmatrix}$$
+        </div>
+
+        <div class="detalhe-calculo">
+            <strong>Elemento 2 (Viga Esquerda):</strong> Conecta o Nó 2 (0, 6) ao Nó 3 (9, 8.5). Comprimento $l_2 = 9{,}341\text{ m}$ e ângulo $\beta_2 = 15{,}52^\circ$ ($\cos\beta_2 = 0{,}964$, $\sin\beta_2 = 0{,}268$). Ações térmicas de incêndio ($\Delta T_{CG} = 145^\circ\text{C}$ e gradiente $\Delta T = 290^\circ\text{C}$) e vento mecânico ($q_{l2} = 2{,}275\text{ kN/m}$, componente transversal local $q_y = 0{,}609\text{ kN/m}$ e longitudinal $q_x = 2{,}192\text{ kN/m}$).
+        </div>
+        <div style="font-size: 9.5px; overflow-x: auto;">
+            $$k'_2 = \begin{bmatrix} 82824.000 & 0.000 & 0.000 & -82824.000 & 0.000 & 0.000 \\ 0.000 & 49.306 & 230.277 & 0.000 & -49.306 & 230.277 \\ 0.000 & 230.277 & 1433.977 & 0.000 & -230.277 & 716.988 \\ -82824.000 & 0.000 & 0.000 & 82824.000 & 0.000 & 0.000 \\ 0.000 & -49.306 & -230.277 & 0.000 & 49.306 & -230.277 \\ 0.000 & 230.277 & 716.988 & 0.000 & -230.277 & 1433.977 \end{bmatrix}$$
+            $$f'_2 = \begin{bmatrix} -1335.896 \\ -2.844 \\ -81.093 \\ 1356.371 \\ -2.844 \\ 81.093 \end{bmatrix}$$
+            $$R_2 = \begin{bmatrix} 0.964 & 0.268 & 0.000 & 0.000 & 0.000 & 0.000 \\ -0.268 & 0.964 & 0.000 & 0.000 & 0.000 & 0.000 \\ 0.000 & 0.000 & 1.000 & 0.000 & 0.000 & 0.000 \\ 0.000 & 0.000 & 0.000 & 0.964 & 0.268 & 0.000 \\ 0.000 & 0.000 & 0.000 & -0.268 & 0.964 & 0.000 \\ 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 1.000 \end{bmatrix}$$
+            $$k_2 = \begin{bmatrix} 76894.580 & 21345.910 & -61.632 & -76894.580 & -21345.910 & -61.632 \\ 21345.910 & 5978.725 & 221.876 & -21345.910 & -5978.725 & 221.876 \\ -61.632 & 221.876 & 1433.977 & 61.632 & -221.876 & 716.988 \\ -76894.580 & -21345.910 & 61.632 & 76894.580 & 21345.910 & 61.632 \\ -21345.910 & -5978.725 & -221.876 & 21345.910 & 5978.725 & -221.876 \\ -61.632 & 221.876 & 716.988 & 61.632 & -221.876 & 1433.977 \end{bmatrix}$$
+            $$f_2 = \begin{bmatrix} -1286.399 \\ -360.284 \\ -81.093 \\ 1307.649 \\ 360.284 \\ 81.093 \end{bmatrix}$$
+        </div>
+
+        <div class="footer">Página 4 de 6</div>
+    </div>
+
+    <!-- PÁGINA 5: ELEMENTO 3 E ELEMENTO 4 -->
+    <div class="page">
+        <div class="detalhe-calculo">
+            <strong>Elemento 3 (Viga Direita):</strong> Conecta o Nó 3 (9, 8.5) ao Nó 4 (24, 6). Comprimento $l_3 = 15{,}207\text{ m}$ e ângulo $\beta_3 = -9{,}46^\circ$ ($\cos\beta_3 = 0{,}986$, $\sin\beta_3 = -0{,}164$). Sem ações mecânicas de vento. Ações térmicas de incêndio ($\Delta T_{CG} = 145^\circ\text{C}$ e gradiente $\Delta T = 290^\circ\text{C}$).
+        </div>
+        <div style="font-size: 9.5px; overflow-x: auto;">
+            $$k'_3 = \begin{bmatrix} 50874.253 & 0.000 & 0.000 & -50874.253 & 0.000 & 0.000 \\ 0.000 & 11.427 & 86.883 & 0.000 & -11.427 & 86.883 \\ 0.000 & 86.883 & 880.814 & 0.000 & -86.883 & 440.407 \\ -50874.253 & 0.000 & 0.000 & 50874.253 & 0.000 & 0.000 \\ 0.000 & -11.427 & -86.883 & 0.000 & 11.427 & -86.883 \\ 0.000 & 86.883 & 440.407 & 0.000 & -86.883 & 880.814 \end{bmatrix}$$
+            $$f'_3 = \begin{bmatrix} -1346.134 \\ 0.000 \\ -76.666 \\ 1346.134 \\ 0.000 \\ 76.666 \end{bmatrix}$$
+            $$R_3 = \begin{bmatrix} 0.986 & -0.164 & 0.000 & 0.000 & 0.000 & 0.000 \\ 0.164 & 0.986 & 0.000 & 0.000 & 0.000 & 0.000 \\ 0.000 & 0.000 & 1.000 & 0.000 & 0.000 & 0.000 \\ 0.000 & 0.000 & 0.000 & 0.986 & -0.164 & 0.000 \\ 0.000 & 0.000 & 0.000 & 0.164 & 0.986 & 0.000 \\ 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 1.000 \end{bmatrix}$$
+            $$k_3 = \begin{bmatrix} 49499.582 & -8248.026 & 14.283 & -49499.582 & 8248.026 & 14.283 \\ -8248.026 & 1386.098 & 85.701 & 8248.026 & -1386.098 & 85.701 \\ 14.283 & 85.701 & 880.814 & -14.283 & -85.701 & 440.407 \\ -49499.582 & 8248.026 & -14.283 & 49499.582 & -8248.026 & -14.283 \\ 8248.026 & -1386.098 & -85.701 & -8248.026 & 1386.098 & -85.701 \\ 14.283 & 85.701 & 440.407 & -14.283 & -85.701 & 880.814 \end{bmatrix}$$
+            $$f_3 = \begin{bmatrix} -1327.818 \\ 221.303 \\ -76.666 \\ 1327.818 \\ -221.303 \\ 76.666 \end{bmatrix}$$
+        </div>
+
+        <div class="detalhe-calculo">
+            <strong>Elemento 4 (Pilar Direito):</strong> Conecta o Nó 4 (24, 6) ao Nó 5 (24, 0). Comprimento $l_4 = 6{,}0\text{ m}$ e ângulo $\beta_4 = -90^\circ$ ($\cos\beta_4 = 0$, $\sin\beta_4 = -1$). Sem ações mecânicas. Ações térmicas de incêndio ($\Delta T_{CG} = 185^\circ\text{C}$ e gradiente $\Delta T = 370^\circ\text{C}$).
+        </div>
+        <div style="font-size: 9.5px; overflow-x: auto;">
+            $$k'_4 = \begin{bmatrix} 178675.000 & 0.000 & 0.000 & -178675.000 & 0.000 & 0.000 \\ 0.000 & 409.436 & 1228.309 & 0.000 & -409.436 & 1228.309 \\ 0.000 & 1228.309 & 4913.236 & 0.000 & -1228.309 & 2456.618 \\ -178675.000 & 0.000 & 0.000 & 178675.000 & 0.000 & 0.000 \\ 0.000 & -409.436 & -1228.309 & 0.000 & 409.436 & -1228.309 \\ 0.000 & 1228.309 & 2456.618 & 0.000 & -1228.309 & 4913.236 \end{bmatrix}$$
+            $$f'_4 = \begin{bmatrix} -2379.951 \\ 0.000 \\ -172.222 \\ 2379.951 \\ 0.000 \\ 172.222 \end{bmatrix}$$
+            $$R_4 = \begin{bmatrix} 0.000 & -1.000 & 0.000 & 0.000 & 0.000 & 0.000 \\ 1.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 \\ 0.000 & 0.000 & 1.000 & 0.000 & 0.000 & 0.000 \\ 0.000 & 0.000 & 0.000 & 0.000 & -1.000 & 0.000 \\ 0.000 & 0.000 & 0.000 & 1.000 & 0.000 & 0.000 \\ 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 1.000 \end{bmatrix}$$
+            $$k_4 = \begin{bmatrix} 409.436 & 0.000 & 1228.309 & -409.436 & 0.000 & 1228.309 \\ 0.000 & 178675.000 & 0.000 & 0.000 & -178675.000 & 0.000 \\ 1228.309 & 0.000 & 4913.236 & -1228.309 & 0.000 & 2456.618 \\ -409.436 & 0.000 & -1228.309 & 409.436 & 0.000 & -1228.309 \\ 0.000 & -178675.000 & 0.000 & 0.000 & 178675.000 & 0.000 \\ 1228.309 & 0.000 & 2456.618 & -1228.309 & 0.000 & 4913.236 \end{bmatrix}$$
+            $$f_4 = \begin{bmatrix} 0.000 \\ 2379.951 \\ -172.222 \\ 0.000 \\ -2379.951 \\ 172.222 \end{bmatrix}$$
+        </div>
+
+        <div class="footer">Página 5 de 6</div>
+    </div>
+
+    <!-- PÁGINA 6: VETORES GLOBAIS, PARTICIONAMENTO E RESOLUÇÃO -->
+    <div class="page">
+        <h3>d) Vetores Globais de Cargas $\{F_{\text{eq}}\}$ e de Deslocamentos $\{D\}$:</h3>
+        <p>
+            Vetor global de forças equivalentes $\{F_{\text{eq}}\}_{15\times1}$ e vetor de deslocamentos global $\{D\}_{15\times1}$ (indicando deslocamentos nodais resolvidos $D_4 \dots D_{12}$ e o recalque de $-0{,}005\text{ m}$ no GDL 14):
+        </p>
+        <div style="display: flex; justify-content: space-around; font-size: 9.5px;">
+            <div>$$F_{eq} = \begin{bmatrix} 39.000 \\ -2379.951 \\ -211.222 \\ -1247.399 \\ 2019.667 \\ 130.129 \\ -20.169 \\ 581.587 \\ 4.427 \\ 1327.818 \\ 2158.648 \\ -95.556 \\ 0.000 \\ -2379.951 \\ 172.222 \end{bmatrix}$$</div>
+            <div>$$D = \begin{bmatrix} 0.000 \\ 0.000 \\ 0.000 \\ 0.177 \\ 0.013 \\ -0.014 \\ 0.175 \\ 0.083 \\ 0.022 \\ 0.189 \\ 0.008 \\ -0.059 \\ 0.000 \\ -0.005 \\ 0.000 \end{bmatrix}$$</div>
+        </div>
+
+        <h3>e) Particionamento da Equação de Equilíbrio:</h3>
+        <p>
+            Submatrizes do acoplamento $[K_{ll}]$, $[K_{lf}]$, $[K_{fl}]$, $[K_{ff}]$ e subvetores associados:
+        </p>
+        <div style="font-size: 9.5px; overflow-x: auto; margin-bottom: 10px;">
+            $$K_{ll} = \begin{bmatrix} 77304.017 & 21345.910 & 1166.677 & -76894.580 & -21345.910 & -61.632 & 0.000 & 0.000 & 0.000 \\ 21345.910 & 184653.725 & 221.876 & -21345.910 & -5978.725 & 221.876 & 0.000 & 0.000 & 0.000 \\ 1166.677 & 221.876 & 6347.213 & 61.632 & -221.876 & 716.988 & 0.000 & 0.000 & 0.000 \\ -76894.580 & -21345.910 & 61.632 & 126394.162 & 13097.884 & 75.916 & -49499.582 & 8248.026 & 14.283 \\ -21345.910 & -5978.725 & -221.876 & 13097.884 & 7364.823 & -136.175 & 8248.026 & -1386.098 & 85.701 \\ -61.632 & 221.876 & 716.988 & 75.916 & -136.175 & 2314.790 & -14.283 & -85.701 & 440.407 \\ 0.000 & 0.000 & 0.000 & -49499.582 & 8248.026 & -14.283 & 49909.018 & -8248.026 & 1214.025 \\ 0.000 & 0.000 & 0.000 & 8248.026 & -1386.098 & -85.701 & -8248.026 & 180061.098 & -85.701 \\ 0.000 & 0.000 & 0.000 & 14.283 & 85.701 & 440.407 & 1214.025 & -85.701 & 5794.049 \end{bmatrix}$$
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 9.5px; margin-bottom: 10px;">
+            <div style="width: 58%; overflow-x: auto;">$$K_{lf} = \begin{bmatrix} -409.436 & 0.000 & 1228.309 & 0.000 & 0.000 & 0.000 \\ 0.000 & -178675.000 & 0.000 & 0.000 & 0.000 & 0.000 \\ -1228.309 & 0.000 & 2456.618 & 0.000 & 0.000 & 0.000 \\ 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 \\ 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 \\ 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 \\ 0.000 & 0.000 & 0.000 & -409.436 & 0.000 & 1228.309 \\ 0.000 & 0.000 & 0.000 & 0.000 & -178675.000 & 0.000 \\ 0.000 & 0.000 & 0.000 & -1228.309 & 0.000 & 2456.618 \end{bmatrix}$$</div>
+            <div style="width: 38%; overflow-x: auto;">$$F_l = \begin{bmatrix} -1247.399 \\ 2019.667 \\ 130.129 \\ -20.169 \\ 581.587 \\ 4.427 \\ 1327.818 \\ 2158.648 \\ -95.556 \end{bmatrix}$$</div>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 9.5px; margin-bottom: 10px;">
+            <div style="width: 58%; overflow-x: auto;">$$K_{fl} = \begin{bmatrix} -409.436 & 0.000 & -1228.309 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 \\ 0.000 & -178675.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 \\ 1228.309 & 0.000 & 2456.618 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 \\ 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & -409.436 & 0.000 & -1228.309 \\ 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & -178675.000 & 0.000 \\ 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 1228.309 & 0.000 & 2456.618 \end{bmatrix}$$</div>
+            <div style="width: 38%; overflow-x: auto;">$$D_f = \begin{bmatrix} 0.000 \\ 0.000 \\ 0.000 \\ 0.000 \\ -0.005 \\ 0.000 \end{bmatrix}$$</div>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 9.5px;">
+            <div style="width: 58%; overflow-x: auto;">$$K_{ff} = \begin{bmatrix} 409.436 & 0.000 & -1228.309 & 0.000 & 0.000 & 0.000 \\ 0.000 & 178675.000 & 0.000 & 0.000 & 0.000 & 0.000 \\ -1228.309 & 0.000 & 4913.236 & 0.000 & 0.000 & 0.000 \\ 0.000 & 0.000 & 0.000 & 409.436 & 0.000 & -1228.309 \\ 0.000 & 0.000 & 0.000 & 0.000 & 178675.000 & 0.000 \\ 0.000 & 0.000 & 0.000 & -1228.309 & 0.000 & 4913.236 \end{bmatrix}$$</div>
+            <div style="width: 38%; overflow-x: auto;">$$R_f = \begin{bmatrix} -94.634 \\ -3.274 \\ 395.029 \\ -4.616 \\ 3.274 \\ -85.545 \end{bmatrix}$$</div>
+        </div>
+
+        <h3>f) Resolução dos Deslocamentos livres $\{D_l\}$ e g) Reações $\{R_f\}$:</h3>
+        <div style="display: flex; justify-content: space-around; font-size: 9.5px; margin-top: 10px;">
+            <div>$$D_l = \begin{bmatrix} 0.177 \\ 0.013 \\ -0.014 \\ 0.175 \\ 0.083 \\ 0.022 \\ 0.189 \\ 0.008 \\ -0.059 \end{bmatrix}$$</div>
+            <div>$$R_f = \begin{bmatrix} -94.634 \\ -3.274 \\ 395.029 \\ -4.616 \\ 3.274 \\ -85.545 \end{bmatrix}$$</div>
+        </div>
+
+        <div style="margin-top: 30px; border-top: 1px dashed #cbd5e0; padding-top: 10px;">
+            <p style="font-size: 11px; color: #718096; text-align: center;">
+                <em>Nota: Para gerar o arquivo PDF final formatado, basta imprimir este arquivo HTML a partir do navegador utilizando a opção "Salvar como PDF" com orientação Vertical e Margens "Nenhuma" ou "Padrão".</em>
+            </p>
+        </div>
+
+        <div class="footer">Página 6 de 6</div>
+    </div>
+
+</body>
+</html>

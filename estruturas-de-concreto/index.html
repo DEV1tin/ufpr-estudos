@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estruturas de Concreto (I e II) — UFPR Estudos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #b45309;
+      --accent-soft: #fffbeb;
+      --radius: 14px;
+      --shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    .topbar { background: #0f172a; color: #fff; padding: 0.9rem 1.5rem; }
+    .topbar-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .back-btn { color: #e2e8f0; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+    .back-btn:hover { color: #fff; }
+    .tag { background: var(--accent); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 6px; }
+    main { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem 3.5rem; }
+    .header-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 1.75rem;
+    }
+    .header-card h1 { font-size: 1.75rem; font-weight: 800; margin-bottom: 0.4rem; }
+    .header-card p { color: var(--muted); }
+    .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1rem; }
+    .project-card {
+      display: flex; flex-direction: column; justify-content: space-between; gap: 0.8rem;
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 1.25rem 1.35rem; text-decoration: none; color: inherit; box-shadow: var(--shadow);
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+    .project-card:hover { transform: translateY(-2px); border-color: var(--accent); }
+    .pill {
+      display: inline-block; font-size: 0.74rem; font-weight: 700;
+      padding: 0.2rem 0.55rem; border-radius: 999px;
+      background: var(--accent-soft); color: var(--accent); margin-bottom: 0.45rem;
+    }
+    .project-card h2 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .project-card p { font-size: 0.88rem; color: var(--muted); }
+    .open { font-size: 0.86rem; font-weight: 600; color: var(--accent); }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="back-btn" href="../">← Voltar para UFPR Estudos</a>
+      <span class="tag">Concreto I &amp; II</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="header-card">
+      <h1>Estruturas de Concreto (I e II)</h1>
+      <p>Guias visuais de resolução de exercícios segundo a NBR 6118 para Concreto I e Concreto II.</p>
+    </section>
+
+    <!-- PROJECTS_LIST -->
+    <section class="projects">
+      <a class="project-card" href="./concreto-1-aproveitamento/">
+        <div>
+          <span class="pill">Concreto I · Aproveitamento</span>
+          <h2>Guia Visual de Exercícios (Nível Graduado)</h2>
+          <p>Combinações ELU, armadura longitudinal simples/dupla, seção T, armadura transversal e espelho offline do BeamsDiagrams.</p>
+        </div>
+        <span class="open">Abrir projeto →</span>
+      </a>
+
+      <a class="project-card" href="./concreto-2-p3-pilares/">
+        <div>
+          <span class="pill">Concreto II · P3</span>
+          <h2>Guia Passo a Passo — Imperfeições e Pilares</h2>
+          <p>Imperfeições geométricas, introdução a pilares, Flexão Composta Normal (FCN) e Flexão Composta Oblíqua (FCO).</p>
+        </div>
+        <span class="open">Abrir projeto →</span>
+      </a>
+    </section>
+  </main>
+</body>
+</html>

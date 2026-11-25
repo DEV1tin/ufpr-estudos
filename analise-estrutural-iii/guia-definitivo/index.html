@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Definitivo: Análise Estrutural 3</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        svg: {
+          fontCache: 'global'
+        }
+      };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .table-integrals td, .table-integrals th {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px;
+            text-align: center;
+        }
+        .table-integrals th {
+            background: rgba(56, 189, 248, 0.1);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen selection:bg-sky-500 selection:text-white">
+
+    <!-- Header -->
+    <header class="relative overflow-hidden border-b border-slate-800">
+        <div class="absolute inset-0 bg-gradient-to-br from-sky-900/20 to-indigo-900/20 z-0"></div>
+        <div class="max-w-6xl mx-auto px-6 py-20 relative z-10 text-center">
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
+                Guia Definitivo <br>
+                <span class="gradient-text">Análise Estrutural 3</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto font-light">
+                O estudo unificado dos 4 principais métodos para resolução de estruturas hiperestáticas, com resoluções densamente explicadas passo a passo.
+            </p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 glass-card mx-4 md:mx-auto max-w-4xl mt-[-2rem] mb-12 py-4 px-6 flex justify-between items-center overflow-x-auto gap-4">
+        <a href="#resumo" class="text-sm font-semibold hover:text-sky-400 transition-colors whitespace-nowrap">1. Resumo dos Métodos</a>
+        <a href="#tabelas" class="text-sm font-semibold hover:text-sky-400 transition-colors whitespace-nowrap">2. Tabelas de Apoio</a>
+        <a href="#exercicio" class="text-sm font-semibold hover:text-sky-400 transition-colors whitespace-nowrap">3. O Exercício (Problema)</a>
+        <a href="#resolucao" class="text-sm font-semibold hover:text-sky-400 transition-colors whitespace-nowrap">4. Resolução Completa</a>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-6 pb-24 space-y-24">
+
+        <!-- Seção 1: Resumo dos Métodos -->
+        <section id="resumo" class="scroll-mt-32">
+            <h2 class="text-3xl font-bold mb-8 border-l-4 border-sky-400 pl-4">1. Resumo dos Métodos</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Método das Forças -->
+                <div class="glass-card p-8 hover:-translate-y-1 transition-transform duration-300">
+                    <h3 class="text-2xl font-semibold mb-4 text-sky-300">Método das Forças</h3>
+                    <p class="text-slate-300 mb-4 text-sm leading-relaxed">
+                        <strong>Conceito:</strong> Escolhemos as forças internas ou reações de apoio como incógnitas hiperestáticas. Rompemos vínculos até obtermos um Sistema Principal (SP) isostático e estável.
+                    </p>
+                    <p class="text-slate-300 mb-4 text-sm leading-relaxed">
+                        <strong>Aplicação:</strong> Ideal para estruturas com baixo grau de hiperestaticidade (poucos vínculos excedentes).
+                    </p>
+                    <h4 class="font-semibold text-white mb-2 text-sm">Passo a Passo:</h4>
+                    <ol class="list-decimal list-inside text-sm text-slate-400 space-y-2">
+                        <li>Determinar o grau de hiperestaticidade ($g$).</li>
+                        <li>Escolher o Sistema Principal (SP) isostático.</li>
+                        <li>Aplicar as cargas reais no SP e traçar o diagrama de momentos ($M_0$).</li>
+                        <li>Aplicar forças unitárias ($X_i = 1$) no SP e traçar os diagramas ($M_i$).</li>
+                        <li>Calcular os coeficientes de flexibilidade $\delta_{ij}$ (integração gráfica).</li>
+                        <li>Montar o sistema de compatibilidade: $[\delta]\{X\} + \{\delta_0\} = 0$.</li>
+                        <li>Traçar o diagrama final: $M_{final} = M_0 + M_1X_1 + M_2X_2 + \dots$</li>
+                    </ol>
+                </div>
+
+                <!-- Método dos Deslocamentos -->
+                <div class="glass-card p-8 hover:-translate-y-1 transition-transform duration-300">
+                    <h3 class="text-2xl font-semibold mb-4 text-indigo-300">Método dos Deslocamentos</h3>
+                    <p class="text-slate-300 mb-4 text-sm leading-relaxed">
+                        <strong>Conceito:</strong> As incógnitas são os deslocamentos nodais (rotações e translações). Cria-se um Sistema Cinemático (SC) bloqueando todos os nós livres.
+                    </p>
+                    <p class="text-slate-300 mb-4 text-sm leading-relaxed">
+                        <strong>Aplicação:</strong> Muito eficiente para estruturas com alto grau de hiperestaticidade, mas com poucos nós livres (baixo grau de deslocabilidade). Base para Análise Matricial e Elementos Finitos.
+                    </p>
+                    <h4 class="font-semibold text-white mb-2 text-sm">Passo a Passo:</h4>
+                    <ol class="list-decimal list-inside text-sm text-slate-400 space-y-2">
+                        <li>Determinar o grau de deslocabilidade ($d$) - rotações e translações livres.</li>
+                        <li>Adotar o Sistema Cinemático (SC) adicionando "chapas" (bloqueio de rotação) e "apoios" (bloqueio de translação).</li>
+                        <li>Aplicar cargas reais no SC e obter o vetor de forças de fixação $\{F_0\}$ e momentos de engastamento.</li>
+                        <li>Aplicar deslocamentos unitários ($D_i = 1$) no SC para obter a matriz de rigidez $[K]$.</li>
+                        <li>Resolver a equação de equilíbrio: $[K]\{D\} + \{F_0\} = \{F_{ext}\}$.</li>
+                        <li>Determinar os esforços finais superpondo os efeitos.</li>
+                    </ol>
+                </div>
+
+                <!-- Processo de Cross -->
+                <div class="glass-card p-8 hover:-translate-y-1 transition-transform duration-300">
+                    <h3 class="text-2xl font-semibold mb-4 text-teal-300">Processo de Cross</h3>
+                    <p class="text-slate-300 mb-4 text-sm leading-relaxed">
+                        <strong>Conceito:</strong> Um método iterativo manual para distribuir momentos desequilibrados nos nós. Inicialmente, todos os nós são considerados engastados.
+                    </p>
+                    <p class="text-slate-300 mb-4 text-sm leading-relaxed">
+                        <strong>Aplicação:</strong> Excelente para resolução manual de vigas contínuas e pórticos. Evita a resolução direta de grandes sistemas de equações.
+                    </p>
+                    <h4 class="font-semibold text-white mb-2 text-sm">Passo a Passo:</h4>
+                    <ol class="list-decimal list-inside text-sm text-slate-400 space-y-2">
+                        <li>Determinar coeficientes de rigidez das barras ($K = 4EI/L$ para barra engastada, $3EI/L$ para barra rotulada).</li>
+                        <li>Calcular os coeficientes de distribuição (D) em cada nó livre: $D_i = K_i / \sum K$.</li>
+                        <li>Calcular os Momentos de Engastamento Perfeito (MEP).</li>
+                        <li>Montar a Tabela de Cross.</li>
+                        <li>Iterar: Desequilibrar o nó, Distribuir o momento, Transmitir (fator 0.5) para as extremidades opostas.</li>
+                        <li>Parar a iteração quando os momentos a distribuir forem desprezíveis e somar as colunas.</li>
+                    </ol>
+                </div>
+
+                <!-- Equação dos Três Momentos -->
+                <div class="glass-card p-8 hover:-translate-y-1 transition-transform duration-300">
+                    <h3 class="text-2xl font-semibold mb-4 text-purple-300">Equação dos 3 Momentos</h3>
+                    <p class="text-slate-300 mb-4 text-sm leading-relaxed">
+                        <strong>Conceito:</strong> Também conhecido como Método de Clapeyron. Relaciona os momentos fletores em três apoios consecutivos de uma viga contínua com os carregamentos nos vãos.
+                    </p>
+                    <p class="text-slate-300 mb-4 text-sm leading-relaxed">
+                        <strong>Aplicação:</strong> Específico e extremamente prático para vigas contínuas sem recalque de apoio.
+                    </p>
+                    <h4 class="font-semibold text-white mb-2 text-sm">Passo a Passo:</h4>
+                    <ol class="list-decimal list-inside text-sm text-slate-400 space-y-2">
+                        <li>Identificar os apoios ($0, 1, 2, \dots, n$).</li>
+                        <li>Para cada apoio intermediário $i$, escrever a equação envolvendo $M_{i-1}$, $M_i$ e $M_{i+1}$.</li>
+                        <li>O termo independente depende da carga em cada vão (calcula-se o momento fletor isostático em cada vão).</li>
+                        <li>Montar o sistema linear onde as incógnitas são os momentos nos apoios.</li>
+                        <li>Resolver o sistema e utilizar os momentos nos apoios para calcular as reações verticais e traçar os diagramas de cortante e momento fletor.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 2: Tabelas de Apoio -->
+        <section id="tabelas" class="scroll-mt-32">
+            <h2 class="text-3xl font-bold mb-8 border-l-4 border-indigo-400 pl-4">2. Tabelas de Apoio (Integração de Diagramas)</h2>
+            
+            <div class="glass-card p-8 mb-8 text-sm text-slate-300">
+                <h3 class="text-xl font-semibold text-indigo-300 mb-4">Como usar a Tabela de Kurt Beyer</h3>
+                <p class="mb-4">A integração de diagramas de momentos fletores ($\int \frac{M_1 M_2}{EI} dx$) é essencial no Método das Forças e PTV. Em vez de resolver a integral na mão, utilizamos a tabela abaixo baseada na fórmula: <br>
+                <span class="block text-center text-white text-lg my-2 font-mono">Integral = Fator $\times$ L $\times$ Ordenada do Diagrama 1 $\times$ Ordenada do Diagrama 2</span>
+                </p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><strong>L:</strong> É o comprimento do vão onde a integração ocorre.</li>
+                    <li><strong>$i$ e $k$ (ou $y_1$ e $y_2$):</strong> São os valores máximos (ordenadas) dos diagramas de momento que você está cruzando.</li>
+                    <li>Sempre pegue a figura que tem a forma geométrica de um lado da tabela, e cruze com a figura do outro lado.</li>
+                    <li><strong>Sinais:</strong> Se ambos os diagramas estão desenhados do mesmo lado da barra (ex: ambos tracionando a fibra inferior), o resultado é <strong>positivo</strong>. Se estiverem em lados opostos, o resultado é <strong>negativo</strong>.</li>
+                </ul>
+            </div>
+
+            <div class="glass-card p-8 overflow-x-auto">
+                <table class="w-full text-sm text-slate-300 table-integrals">
+                    <thead>
+                        <tr>
+                            <th class="w-1/4">Diagrama 1 $\downarrow$ \ Diagrama 2 $\rightarrow$</th>
+                            <th>Retângulo<br>(ordenada $i$)</th>
+                            <th>Triângulo<br>(vértice na mesma ponta, ordenada $i$)</th>
+                            <th>Triângulo<br>(vértice em pontas opostas, ordenada $i$)</th>
+                            <th>Parábola 2º Grau<br>(simétrica, ordenada no meio $f$)</th>
+                            <th>Trapézio<br>(ordenadas $i_1$ e $i_2$)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold text-center bg-slate-800/50">Retângulo ($k$)</td>
+                            <td class="text-sky-300">$L \cdot i \cdot k$</td>
+                            <td class="text-sky-300">$\frac{1}{2} L \cdot i \cdot k$</td>
+                            <td class="text-sky-300">$\frac{1}{2} L \cdot i \cdot k$</td>
+                            <td class="text-sky-300">$\frac{2}{3} L \cdot f \cdot k$</td>
+                            <td class="text-sky-300">$\frac{1}{2} L \cdot k \cdot (i_1 + i_2)$</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-center bg-slate-800/50">Triângulo ($k$)</td>
+                            <td class="text-green-300">$\frac{1}{2} L \cdot i \cdot k$</td>
+                            <td class="text-green-300">$\frac{1}{3} L \cdot i \cdot k$</td>
+                            <td class="text-green-300">$\frac{1}{6} L \cdot i \cdot k$</td>
+                            <td class="text-green-300">$\frac{1}{3} L \cdot f \cdot k$</td>
+                            <td class="text-green-300">$\frac{1}{6} L \cdot k \cdot (2i_1 + i_2)$<br><span class="text-xs text-slate-500">(onde $i_1$ está no lado maior de $k$)</span></td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-center bg-slate-800/50">Parábola Simétrica ($f_k$)</td>
+                            <td class="text-purple-300">$\frac{2}{3} L \cdot i \cdot f_k$</td>
+                            <td class="text-purple-300">$\frac{1}{3} L \cdot i \cdot f_k$</td>
+                            <td class="text-purple-300">$\frac{1}{3} L \cdot i \cdot f_k$</td>
+                            <td class="text-purple-300">$\frac{8}{15} L \cdot f \cdot f_k$</td>
+                            <td class="text-purple-300">$\frac{1}{3} L \cdot f_k \cdot (i_1 + i_2)$</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-center bg-slate-800/50">Trapézio ($k_1, k_2$)</td>
+                            <td class="text-orange-300">$\frac{1}{2} L \cdot i \cdot (k_1 + k_2)$</td>
+                            <td class="text-orange-300">$\frac{1}{6} L \cdot i \cdot (2k_1 + k_2)$</td>
+                            <td class="text-orange-300">$\frac{1}{6} L \cdot i \cdot (k_1 + 2k_2)$</td>
+                            <td class="text-orange-300">$\frac{1}{3} L \cdot f \cdot (k_1 + k_2)$</td>
+                            <td class="text-orange-300">$\frac{1}{6} L \cdot [k_1(2i_1+i_2) + k_2(i_1+2i_2)]$</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Seção 3: O Exercício -->
+        <section id="exercicio" class="scroll-mt-32">
+            <h2 class="text-3xl font-bold mb-8 border-l-4 border-purple-400 pl-4">3. O Exercício Base</h2>
+            <div class="glass-card p-8 text-center relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+                <h3 class="text-2xl font-semibold mb-6">Enunciado do Problema</h3>
+                <p class="text-slate-300 mb-8 max-w-2xl mx-auto text-lg">
+                    Determine o diagrama de momento fletor para a viga contínua abaixo, sabendo que a rigidez à flexão ($EI$) é constante em todos os vãos. Responda utilizando os 4 métodos principais da Análise Estrutural.
+                </p>
+
+                <!-- Representação Visual em CSS/HTML -->
+                <div class="max-w-3xl mx-auto mb-10 relative">
+                    <!-- Cotas e Cargas -->
+                    <div class="flex justify-between relative h-20">
+                        <!-- Carga distribuída Vão 1 -->
+                        <div class="absolute left-0 w-3/5 h-12 border-t-2 border-x-2 border-red-400/50 flex items-center justify-center -top-2">
+                            <span class="text-red-400 text-sm font-semibold -mt-6 bg-[#0f172a] px-2">q = 12 kN/m</span>
+                            <!-- Setinhas -->
+                            <div class="absolute bottom-0 w-full flex justify-between px-2">
+                                <span class="text-red-400">↓</span><span class="text-red-400">↓</span><span class="text-red-400">↓</span><span class="text-red-400">↓</span><span class="text-red-400">↓</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Carga concentrada Vão 2 -->
+                        <div class="absolute right-[20%] w-0 h-16 border-l-2 border-red-500 -top-6 flex flex-col items-center">
+                            <span class="text-red-400 text-sm font-semibold -ml-16 mb-1">P = 40 kN</span>
+                            <span class="text-red-500 mt-auto -mb-1">▼</span>
+                        </div>
+                    </div>
+
+                    <!-- Viga Principal -->
+                    <div class="w-full h-4 bg-slate-400 rounded-sm relative z-10 flex shadow-[0_0_15px_rgba(148,163,184,0.3)]"></div>
+
+                    <!-- Apoios -->
+                    <div class="relative h-12 flex w-full">
+                        <!-- Engaste em A -->
+                        <div class="absolute left-0 -ml-1 w-2 h-12 bg-slate-500 rounded flex flex-col justify-center items-end -mt-1">
+                            <div class="w-1 h-full border-r-2 border-dashed border-slate-700"></div>
+                            <span class="absolute -bottom-6 text-sm font-bold">A (Nó 0)</span>
+                        </div>
+                        
+                        <!-- Rolete em B -->
+                        <div class="absolute left-[60%] -ml-3 w-6 h-6 border-t-[12px] border-x-[12px] border-t-slate-300 border-x-transparent flex justify-center mt-1">
+                            <div class="w-6 h-1 border-b border-slate-500 mt-2 absolute"></div>
+                            <span class="absolute -bottom-6 text-sm font-bold">B (Nó 1)</span>
+                        </div>
+                        
+                        <!-- Rolete em C -->
+                        <div class="absolute right-0 -mr-3 w-6 h-6 border-t-[12px] border-x-[12px] border-t-slate-300 border-x-transparent flex justify-center mt-1">
+                            <div class="w-6 h-1 border-b border-slate-500 mt-2 absolute"></div>
+                            <span class="absolute -bottom-6 text-sm font-bold">C (Nó 2)</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Cotas Inferiores -->
+                    <div class="relative h-10 w-full mt-6 border-t border-slate-600 flex text-xs text-slate-400">
+                        <div class="w-[60%] border-r border-slate-600 flex justify-center pt-2">
+                            <span>L₁ = 4.0 m</span>
+                        </div>
+                        <div class="w-[20%] border-r border-slate-600 flex justify-center pt-2">
+                            <span>1.5 m</span>
+                        </div>
+                        <div class="w-[20%] flex justify-center pt-2">
+                            <span>1.5 m</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-slate-800/50 rounded-lg p-6 text-left text-sm border border-slate-700">
+                    <h4 class="font-bold text-lg text-white mb-2">Análise Preliminar Estrutural</h4>
+                    <p class="mb-2"><strong>1. Vínculos Existentes:</strong> O nó A tem engaste (restringe $H, V, M \rightarrow 3$ restrições). Os nós B e C são apoios simples (rolete, restringem apenas $V \rightarrow 1$ restrição cada). Total de reações de apoio = 5.</p>
+                    <p class="mb-2"><span class="font-bold text-sky-300">Grau de Hiperestaticidade (g):</span> Como as equações da estática ($F_x=0, F_y=0, M=0$) nos fornecem 3 equações úteis, temos: $g = 5 - 3 = 2$. É uma estrutura hiperestática de grau 2.</p>
+                    <p><span class="font-bold text-indigo-300">Grau de Deslocabilidade (d):</span> Ignorando deslocamentos axiais (esforço normal nulo), os nós podem apenas rotacionar ou transladar. B e C estão impedidos de transladar verticalmente, mas podem sofrer rotação. Nó A está perfeitamente engastado. Portanto, $d = 2$ (rotação em B e rotação em C).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 4: Resolução -->
+        <section id="resolucao" class="scroll-mt-32">
+            <h2 class="text-3xl font-bold mb-8 border-l-4 border-teal-400 pl-4">4. Resolução Completa e Detalhada Passo a Passo</h2>
+            
+            <!-- RESULTADOS RESUMO -->
+            <div class="glass-card p-6 mb-12 border border-teal-500/30">
+                <h3 class="text-xl font-semibold text-teal-300 mb-4">Conclusão Antecipada (Válido para TODOS os métodos abaixo)</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                    <div class="bg-slate-800/50 p-4 rounded-lg">
+                        <span class="block text-sm text-slate-400 mb-1">Momento no Engaste (A)</span>
+                        <span class="text-2xl font-bold text-white">$M_A = -14.375 \text{ kNm}$</span>
+                    </div>
+                    <div class="bg-slate-800/50 p-4 rounded-lg">
+                        <span class="block text-sm text-slate-400 mb-1">Momento no Apoio (B)</span>
+                        <span class="text-2xl font-bold text-white">$M_B = -19.250 \text{ kNm}$</span>
+                    </div>
+                    <div class="bg-slate-800/50 p-4 rounded-lg">
+                        <span class="block text-sm text-slate-400 mb-1">Momento no Apoio (C)</span>
+                        <span class="text-2xl font-bold text-white">$M_C = 0 \text{ kNm}$</span>
+                    </div>
+                </div>
+                <p class="text-sm text-slate-400 mt-4 text-center"><em>Convenção adotada: Momentos negativos indicam que a fibra superior está sendo tracionada.</em></p>
+            </div>
+
+            <!-- MÉTODO DOS TRÊS MOMENTOS -->
+            <div class="glass-card p-8 mb-12 relative overflow-hidden group">
+                <div class="absolute left-0 top-0 w-1 h-full bg-purple-500"></div>
+                <h3 class="text-2xl font-semibold text-purple-300 mb-6">MÉTODO 1: Equação dos Três Momentos (Método de Clapeyron)</h3>
+                
+                <div class="space-y-6 text-slate-300 text-sm leading-relaxed">
+                    <p>O Método dos Três Momentos relaciona os momentos internos em três apoios sucessivos. Para aplicá-lo em engastes (Apoio A), criamos um "vão fictício" à esquerda ($L_0 = 0$) sustentado por um apoio articulado irreal.</p>
+                    
+                    <div class="bg-slate-800/50 p-4 rounded-lg overflow-x-auto">
+                        <p class="font-semibold text-white mb-2">Equação Geral Fundamental (Aplicada no nó $i$):</p>
+                        $$ M_{i-1} L_{esq} + 2 M_i (L_{esq} + L_{dir}) + M_{i+1} L_{dir} = -6 \left( \frac{S_{esq} \cdot a_{esq}}{L_{esq}} + \frac{S_{dir} \cdot b_{dir}}{L_{dir}} \right) $$
+                    </div>
+
+                    <h4 class="font-bold text-white text-base mt-6">Passo 1.1: Cálculo das Áreas dos Diagramas Isostáticos</h4>
+                    <p>Devemos separar cada vão da viga como se fosse uma viga isostática simplesmente apoiada nas extremidades e calcular o momento máximo, a área do gráfico de momento ($S$) e a distância do baricentro aos apoios extremos ($a$ para a esquerda, $b$ para a direita).</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-slate-800/50 p-4 border border-slate-600 rounded">
+                            <h5 class="font-bold text-sky-200">Vão 1 (AB) - Carga Distribuída $q = 12 \text{ kN/m}$</h5>
+                            <p>O diagrama isostático de uma carga distribuída sobre um vão $L$ é uma parábola de 2º grau.</p>
+                            <ul class="mt-2 space-y-1 font-mono text-xs text-slate-300">
+                                <li>$L_1 = 4.0 \text{ m}$</li>
+                                <li>$M_{max} = \frac{q L_1^2}{8} = \frac{12 \cdot 4^2}{8} = \frac{12 \cdot 16}{8} = 24 \text{ kNm}$</li>
+                                <li>Área da parábola ($S_1$) = $\frac{2}{3} \cdot \text{base} \cdot \text{altura}$</li>
+                                <li>$S_1 = \frac{2}{3} \cdot 4 \cdot 24 = \frac{192}{3} = \mathbf{64}$</li>
+                                <li>Sendo simétrica, o centro de gravidade está no meio:</li>
+                                <li>$a_1 = b_1 = \frac{L_1}{2} = \frac{4}{2} = \mathbf{2 \text{ m}}$</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 border border-slate-600 rounded">
+                            <h5 class="font-bold text-sky-200">Vão 2 (BC) - Carga Pontual $P = 40 \text{ kN}$</h5>
+                            <p>O diagrama isostático de uma carga pontual no meio do vão é um triângulo isósceles.</p>
+                            <ul class="mt-2 space-y-1 font-mono text-xs text-slate-300">
+                                <li>$L_2 = 3.0 \text{ m}$</li>
+                                <li>$M_{max} = \frac{P L_2}{4} = \frac{40 \cdot 3}{4} = \frac{120}{4} = 30 \text{ kNm}$</li>
+                                <li>Área do triângulo ($S_2$) = $\frac{1}{2} \cdot \text{base} \cdot \text{altura}$</li>
+                                <li>$S_2 = \frac{1}{2} \cdot 3 \cdot 30 = \frac{90}{2} = \mathbf{45}$</li>
+                                <li>Sendo simétrica no meio, o centro de gravidade está:</li>
+                                <li>$a_2 = b_2 = \frac{L_2}{2} = \frac{3}{2} = \mathbf{1.5 \text{ m}}$</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4 class="font-bold text-white text-base mt-6">Passo 1.2: Montagem da Equação no Nó A (Apoio Central = A)</h4>
+                    <p>O "nó da esquerda" será o imaginário ($M_{-1}=0, L_0=0$). O "nó central" é $A$. O "nó da direita" é $B$.</p>
+                    <div class="bg-slate-800/50 p-4 rounded-lg overflow-x-auto font-mono text-sm">
+                        <p class="text-slate-500 mb-2"># Substituindo fórmula no nó A:</p>
+                        $$ M_{-1} \cdot L_0 + 2 \cdot M_A (L_0 + L_1) + M_B \cdot L_1 = -6 \left( \frac{S_0 \cdot a_0}{L_0} + \frac{S_1 \cdot b_1}{L_1} \right) $$
+                        $$ (0) \cdot 0 + 2 \cdot M_A (0 + 4) + M_B \cdot 4 = -6 \left( 0 + \frac{64 \cdot 2}{4} \right) $$
+                        <p class="text-slate-500 mt-2 mb-1"># Resolvendo aritmeticamente:</p>
+                        $$ 2 \cdot M_A (4) + 4 M_B = -6 \left( \frac{128}{4} \right) $$
+                        $$ 8 M_A + 4 M_B = -6 \cdot 32 $$
+                        $$ 8 M_A + 4 M_B = -192 \quad \text{ (Dividindo tudo por 4 para simplificar:)} $$
+                        $$ \mathbf{2 M_A + M_B = -48} \quad \leftarrow \text{(Equação 1)} $$
+                    </div>
+
+                    <h4 class="font-bold text-white text-base mt-6">Passo 1.3: Montagem da Equação no Nó B (Apoio Central = B)</h4>
+                    <p>O "nó da esquerda" agora é $A$. O "nó central" é $B$. O "nó da direita" é $C$. Sabemos que $C$ é apoio final de rolete, logo não transmite momento: $\mathbf{M_C = 0}$.</p>
+                    <div class="bg-slate-800/50 p-4 rounded-lg overflow-x-auto font-mono text-sm">
+                        <p class="text-slate-500 mb-2"># Substituindo fórmula no nó B:</p>
+                        $$ M_A \cdot L_1 + 2 \cdot M_B (L_1 + L_2) + M_C \cdot L_2 = -6 \left( \frac{S_1 \cdot a_1}{L_1} + \frac{S_2 \cdot b_2}{L_2} \right) $$
+                        $$ M_A \cdot 4 + 2 \cdot M_B (4 + 3) + (0) \cdot 3 = -6 \left( \frac{64 \cdot 2}{4} + \frac{45 \cdot 1.5}{3} \right) $$
+                        <p class="text-slate-500 mt-2 mb-1"># Resolvendo aritmeticamente:</p>
+                        $$ 4 M_A + 2 \cdot M_B (7) = -6 \left( 32 + \frac{67.5}{3} \right) $$
+                        $$ 4 M_A + 14 M_B = -6 \left( 32 + 22.5 \right) $$
+                        $$ 4 M_A + 14 M_B = -6 \cdot (54.5) $$
+                        $$ \mathbf{4 M_A + 14 M_B = -327} \quad \leftarrow \text{(Equação 2)} $$
+                    </div>
+
+                    <h4 class="font-bold text-white text-base mt-6">Passo 1.4: Resolução Algébrica do Sistema Linear</h4>
+                    <p>Temos um sistema de 2 equações e 2 incógnitas. Vamos resolver por substituição.</p>
+                    <div class="bg-slate-800/50 p-4 rounded-lg overflow-x-auto font-mono text-sky-200">
+                        <p>1) Isolando $M_B$ na Equação 1:</p>
+                        $$ 2 M_A + M_B = -48 \Rightarrow M_B = -48 - 2 M_A $$
+                        <p class="mt-4">2) Substituindo $M_B$ dentro da Equação 2:</p>
+                        $$ 4 M_A + 14 \cdot (-48 - 2 M_A) = -327 $$
+                        $$ 4 M_A - 672 - 28 M_A = -327 $$
+                        <p class="mt-4">3) Agrupando os termos de $M_A$ e passando números para a direita:</p>
+                        $$ 4 M_A - 28 M_A = -327 + 672 $$
+                        $$ -24 M_A = 345 $$
+                        $$ M_A = \frac{345}{-24} \Rightarrow \mathbf{M_A = -14.375 \text{ kNm}} $$
+                        <p class="mt-4">4) Retornando o valor de $M_A$ para achar $M_B$:</p>
+                        $$ M_B = -48 - 2 \cdot (-14.375) $$
+                        $$ M_B = -48 - (-28.75) = -48 + 28.75 $$
+                        $$ \mathbf{M_B = -19.250 \text{ kNm}} $$
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROCESSO DE CROSS -->
+            <div class="glass-card p-8 mb-12 relative overflow-hidden group">
+                <div class="absolute left-0 top-0 w-1 h-full bg-teal-500"></div>
+                <h3 class="text-2xl font-semibold text-teal-300 mb-6">MÉTODO 2: Processo de Cross (Método de Distribuição)</h3>
+                
+                <div class="space-y-6 text-slate-300 text-sm leading-relaxed">
+                    <p>Criado por Hardy Cross, este método evita sistemas lineares distribuindo as reações barra por barra de maneira cíclica.</p>
+
+                    <h4 class="font-bold text-white text-base mt-6">Passo 2.1: Cálculo dos Momentos de Engastamento Perfeito (MEP)</h4>
+                    <p>Se as barras fossem "travadas" e engastadas nas duas extremidades, o momento fletor gerado pelos apoios para reagir à carga seria:</p>
+                    <ul class="list-disc list-inside ml-4 space-y-3">
+                        <li><strong>Barra AB (carga distribuída $q=12$, vão $L=4$):</strong>
+                            <br> $\rightarrow M_{AB} = - \frac{q L^2}{12} = - \frac{12 \cdot 16}{12} = \mathbf{-16 \text{ kNm}}$ (Giro anti-horário).
+                            <br> $\rightarrow M_{BA} = + \frac{q L^2}{12} = + \frac{12 \cdot 16}{12} = \mathbf{+16 \text{ kNm}}$ (Giro horário).
+                        </li>
+                        <li><strong>Barra BC (carga concentrada central $P=40$, vão $L=3$):</strong>
+                            <br> $\rightarrow M_{BC} = - \frac{P L}{8} = - \frac{40 \cdot 3}{8} = - \frac{120}{8} = \mathbf{-15 \text{ kNm}}$.
+                            <br> $\rightarrow M_{CB} = + \frac{P L}{8} = + \frac{40 \cdot 3}{8} = \mathbf{+15 \text{ kNm}}$.
+                        </li>
+                    </ul>
+
+                    <h4 class="font-bold text-white text-base mt-6">Passo 2.2: Cálculo da Rigidez ($K$) e Coeficientes de Distribuição ($D$)</h4>
+                    <p>A rigidez relativa de uma barra mede quanta resistência ela oferece à rotação.</p>
+                    <ul class="list-disc list-inside ml-4 space-y-2">
+                        <li><strong>Barra AB:</strong> Como A é um engaste final e não vamos soltá-lo, a rigidez da barra vista por B é completa: 
+                            <br>$K_{BA} = \frac{4EI}{L_1} = \frac{4EI}{4} = \mathbf{1.0 EI}$
+                        </li>
+                        <li><strong>Barra BC:</strong> Como o apoio C é um rolete final, podemos simplificar o Cross não criando uma coluna inteira para ele. Usamos a rigidez reduzida de uma extremidade rotulada livre ($3EI/L$).
+                            <br>$K_{BC} = \frac{3EI}{L_2} = \frac{3EI}{3} = \mathbf{1.0 EI}$
+                        </li>
+                    </ul>
+                    <p>O único nó que iremos iterar (soltar e distribuir) é o Nó B. A rigidez total conectada ao Nó B é a soma:</p>
+                    <p class="font-mono bg-slate-800/30 p-2 rounded inline-block"> $\sum K_B = K_{BA} + K_{BC} = 1.0 EI + 1.0 EI = \mathbf{2.0 EI}$</p>
+                    <p>O Fator de Distribuição mostra a "fatia" do desequilíbrio que vai para cada barra:</p>
+                    <p class="font-mono bg-slate-800/30 p-2 rounded inline-block"> $D_{BA} = \frac{K_{BA}}{\sum K_B} = \frac{1.0}{2.0} = \mathbf{0.50}$</p>
+                    <p class="font-mono bg-slate-800/30 p-2 rounded inline-block ml-4"> $D_{BC} = \frac{K_{BC}}{\sum K_B} = \frac{1.0}{2.0} = \mathbf{0.50}$</p>
+
+                    <h4 class="font-bold text-white text-base mt-6">Passo 2.3: Montagem e Execução da Tabela de Cross</h4>
+                    <p><strong>Narrativa da Tabela:</strong></p>
+                    <ol class="list-decimal list-inside ml-4 space-y-2 text-sm text-slate-400">
+                        <li>Colocamos os Momentos (MEP) na tabela original.</li>
+                        <li>Como estamos usando $3EI/L$ para $BC$, precisamos "soltar" o nó C logo de início. O momento dele é $+15$. O nó reage com $-15$ (Desequilíbrio de C).</li>
+                        <li>A regra de transmissão manda sempre a metade ($0.5$) do momento de volta para o outro lado da barra. Então metade de $-15$ ($-7.5$) "viaja" até $B$ na coluna $BC$.</li>
+                        <li>Atualizamos os "Momentos Iniciais" no nó B: O lado esquerdo continuou com $+16$. O lado direito agora é $-15 - 7.5 = -22.5$.</li>
+                        <li>Checamos o desequilíbrio do Nó B inteiro: Se somarmos as extremidades $BA$ e $BC$, temos $+16 + (-22.5) = \mathbf{-6.5}$. Este é o momento "sobrando" que está quebrando a estática do nó.</li>
+                        <li>Para equilibrar o nó, aplicamos o oposto: $\mathbf{+6.5}$. O nó vai dividir isso igualmente entre $BA$ e $BC$ porque os fatores de distribuição são 0.5 para cada. Portanto, $+3.25$ para $BA$ e $+3.25$ para $BC$.</li>
+                        <li>Como o nó A é um engaste fixo contínuo, a distribuição em $BA$ transmite a sua metade para $AB$: $+3.25 / 2 = \mathbf{+1.625}$. O nó C não recebe transmissão pois foi considerado rotulado modificado desde o início.</li>
+                        <li>Somamos todas as parcelas na coluna para obter os momentos finais.</li>
+                    </ol>
+
+                    <div class="bg-slate-800/50 p-4 rounded-lg overflow-x-auto mt-4">
+                        <table class="w-full text-center border-collapse text-sm font-mono">
+                            <thead>
+                                <tr class="border-b border-slate-600 bg-slate-700/30">
+                                    <th class="p-2 border-r border-slate-600 font-sans">Ação no Nó</th>
+                                    <th class="p-2 border-r border-slate-600 text-slate-300">Nó A (Engaste)</th>
+                                    <th colspan="2" class="p-2 border-r border-slate-600 text-sky-300 font-bold">Nó B (Iterado)</th>
+                                    <th class="p-2 text-slate-300">Nó C (Apoio Final)</th>
+                                </tr>
+                                <tr class="border-b border-slate-600">
+                                    <th class="p-2 border-r border-slate-600 font-sans">Barra (Lado)</th>
+                                    <th class="p-2 border-r border-slate-600">AB (Esq.)</th>
+                                    <th class="p-2 border-r border-slate-600">BA <br><span class="text-xs text-sky-400">Dist: 0.5</span></th>
+                                    <th class="p-2 border-r border-slate-600">BC <br><span class="text-xs text-sky-400">Dist: 0.5</span></th>
+                                    <th class="p-2">CB <br><span class="text-xs text-slate-500">Dist: 1.0</span></th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-slate-300">
+                                <tr>
+                                    <td class="p-2 border-r border-slate-600 text-left font-sans font-bold">1. Engastamento Perfeito (MEP)</td>
+                                    <td class="p-2 border-r border-slate-600">-16.000</td>
+                                    <td class="p-2 border-r border-slate-600">+16.000</td>
+                                    <td class="p-2 border-r border-slate-600">-15.000</td>
+                                    <td class="p-2">+15.000</td>
+                                </tr>
+                                <tr class="bg-orange-900/20">
+                                    <td class="p-2 border-r border-slate-600 text-left font-sans">2. Liberação inicial de C (Equilíbrio)</td>
+                                    <td class="p-2 border-r border-slate-600">-</td>
+                                    <td class="p-2 border-r border-slate-600">-</td>
+                                    <td class="p-2 border-r border-slate-600">-</td>
+                                    <td class="p-2 text-orange-300">-15.000</td>
+                                </tr>
+                                <tr class="bg-orange-900/20">
+                                    <td class="p-2 border-r border-slate-600 text-left font-sans">3. Transmissão do desequilíbrio de C para B</td>
+                                    <td class="p-2 border-r border-slate-600">-</td>
+                                    <td class="p-2 border-r border-slate-600">-</td>
+                                    <td class="p-2 border-r border-slate-600 text-orange-300">-7.500 <br><span class="text-xs">(-15 * 0.5)</span></td>
+                                    <td class="p-2">-</td>
+                                </tr>
+                                <tr class="border-y-2 border-slate-500 bg-slate-800/80">
+                                    <td class="p-2 border-r border-slate-600 text-left font-sans font-bold">4. Momento Inicial "Pronto" para Cross</td>
+                                    <td class="p-2 border-r border-slate-600">-16.000</td>
+                                    <td class="p-2 border-r border-slate-600 text-green-300">+16.000</td>
+                                    <td class="p-2 border-r border-slate-600 text-green-300">-22.500</td>
+                                    <td class="p-2 text-slate-500">0.000</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 border-r border-slate-600 text-left font-sans">5. Desequilíbrio em B (+16 - 22.5)</td>
+                                    <td class="p-2 border-r border-slate-600 text-slate-500 text-xs">Aguardando</td>
+                                    <td colspan="2" class="p-2 border-r border-slate-600 text-center text-xs text-slate-400">$\sum M_B = -6.5$. Aplicar oposto: $+6.5$</td>
+                                    <td class="p-2">-</td>
+                                </tr>
+                                <tr class="bg-purple-900/20">
+                                    <td class="p-2 border-r border-slate-600 text-left font-sans">6. Distribuição em B ($+6.5 \cdot D$)</td>
+                                    <td class="p-2 border-r border-slate-600">-</td>
+                                    <td class="p-2 border-r border-slate-600 text-purple-300">+3.250</td>
+                                    <td class="p-2 border-r border-slate-600 text-purple-300">+3.250</td>
+                                    <td class="p-2">-</td>
+                                </tr>
+                                <tr class="bg-yellow-900/20 border-b-2 border-slate-500">
+                                    <td class="p-2 border-r border-slate-600 text-left font-sans">7. Transmissão de B para fora ($* 0.5$)</td>
+                                    <td class="p-2 border-r border-slate-600 text-yellow-300">+1.625 <br><span class="text-xs">(+3.25 * 0.5)</span></td>
+                                    <td class="p-2 border-r border-slate-600">-</td>
+                                    <td class="p-2 border-r border-slate-600">-</td>
+                                    <td class="p-2">-</td>
+                                </tr>
+                                <tr class="bg-teal-900/40 text-lg">
+                                    <td class="p-2 border-r border-slate-600 text-left font-sans font-bold text-white uppercase tracking-wider">Soma Final</td>
+                                    <td class="p-2 border-r border-slate-600 font-bold text-white">-14.375</td>
+                                    <td class="p-2 border-r border-slate-600 font-bold text-white">+19.250</td>
+                                    <td class="p-2 border-r border-slate-600 font-bold text-white">-19.250</td>
+                                    <td class="p-2 font-bold text-white">0.000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MÉTODO DAS FORÇAS -->
+            <div class="glass-card p-8 mb-12 relative overflow-hidden group">
+                <div class="absolute left-0 top-0 w-1 h-full bg-sky-500"></div>
+                <h3 class="text-2xl font-semibold text-sky-300 mb-6">MÉTODO 3: Método das Forças</h3>
+                
+                <div class="space-y-6 text-slate-300 text-sm leading-relaxed">
+                    <p>Neste método, transformamos a estrutura original (Hiperestática grau $g=2$) em um **Sistema Principal (SP)** isostático "arrancando" restrições. Ao invés de lidar com incógnitas geométricas, lidamos com Forças Internas.</p>
+                    
+                    <h4 class="font-bold text-white text-base mt-6">Passo 3.1: Definição do Sistema Principal (SP) e dos Estados</h4>
+                    <p>Decidimos remover o momento engastado em $A$ (transformando o engaste em apoio simples/rótula) e o momento fletor contínuo em $B$ (inserindo uma rótula no nó contínuo). Portanto: $X_1 = M_A$ e $X_2 = M_B$. A nossa viga contínua hiperestática acaba de virar **duas vigas bi-apoiadas independentes e isostáticas** (Vão 1 de 4m, Vão 2 de 3m).</p>
+                    
+                    <ul class="list-disc list-inside space-y-4 ml-4">
+                        <li><strong>Estado E0 (Cargas Reais no SP Isostático):</strong>
+                            <br> $\rightarrow$ Vão AB tem a carga $q=12$. Seu momento é uma parábola que vai de 0 a 0, sendo máxima no meio: $M_{0\_max} = \frac{12 \cdot 4^2}{8} = \mathbf{24 \text{ kNm}}$.
+                            <br> $\rightarrow$ Vão BC tem a carga central $P=40$. Seu diagrama é um triângulo isósceles que vai de 0 a 0, máximo no centro: $M_{0\_max} = \frac{40 \cdot 3}{4} = \mathbf{30 \text{ kNm}}$.
+                        </li>
+                        <li><strong>Estado E1 (Carga Virtual $X_1 = 1$ no SP):</strong>
+                            <br> $\rightarrow$ Aplicamos um momento unitário no apoio A.
+                            <br> $\rightarrow$ O diagrama de momento é um triângulo no vão AB. Ele começa com $\mathbf{1}$ no apoio A e zera no apoio B. No vão BC o diagrama é zero.
+                        </li>
+                        <li><strong>Estado E2 (Carga Virtual $X_2 = 1$ no SP):</strong>
+                            <br> $\rightarrow$ Aplicamos um momento unitário no apoio B. Isso afeta o vão da esquerda e o vão da direita simultaneamente, abrindo a "rótula".
+                            <br> $\rightarrow$ O diagrama no vão AB começa com 0 em A e cresce até $\mathbf{1}$ em B (Triângulo).
+                            <br> $\rightarrow$ O diagrama no vão BC começa com $\mathbf{1}$ em B e decresce até 0 em C (Triângulo).
+                        </li>
+                    </ul>
+
+                    <h4 class="font-bold text-white text-base mt-6">Passo 3.2: Integração Geométrica - Cálculo dos Coeficientes $\delta_{ij}$</h4>
+                    <p>Vamos usar a equação $EI \cdot \delta_{ij} = \int M_i \cdot M_j dx$ e a <strong>Tabela de Integrais de Kurt Beyer (Seção 2)</strong> para combinar os estados acima.</p>
+                    
+                    <div class="bg-slate-800/50 p-6 rounded-lg font-mono text-sm border-l-4 border-slate-500">
+                        <p class="text-sky-300 font-bold mb-2">Flexibilidades (Influência de estados unitários entre si):</p>
+                        
+                        <p class="mb-1 text-slate-400">$\delta_{11}$ = Estado E1 cruzado com Estado E1 (Triângulo com Triângulo igual no mesmo lado):</p>
+                        <p class="ml-4 mb-4">Vão AB: Fórmula $\frac{1}{3} \cdot L \cdot i \cdot k \rightarrow \frac{1}{3} \cdot 4 \cdot 1 \cdot 1 = \mathbf{1.333}$</p>
+
+                        <p class="mb-1 text-slate-400">$\delta_{22}$ = Estado E2 cruzado com Estado E2 (Soma do vão AB e BC, onde cada vão é um triângulo cruzado com ele mesmo):</p>
+                        <p class="ml-4 mb-4">Vão AB: $\frac{1}{3} \cdot L \cdot i \cdot k \rightarrow \frac{1}{3} \cdot 4 \cdot 1 \cdot 1 = 1.333$ <br>
+                        Vão BC: $\frac{1}{3} \cdot L \cdot i \cdot k \rightarrow \frac{1}{3} \cdot 3 \cdot 1 \cdot 1 = 1.000$ <br>
+                        Total $\delta_{22}$ = $1.333 + 1.000 = \mathbf{2.333}$</p>
+
+                        <p class="mb-1 text-slate-400">$\delta_{12} = \delta_{21}$ = Estado E1 cruzado com E2 (Apenas vão AB possui ambos não-nulos. São triângulos em pontas opostas):</p>
+                        <p class="ml-4 mb-6">Vão AB: Fórmula $\frac{1}{6} \cdot L \cdot i \cdot k \rightarrow \frac{1}{6} \cdot 4 \cdot 1 \cdot 1 = \frac{4}{6} = \mathbf{0.667}$</p>
+
+                        <p class="text-sky-300 font-bold mb-2">Deslocamentos Independentes ($\delta_{i0}$) (Influência das cargas reais $E_0$ nos estados unitários):</p>
+                        
+                        <p class="mb-1 text-slate-400">$\delta_{10}$ = E1 cruzado com E0 (Triângulo do E1 cruzado com Parábola do E0 no vão AB):</p>
+                        <p class="ml-4 mb-4">Pela tabela (Parábola cruzando Triângulo com ponta igual a 1): Fórmula $\frac{1}{3} \cdot L \cdot i \cdot f \rightarrow \frac{1}{3} \cdot 4 \cdot 1 \cdot 24 = \mathbf{32.000}$</p>
+
+                        <p class="mb-1 text-slate-400">$\delta_{20}$ = E2 cruzado com E0 (Ocorre nos dois vãos):</p>
+                        <p class="ml-4">Vão AB: E2 é Triângulo (1 em B), E0 é Parábola ($f=24$). Fórmula $\frac{1}{3} \cdot L \cdot i \cdot f \rightarrow \frac{1}{3} \cdot 4 \cdot 1 \cdot 24 = 32.000$</p>
+                        <p class="ml-4 text-xs text-orange-300 mb-1">Aviso Cautelar de Integração: Para a carga pontual no Vão BC, E0 é um triângulo perfeito e E2 é um triângulo inclinado (1 em B, 0 em C). Usar $\frac{1}{3} \cdot L \cdot i \cdot k$ da tabela requer cautela, pois os vértices não coincidem exatamente se formos rigorosos com centros de massa.</p>
+                        <p class="ml-4 text-xs text-green-300 mb-1">Cálculo Rigoroso $EI \cdot \delta_{20\_BC} = \int_{0}^{L} M_2(x) M_0(x) dx$. Como $M_0(x)$ tem área $S = 45$ com baricentro no meio, e $M_2(x)$ é linear variando de 1 a 0, a ordenada de $M_2$ no baricentro do $M_0$ é exatamente $0.5$. Pelo Teorema de Mohr simplificado ($\int = \text{Área} \times \text{Ordenada correspondente}$):</p>
+                        <p class="ml-4 mb-4">Vão BC: $S_{E0} \times \text{altura}_{E2} = 45 \times 0.5 = 22.500$<br>
+                        Total $\delta_{20} = 32.000 + 22.500 = \mathbf{54.500}$</p>
+                    </div>
+
+                    <h4 class="font-bold text-white text-base mt-6">Passo 3.3: Solução do Sistema de Compatibilidade</h4>
+                    <p>Juntamos a equação da teoria geral: $[\delta] \cdot \{X\} + \{\delta_0\} = 0$</p>
+                    <div class="bg-slate-800/50 p-4 rounded-lg overflow-x-auto font-mono text-sm text-sky-200">
+                        $$ \begin{bmatrix} 1.333 & 0.667 \\ 0.667 & 2.333 \end{bmatrix} \begin{bmatrix} X_1 \\ X_2 \end{bmatrix} + \begin{bmatrix} 32.0 \\ 54.5 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} $$
+                        <p class="mt-4">Convertendo frações decimais em equações palpáveis (multiplicando os coeficientes pela constante de conversão $\times 3$):</p>
+                        $$ \begin{cases} 4 X_1 + 2 X_2 + 96 = 0 \\ 2 X_1 + 7 X_2 + 163.5 = 0 \end{cases} $$
+                        <p class="mt-4">Isolando e resolvendo (Perceba a similaridade matemática extrema com os Três Momentos):</p>
+                        $$ 4 X_1 + 2 X_2 = -96 \quad \text{e} \quad 2 X_1 + 7 X_2 = -163.5 $$
+                        $$ \rightarrow X_1 = \mathbf{-14.375 \text{ kNm}} \quad (M_A) $$
+                        $$ \rightarrow X_2 = \mathbf{-19.250 \text{ kNm}} \quad (M_B) $$
+                    </div>
+                </div>
+            </div>
+
+            <!-- MÉTODO DOS DESLOCAMENTOS -->
+            <div class="glass-card p-8 mb-12 relative overflow-hidden group">
+                <div class="absolute left-0 top-0 w-1 h-full bg-indigo-500"></div>
+                <h3 class="text-2xl font-semibold text-indigo-300 mb-6">MÉTODO 4: Método dos Deslocamentos (Analítico/Matricial)</h3>
+                
+                <div class="space-y-6 text-slate-300 text-sm leading-relaxed">
+                    <p>Invertendo a lógica das "Forças", aqui as incógnitas centrais são geométricas: as rotações que ocorrem nos apoios não-travados (Nó B e Nó C).</p>
+                    
+                    <h4 class="font-bold text-white text-base mt-6">Passo 4.1: Sistema Cinemático (SC) e Identificação dos Deslocamentos</h4>
+                    <p>O grau de deslocabilidade é $d=2$. Existem duas rotações que não conhecemos:</p>
+                    <ul class="list-disc list-inside ml-4">
+                        <li>$D_1$: Rotação no nó B.</li>
+                        <li>$D_2$: Rotação no nó C.</li>
+                    </ul>
+                    <p>Travamos artificialmente estes nós aplicando "chapas" (pinças). Com isso, todas as barras agora são bi-engastadas ou engastadas e presas pela chapa que não se move.</p>
+
+                    <h4 class="font-bold text-white text-base mt-6">Passo 4.2: Vetor de Forças Externas e Forças de Fixação ($\{F_{ext}\}$ e $\{F_0\}$)</h4>
+                    <p>Nenhuma força de momento está diretamente aplicada por fora sobre as rótulas B e C, logo $\{F_{ext}\} = [0, 0]^T$.</p>
+                    <p>As reações de fixação nas chapas devido às cargas do vão são exatamante os mesmos MEPs que calculamos no Método de Cross (com a convenção de que o nó absorve a força da barra):</p>
+                    <div class="bg-slate-800/50 p-4 rounded-lg font-mono text-sm text-indigo-200">
+                        <p>Chapa 1 (em B): Precisa reagir à Barra AB e à Barra BC.</p>
+                        $$ F_{01} = MEP_{BA} + MEP_{BC} = (+16) + (-15) = \mathbf{+1 \text{ kNm}} $$
+                        <p class="mt-4">Chapa 2 (em C): Precisa reagir apenas à Barra BC (lado CB).</p>
+                        $$ F_{02} = MEP_{CB} = \mathbf{+15 \text{ kNm}} $$
+                        $$ \{F_0\} = \begin{bmatrix} 1 \\ 15 \end{bmatrix} $$
+                    </div>
+
+                    <h4 class="font-bold text-white text-base mt-6">Passo 4.3: Matriz de Rigidez da Estrutura ($[K]$)</h4>
+                    <p>A matriz K mede quanto momento surge em cada chapa quando impomos artificialmente que uma rotação $D_x=1$ radiano ocorra sem mover a outra.</p>
+                    <ul class="list-disc list-inside space-y-4 ml-4">
+                        <li><strong>Distorção $D_1 = 1$ rad (girar B mantendo C travado):</strong>
+                            <br>O Nó B rotaciona, deformando AB e BC. A rigidez de barra bi-engastada sendo girada em uma ponta é $4EI/L$. Ela "vaza" metade da energia $2EI/L$ para a outra extremidade.
+                            <br> $\rightarrow$ Esforço na Chapa 1 (B): $K_{11} = \frac{4EI}{L_1} + \frac{4EI}{L_2} = \frac{4EI}{4} + \frac{4EI}{3} = 1EI + 1.333EI = \mathbf{2.333 EI}$
+                            <br> $\rightarrow$ Esforço induzido na Chapa 2 (C): $K_{21} = \text{vazamento da barra BC} = \frac{2EI}{L_2} = \frac{2EI}{3} = \mathbf{0.667 EI}$
+                        </li>
+                        <li><strong>Distorção $D_2 = 1$ rad (girar C mantendo B travado):</strong>
+                            <br>O Nó C rotaciona, deformando apenas a barra BC.
+                            <br> $\rightarrow$ Esforço na Chapa 2 (C): $K_{22} = \frac{4EI}{L_2} = \frac{4EI}{3} = \mathbf{1.333 EI}$
+                            <br> $\rightarrow$ Esforço induzido na Chapa 1 (B): $K_{12} = \text{vazamento da barra CB} = \frac{2EI}{L_2} = \frac{2EI}{3} = \mathbf{0.667 EI}$
+                        </li>
+                    </ul>
+
+                    <h4 class="font-bold text-white text-base mt-6">Passo 4.4: Resolução da Equação de Equilíbrio Cinemático</h4>
+                    <p>Aplicando o princípio da sobreposição de causas de deformação: A soma das forças de rigidez pelas rotações reais $+ \text{força de engastamento inicial} = 0$.</p>
+                    <div class="bg-slate-800/50 p-4 rounded-lg overflow-x-auto font-mono text-sm text-indigo-200">
+                        $$ [K] \{D\} + \{F_0\} = 0 \Rightarrow \begin{bmatrix} 2.333 & 0.667 \\ 0.667 & 1.333 \end{bmatrix} EI \begin{bmatrix} D_1 \\ D_2 \end{bmatrix} + \begin{bmatrix} 1 \\ 15 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} $$
+                        <p class="mt-2 text-slate-500"># Montando como equações algébricas isoladas:</p>
+                        $$ \begin{cases} 2.333 \cdot (EI \cdot D_1) + 0.667 \cdot (EI \cdot D_2) = -1 \\ 0.667 \cdot (EI \cdot D_1) + 1.333 \cdot (EI \cdot D_2) = -15 \end{cases} $$
+                        <p class="mt-2">Utilizando substituição ou Cramer, encontramos os deslocamentos elásticos multiplicados pelo módulo de rigidez ($EI$):</p>
+                        $$ \mathbf{EI \cdot D_1 = 3.250 \text{ rad} \quad (\text{Rotação no Nó B})} $$
+                        $$ \mathbf{EI \cdot D_2 = -12.875 \text{ rad} \quad (\text{Rotação no Nó C})} $$
+                    </div>
+
+                    <h4 class="font-bold text-white text-base mt-6">Passo 4.5: Reconstrução dos Esforços (Momentos Finais)</h4>
+                    <p>O momento em qualquer ponto da barra hiperestática é a superposição: $M = MEP_{local} + \frac{4EI}{L} \cdot (\text{giro local}) + \frac{2EI}{L} \cdot (\text{giro oposto})$.</p>
+                    <ul class="list-disc list-inside space-y-4 ml-4 font-mono text-sm bg-slate-800/30 p-4 rounded">
+                        <li><strong>Momento no Engaste A:</strong>
+                            <br>$M_A = MEP_{AB} + \text{Giro em A} \cdot \left(\frac{4EI}{L_1}\right) + \text{Giro em B} \cdot \left(\frac{2EI}{L_1}\right)$
+                            <br>$M_A = (-16) + (0 \cdot 1.0) + (D_1 \cdot 0.5) = -16 + (3.25 \cdot 0.5) = -16 + 1.625 = \mathbf{-14.375 \text{ kNm}}$
+                        </li>
+                        <li><strong>Momento em B (lado esquerdo):</strong>
+                            <br>$M_{BA} = MEP_{BA} + D_1 \cdot \left(\frac{4EI}{L_1}\right) = (+16) + 3.25 \cdot 1.0 = 16 + 3.25 = \mathbf{+19.250 \text{ kNm}}$
+                        </li>
+                        <li><strong>Momento em B (lado direito):</strong>
+                            <br>$M_{BC} = MEP_{BC} + D_1 \cdot \left(\frac{4EI}{L_2}\right) + D_2 \cdot \left(\frac{2EI}{L_2}\right)$
+                            <br>$M_{BC} = (-15) + (3.25 \cdot 1.333) + (-12.875 \cdot 0.667) = -15 + 4.333 - 8.583 = \mathbf{-19.250 \text{ kNm}}$
+                        </li>
+                        <li><strong>Momento no Apoio de Borda C:</strong>
+                            <br>$M_{C} = M_{CB} = MEP_{CB} + D_1 \cdot \left(\frac{2EI}{L_2}\right) + D_2 \cdot \left(\frac{4EI}{L_2}\right)$
+                            <br>$M_C = (+15) + (3.25 \cdot 0.667) + (-12.875 \cdot 1.333) = 15 + 2.167 - 17.167 = \mathbf{0.000 \text{ kNm}}$
+                        </li>
+                    </ul>
+                    <p class="text-green-400 font-bold mt-4 text-center">A Reconstrução Final demonstra perfeição algébrica ao convergir exatamente para $M_C = 0$ (o rolete) e equacionar estaticamente as duas barras adjacentes no nó B ($\sum M_B = +19.25 - 19.25 = 0$).</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-slate-800 py-8 text-center text-slate-500 text-sm">
+        <p>Desenvolvido para estudo de Análise Estrutural 3.</p>
+    </footer>
+
+</body>
+</html>

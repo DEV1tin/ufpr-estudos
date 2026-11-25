@@ -1,0 +1,2510 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apostila de Estudo - Lista 6: Séries Numéricas, Potências e Taylor (CM314 - UFPR)</title>
+    <!-- KaTeX for crisp, fast math rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '\\[', right: '\\]', display: true},
+                {left: '\\(', right: '\\)', display: false}
+            ],
+            throwOnError: false
+        });"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --primary: #4338ca;
+            --primary-light: #e0e7ff;
+            --primary-border: #a5b4fc;
+            --accent: #0f766e;
+            --accent-light: #ccfbf1;
+            --accent-border: #5eead4;
+            --warn: #b45309;
+            --warn-light: #fef3c7;
+            --warn-border: #fcd34d;
+            --prereq-bg: #f3e8ff;
+            --prereq-border: #c084fc;
+            --prereq-text: #581c87;
+            --code-bg: #0f172a;
+            --code-row-even: #f8fafc;
+            --code-row-odd: #ffffff;
+            --comment-color: #047857;
+            --comment-bg: #ecfdf5;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.6;
+            font-size: 13.5px;
+            padding: 20px;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 32px 36px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Cover / Header */
+        .doc-header {
+            background: linear-gradient(135deg, #3730a3 0%, #0f172a 100%);
+            color: #ffffff;
+            padding: 28px 32px;
+            border-radius: 12px;
+            margin-bottom: 26px;
+            border-left: 8px solid #818cf8;
+        }
+
+        .doc-header .badge-course {
+            display: inline-block;
+            background: rgba(129, 140, 248, 0.2);
+            color: #c7d2fe;
+            font-weight: 700;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(129, 140, 248, 0.4);
+        }
+
+        .doc-header h1 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            line-height: 1.25;
+        }
+
+        .doc-header .subtitle {
+            font-size: 13.5px;
+            color: #cbd5e1;
+            margin-bottom: 16px;
+        }
+
+        .header-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 12px;
+            color: #e2e8f0;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 12px;
+        }
+
+        /* Legend Box */
+        .legend-box {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-bottom: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            align-items: center;
+            font-size: 12.5px;
+        }
+
+        .legend-title {
+            font-weight: 700;
+            color: #1e293b;
+            margin-right: 4px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #ffffff;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            font-weight: 500;
+        }
+
+        /* Checklist Section */
+        .checklist-card {
+            background: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+        }
+        .chk-topic {
+            break-inside: avoid;
+        }
+
+        .checklist-card h2 {
+            font-size: 17px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 8px;
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .chk-topic {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 14px;
+        }
+
+        .chk-topic-title {
+            font-weight: 700;
+            color: #0f172a;
+            font-size: 13px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .chk-sublist {
+            list-style: none;
+            padding-left: 20px;
+            font-size: 12px;
+            color: #475569;
+        }
+
+        .chk-sublist li {
+            margin-bottom: 3px;
+            position: relative;
+        }
+
+        .chk-sublist li::before {
+            content: "☐";
+            position: absolute;
+            left: -16px;
+            color: #64748b;
+            font-weight: bold;
+        }
+
+        /* Topic Header Banner */
+        .topic-section {
+            margin-top: 34px;
+            margin-bottom: 28px;
+        }
+
+        .topic-banner {
+            background: linear-gradient(90deg, #3730a3 0%, #4f46e5 100%);
+            color: #ffffff;
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            break-after: avoid;
+        }
+
+        .topic-banner h2 {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .topic-banner .topic-range {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Theory & Prerequisite Boxes */
+        .theory-box {
+            background: #eff6ff;
+            border-left: 5px solid #2563eb;
+            border-top: 1px solid #bfdbfe;
+            border-right: 1px solid #bfdbfe;
+            border-bottom: 1px solid #bfdbfe;
+            border-radius: 0 8px 8px 0;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+        }
+
+        .theory-box h3 {
+            color: #1e3a8a;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theory-box p, .theory-box ul, .theory-box ol {
+            margin-bottom: 8px;
+            color: #1e293b;
+        }
+
+        .theory-box ul, .theory-box ol {
+            padding-left: 22px;
+        }
+
+        .prereq-box {
+            background: var(--prereq-bg);
+            border-left: 5px solid #9333ea;
+            border-top: 1px solid #e9d5ff;
+            border-right: 1px solid #e9d5ff;
+            border-bottom: 1px solid #e9d5ff;
+            border-radius: 0 8px 8px 0;
+            padding: 15px 20px;
+            margin-bottom: 16px;
+            break-inside: avoid;
+        }
+
+        .prereq-box h3 {
+            color: var(--prereq-text);
+            font-size: 14.5px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prereq-box ul, .prereq-box ol {
+            padding-left: 22px;
+        }
+
+        /* Formula Table */
+        .formula-card {
+            background: #ffffff;
+            border: 2px solid #0f766e;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            break-inside: avoid;
+        }
+
+        .formula-card-header {
+            background: #0f766e;
+            color: #ffffff;
+            padding: 8px 16px;
+            font-weight: 700;
+            font-size: 13.5px;
+        }
+
+        .formula-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12.8px;
+        }
+
+        .formula-table th {
+            background: #f0fdfa;
+            color: #115e59;
+            text-align: left;
+            padding: 8px 12px;
+            border-bottom: 1px solid #99f6e4;
+            font-weight: 700;
+        }
+
+        .formula-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: middle;
+        }
+
+        .formula-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Exercise Card */
+        .exercise-card {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            margin-bottom: 22px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+
+        .exercise-header {
+            background: #f1f5f9;
+            padding: 12px 18px;
+            border-bottom: 1px solid #cbd5e1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            break-after: avoid;
+        }
+
+        .exercise-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge-type {
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 999px;
+        }
+
+        .badge-star {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #f59e0b;
+        }
+
+        .badge-book {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #60a5fa;
+        }
+
+        .badge-skip {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #f87171;
+        }
+
+        .exercise-body {
+            padding: 16px 18px;
+        }
+
+        .enunciado-geral {
+            background: #f8fafc;
+            border-left: 4px solid #64748b;
+            padding: 10px 14px;
+            margin-bottom: 14px;
+            font-weight: 500;
+            color: #1e293b;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .subitem-block {
+            margin-top: 14px;
+            margin-bottom: 16px;
+        }
+
+        .subitem-enunciado {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-left: 4px solid #2563eb;
+            padding: 8px 14px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #1e3a8a;
+            break-after: avoid;
+        }
+
+        /* Code-Style Resolution Table */
+        .code-resolution {
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            background: #ffffff;
+        }
+
+        .code-header {
+            background: #1e293b;
+            color: #cbd5e1;
+            padding: 6px 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            break-after: avoid;
+        }
+
+        .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .dot.red { background: #ef4444; }
+        .dot.yellow { background: #f59e0b; }
+        .dot.green { background: #10b981; }
+        .code-title { margin-left: 6px; font-weight: 500; color: #94a3b8; }
+
+        .step-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .step-row {
+            border-bottom: 1px solid #e2e8f0;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .step-row:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .step-row:last-child {
+            border-bottom: none;
+        }
+
+        .line-num {
+            width: 38px;
+            min-width: 38px;
+            text-align: right;
+            padding: 8px 8px 8px 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #64748b;
+            background: #f1f5f9;
+            border-right: 2px solid #cbd5e1;
+            vertical-align: middle;
+            user-select: none;
+        }
+
+        .step-math {
+            width: 54%;
+            padding: 8px 12px;
+            vertical-align: middle;
+            font-size: 13px;
+            color: #0f172a;
+        }
+
+        .step-comment {
+            width: 44%;
+            padding: 8px 12px;
+            vertical-align: middle;
+            font-family: 'Inter', sans-serif;
+            font-size: 12.2px;
+            color: #065f46;
+            background: rgba(236, 253, 245, 0.55);
+            border-left: 1px dashed #6ee7b7;
+            line-height: 1.45;
+        }
+
+        .comment-prefix {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: #059669;
+            margin-right: 4px;
+        }
+
+        .final-answer {
+            background: #ecfdf5;
+            border: 1.5px solid #10b981;
+            border-radius: 6px;
+            padding: 8px 14px;
+            font-weight: 600;
+            color: #065f46;
+            font-size: 13px;
+            margin-top: 6px;
+            break-inside: avoid;
+        }
+
+        /* Recapitulation Box */
+        .recap-box {
+            background: #fffbeb;
+            border: 2px solid #f59e0b;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            break-inside: avoid;
+        }
+
+        .recap-box h3 {
+            color: #b45309;
+            font-size: 15.5px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .recap-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .recap-card {
+            background: #ffffff;
+            border: 1px solid #fde68a;
+            border-radius: 6px;
+            padding: 10px 12px;
+            font-size: 12.5px;
+        }
+
+        .recap-card strong {
+            color: #92400e;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Additional unified classes for Topics 3-6 */
+        .topic-header {
+            background: linear-gradient(90deg, #3730a3 0%, #4f46e5 100%);
+            color: #ffffff;
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            break-after: avoid;
+        }
+        .topic-num {
+            background: rgba(255, 255, 255, 0.2);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        .topic-header h2 {
+            font-size: 17.5px;
+            font-weight: 800;
+            margin: 0;
+        }
+        .topic-sub {
+            font-size: 12px;
+            color: #e0e7ff;
+            margin-top: 2px;
+        }
+        .prereq-box h4 {
+            color: var(--prereq-text);
+            font-size: 14.5px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .formula-card h4 {
+            background: #0f766e;
+            color: #ffffff;
+            padding: 8px 16px;
+            font-weight: 700;
+            font-size: 13.5px;
+            margin: 0;
+        }
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12.8px;
+        }
+        .summary-table th {
+            background: #f0fdfa;
+            color: #115e59;
+            text-align: left;
+            padding: 8px 12px;
+            border-bottom: 1px solid #99f6e4;
+            font-weight: 700;
+        }
+        .summary-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: middle;
+        }
+        .exercise-num {
+            font-size: 15px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-right: 8px;
+        }
+        .exercise-tags {
+            font-size: 12px;
+            color: #475569;
+            font-weight: 500;
+        }
+        .badge-prova {
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #f59e0b;
+        }
+        .badge-libro {
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #60a5fa;
+        }
+        .badge-nao-cai {
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #f87171;
+        }
+        .enunciado-box {
+            background: #f8fafc;
+            border-left: 4px solid #64748b;
+            padding: 10px 14px;
+            margin: 14px 18px;
+            font-weight: 500;
+            color: #1e293b;
+            border-radius: 0 6px 6px 0;
+        }
+        .exercise-card > .subitem-block {
+            padding: 0 18px 14px 18px;
+        }
+        .subitem-title {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-left: 4px solid #2563eb;
+            padding: 8px 14px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #1e3a8a;
+            break-after: avoid;
+        }
+        .answer-pill {
+            background: #ecfdf5;
+            border: 1.5px solid #10b981;
+            border-radius: 6px;
+            padding: 8px 14px;
+            font-weight: 600;
+            color: #065f46;
+            font-size: 13px;
+            margin-top: 6px;
+            break-inside: avoid;
+        }
+        .recap-box h4 {
+            color: #b45309;
+            font-size: 15.5px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        .recap-box ul, .recap-box ol {
+            padding-left: 22px;
+        }
+
+        /* Print optimization */
+        @page {
+            size: A4 portrait;
+            margin: 12mm 10mm 12mm 10mm;
+        }
+
+        @media print {
+            body {
+                background: #ffffff;
+                padding: 0;
+                font-size: 12px;
+            }
+            .container {
+                max-width: 100%;
+                padding: 0;
+                box-shadow: none;
+            }
+            .topic-section {
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- HEADER -->
+    <div class="doc-header">
+        <div class="badge-course">CM314 • Cálculo 4 • UFPR • Preparação Prova 2</div>
+        <h1>Caderno de Resolução Integral e Teoria — Lista Nº 6</h1>
+        <div class="subtitle">Séries Numéricas, Critérios de Convergência, Séries Alternadas, Séries de Potências e Séries de Taylor/Maclaurin</div>
+        <div class="header-meta">
+            <span><strong>Aluno:</strong> Vitor Hugo D. Lima</span>
+            <span><strong>Docente:</strong> Profa. Dra. Ana Gabriela Martínez</span>
+            <span><strong>Metodologia:</strong> Código Comentado Linha a Linha + Zero Pressuposição de Base</span>
+        </div>
+    </div>
+
+    <!-- LEGENDA DE CLASSIFICAÇÃO -->
+    <div class="legend-box">
+        <span class="legend-title">Legenda de Classificação dos Exercícios:</span>
+        <div class="legend-item"><span>⭐</span> <strong>Formato provável de cair em prova</strong> (Foco máximo!)</div>
+        <div class="legend-item"><span>📖</span> <strong>Exercício introdutório ao tema</strong> (Constrói a base)</div>
+        <div class="legend-item"><span>❌</span> <strong>Não cai na P2</strong> (Fora da ementa da prova)</div>
+    </div>
+
+    <!-- CHECKLIST GERAL DA LISTA 6 -->
+    <div class="checklist-card">
+        <h2>📋 Introdução à Lista 6 — Checklist de Tópicos e Subtópicos</h2>
+        <p style="margin-bottom: 12px; color: #475569; font-size: 12.8px;">Todos os 15 exercícios da Lista 6 pertencem à ementa da Prova 2 (Séries Numéricas, Potências e Taylor). O tema de <em>Resolução de EDOs por Séries</em> (visto nos slides da última aula) fica para a P3 e está sinalizado com ❌ ao final do documento:</p>
+        <div class="checklist-grid">
+            <div class="chk-topic">
+                <div class="chk-topic-title">☐ Tópico 1: Série Geométrica, Integral e p-Séries (Ex. 1 a 3)</div>
+                <ul class="chk-sublist">
+                    <li>Somas parciais \(S_N\) e Série Geométrica \(\sum r^n = \frac{1}{1-r}\) (\(|r| < 1\))</li>
+                    <li>Critério da Integral e \(p\)-Séries \(\sum \frac{1}{n^p}\) (converge se \(p > 1\))</li>
+                    <li>Teste do Termo Geral para Divergência (\(\lim a_n \neq 0 \implies\) diverge)</li>
+                </ul>
+            </div>
+            <div class="chk-topic">
+                <div class="chk-topic-title">☐ Tópico 2: Critérios de Comparação e Telescópica (Ex. 4)</div>
+                <ul class="chk-sublist">
+                    <li>Critério da Comparação Direta (\(0 \le a_n \le b_n\))</li>
+                    <li>Critério da Comparação no Limite (\(\lim \frac{a_n}{b_n} = L > 0\))</li>
+                    <li>Série Telescópica via Frações Parciais (\(\frac{2}{n(n-1)}\))</li>
+                </ul>
+            </div>
+            <div class="chk-topic">
+                <div class="chk-topic-title">☐ Tópico 3: Séries Alternadas e Convergência Absoluta (Ex. 5 a 7)</div>
+                <ul class="chk-sublist">
+                    <li>Critério de Leibniz para séries alternadas \(\sum (-1)^n b_n\)</li>
+                    <li>Convergência Absoluta (\(\sum |a_n|\) conv.) vs. Condicional</li>
+                    <li>Classificação completa de séries com sinal alternado</li>
+                </ul>
+            </div>
+            <div class="chk-topic">
+                <div class="chk-topic-title">☐ Tópico 4: Critério da Razão e Conceitos V/F (Ex. 8 e 9)</div>
+                <ul class="chk-sublist">
+                    <li>Teste da Razão de d'Alembert (\(L = \lim \left|\frac{a_{n+1}}{a_n}\right| < 1\))</li>
+                    <li>Simplificação de fatoriais \((n+1)! = (n+1)n!\) e limite exponencial \(e\)</li>
+                    <li>Questões teóricas de Verdadeiro ou Falso sobre séries</li>
+                </ul>
+            </div>
+            <div class="chk-topic">
+                <div class="chk-topic-title">☐ Tópico 5: Séries de Potências e Raio/Intervalo (Ex. 10 e 11)</div>
+                <ul class="chk-sublist">
+                    <li>Determinação do centro \(x_0\) e Raio de Convergência \(R\)</li>
+                    <li>Análise obrigatória dos extremos \(x = x_0 - R\) e \(x = x_0 + R\)</li>
+                    <li>Domínio da Função de Bessel de ordem zero \(J_0(x)\)</li>
+                </ul>
+            </div>
+            <div class="chk-topic">
+                <div class="chk-topic-title">☐ Tópico 6: Séries de Taylor e Maclaurin (Ex. 12 a 15 + Alerta ❌)</div>
+                <ul class="chk-sublist">
+                    <li>Fórmula de Taylor \(f(x) = \sum \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n\) e Fórmula de Euler</li>
+                    <li>Derivação e integração termo a termo (\(\text{arctg}\,x\), \(\frac{1}{(1-x)^2}\))</li>
+                    <li>❌ Tópico excluído da P2: Resolução de EDOs por Séries (fica para P3)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TÓPICO 1: SÉRIE GEOMÉTRICA, INTEGRAL, P-SÉRIES E DIVERGÊNCIA      -->
+    <!-- ================================================================= -->
+    <div class="topic-section">
+        <div class="topic-banner">
+            <h2>Tópico 1: Série Geométrica, Critério da Integral, p-Séries e Teste da Divergência</h2>
+            <span class="topic-range">Exercícios 1, 2 e 3</span>
+        </div>
+
+        <div class="prereq-box">
+            <h3>🧠 O que você precisa lembrar de Limites, Somatórios e Integrais Impróprias (Pré-Requisitos)</h3>
+            <ul>
+                <li><strong>1. O que é uma Série Infinita \(\sum_{n=1}^\infty a_n\)?</strong> Não é possível somar infinitos números de uma vez só. Por isso, somamos os \(N\) primeiros termos para formar a <strong>Soma Parcial \(S_N = a_1 + a_2 + \dots + a_N\)</strong> e depois tomamos o limite quando \(N \to \infty\):
+                \[\sum_{n=1}^\infty a_n = \lim_{N \to \infty} S_N\]
+                Se esse limite der um número real finito \(S\), dizemos que a série <strong>CONVERGE</strong> (tem soma finita). Se der \(\pm\infty\) ou não existir, a série <strong>DIVERGE</strong>.</li>
+                <li><strong>2. Hierarquia de Crescimento no Infinito (Limites Úteis do Cabeçalho da Lista 6):</strong> Quando \(n \to \infty\), quem cresce mais rápido vence! A ordem de força (do mais fraco para o mais forte) é:
+                \[\ln(n) \;\ll\; n^k \text{ (Polinômio)} \;\ll\; a^n \text{ (Exponencial, } a>1) \;\ll\; n! \text{ (Fatorial)} \;\ll\; n^n\]
+                Por isso, se o mais fraco está em cima e o mais forte embaixo, o limite dá <strong>zero</strong>; se o mais forte está em cima (como \(\frac{2^n}{n^{10}}\) no Ex. 3e), o limite explode para <strong>\(+\infty\)</strong>!
+                <ul>
+                    <li>\(\lim_{n\to\infty} \frac{n^k}{a^n} = \lim_{n\to\infty} \frac{a^n}{n!} = \lim_{n\to\infty} \frac{n!}{n^n} = 0\) (para \(a > 1\)).</li>
+                    <li>\(\lim_{n\to\infty} \sqrt[n]{n} = 1, \quad \lim_{n\to\infty} \left(1 + \frac{1}{n}\right)^n = e, \quad \lim_{n\to\infty} \left(1 - \frac{1}{n}\right)^n = \frac{1}{e}\).</li>
+                </ul>
+                </li>
+                <li><strong>3. Integral Imprópria \(\int_1^\infty f(x)\,dx\) (Cálculo 1/2):</strong> Calcula-se a integral normal até um teto \(b\) e depois faz-se \(b \to \infty\): \(\int_1^\infty f(x)\,dx = \lim_{b \to \infty} [F(b) - F(1)]\).</li>
+            </ul>
+        </div>
+
+        <div class="theory-box">
+            <h3>📘 Introdução ao Tema: Os 3 Pilares Fundamentais das Séries Numéricas</h3>
+            <p>Quase todas as questões de séries da prova usam uma dessas três ferramentas básicas como ponto de partida ou gabarito de comparação:</p>
+        </div>
+
+        <div class="formula-card">
+            <div class="formula-card-header">📐 Formulário Oficial — Série Geométrica, p-Série, Integral e Teste da Divergência</div>
+            <table class="formula-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Critério / Série Padrão</th>
+                        <th style="width: 38%;">Fórmula Matemática</th>
+                        <th style="width: 37%;">Regra de Decisão na Prova</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1. Teste do Termo Geral</strong><br><em>(Teste da Divergência)</em></td>
+                        <td>\(\lim_{n \to \infty} a_n \neq 0 \implies \sum a_n \text{ DIVERGE!}\)</td>
+                        <td><strong>Sempre faça este teste primeiro mentalmente!</strong> Se o limite do termo geral não der zero, a série diverge na hora!<br><em>Cuidado:</em> Se \(\lim a_n = 0\), <strong>nada se conclui</strong> (precisa usar outro teste!).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. Série Geométrica</strong></td>
+                        <td>\(\sum_{n=0}^\infty r^n = 1 + r + r^2 + \dots = \frac{1}{1 - r}\)</td>
+                        <td>• Se \(|r| < 1\) (\(-1 < r < 1\)): <strong>CONVERGE</strong> para \(\frac{\text{1º termo}}{1 - r}\).<br>
+                        • Se \(|r| \ge 1\): <strong>DIVERGE</strong>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. Critério da Integral</strong></td>
+                        <td>\(\sum_{n=1}^\infty a_n \;\Longleftrightarrow\; \int_1^\infty f(x)\,dx\)<br><em>(\(f(x)\) contínua, positiva e decrescente)</em></td>
+                        <td>Se a integral imprópria der um número finito, a série <strong>converge</strong>; se a integral der \(\infty\), a série <strong>diverge</strong>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. \(p\)-Série (e Harmônica)</strong></td>
+                        <td>\(\sum_{n=1}^\infty \frac{1}{n^p} = 1 + \frac{1}{2^p} + \frac{1}{3^p} + \dots\)</td>
+                        <td>• Se \(p > 1\) (ex: \(\sum \frac{1}{n^2}\)): <strong>CONVERGE</strong>.<br>
+                        • Se \(p \le 1\) (ex: \(\sum \frac{1}{n}\) ou \(\sum \frac{1}{\sqrt{n}}\)): <strong>DIVERGE</strong>.<br>
+                        <em>Nota:</em> Para \(p = 1\), \(\sum \frac{1}{n}\) é a famosa <strong>Série Harmônica (Divergente!)</strong>.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- EXERCÍCIO 1 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>📖</span> Exercício 1 — Demonstração da Convergência da Série Geométrica</div>
+                <span class="badge-type badge-book">Introdutório ao Tema</span>
+            </div>
+            <div class="exercise-body">
+                <div class="subitem-enunciado">
+                    <strong>1.</strong> Mostre que a série geométrica \(\sum_{n=0}^\infty r^n\) converge para \(\frac{1}{1 - r}\) se \(|r| < 1\) e que é divergente em caso contrário.
+                </div>
+                <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(S_N = \sum_{n=0}^N r^n = 1 + r + r^2 + r^3 + \dots + r^N\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Escrevemos a soma parcial S<sub>N</sub> contendo os termos de n = 0 até n = N.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(r \cdot S_N = r + r^2 + r^3 + \dots + r^N + r^{N+1}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> TRUQUE CLÁSSICO: Multiplicamos toda a linha anterior pela razão r.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(S_N - r S_N = (1 + r + \dots + r^N) - (r + \dots + r^N + r^{N+1}) = 1 - r^{N+1}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Subtraímos a Linha 02 da Linha 01: todos os termos do meio se cancelam (efeito telescópico), sobrando só o primeiro (1) menos o último (r<sup>N+1</sup>)!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(S_N(1 - r) = 1 - r^{N+1} \implies S_N = \frac{1 - r^{N+1}}{1 - r} \quad (\text{para } r \neq 1)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Colocamos S<sub>N</sub> em evidência e passamos (1 - r) dividindo.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(\text{Caso 1 } (|r| < 1): \;\; \lim_{N \to \infty} r^{N+1} = 0 \implies \lim_{N \to \infty} S_N = \frac{1 - 0}{1 - r} = \frac{1}{1 - r} \quad (\text{CONVERGE!})\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Quando |r| < 1 (ex: r = 1/2), elevar a uma potência infinita N+1 faz r<sup>N+1</sup> → 0. Logo, converge para 1/(1-r).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">06</td>
+            <td class="step-math">\(\text{Caso 2 } (|r| \ge 1): \;\; \lim_{n \to \infty} |r^n| \neq 0 \implies \text{Pelo Teste do Termo Geral, DIVERGE!}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Se |r| ≥ 1, o termo geral r^n não vai para zero (para r=1 dá 1; para r=-1 oscila entre 1 e -1; para |r|>1 vai para ∈fty). Logo, diverge!</td>
+        </tr>
+</tbody></table></div>
+                <div class="final-answer">✓ Conclusão 1: \(\sum_{n=0}^\infty r^n = \frac{1}{1 - r}\) se \(|r| < 1\) (convergente) e diverge se \(|r| \ge 1\).</div>
+            </div>
+        </div>
+
+        <!-- EXERCÍCIO 2 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>📖</span> Exercício 2 — Demonstração da p-Série pelo Critério da Integral</div>
+                <span class="badge-type badge-book">Introdutório ao Tema</span>
+            </div>
+            <div class="exercise-body">
+                <div class="subitem-enunciado">
+                    <strong>2.</strong> Use o critério da integral para mostrar que a série \(\sum_{n=1}^\infty \frac{1}{n^p}\) converge se \(p > 1\) e diverge em caso contrário.
+                </div>
+                <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(\text{Se } p \le 0: \;\; \lim_{n \to \infty} \frac{1}{n^p} = \lim_{n \to \infty} n^{|p|} \neq 0 \implies \text{Diverge pelo Teste do Termo Geral!}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Analisamos primeiro p ≤ 0: o termo geral não tende a zero (vale 1 se p=0 ou +∈fty se p<0), logo diverge.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\text{Se } p > 0: \;\; f(x) = \frac{1}{x^p} = x^{-p} \text{ é contínua, positiva e decrescente em } [1, +\infty)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Para p > 0, verificamos as 3 hipóteses obrigatórias do Critério da Integral (f'(x) = -p x<sup>-p-1</sup> < 0, logo é decrescente).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\text{Subcaso } p = 1: \;\; \int_1^\infty \frac{1}{x}\,dx = \lim_{b \to \infty} [\ln(x)]_1^b = \lim_{b \to \infty} (\ln b - \ln 1) = +\infty \implies \text{DIVERGE!}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Para p = 1 (Série Harmônica), a integral de 1/x é ln(x), que vai para +∈fty quando b → ∈fty.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(\text{Subcaso } p \neq 1: \;\; \int_1^\infty x^{-p}\,dx = \lim_{b \to \infty} \left[\frac{x^{1 - p}}{1 - p}\right]_1^b = \frac{1}{1 - p}\lim_{b \to \infty} \left(b^{1 - p} - 1\right)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Para p ≠ 1, integramos x<sup>-p</sup> pela Regra do Tombo somando 1 ao expoente (-p + 1 = 1 - p).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(\text{Se } p > 1 \implies 1 - p < 0 \implies \lim_{b \to \infty} b^{1 - p} = \lim_{b \to \infty} \frac{1}{b^{p - 1}} = 0 \implies \text{Integral} = \frac{1}{p - 1} < \infty \;\; (\text{CONVERGE!})\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Quando p > 1, o expoente (1 - p) é negativo, então b<sup>1-p</sup> vai para o denominador e zera no limite!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">06</td>
+            <td class="step-math">\(\text{Se } 0 < p < 1 \implies 1 - p > 0 \implies \lim_{b \to \infty} b^{1 - p} = +\infty \implies \text{DIVERGE!}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Quando 0 < p < 1, o expoente (1 - p) é positivo, então b<sup>1-p</sup> explode para +∈fty.</td>
+        </tr>
+</tbody></table></div>
+                <div class="final-answer">✓ Conclusão 2: Pelo Critério da Integral, a \(p\)-série \(\sum_{n=1}^\infty \frac{1}{n^p}\) <strong>converge se e somente se \(p > 1\)</strong>, e diverge para todo \(p \le 1\).</div>
+            </div>
+        </div>
+
+        <!-- EXERCÍCIO 3 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>⭐</span> Exercício 3 — Análise Prática de Convergência de Séries</div>
+                <span class="badge-type badge-star">Formato Provável de Prova</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>3.</strong> Analisar a convergência das seguintes séries:
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>3. (a)</strong> \(\sum_{n=1}^\infty \frac{1}{\sqrt{k + n^2}}\) (com \(k > 0\) constante)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(a_n = \frac{1}{\sqrt{k + n^2}} \sim \frac{1}{\sqrt{n^2}} = \frac{1}{n} \quad (\text{Comporta-se como a Série Harmônica } p = 1)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> OLHAR INTUITIVO: Para n grande, a constante k é desprezível perto de n<sup>2</sup>, então o termo parece 1/√(n<sup>2</sup>) = 1/n (que diverge!).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\text{Pelo Critério da Comparação no Limite com } b_n = \frac{1}{n}: \quad L = \lim_{n \to \infty} \frac{a_n}{b_n} = \lim_{n \to \infty} \frac{n}{\sqrt{k + n^2}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Comparamos com a série harmônica divergente ∑ 1/n.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(L = \lim_{n \to \infty} \frac{n}{\sqrt{n^2(k/n^2 + 1)}} = \lim_{n \to \infty} \frac{n}{n\sqrt{k/n^2 + 1}} = \frac{1}{\sqrt{0 + 1}} = 1 \quad (0 < L < \infty)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Colocamos n<sup>2</sup> em evidência dentro da raiz (sai como n) e cortamos com o n de cima. Como L = 1 > 0 e ∑ 1/n diverge, nossa série DIVERGE!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(\text{Ou por Comparação Direta (Gabarito): para } n \ge \sqrt{k}, \;\; k + n^2 \le n^2 + n^2 = 2n^2 \implies \frac{1}{\sqrt{k+n^2}} \ge \frac{1}{\sqrt{2}\,n}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Alternativamente (e também se fosse √(k+n)): como é maior que um múltiplo da série harmônica (ou p=1/2), DIVERGE!</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 3(a): <strong>Diverge</strong> (por comparação com a série harmônica \(\sum \frac{1}{n}\), ou com \(\sum \frac{1}{2\sqrt{n}}\) caso o enunciado original seja \(\sqrt{k+n}\)).</div>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>3. (b)</strong> \(\sum_{n=1}^\infty \frac{n}{3n - 1}\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(a_n = \frac{n}{3n - 1}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Aplicamos sempre o Teste do Termo Geral primeiro!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\lim_{n \to \infty} a_n = \lim_{n \to \infty} \frac{n}{n(3 - 1/n)} = \lim_{n \to \infty} \frac{1}{3 - 1/n} = \frac{1}{3} \neq 0\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Colocamos n em evidência e calculamos o limite no infinito: deu 1/3, que é diferente de zero!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\lim_{n \to \infty} a_n = \frac{1}{3} \neq 0 \implies \text{A série DIVERGE pelo Teste do Termo Geral!}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como os termos que estamos somando não diminuem para zero (ficam perto de 1/3 para sempre), a soma infinita explode!</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 3(b): <strong>Diverge</strong>, pois \(\lim_{n\to\infty} a_n = \frac{1}{3} \neq 0\) (Teste do Termo Geral / Divergência).</div>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>3. (c)</strong> \(\sum_{n=1}^\infty \frac{1}{n^2}\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(\sum_{n=1}^\infty \frac{1}{n^2} \quad \text{é uma } p\text{-série com } p = 2\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Identificamos o formato padrão ∑ 1/n^p com expoente constante p = 2.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(p = 2 > 1 \implies \text{A série CONVERGE (pelo resultado do Exercício 2)!}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Pelo teorema das p-séries provado na Questão 2, toda p-série com p > 1 é convergente.</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 3(c): <strong>Converge</strong> (\(p\)-série com \(p = 2 > 1\)).</div>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>3. (d)</strong> \(\sum_{n=1}^\infty \left(\frac{n}{2n + 1}\right)^n\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(\frac{n}{2n + 1} < \frac{n}{2n} = \frac{1}{2}, \quad \forall n \ge 1\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como 2n + 1 > 2n, diminuir o denominador aumenta a fração: logo n/(2n+1) é sempre menor que 1/2!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(0 < \left(\frac{n}{2n + 1}\right)^n < \left(\frac{1}{2}\right)^n\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Elevando ambos os lados à potência n, dominamos nosso termo geral por (1/2)^n.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\sum_{n=1}^\infty \left(\frac{1}{2}\right)^n \text{ é uma Série Geométrica de razão } r = \frac{1}{2} \quad (|r| < 1 \implies \text{Converge!})\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como a série maior ∑ (1/2)^n converge, pelo Critério da Comparação (ou pelo Teste da Raiz lim <sup>n</sup>√(a<sub>n</sub>) = 1/2 < 1), nossa série CONVERGE!</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 3(d): <strong>Converge</strong> (por comparação com a série geométrica convergente de razão \(r = \frac{1}{2} < 1\)).</div>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>3. (e)</strong> \(\sum_{n=1}^\infty \frac{2^n}{n^{10}}\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(\lim_{n \to \infty} a_n = \lim_{n \to \infty} \frac{2^n}{n^{10}} = +\infty \neq 0\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Pela tabela de limites úteis do cabeçalho da lista (lim n^k/a^n = 0 para a > 1), a exponencial 2^n cresce muito mais rápido que o polinômio n<sup>10</sup>!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\lim_{n \to \infty} a_n \neq 0 \implies \text{A série DIVERGE pelo Teste do Termo Geral!}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como o termo geral vai para +∈fty (não vai para zero), a série diverge imediatamente.</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 3(e): <strong>Diverge</strong>, pois \(\lim_{n\to\infty} \frac{2^n}{n^{10}} = +\infty \neq 0\) (Teste do Termo Geral).</div>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>3. (f)</strong> \(\sum_{n=1}^\infty \frac{1}{n}\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(\sum_{n=1}^\infty \frac{1}{n} \quad \text{é a Série Harmônica (} p\text{-série com } p = 1\text{)}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Esta é a série mais importante de Cálculo 4: apesar de lim (1/n) = 0, a soma dos seus termos cresce até o infinito!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(p = 1 \le 1 \implies \text{DIVERGE (conforme demonstrado pelo Critério da Integral no Exercício 2)!}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Pelo Exercício 2, como ∈t<sub>1</sub>^∈fty (1/x)dx = ln(∈fty) = ∈fty, a série harmônica diverge.</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 3(f): <strong>Diverge</strong> (Série Harmônica, \(p\)-série com \(p = 1\)).</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESUMINHO DO TÓPICO 1 -->
+        <div class="recap-box">
+            <h3>💡 Resuminho & Recapitulação — Tópico 1</h3>
+            <div class="recap-grid">
+                <div class="recap-card">
+                    <strong>1. A Maior Pegadinha de Séries (Harmônica!)</strong>
+                    \(\lim_{n\to\infty} \frac{1}{n} = 0\), MAS \(\sum_{n=1}^\infty \frac{1}{n}\) <strong>DIVERGE!</strong><br>
+                    Nunca escreva na prova "converge porque o limite dá zero"! O limite dar zero é apenas a permissão para continuar testando.
+                </div>
+                <div class="recap-card">
+                    <strong>2. Gabarito Instantâneo de \(p\)-Séries</strong>
+                    • \(\sum \frac{1}{n^2}, \sum \frac{1}{n^3}, \sum \frac{1}{n^{3/2}} \implies p > 1 \implies\) <strong>CONVERGE!</strong><br>
+                    • \(\sum \frac{1}{n}, \sum \frac{1}{\sqrt{n}} = \sum \frac{1}{n^{1/2}} \implies p \le 1 \implies\) <strong>DIVERGE!</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TÓPICO 2: CRITÉRIO DE COMPARAÇÃO E SÉRIE TELESCÓPICA (EX 4)       -->
+    <!-- ================================================================= -->
+    <div class="topic-section">
+        <div class="topic-banner">
+            <h2>Tópico 2: Critérios de Comparação e Série Telescópica</h2>
+            <span class="topic-range">Exercício 4 (Itens a, b, c, d, e, f)</span>
+        </div>
+
+        <div class="prereq-box">
+            <h3>🧠 O que você precisa lembrar de Desigualdades de Frações e Grau Dominante (Pré-Requisitos)</h3>
+            <ul>
+                <li><strong>1. Como escolher a Série de Comparação \(b_n\) em 3 segundos (Grau Dominante):</strong> Olhe apenas para o termo de maior grau no numerador e o de maior grau no denominador (ignore constantes somadas e graus menores):
+                \[\text{Exemplo: } a_n = \frac{n^2 + 1}{n^4 + 3n + 1} \;\; \xrightarrow{\text{Olhe só os líderes}} \;\; \frac{n^2}{n^4} = \frac{1}{n^2} \quad (\text{Logo, compare com } b_n \propto \frac{1}{n^2}!)\]</li>
+                <li><strong>2. Como Montar Desigualdades para Comparação Direta:</strong>
+                    <ul>
+                        <li>Para fazer uma fração ficar <strong>MAIOR (\(\le\))</strong>: aumente o numerador (ex: \(n^2 + 1 \le n^2 + n^2 = 2n^2\)) e diminua o denominador tirando coisas positivas (ex: \(n^4 + 3n + 1 > n^4\)).</li>
+                        <li>Para fazer uma fração ficar <strong>MENOR (\(\ge\))</strong>: diminua o numerador e aumente o denominador!</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="formula-card">
+            <div class="formula-card-header">📐 Formulário — Comparação Direta vs. Comparação no Limite (\(a_n, b_n > 0\))</div>
+            <table class="formula-table">
+                <thead>
+                    <tr>
+                        <th style="width: 28%;">Critério</th>
+                        <th style="width: 36%;">Condição Matemática</th>
+                        <th style="width: 36%;">Conclusão</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Comparação Direta</strong><br><em>(Para provar Convergência)</em></td>
+                        <td>\(0 \le a_n \le b_n\) e \(\sum b_n\) <strong>converge</strong></td>
+                        <td>Se a série maior \(\sum b_n\) converge, a menor \(\sum a_n\) também <strong>CONVERGE</strong>!</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Comparação Direta</strong><br><em>(Para provar Divergência)</em></td>
+                        <td>\(a_n \ge b_n \ge 0\) e \(\sum b_n\) <strong>diverge</strong></td>
+                        <td>Se a série menor \(\sum b_n\) diverge, a maior \(\sum a_n\) também <strong>DIVERGE</strong>!</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Comparação no Limite</strong><br><em>(Sempre funciona para polinômios!)</em></td>
+                        <td>\(L = \lim_{n \to \infty} \frac{a_n}{b_n}\), com \(0 < L < +\infty\)</td>
+                        <td>Ambas têm o <strong>mesmo destino</strong>: se \(\sum b_n\) converge, \(\sum a_n\) converge; se \(\sum b_n\) diverge, \(\sum a_n\) diverge!</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- EXERCÍCIO 4 -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="exercise-title"><span>⭐</span> Exercício 4 — Aplicando o Critério de Comparação</div>
+                <span class="badge-type badge-star">Formato Muito Provável de Prova</span>
+            </div>
+            <div class="exercise-body">
+                <div class="enunciado-geral">
+                    <strong>4.</strong> Aplicar o critério de comparação para determinar a convergência ou não das seguintes séries numéricas de termos positivos:
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>4. (a)</strong> \(\sum_{n=1}^\infty \frac{n^2 + 1}{n^4 + 3n + 1}\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(a_n = \frac{n^2 + 1}{n^4 + 3n + 1} \sim \frac{n^2}{n^4} = \frac{1}{n^2}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Olhando as maiores potências (n<sup>2</sup> sobre n<sup>4</sup>), sabemos que ela se comporta como 1/n<sup>2</sup> (convergente). Buscamos majorar a<sub>n</sub> ≤ 2/n<sup>2</sup>.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(n \ge 1 \implies 1 \le n^2 \implies n^2 + 1 \le n^2 + n^2 = 2n^2\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Trocamos o +1 do numerador por +n<sup>2</sup> (que é maior ou igual a 1 para todo n ≥ 1).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(n \ge 1 \implies n^4 + 3n + 1 > n^4 \implies \frac{1}{n^4 + 3n + 1} < \frac{1}{n^4}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Retiramos os termos positivos (3n + 1) do denominador, o que deixa a fração maior.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(0 < \frac{n^2 + 1}{n^4 + 3n + 1} < \frac{2n^2}{n^4} = \frac{2}{n^2}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Juntando as duas desigualdades, provamos que nosso termo é menor que 2/n<sup>2</sup>!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(\sum_{n=1}^\infty \frac{2}{n^2} = 2\sum_{n=1}^\infty \frac{1}{n^2} \text{ converge } (p = 2 > 1) \implies \mathbf{\text{CONVERGE!}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> (Nota: por Comparação no Limite com b<sub>n</sub> = 1/n<sup>2</sup>, lim (n<sup>4</sup> + n<sup>2</sup>)/(n<sup>4</sup> + 3n + 1) = 1 > 0, confirmando que CONVERGE!).</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 4(a): <strong>Converge</strong> (por comparação com a série convergente \(\sum \frac{2}{n^2}\)).</div>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>4. (b)</strong> \(\sum_{n=1}^\infty \frac{n^2 + 7}{2n^4 - n + 3}\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(a_n = \frac{n^2 + 7}{2n^4 - n + 3} \sim \frac{n^2}{2n^4} = \frac{1}{2n^2} \quad (p = 2 > 1)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Identificamos o comportamento assintótico olhando para n<sup>2</sup> / (2n<sup>4</sup>).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(L = \lim_{n \to \infty} \frac{a_n}{1/n^2} = \lim_{n \to \infty} \frac{n^4 + 7n^2}{2n^4 - n + 3} = \frac{1}{2} > 0\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Pelo Critério da Comparação no Limite com b<sub>n</sub> = 1/n<sup>2</sup>, L = 1/2 (finito e positivo).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\text{Comparação Direta }(n \ge 3): \;\; \frac{n^2 + 7}{2n^4 - n + 3} \le \frac{2n^2}{n^4} = \frac{2}{n^2} \implies \mathbf{\text{CONVERGE!}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como n<sup>2</sup> + 7 ≤ 2n<sup>2</sup> (para n ≥ 3) e 2n<sup>4</sup> - n + 3 ≥ n<sup>4</sup>, fica dominada por 2/n<sup>2</sup>. Logo, CONVERGE!</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 4(b): <strong>Converge</strong> (por comparação com \(\sum \frac{2}{n^2}\) ou Comparação no Limite com \(\sum \frac{1}{n^2}\)).</div>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>4. (c)</strong> \(\sum_{n=1}^\infty \frac{2n - 1}{n^2 + 1}\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(a_n = \frac{2n - 1}{n^2 + 1} \sim \frac{2n}{n^2} = \frac{2}{n} \quad (\text{Harmônica } p = 1)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como o grau do denominador (2) menos o do numerador (1) é 1, comporta-se como 1/n (divergente).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\text{Para } n \ge 1: \;\; 2n - 1 \ge n \quad \text{e} \quad n^2 + 1 \le 2n^2\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Diminuímos o numerador (2n - 1 ≥ n) e aumentamos o denominador (n<sup>2</sup> + 1 ≤ n<sup>2</sup> + n<sup>2</sup> = 2n<sup>2</sup>).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\frac{2n - 1}{n^2 + 1} \ge \frac{n}{2n^2} = \frac{1}{2n}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Assim, nosso termo geral é sempre maior ou igual a 1/(2n).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(\sum_{n=1}^\infty \frac{1}{2n} = \frac{1}{2}\sum_{n=1}^\infty \frac{1}{n} \text{ diverge } (p=1) \implies \mathbf{\text{DIVERGE!}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> (Ou por Comparação no Limite com b<sub>n</sub> = 1/n: lim (2n<sup>2</sup> - n)/(n<sup>2</sup> + 1) = 2 > 0 ⇒ DIVERGE!).</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 4(c): <strong>Diverge</strong> (por comparação com \(\sum \frac{1}{2n}\)).</div>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>4. (d)</strong> \(\sum_{n=1}^\infty \frac{1}{2^n + 3}\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(2^n + 3 > 2^n, \quad \forall n \ge 1\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como somamos +3 no denominador, o denominador 2^n + 3 é maior que 2^n.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(0 < \frac{1}{2^n + 3} < \frac{1}{2^n} = \left(\frac{1}{2}\right)^n\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Logo, o inverso 1/(2^n + 3) é estritamente menor que (1/2)^n.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\sum_{n=1}^\infty \left(\frac{1}{2}\right)^n \text{ converge } (r = 1/2 < 1) \implies \mathbf{\text{CONVERGE!}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Pelo Critério da Comparação Direta, por ser menor que uma geométrica convergente, ela converge.</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 4(d): <strong>Converge</strong> (por comparação com a série geométrica \(\sum \frac{1}{2^n}\)).</div>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>4. (e)</strong> \(\sum_{n=2}^\infty \frac{2}{n(n - 1)}\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(\text{Método 1 (Comparação, } n \ge 2\text{): } n - 1 \ge \frac{n}{2} \implies \frac{2}{n(n - 1)} \le \frac{4}{n^2}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como ∑ (4/n<sup>2</sup>) converge (p-série com p = 2 > 1), pelo Critério da Comparação a série CONVERGE!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\text{Método 2 (Telescópica): } \frac{2}{n(n - 1)} = 2\left(\frac{1}{n - 1} - \frac{1}{n}\right)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Abrimos em Frações Parciais: 1/(n-1) - 1/n = [n - (n-1)]/[n(n-1)] = 1/[n(n-1)].</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(S_N = 2\left[\left(1 - \frac{1}{2}\right) + \left(\frac{1}{2} - \frac{1}{3}\right) + \dots + \left(\frac{1}{N - 1} - \frac{1}{N}\right)\right]\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Escrevemos a soma parcial S<sub>N</sub> abrindo os parênteses de n = 2 até n = N.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(S_N = 2\left(1 - \frac{1}{N}\right) \implies \lim_{N \to \infty} S_N = 2(1 - 0) = \mathbf{2 \;\; (\text{CONVERGE!})}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Todos os termos intermediários (-1/2 + 1/2, -1/3 + 1/3) se cancelam! Sobra 2(1 - 1/N) → 2.</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 4(e): <strong>Converge</strong> (série telescópica com soma igual a \(2\), ou por comparação com \(\sum \frac{4}{n^2}\)).</div>
+                </div>
+
+                <div class="subitem-block">
+                    <div class="subitem-enunciado"><strong>4. (f)</strong> \(\sum_{n=1}^\infty \frac{\ln(n + 1)}{n}\)</div>
+                    <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(n \ge 2 \implies n + 1 \ge 3 > e \approx 2,718 \implies \ln(n + 1) > \ln(e) = 1\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Lembrando que a base do logaritmo natural é e ≈ 2,718, para todo n ≥ 2 temos n + 1 ≥ 3 > e, logo ln(n+1) > 1!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\frac{\ln(n + 1)}{n} > \frac{1}{n}, \quad \forall n \ge 2\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Dividindo os dois lados por n > 0, vemos que o termo geral é maior que o da Série Harmônica 1/n!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\sum_{n=1}^\infty \frac{1}{n} \text{ diverge (Harmônica)} \implies \mathbf{\text{DIVERGE!}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Por ser maior que uma série positiva divergente, ela obrigatoriamente diverge.</td>
+        </tr>
+</tbody></table></div>
+                    <div class="final-answer">✓ Resposta 4(f): <strong>Diverge</strong> (por comparação direta com a série harmônica divergente \(\sum \frac{1}{n}\)).</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESUMINHO DO TÓPICO 2 -->
+        <div class="recap-box">
+            <h3>💡 Resuminho & Recapitulação — Tópico 2 (Comparação)</h3>
+            <div class="recap-grid">
+                <div class="recap-card">
+                    <strong>1. Regra do Grau para Frações de Polinômios</strong>
+                    Seja \(\sum \frac{\text{Polinômio de grau } P}{\text{Polinômio de grau } Q}\):<br>
+                    • Se \(Q - P > 1\) (ex: grau 4 embaixo e grau 2 em cima \(\implies 4 - 2 = 2\)): <strong>CONVERGE</strong> (compare com \(\frac{1}{n^{Q-P}}\)).<br>
+                    • Se \(Q - P \le 1\) (ex: grau 2 embaixo e grau 1 em cima \(\implies 2 - 1 = 1\)): <strong>DIVERGE</strong> (compare com \(\frac{1}{n}\)).
+                </div>
+                <div class="recap-card">
+                    <strong>2. Coerência Obrigatória na Comparação Direta</strong>
+                    • Quer provar que <strong>Converge</strong>? Sua série tem que ser <strong>MENOR (\(\le\))</strong> que uma convergente.<br>
+                    • Quer provar que <strong>Diverge</strong>? Sua série tem que ser <strong>MAIOR (\(\ge\))</strong> que uma divergente.<br>
+                    <em>(Se a desigualdade ficar do lado errado, use Comparação no Limite!).</em>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- ======================================================== -->
+<!-- TÓPICO 3: SÉRIES ALTERNADAS E CONVERGÊNCIA ABSOLUTA      -->
+<!-- ======================================================== -->
+<div class="topic-section">
+  <div class="topic-header">
+    <div class="topic-num">3</div>
+    <div>
+      <h2>Séries Alternadas, Critério de Leibniz e Convergência Absoluta vs. Condicional</h2>
+      <div class="topic-sub">Exercícios 5, 6 e 7 da Lista 6 — Quando os sinais oscilam entre + e −</div>
+    </div>
+  </div>
+
+  <div class="theory-box">
+    <h3>🧠 Introdução Teórica: O Efeito Cancelamento dos Sinais Alternados</h3>
+    <p>Até agora estudamos séries onde todos os termos eram positivos (\(a_n > 0\)). O que acontece quando os sinais se alternam a cada passo, como em \(\sum (-1)^{n-1} b_n = b_1 - b_2 + b_3 - b_4 + \dots\) (com \(b_n > 0\))? Como um termo soma e o seguinte subtrai, é muito <strong>mais fácil</strong> uma série alternada convergir do que uma série só de termos positivos! Isso cria duas categorias distintas de convergência:</p>
+    <ul>
+      <li><strong>Convergência Absoluta:</strong> A série \(\sum a_n\) converge mesmo se passarmos o módulo em tudo (\(\sum |a_n| < \infty\)). Ou seja, ela converge pela "força bruta" da pequenez dos seus termos, sem precisar da ajuda dos sinais negativos.</li>
+      <li><strong>Convergência Condicional:</strong> A série alternada \(\sum a_n\) <strong>converge</strong> (graças ao cancelamento entre \(+\) e \(-\)), mas se tomarmos o módulo de todos os termos, a série \(\sum |a_n|\) <strong>diverge</strong>! Exemplo rei: \(\sum \frac{(-1)^{n-1}}{n}\).</li>
+    </ul>
+  </div>
+
+  <div class="prereq-box">
+    <h4>🔍 Não Pressuponha Nada: Como provar que uma sequência \(b_n\) é Decrescente?</h4>
+    <p>Para aplicar o <strong>Critério de Leibniz</strong> em uma série alternada \(\sum (-1)^{n-1} b_n\), você precisa checar duas coisas: (1) \(\lim_{n\to\infty} b_n = 0\) e (2) \(b_n\) é decrescente (\(b_{n+1} \le b_n\)).</p>
+    <ul>
+      <li><strong>Caso simples:</strong> Se o \(n\) aparece só no denominador crescendo, como \(b_n = \frac{1}{n}\) ou \(b_n = \frac{1}{\ln(n+1)}\), é imediato que aumentar o denominador diminui a fração: \(b_{n+1} < b_n\).</li>
+      <li><strong>Caso com \(n\) em cima e embaixo (Ex: \(b_n = \frac{n^2+1}{n^3+1}\)):</strong> Use a <strong>Derivada do Cálculo 1</strong>! Troque \(n\) por \(x\) contínuo, calcule \(f'(x)\) pela Regra do Quociente \(\left(\frac{u}{v}\right)' = \frac{u'v - uv'}{v^2}\) e mostre que \(f'(x) < 0\) para \(x \ge 1\). Se a derivada é negativa, a função (e portanto a sequência) é estritamente decrescente!</li>
+    </ul>
+  </div>
+
+  <div class="formula-card">
+    <h4>📋 Fluxograma de Decisão: Classificando Séries Alternadas (Tipo Ex. 7 ⭐)</h4>
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th>Passo</th>
+          <th>O que testar</th>
+          <th>Conclusão Imediata</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Passo 1</strong></td>
+          <td>Calcule \(\lim_{n\to\infty} |a_n|\)</td>
+          <td>Se \(\lim |a_n| \neq 0 \implies\) <strong>DIVERGE</strong> na hora! (Fim da questão). Se der \(0\), vá ao Passo 2.</td>
+        </tr>
+        <tr>
+          <td><strong>Passo 2</strong></td>
+          <td>Analise a série dos módulos \(\sum |a_n|\)<br><small>(use Comparação, p-série ou Razão)</small></td>
+          <td>Se \(\sum |a_n|\) converge \(\implies\) <strong>CONVERGE ABSOLUTAMENTE!</strong> (Fim da questão).<br>Se \(\sum |a_n|\) diverge, vá ao Passo 3.</td>
+        </tr>
+        <tr>
+          <td><strong>Passo 3</strong></td>
+          <td>Aplique o <strong>Critério de Leibniz</strong> em \(b_n = |a_n|\):<br>1) \(\lim b_n = 0\) &nbsp; e &nbsp; 2) \(b_n\) é decrescente</td>
+          <td>Se passar em Leibniz (e falhou no Passo 2) \(\implies\) <strong>CONVERGE CONDICIONALMENTE!</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- EXERCÍCIO 5 -->
+  <div class="exercise-card">
+    <div class="exercise-header">
+      <div>
+        <span class="exercise-num">Exercício 5</span>
+        <span class="exercise-tags">Critério de Leibniz • Condição Suficiente vs. Necessária</span>
+      </div>
+      <span class="badge-libro">📖 Exercício Introdutório / Conceitual</span>
+    </div>
+    <div class="enunciado-box">
+      <strong>Enunciado:</strong> As condições do critério de Leibniz (\(a_n\) decrescente e \(\lim a_n = 0\)) são suficientes mas não necessárias para que uma série alternada seja convergente. Mostre que a série a seguir é convergente:
+      \[\frac{1}{2} - \frac{1}{3} + \frac{1}{2^2} - \frac{1}{3^2} + \frac{1}{2^3} - \frac{1}{3^3} + \dots\]
+      Por que razão não se pode aplicar o critério de Leibniz a esta série?
+    </div>
+    <div class="subitem-block">
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(S = \frac{1}{2} - \frac{1}{3} + \frac{1}{2^2} - \frac{1}{3^2} + \frac{1}{2^3} - \frac{1}{3^3} + \dots\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Analisemos os módulos dos termos b<sub>n</sub> na ordem em que aparecem: b₁ = 1/2 = 0,5; b₂ = 1/3 ≈ 0,333; b₃ = 1/4 = 0,25; b₄ = 1/9 ≈ 0,111; b₅ = 1/8 = 0,125.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(b_4 = \frac{1}{9} \approx 0,111 < b_5 = \frac{1}{8} = 0,125 \implies (b_n) \text{ NÃO é monótona decrescente!}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Veja que do 4º para o 5º termo o módulo AUMENTA (1/9 < 1/8). Portanto, a hipótese de decrescimento monótono do Critério de Leibniz falha aqui!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\sum |a_n| = \left(\frac{1}{2} + \frac{1}{2^2} + \frac{1}{2^3} + \dots\right) + \left(\frac{1}{3} + \frac{1}{3^2} + \frac{1}{3^3} + \dots\right)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Mesmo sem o Critério de Leibniz, podemos testar a Convergência Absoluta agrupando as duas séries geométricas de termos positivos.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(S_{\text{pos}} = \sum_{n=1}^{\infty} \left(\frac{1}{2}\right)^n = \frac{1/2}{1 - 1/2} = 1 \quad \text{e} \quad S_{\text{neg}} = \sum_{n=1}^{\infty} \left(\frac{1}{3}\right)^n = \frac{1/3}{1 - 1/3} = \frac{1}{2}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Pela fórmula da soma da série geométrica infinita (a₁ / (1 - r)), a soma das potências de 1/2 vale 1 e a soma das potências de 1/3 vale 1/2.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(S = S_{\text{pos}} - S_{\text{neg}} = 1 - \frac{1}{2} = \frac{1}{2} \quad \text{(Série Convergente!)}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como a série converge absolutamente, podemos reorganizar seus termos e concluir que a série original converge para 1/2. Conclusão: as condições de Leibniz são SUFICIENTES (se valem, garante convergência), mas NÃO NECESSÁRIAS (uma série alternada pode convergir mesmo violando a monotonia).</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Resposta Final: A série converge (para \(1/2\)), mas o Critério de Leibniz não se aplica porque a sequência dos módulos dos termos não é monótona decrescente (ex: \(1/9 < 1/8\)).</div>
+    </div>
+  </div>
+
+  <!-- EXERCÍCIO 6 -->
+  <div class="exercise-card">
+    <div class="exercise-header">
+      <div>
+        <span class="exercise-num">Exercício 6</span>
+        <span class="exercise-tags">Teorema da Convergência Absoluta • Exemplo Condicional</span>
+      </div>
+      <span class="badge-libro">📖 Exercício Introdutório / Demonstração</span>
+    </div>
+    <div class="enunciado-box">
+      <strong>Enunciado:</strong><br>
+      (a) Mostre que se uma série é absolutamente convergente então é convergente. (Dica: usar a desigualdade \(0 \le a_n + |a_n| \le 2|a_n|\)).<br>
+      (b) Dê exemplo de uma série alternada que seja condicionalmente convergente, mas não absolutamente convergente.
+    </div>
+
+    <div class="subitem-block">
+      <div class="subitem-title">Item (a) — Demonstração via Teste da Comparação</div>
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(-|a_n| \le a_n \le |a_n| \quad (\forall n \ge 1)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Propriedade básica de módulo (Cálculo 1): qualquer número real a<sub>n</sub> está sempre compreendido entre menos o seu módulo (-|a<sub>n</sub>|) e mais o seu módulo (+|a<sub>n</sub>|).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(0 \le a_n + |a_n| \le 2|a_n|\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Somamos |a<sub>n</sub>| em todos os membros da desigualdade para construir uma nova sequência (a<sub>n</sub> + |a<sub>n</sub>|) que seja garantidamente NÃO-NEGATIVA (≥ 0), permitindo usar o Teste da Comparação!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\sum_{n=1}^{\infty} |a_n| \text{ converge} \implies \sum_{n=1}^{\infty} 2|a_n| = 2\sum_{n=1}^{\infty} |a_n| \text{ converge}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Por hipótese do enunciado, a série dos módulos ∑|a<sub>n</sub>| converge. Multiplicar uma série convergente por 2 mantém sua convergência.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(0 \le a_n + |a_n| \le 2|a_n| \implies \sum_{n=1}^{\infty} (a_n + |a_n|) \text{ CONVERGE (Teste da Comparação)}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como 0 ≤ a<sub>n</sub> + |a<sub>n</sub>| ≤ 2|a<sub>n</sub>| e a série maior ∑2|a<sub>n</sub>| converge, pelo Teste da Comparação Direta a série menor ∑(a<sub>n</sub> + |a<sub>n</sub>|) também converge!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(\sum_{n=1}^{\infty} a_n = \sum_{n=1}^{\infty} (a_n + |a_n|) - \sum_{n=1}^{\infty} |a_n| \implies \mathbf{\sum_{n=1}^{\infty} a_n \text{ CONVERGE!}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Escrevemos a<sub>n</sub> = (a<sub>n</sub> + |a<sub>n</sub>|) - |a<sub>n</sub>|. Como a diferença de duas séries convergentes é uma série convergente, fica provado que toda série absolutamente convergente é convergente!</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Conclusão (a): Provado! Como \(a_n = (a_n + |a_n|) - |a_n|\) é diferença de duas séries convergentes, \(\sum a_n\) converge.</div>
+    </div>
+
+    <div class="subitem-block">
+      <div class="subitem-title">Item (b) — Contraexemplo Clássico</div>
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(\sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n} = 1 - \frac{1}{2} + \frac{1}{3} - \frac{1}{4} + \dots \quad \text{(Série Harmônica Alternada)}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Escolhemos como exemplo clássico a Série Harmônica Alternada, onde a<sub>n</sub> = (-1)^(n+1) / n e o módulo é b<sub>n</sub> = 1/n.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(1) \; b_n = \frac{1}{n} > 0 \text{ é decrescente } \left(\frac{1}{n+1} < \frac{1}{n}\right) \quad \text{e} \quad 2) \; \lim_{n \to \infty} \frac{1}{n} = 0\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Verificamos as duas condições do Critério de Leibniz: b<sub>n</sub> = 1/n decresce monotonicamente e tende a zero. Logo, a série alternada CONVERGE (para ln 2).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\sum_{n=1}^{\infty} |a_n| = \sum_{n=1}^{\infty} \frac{1}{n} \quad \text{(Série Harmônica } p = 1 \implies \text{DIVERGE!)}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Porém, ao tomarmos o módulo dos termos, caímos na Série Harmônica simples ∑(1/n), que sabemos que DIVERGE. Portanto, ela converge, mas NÃO converge absolutamente: é Condicionalmente Convergente!</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Resposta Final (b): A Série Harmônica Alternada \(\sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n}\) converge por Leibniz, mas \(\sum \frac{1}{n}\) diverge.</div>
+    </div>
+  </div>
+
+  <!-- EXERCÍCIO 7 -->
+  <div class="exercise-card">
+    <div class="exercise-header">
+      <div>
+        <span class="exercise-num">Exercício 7</span>
+        <span class="exercise-tags">Classificação Completa: Diverge, Absoluta ou Condicional</span>
+      </div>
+      <span class="badge-prova">⭐ Provável na Prova</span>
+    </div>
+    <div class="enunciado-box">
+      <strong>Enunciado:</strong> Analise a convergência das séries alternadas a seguir. Se for convergente, verifique se é condicional ou absolutamente convergente.
+    </div>
+
+    <div class="subitem-block">
+      <div class="subitem-title">Item (a) — \(\displaystyle \sum_{n=2}^{\infty} (-1)^{n-1}\left(\frac{3n}{2n+1}\right)^n\)</div>
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(a_n = (-1)^{n-1}\left(\frac{3n}{2n+1}\right)^n \implies b_n = |a_n| = \left(\frac{3n}{2n+1}\right)^n\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Separamos o sinal alternado (-1)^(n-1) e analisamos o comportamento do módulo b<sub>n</sub> quando n → ∞.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\lim_{n \to \infty} \frac{3n}{2n+1} = \lim_{n \to \infty} \frac{3}{2 + 1/n} = \frac{3}{2} = 1,5 > 1\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> A base da potência tende a 3/2 = 1,5 quando n cresce.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\lim_{n \to \infty} b_n = \lim_{n \to \infty} \left(\frac{3n}{2n+1}\right)^n = \left(\frac{3}{2}\right)^{\infty} = +\infty \neq 0\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Elevar uma base maior que 1 (1,5) a um expoente infinito resulta em +∞. Como o módulo tende a +∞, o termo geral a<sub>n</sub> oscila entre +∞ e -∞ e NÃO tende a zero!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(\lim_{n \to \infty} a_n \neq 0 \implies \mathbf{\text{A série DIVERGE (nem absoluta, nem condicional)}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Pelo Teste da Divergência, como lim a<sub>n</sub> ≠ 0, a série diverge imediatamente.</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Resposta Final (a): Diverge (não é convergente nem absoluta nem condicionalmente).</div>
+    </div>
+
+    <div class="subitem-block">
+      <div class="subitem-title">Item (b) — \(\displaystyle \sum_{n=1}^{\infty} (-1)^n \frac{n}{n^3 - n + 5}\)</div>
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(|a_n| = \left|(-1)^n \frac{n}{n^3 - n + 5}\right| = \frac{n}{n^3 - n + 5}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Começamos sempre testando a Convergência Absoluta, ou seja, aplicando testes de séries positivas na série dos módulos ∑|a<sub>n</sub>|.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(b_n = \frac{\text{grau } 1}{\text{grau } 3} \sim \frac{n}{n^3} = \frac{1}{n^2}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Olhando os maiores graus do polinômio (n no numerador e n³ no denominador), o termo geral comporta-se como 1/n².</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(L = \lim_{n \to \infty} \frac{|a_n|}{1/n^2} = \lim_{n \to \infty} \frac{n^3}{n^3 - n + 5} = 1 \quad (0 < L < \infty)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Aplicamos o Teste da Comparação no Limite com a p-série ∑(1/n²). O limite da razão dá L = 1 (finito e positivo).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(\sum_{n=1}^{\infty} \frac{1}{n^2} \text{ converge } (p=2>1) \implies \sum_{n=1}^{\infty} |a_n| \text{ converge} \implies \mathbf{\text{CONVERGE ABSOLUTAMENTE!}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como a série dos módulos ∑|a<sub>n</sub>| converge, a série alternada original é Absolutamente Convergente (e, pelo Teorema do Ex 6a, também converge).</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Resposta Final (b): Converge Absolutamente.</div>
+    </div>
+
+    <div class="subitem-block">
+      <div class="subitem-title">Item (c) — \(\displaystyle \sum_{n=1}^{\infty} (-1)^{n+1} \frac{n^2 + 1}{n^3 + 1}\)</div>
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(|a_n| = \frac{n^2 + 1}{n^3 + 1} \sim \frac{n^2}{n^3} = \frac{1}{n}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Passo 1 (Testar Convergência Absoluta): Analisamos o módulo |a<sub>n</sub>|. A diferença de graus entre denominador (3) e numerador (2) é 1, logo comparamos com ∑(1/n).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(L = \lim_{n \to \infty} \frac{(n^2+1)/(n^3+1)}{1/n} = \lim_{n \to \infty} \frac{n^3 + n}{n^3 + 1} = 1 \implies \sum_{n=1}^{\infty} |a_n| \text{ DIVERGE!}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Pelo Teste da Comparação no Limite com a série harmônica ∑(1/n) (que diverge), como L = 1, a série dos módulos ∑|a<sub>n</sub>| DIVERGE! Logo, a série NÃO converge absolutamente.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\lim_{n \to \infty} b_n = \lim_{n \to \infty} \frac{n^2 + 1}{n^3 + 1} = \lim_{n \to \infty} \frac{1/n + 1/n^3}{1 + 1/n^3} = 0 \quad \text{(Condição 1 de Leibniz OK)}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Passo 2 (Testar Convergência Condicional via Leibniz): Verificamos se b<sub>n</sub> = (n²+1)/(n³+1) tende a zero e é decrescente. O limite é claramente 0.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(f(x) = \frac{x^2+1}{x^3+1} \implies f'(x) = \frac{2x(x^3+1) - (x^2+1)(3x^2)}{(x^3+1)^2} = \frac{x(2 - 3x - x^3)}{(x^3+1)^2} < 0 \;\; (\forall x \ge 1)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Para provar que b<sub>n</sub> é decrescente sem fazer contas algébricas gigantes, derivamos f(x) = (x²+1)/(x³+1) pela Regra do Quociente! Para x ≥ 1, temos 2 - 3x - x³ ≤ 2 - 3 - 1 = -2 < 0, logo f'(x) < 0 e b<sub>n</sub> é estritamente decrescente!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(\text{Converge por Leibniz, mas } \sum |a_n| \text{ diverge} \implies \mathbf{\text{CONVERGE CONDICIONALMENTE!}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como passa no Critério de Leibniz mas falha na convergência absoluta, a série é Condicionalmente Convergente.</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Resposta Final (c): Não converge absolutamente; Converge Condicionalmente (pelo Critério de Leibniz).</div>
+    </div>
+
+    <div class="subitem-block">
+      <div class="subitem-title">Item (d) — \(\displaystyle \sum_{n=1}^{\infty} \frac{(-2)^{n-1}}{n!}\)</div>
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(|a_n| = \left|\frac{(-2)^{n-1}}{n!}\right| = \frac{2^{n-1}}{n!}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Testamos a Convergência Absoluta tomando o módulo |a<sub>n</sub>|. Como há fatorial (n!) e potência (2^(n-1)), aplicamos o Teste da Razão!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(L = \lim_{n \to \infty} \frac{|a_{n+1}|}{|a_n|} = \lim_{n \to \infty} \frac{2^n}{(n+1)!} \cdot \frac{n!}{2^{n-1}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Montamos a razão |a_(n+1) / a<sub>n</sub>| multiplicando o termo (n+1) pelo inverso do termo n.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(L = \lim_{n \to \infty} \frac{2 \cdot 2^{n-1}}{(n+1) \cdot n!} \cdot \frac{n!}{2^{n-1}} = \lim_{n \to \infty} \frac{2}{n+1} = 0 < 1\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Lembrando da propriedade do fatorial: (n+1)! = (n+1)·n!. Cancelamos n! e 2^(n-1), sobrando apenas 2/(n+1), que tende a 0 quando n → ∞.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(L = 0 < 1 \implies \sum_{n=1}^{\infty} |a_n| \text{ converge} \implies \mathbf{\text{CONVERGE ABSOLUTAMENTE!}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Pelo Teste da Razão, como L = 0 < 1, a série converge absolutamente.</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Resposta Final (d): Converge Absolutamente.</div>
+    </div>
+  </div>
+
+  <div class="recap-box">
+    <h4>💡 Resuminho &amp; Recapitulação — Tópico 3</h4>
+    <ul>
+      <li><strong>Regra dos Graus em Frações Polinomiais Alternadas \(\sum (-1)^n \frac{P(n)}{Q(n)}\):</strong> Seja \(p = \text{grau}(Q) - \text{grau}(P)\):
+        <ul>
+          <li>Se \(p > 1\) (como no Ex 7b, \(3 - 1 = 2 > 1\)) \(\implies\) <strong>Converge Absolutamente!</strong></li>
+          <li>Se \(0 < p \le 1\) (como no Ex 7c, \(3 - 2 = 1\)) \(\implies\) <strong>Converge Condicionalmente!</strong> (não converge em módulo, mas converge por Leibniz).</li>
+          <li>Se \(p \le 0\) \(\implies\) <strong>Diverge!</strong> (pois o limite não vai a zero).</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- ======================================================== -->
+<!-- TÓPICO 4: TESTE DA RAZÃO E VERDADEIRO/FALSO              -->
+<!-- ======================================================== -->
+<div class="topic-section">
+  <div class="topic-header">
+    <div class="topic-num">4</div>
+    <div>
+      <h2>Teste da Razão (d'Alembert) e Questões Conceituais (V ou F)</h2>
+      <div class="topic-sub">Exercícios 8 e 9 da Lista 6 — Fatoriais, Exponenciais e Propriedades Fundamentais</div>
+    </div>
+  </div>
+
+  <div class="theory-box">
+    <h3>🧠 Introdução Teórica: O Teste da Razão (O Mais Importante da P2!)</h3>
+    <p>O <strong>Teste da Razão (ou de d'Alembert)</strong> mede a taxa assintótica de crescimento entre um termo e o seu sucessor imediato: \(L = \lim_{n\to\infty} \left|\frac{a_{n+1}}{a_n}\right|\). Ele funciona comparando a sua série com uma série geométrica de razão \(L\):</p>
+    <ul>
+      <li>Se <strong>\(L < 1\)</strong>: os termos encolhem rápido como uma PG de razão menor que 1 \(\implies\) a série <strong>Converge Absolutamente</strong>!</li>
+      <li>Se <strong>\(L > 1\)</strong> (ou \(L = +\infty\)): os termos crescem a partir de certo \(n\) \(\implies\) a série <strong>Diverge</strong>!</li>
+      <li>Se <strong>\(L = 1\)</strong>: o teste é <strong>Inconclusivo</strong>! (Você deve usar outro teste, como Comparação, p-série ou Leibniz).</li>
+    </ul>
+  </div>
+
+  <div class="prereq-box">
+    <h4>🔍 Não Pressuponha Nada: Álgebra de Fatoriais e o Número de Euler \(e\)</h4>
+    <ul>
+      <li><strong>Como simplificar Fatoriais:</strong> O fatorial de um número inteiro positivo \(n!\) é o produto \(n \cdot (n-1) \cdot (n-2) \cdots 2 \cdot 1\). Portanto, o fatorial de \((n+1)\) sempre pode "desenrolar" um degrau para cortar com \(n!\):
+        \[(n+1)! = (n+1) \cdot n! \quad \text{e} \quad (2n+2)! = (2n+2)\cdot(2n+1)\cdot(2n)!\]
+      </li>
+      <li><strong>O Limite Fundamental Exponencial (Cálculo 1):</strong> Sempre que no Teste da Razão aparecer potências como \(\frac{(n+1)^n}{n^n}\), junte tudo no mesmo expoente e use a definição de Euler:
+        \[\lim_{n \to \infty} \frac{(n+1)^n}{n^n} = \lim_{n \to \infty} \left(\frac{n+1}{n}\right)^n = \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e \approx 2,71828\]
+      </li>
+    </ul>
+  </div>
+
+  <!-- EXERCÍCIO 8 -->
+  <div class="exercise-card">
+    <div class="exercise-header">
+      <div>
+        <span class="exercise-num">Exercício 8</span>
+        <span class="exercise-tags">Teste da Razão • Parâmetro de Convergência • Número de Euler</span>
+      </div>
+      <span class="badge-prova">⭐ Provável na Prova</span>
+    </div>
+    <div class="enunciado-box">
+      <strong>Enunciado:</strong><br>
+      (a) Use o teste da razão para achar os valores de \(a > 0\) para os quais a série \(\displaystyle \sum_{n=1}^{\infty} \frac{n^n a^n}{n!}\) converge.<br>
+      (b) Determine a natureza das séries: (i) \(\displaystyle \sum_{n=1}^{\infty} \frac{3n}{2^n}\), &nbsp;&nbsp; (ii) \(\displaystyle \sum_{n=1}^{\infty} \frac{n \ln(n)}{3^n}\).
+    </div>
+
+    <div class="subitem-block">
+      <div class="subitem-title">Item (a) — Encontrando os valores de \(a > 0\) para \(\displaystyle \sum_{n=1}^{\infty} \frac{n^n a^n}{n!}\)</div>
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(a_n = \frac{n^n a^n}{n!} \quad (a > 0) \implies a_{n+1} = \frac{(n+1)^{n+1} a^{n+1}}{(n+1)!}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Escrevemos o termo geral a<sub>n</sub> e o termo seguinte a_(n+1) (trocando todo n por n+1).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\frac{a_{n+1}}{a_n} = \frac{(n+1)^{n+1} a^{n+1}}{(n+1)!} \cdot \frac{n!}{n^n a^n} = \frac{(n+1)(n+1)^n \cdot a \cdot a^n}{(n+1) \cdot n!} \cdot \frac{n!}{n^n a^n}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Abrimos as potências e o fatorial: (n+1)^(n+1) = (n+1)·(n+1)^n, a^(n+1) = a·a^n e (n+1)! = (n+1)·n!.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\frac{a_{n+1}}{a_n} = a \cdot \frac{(n+1)^n}{n^n} = a \cdot \left(\frac{n+1}{n}\right)^n = a \cdot \left(1 + \frac{1}{n}\right)^n\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Cancelamos (n+1), n! e a^n! Agrupamos (n+1)^n / n^n na mesma potência e dividimos por n lá dentro, obtendo o famoso limite fundamental (1 + 1/n)^n.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(L = \lim_{n \to \infty} \frac{a_{n+1}}{a_n} = a \cdot \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = a \cdot e\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Do Cálculo 1, sabemos que lim_(n→∞) (1 + 1/n)^n = e ≈ 2,71828 (definição do número de Euler). Portanto, o limite da razão é L = a·e.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(\text{Teste da Razão: converge se } L < 1 \iff a \cdot e < 1 \iff \mathbf{0 < a < \frac{1}{e} \;\; (\text{ou } e^{-1})}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Para o Teste da Razão garantir convergência, exigimos L < 1, o que fornece 0 < a < 1/e (como o enunciado já fixou a > 0). Se a > 1/e, L > 1 e a série diverge.</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Resposta Final (a): A série converge para \(0 < a < \frac{1}{e}\) (ou \(0 < a < e^{-1}\)).</div>
+    </div>
+
+    <div class="subitem-block">
+      <div class="subitem-title">Item (b-i) — Natureza da série \(\displaystyle \sum_{n=1}^{\infty} \frac{3n}{2^n}\)</div>
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(a_n = \frac{3n}{2^n} \implies L = \lim_{n \to \infty} \frac{a_{n+1}}{a_n} = \lim_{n \to \infty} \frac{3(n+1)}{2^{n+1}} \cdot \frac{2^n}{3n}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Aplicamos o Teste da Razão para a série ∑(3n / 2^n).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(L = \lim_{n \to \infty} \frac{n+1}{n} \cdot \frac{2^n}{2 \cdot 2^n} = \frac{1}{2} \cdot \lim_{n \to \infty} \left(1 + \frac{1}{n}\right) = \frac{1}{2} \cdot 1 = \frac{1}{2} < 1\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Cancelamos o 3 e o 2^n. O limite de (n+1)/n é 1, logo L = 1/2.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(L = \frac{1}{2} < 1 \implies \mathbf{\text{A série CONVERGE!}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como L = 1/2 < 1, pelo Teste da Razão a série é convergente.</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Resposta Final (b-i): Converge (pelo Teste da Razão, \(L = 1/2 < 1\)).</div>
+    </div>
+
+    <div class="subitem-block">
+      <div class="subitem-title">Item (b-ii) — Natureza da série \(\displaystyle \sum_{n=1}^{\infty} \frac{n \ln(n)}{3^n}\)</div>
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(a_n = \frac{n \ln(n)}{3^n} \implies L = \lim_{n \to \infty} \frac{a_{n+1}}{a_n} = \lim_{n \to \infty} \frac{(n+1)\ln(n+1)}{3^{n+1}} \cdot \frac{3^n}{n\ln(n)}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Aplicamos o Teste da Razão para a série ∑(n·ln(n) / 3^n) (para n ≥ 2, pois para n=1 o termo é zero).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(L = \frac{1}{3} \cdot \lim_{n \to \infty} \left(\frac{n+1}{n}\right) \cdot \lim_{n \to \infty} \frac{\ln(n+1)}{\ln(n)}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Cancelamos 3^n com 3^(n+1), colocando 1/3 em evidência. O limite de (n+1)/n vale 1. Para o limite de ln(n+1)/ln(n) (indeterminação ∞/∞), usamos L'Hôpital em x contínuo:</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\lim_{x \to \infty} \frac{\ln(x+1)}{\ln(x)} \stackrel{\text{L'H}}{=} \lim_{x \to \infty} \frac{1/(x+1)}{1/x} = \lim_{x \to \infty} \frac{x}{x+1} = 1\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Pela Regra de L'Hôpital, derivamos numerador (1/(x+1)) e denominador (1/x), resultando em x/(x+1) → 1.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(L = \frac{1}{3} \cdot 1 \cdot 1 = \frac{1}{3} < 1 \implies \mathbf{\text{A série CONVERGE!}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como L = 1/3 < 1, pelo Teste da Razão a série converge!</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Resposta Final (b-ii): Converge (pelo Teste da Razão, \(L = 1/3 < 1\)).</div>
+    </div>
+  </div>
+
+  <!-- EXERCÍCIO 9 -->
+  <div class="exercise-card">
+    <div class="exercise-header">
+      <div>
+        <span class="exercise-num">Exercício 9</span>
+        <span class="exercise-tags">Verdadeiro ou Falso • Teoria de Séries</span>
+      </div>
+      <span class="badge-prova">⭐ Provável na Prova</span>
+    </div>
+    <div class="enunciado-box">
+      <strong>Enunciado:</strong> Decida se as afirmações seguintes são verdadeiras ou falsas. Justifique!<br>
+      (a) Se \(\sum a_n\) é convergente então \(a_n \to 0\).<br>
+      (b) Se \(a_n \to 0\) então \(\sum a_n\) é convergente.<br>
+      (c) Toda sequência (série) de termos positivos com somas parciais limitadas é convergente.<br>
+      (d) Se tirarmos os 100 primeiros termos de uma série a sua natureza não muda.
+    </div>
+
+    <div class="subitem-block">
+      <div class="subitem-title">Análise e Justificativa Rigorosa dos Itens (a), (b), (c) e (d)</div>
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(\text{(a) Se } \sum a_n \text{ é convergente, então } a_n \to 0. \implies \mathbf{\text{VERDADEIRO (V)}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Justificativa: Se a série converge para S, então a sequência das somas parciais satisfaz lim S<sub>n</sub> = S e também lim S_(n-1) = S. Como o n-ésimo termo isolado é a<sub>n</sub> = S<sub>n</sub> - S_(n-1), temos lim a<sub>n</sub> = S - S = 0 (Teorema do Teste da Divergência).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\text{(b) Se } a_n \to 0, \text{ então } \sum a_n \text{ é convergente.} \implies \mathbf{\text{FALSO (F)}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Justificativa (Contraexemplo Clássico): A Série Harmônica ∑(1/n) tem termo geral a<sub>n</sub> = 1/n → 0 quando n → ∞, mas ∑(1/n) = +∞ (DIVERGE!). Ter limite zero é condição necessária, mas NUNCA suficiente para convergir!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\text{(c) Toda sequência de termos positivos com somas parciais limitadas é convergente.} \implies \mathbf{\text{VERDADEIRO (V)}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Justificativa: (Nota: 'série' de termos positivos a<sub>n</sub> > 0). Como a<sub>n</sub> > 0, cada soma parcial S<sub>n</sub> = S_(n-1) + a<sub>n</sub> é maior que a anterior (S<sub>n</sub> é monótona crescente). Pelo Teorema da Convergência Monótona, toda sequência monótona crescente e limitada superiormente (S<sub>n</sub> ≤ M) converge para um limite finito S!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(\text{(d) Se tirarmos os 100 primeiros termos de uma série a sua natureza não muda.} \implies \mathbf{\text{VERDADEIRO (V)}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Justificativa: A soma dos 100 primeiros termos é apenas um número finito constante C = a₁ + a₂ + ... + a₁₀₀. A nova soma parcial é S'<sub>N</sub> = S<sub>N</sub> - C. Como somar ou subtrair uma constante finita C não altera a existência ou inexistência do limite quando N → ∞, ambas convergem ou ambas divergem juntas!</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Resposta Final: (a) Verdadeiro; (b) Falso; (c) Verdadeiro; (d) Verdadeiro.</div>
+    </div>
+  </div>
+
+  <div class="recap-box">
+    <h4>💡 Resuminho &amp; Recapitulação — Tópico 4</h4>
+    <ul>
+      <li><strong>Quando usar o Teste da Razão?</strong> Sempre que houver <strong>fatoriais (\(n!\))</strong> ou <strong>exponenciais (\(c^n, n^n, x^n\))</strong>! Polinômios e logaritmos no Teste da Razão sempre dão limite \(1\) (\(\lim \frac{n+1}{n} = 1\) e \(\lim \frac{\ln(n+1)}{\ln n} = 1\)), então quem manda no valor de \(L\) são as potências e os fatoriais!</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ======================================================== -->
+<!-- TÓPICO 5: SÉRIES DE POTÊNCIAS E INTERVALO DE CONVERGÊNCIA-->
+<!-- ======================================================== -->
+<div class="topic-section">
+  <div class="topic-header">
+    <div class="topic-num">5</div>
+    <div>
+      <h2>Séries de Potências: Raio e Intervalo de Convergência e Função de Bessel</h2>
+      <div class="topic-sub">Exercícios 10 e 11 da Lista 6 — Encontrando onde a série com variável \(x\) funciona</div>
+    </div>
+  </div>
+
+  <div class="theory-box">
+    <h3>🧠 Introdução Teórica: O que é uma Série de Potências?</h3>
+    <p>Uma <strong>Série de Potências centrada em \(x_0\)</strong> é uma série cujos termos dependem de uma variável real \(x\), na forma \(\sum_{n=0}^{\infty} c_n (x - x_0)^n\). Você pode enxergá-la como um "polinômio de grau infinito". Para cada valor numérico que você escolhe para \(x\), ela vira uma série numérica comum que pode convergir ou divergir.</p>
+    <p>O <strong>Teorema Fundamental das Séries de Potências</strong> garante que existe sempre um <strong>Raio de Convergência \(R \ge 0\)</strong> (podendo ser \(R = \infty\)) tal que:</p>
+    <ul>
+      <li>Para \(|x - x_0| < R\) (ou seja, no intervalo aberto \((x_0 - R, \, x_0 + R)\)), a série <strong>Converge Absolutamente</strong>!</li>
+      <li>Para \(|x - x_0| > R\) (fora do intervalo), a série <strong>Diverge</strong>!</li>
+      <li>Nos dois pontos extremos \(x = x_0 - R\) e \(x = x_0 + R\) (onde o Teste da Razão dá \(L = 1\) inconclusivo), tudo pode acontecer! Você <strong>DEVE substituir cada extremo manualmente na série original</strong> e testar as duas séries numéricas resultantes (usando p-série, Harmônica ou Leibniz) para decidir se usa colchete fechado <code>[ ]</code> ou parêntese aberto <code>( )</code>!</li>
+    </ul>
+  </div>
+
+  <div class="prereq-box">
+    <h4>🔍 Não Pressuponha Nada: Como abrir a Inequação Modular \(|x - x_0| < R\)?</h4>
+    <p>Quando o Teste da Razão exige \(L < 1\), você sempre cairá numa inequação com módulo do tipo \(|x - x_0| < R\). Para tirar o módulo (Cálculo 1), basta colocar a expressão de dentro "ensanduichada" entre \(-R\) e \(+R\):</p>
+    \[|x - x_0| < R \iff -R < x - x_0 < +R \iff x_0 - R < x < x_0 + R\]
+    <p><strong>Exemplo Rápido:</strong> Se \(\frac{|x - 3|}{5} < 1 \implies |x - 3| < 5 \implies -5 < x - 3 < 5\). Somando \(3\) nos três lados: \(-5 + 3 < x < 5 + 3 \implies -2 < x < 8\).</p>
+  </div>
+
+  <div class="formula-card">
+    <h4>📋 Roteiro Infalível de 3 Passos para Intervalo de Convergência (Questão Certa de Prova ⭐)</h4>
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th>Etapa</th>
+          <th>Procedimento Matemático</th>
+          <th>Armadilha para Evitar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Achar o Raio \(R\)</strong></td>
+          <td>Calcule \(L = \lim_{n\to\infty} \left|\frac{u_{n+1}(x)}{u_n(x)}\right|\) e imponha \(L < 1\) para abrir o intervalo \((x_0 - R, x_0 + R)\).</td>
+          <td>Cuidado se o expoente for \(x^{2n}\): ao trocar \(n\) por \(n+1\), vira \(x^{2(n+1)} = x^{2n} \cdot x^2\) (sobra \(x^2\) e não \(x\))!</td>
+        </tr>
+        <tr>
+          <td><strong>2. Testar Extremo Esquerdo</strong></td>
+          <td>Substitua \(x = x_0 - R\) na série original e simplifique as potências (geralmente dá \(\sum (-1)^n b_n\)).</td>
+          <td>Não use Teste da Razão nos extremos (dará sempre \(L=1\))! Use <strong>Critério de Leibniz</strong> ou <strong>p-série</strong>.</td>
+        </tr>
+        <tr>
+          <td><strong>3. Testar Extremo Direito</strong></td>
+          <td>Substitua \(x = x_0 + R\) na série original e simplifique (geralmente dá \(\sum b_n\) positiva).</td>
+          <td>Use <strong>p-série</strong> ou <strong>Comparação</strong>. Se convergir, feche com <code>]</code>; se divergir, deixe aberto com <code>)</code>.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- EXERCÍCIO 10 -->
+  <div class="exercise-card">
+    <div class="exercise-header">
+      <div>
+        <span class="exercise-num">Exercício 10</span>
+        <span class="exercise-tags">Séries de Potências • Raio e Intervalo de Convergência • Teste dos Extremos</span>
+      </div>
+      <span class="badge-prova">⭐ Provável na Prova</span>
+    </div>
+    <div class="enunciado-box">
+      <strong>Enunciado:</strong> Ache o intervalo de convergência das séries de potências a seguir:
+    </div>
+
+    <div class="subitem-block">
+      <div class="subitem-title">Item (a) — \(\displaystyle \sum_{n=1}^{\infty} \frac{(x - 3)^n}{n \cdot 5^n}\)</div>
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(u_n(x) = \frac{(x - 3)^n}{n \cdot 5^n} \implies L = \lim_{n \to \infty} \left|\frac{u_{n+1}(x)}{u_n(x)}\right| = \lim_{n \to \infty} \left|\frac{(x - 3)^{n+1}}{(n + 1)5^{n+1}} \cdot \frac{n \cdot 5^n}{(x - 3)^n}\right|\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Passo 1 (Teste da Razão para o Raio R): Montamos o limite do módulo da razão |u_(n+1) / u<sub>n</sub>|.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(L = \frac{|x - 3|}{5} \cdot \lim_{n \to \infty} \frac{n}{n + 1} = \frac{|x - 3|}{5} \cdot 1 = \frac{|x - 3|}{5}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Simplificamos |(x-3)^(n+1)/(x-3)^n| = |x-3| e 5^n / 5^(n+1) = 1/5, colocando |x-3|/5 para fora do limite em n.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(L < 1 \iff \frac{|x - 3|}{5} < 1 \iff |x - 3| < 5 \iff -5 < x - 3 < 5 \iff -2 < x < 8 \quad (R = 5)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> A série converge absolutamente quando L < 1. Isso fornece raio R = 5 centrado em x₀ = 3, gerando o intervalo aberto (-2, 8). Agora É OBRIGATÓRIO testar os extremos x = -2 e x = 8 separadamente!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(\text{Extremo } x = -2: \;\; \sum_{n=1}^{\infty} \frac{(-2 - 3)^n}{n \cdot 5^n} = \sum_{n=1}^{\infty} \frac{(-5)^n}{n \cdot 5^n} = \sum_{n=1}^{\infty} \frac{(-1)^n}{n} \implies \text{CONVERGE (Leibniz!)}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Passo 2 (Teste do Extremo Esquerdo x = -2): Substituindo x = -2 na série original, (-5)^n = (-1)^n · 5^n. Cortando 5^n, obtemos a Série Harmônica Alternada, que CONVERGE pelo Critério de Leibniz! Logo, x = -2 ENTRA no intervalo (colchete fechado '[').</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(\text{Extremo } x = 8: \;\; \sum_{n=1}^{\infty} \frac{(8 - 3)^n}{n \cdot 5^n} = \sum_{n=1}^{\infty} \frac{5^n}{n \cdot 5^n} = \sum_{n=1}^{\infty} \frac{1}{n} \implies \text{DIVERGE (Harmônica } p=1\text{)}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Passo 3 (Teste do Extremo Direito x = 8): Substituindo x = 8, cortamos 5^n e caímos na Série Harmônica simples ∑(1/n), que DIVERGE! Logo, x = 8 NÃO entra no intervalo (parêntese aberto ')').</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">06</td>
+            <td class="step-math">\(\mathbf{I = [-2, 8)}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Unindo o interior (-2, 8) com o extremo x = -2, fechamos o intervalo de convergência como [-2, 8).</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Resposta Final (a): Intervalo de convergência \(I = [-2, 8)\) (com raio \(R = 5\)).</div>
+    </div>
+
+    <div class="subitem-block">
+      <div class="subitem-title">Item (b) — \(\displaystyle \sum_{n=1}^{\infty} \frac{(n + 1)^5 x^{2n}}{2n + 1}\)</div>
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(u_n(x) = \frac{(n + 1)^5 x^{2n}}{2n + 1} \implies L = \lim_{n \to \infty} \left|\frac{(n + 2)^5 x^{2(n+1)}}{2(n + 1) + 1} \cdot \frac{2n + 1}{(n + 1)^5 x^{2n}}\right|\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Atenção ao expoente 2n: ao trocar n por n+1, o expoente de x passa de x^(2n) para x^(2(n+1)) = x^(2n+2) = x^(2n) · x²!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(L = |x|^2 \cdot \lim_{n \to \infty} \left(\frac{n + 2}{n + 1}\right)^5 \cdot \left(\frac{2n + 1}{2n + 3}\right) = x^2 \cdot 1^5 \cdot 1 = x^2\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Tanto (n+2)/(n+1) quanto (2n+1)/(2n+3) tendem a 1 quando n → ∞. Assim, o limite da razão reduz-se a L = x².</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(L < 1 \iff x^2 < 1 \iff |x| < 1 \iff -1 < x < 1 \quad (R = 1)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> A série converge absolutamente para |x| < 1, ou seja, no intervalo aberto (-1, 1). Vamos testar os extremos x = -1 e x = 1:</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(\text{Para } x = \pm 1: \;\; x^{2n} = (\pm 1)^{2n} = 1 \implies \sum_{n=1}^{\infty} \frac{(n + 1)^5}{2n + 1}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como o expoente 2n é sempre par, tanto x = -1 quanto x = 1 produzem a mesma série numérica.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(\lim_{n \to \infty} a_n = \lim_{n \to \infty} \frac{(n + 1)^5}{2n + 1} = +\infty \neq 0 \implies \text{DIVERGE em } x = \pm 1 \implies \mathbf{I = (-1, 1)}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como o grau do numerador (5) é maior que o do denominador (1), o termo geral tende a +∞ ≠ 0. Pelo Teste da Divergência, diverge em ambos os extremos! Intervalo aberto: (-1, 1).</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Resposta Final (b): Intervalo de convergência \(I = (-1, 1)\) (com raio \(R = 1\)).</div>
+    </div>
+
+    <div class="subitem-block">
+      <div class="subitem-title">Item (c) — \(\displaystyle \sum_{n=1}^{\infty} \frac{2^n x^n}{n^2}\)</div>
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(u_n(x) = \frac{2^n x^n}{n^2} \implies L = \lim_{n \to \infty} \left|\frac{2^{n+1} x^{n+1}}{(n + 1)^2} \cdot \frac{n^2}{2^n x^n}\right| = 2|x| \cdot \lim_{n \to \infty} \left(\frac{n}{n + 1}\right)^2 = 2|x|\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Aplicamos o Teste da Razão. O fator polinomial (n/(n+1))² tende a 1, restando L = 2|x|.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(L < 1 \iff 2|x| < 1 \iff |x| < \frac{1}{2} \iff -\frac{1}{2} < x < \frac{1}{2} \quad (R = 0,5)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Converge absolutamente para -0,5 < x < 0,5. Testemos agora os extremos x = -1/2 e x = 1/2:</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\text{Em } x = -\frac{1}{2}: \;\; \sum_{n=1}^{\infty} \frac{2^n (-1/2)^n}{n^2} = \sum_{n=1}^{\infty} \frac{(-1)^n}{n^2} \implies \text{CONVERGE (Absolutamente, } p=2>1\text{)}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Para x = -1/2, 2^n · (-1/2)^n = (-1)^n. A série ∑(-1)^n / n² converge absolutamente pois ∑(1/n²) é uma p-série com p = 2 > 1!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(\text{Em } x = +\frac{1}{2}: \;\; \sum_{n=1}^{\infty} \frac{2^n (1/2)^n}{n^2} = \sum_{n=1}^{\infty} \frac{1}{n^2} \implies \text{CONVERGE (p-série } p=2>1\text{)} \implies \mathbf{I = [-0,5, \; 0,5]}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Para x = +1/2, recaímos diretamente na p-série ∑(1/n²) com p = 2 > 1, que também converge! Ambos os extremos entram: [-1/2, 1/2] = [-0,5, 0,5].</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Resposta Final (c): Intervalo de convergência \(I = [-0,5, \; 0,5] = \left[-\frac{1}{2}, \frac{1}{2}\right]\) (com raio \(R = 0,5\)).</div>
+    </div>
+
+    <div class="subitem-block">
+      <div class="subitem-title">Item (d) — \(\displaystyle \sum_{n=1}^{\infty} \frac{(x + 2)^n}{\ln(n + 1)}\)</div>
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(u_n(x) = \frac{(x + 2)^n}{\ln(n + 1)} \implies L = \lim_{n \to \infty} \left|\frac{(x + 2)^{n+1}}{\ln(n + 2)} \cdot \frac{\ln(n + 1)}{(x + 2)^n}\right| = |x + 2| \cdot \lim_{n \to \infty} \frac{\ln(n + 1)}{\ln(n + 2)}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Aplicamos o Teste da Razão centrada em x₀ = -2. Como vimos no Ex 8b(ii) por L'Hôpital, a razão de logaritmos ln(n+1)/ln(n+2) tende a 1.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(L = |x + 2| < 1 \iff -1 < x + 2 < 1 \iff -3 < x < -1 \quad (R = 1)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Subtraindo 2 em toda a desigualdade, obtemos o interior (-3, -1). Vamos testar os extremos x = -3 e x = -1:</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\text{Extremo } x = -3: \;\; \sum_{n=1}^{\infty} \frac{(-3 + 2)^n}{\ln(n + 1)} = \sum_{n=1}^{\infty} \frac{(-1)^n}{\ln(n + 1)} \implies \text{CONVERGE (Critério de Leibniz!)}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Em x = -3, temos uma série alternada com b<sub>n</sub> = 1/ln(n+1). Como ln(n+1) cresce para +∞, b<sub>n</sub> = 1/ln(n+1) é estritamente decrescente e tende a 0! Logo, converge por Leibniz e x = -3 entra!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(\text{Extremo } x = -1: \;\; \sum_{n=1}^{\infty} \frac{(-1 + 2)^n}{\ln(n + 1)} = \sum_{n=1}^{\infty} \frac{1}{\ln(n + 1)} \implies \text{DIVERGE! } \implies \mathbf{I = [-3, -1)}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Em x = -1, como ln(n+1) < n + 1 para todo n ≥ 1, ao inverter a desigualdade temos 1/ln(n+1) > 1/(n+1). Como a série harmônica ∑1/(n+1) diverge, pelo Teste da Comparação Direta ∑1/ln(n+1) DIVERGE! Logo, I = [-3, -1).</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Resposta Final (d): Intervalo de convergência \(I = [-3, -1)\) (com raio \(R = 1\)).</div>
+    </div>
+
+    <div class="subitem-block">
+      <div class="subitem-title">Item (e) — \(\displaystyle \sum_{n=1}^{\infty} \frac{(3x - 1)^n}{3^{2n}}\)</div>
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(\sum_{n=1}^{\infty} \frac{(3x - 1)^n}{3^{2n}} = \sum_{n=1}^{\infty} \frac{(3x - 1)^n}{(3^2)^n} = \sum_{n=1}^{\infty} \left(\frac{3x - 1}{9}\right)^n\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Dica de Ouro: Como 3^(2n) = (3²)^n = 9^n, esta é simplesmente uma Série Geométrica de razão r = (3x - 1)/9! (Você também pode usar o Teste da Razão, que dará exatamente L = |3x - 1|/9).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(|r| < 1 \iff \left|\frac{3x - 1}{9}\right| < 1 \iff |3x - 1| < 9 \iff -9 < 3x - 1 < 9\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Toda série geométrica converge se, e somente se, |r| < 1 (e diverge nos extremos onde |r| = 1, pois lá o termo geral é (±1)^n que não tende a zero!).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(-8 < 3x < 10 \iff -\frac{8}{3} < x < \frac{10}{3} \implies \mathbf{I = \left(-\frac{8}{3}, \frac{10}{3}\right)}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Somamos 1 em todos os membros (-8 < 3x < 10) e dividimos por 3. Nos extremos x = -8/3 e x = 10/3 temos r = -1 e r = +1, onde a série geométrica diverge. Logo, o intervalo é aberto: (-8/3, 10/3).</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Resposta Final (e): Intervalo de convergência \(I = \left(-\frac{8}{3}, \frac{10}{3}\right)\) (com raio \(R = 3\)).</div>
+    </div>
+  </div>
+
+  <!-- EXERCÍCIO 11 -->
+  <div class="exercise-card">
+    <div class="exercise-header">
+      <div>
+        <span class="exercise-num">Exercício 11</span>
+        <span class="exercise-tags">Função de Bessel de Ordem Zero • Domínio via Série de Potências</span>
+      </div>
+      <span class="badge-prova">⭐ Provável na Prova</span>
+    </div>
+    <div class="enunciado-box">
+      <strong>Enunciado:</strong> A função \(J_0\) definida por
+      \[J_0(x) = \sum_{n=0}^{\infty} \frac{(-1)^n x^{2n}}{(n!)^2 2^{2n}}\]
+      é chamada de função de Bessel de ordem zero. Determine o seu domínio.
+    </div>
+
+    <div class="subitem-block">
+      <div class="subitem-title">Determinação do Domínio de \(J_0(x)\)</div>
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(J_0(x) = \sum_{n=0}^{\infty} u_n(x), \quad \text{onde } u_n(x) = \frac{(-1)^n x^{2n}}{(n!)^2 2^{2n}}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> O domínio da função de Bessel J₀(x) é exatamente o conjunto de todos os valores reais de x para os quais a série de potências converge (ou seja, seu Intervalo de Convergência)!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(L = \lim_{n \to \infty} \left|\frac{u_{n+1}(x)}{u_n(x)}\right| = \lim_{n \to \infty} \left|\frac{x^{2(n+1)}}{((n + 1)!)^2 2^{2(n+1)}} \cdot \frac{(n!)^2 2^{2n}}{x^{2n}}\right|\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Aplicamos o Teste da Razão. Note que ((n+1)!)² = [(n+1)·n!]² = (n+1)² · (n!)² e 2^(2n+2) = 2² · 2^(2n) = 4 · 2^(2n).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(L = \lim_{n \to \infty} \frac{x^2}{4(n + 1)^2} = \frac{x^2}{4} \cdot \lim_{n \to \infty} \frac{1}{(n + 1)^2} = \frac{x^2}{4} \cdot 0 = 0 < 1 \quad (\forall x \in \mathbb{R})\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Cancelando (n!)², 2^(2n) e x^(2n), sobra x² / [4(n+1)²]. Para qualquer x real fixado, quando n → ∞ o denominador (n+1)² explode para o infinito e o limite dá L = 0!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(L = 0 < 1 \;\; \forall x \in \mathbb{R} \implies R = \infty \implies \mathbf{\text{Dom}(J_0) = \mathbb{R} = (-\infty, +\infty)}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como L = 0 < 1 independentemente do valor de x, a série converge absolutamente para todo número real x. Portanto, o domínio de J₀(x) é toda a reta real ℝ!</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Resposta Final: O domínio de \(J_0(x)\) é toda a reta real, \(\text{Dom}(J_0) = \mathbb{R} = (-\infty, +\infty)\).</div>
+    </div>
+  </div>
+
+  <div class="recap-box">
+    <h4>💡 Resuminho &amp; Recapitulação — Tópico 5</h4>
+    <ul>
+      <li><strong>Padrão Clássico dos Extremos:</strong>
+        <ul>
+          <li>Se no denominador há \(n^1\) (como no Ex 10a) ou \(\ln(n+1)\) (Ex 10d): o extremo onde fica alternado \((-1)^n\) <strong>converge por Leibniz</strong> (fecha colchete), e o extremo onde fica positivo \(1^n\) <strong>diverge</strong> (abre parêntese)!</li>
+          <li>Se no denominador há \(n^2\) (como no Ex 10c): <strong>ambos os extremos convergem</strong> porque \(\sum 1/n^2\) já converge absolutamente (\(p=2>1\)), gerando intervalo fechado nos dois lados <code>[ , ]</code>!</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- ======================================================== -->
+<!-- TÓPICO 6: SÉRIES DE TAYLOR E MACLAURIN                   -->
+<!-- ======================================================== -->
+<div class="topic-section">
+  <div class="topic-header">
+    <div class="topic-num">6</div>
+    <div>
+      <h2>Séries de Taylor e de Maclaurin, Derivação e Integração Termo a Termo</h2>
+      <div class="topic-sub">Exercícios 12, 13, 14 e 15 da Lista 6 — Transformando funções elementares em séries infinitas</div>
+    </div>
+  </div>
+
+  <div class="theory-box">
+    <h3>🧠 Introdução Teórica: A Fórmula de Taylor e os Atalhos Operacionais</h3>
+    <p>Se uma função \(f(x)\) pode ser representada por uma série de potências centrada em \(x_0\), \(\sum_{n=0}^{\infty} c_n (x - x_0)^n\), então seus coeficientes \(c_n\) são dados obrigatoriamente pelas derivadas de \(f\) no ponto \(x_0\):</p>
+    \[f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(x_0)}{n!} (x - x_0)^n = f(x_0) + f'(x_0)(x - x_0) + \frac{f''(x_0)}{2!}(x - x_0)^2 + \frac{f'''(x_0)}{3!}(x - x_0)^3 + \dots\]
+    <p>Quando o centro é a origem <strong>\(x_0 = 0\)</strong>, a Série de Taylor ganha o apelido especial de <strong>Série de Maclaurin</strong>. Além de calcular derivadas, podemos obter novas séries de Taylor de forma muito mais rápida <strong>substituindo variáveis</strong>, <strong>derivando termo a termo</strong> ou <strong>integrando termo a termo</strong> uma série já conhecida (e o raio de convergência \(R\) se mantém exatamente o mesmo ao derivar ou integrar!).</p>
+  </div>
+
+  <div class="formula-card">
+    <h4>📋 Tabela Oficial das 6 Séries de Maclaurin Fundamentais (\(x_0 = 0\))</h4>
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th>Função \(f(x)\)</th>
+          <th>Série de Maclaurin (\(\sum_{n=0}^{\infty}\))</th>
+          <th>Primeiros Termos Expandidos</th>
+          <th>Raio e Intervalo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>\(\displaystyle \frac{1}{1 - x}\)</td>
+          <td>\(\displaystyle \sum_{n=0}^{\infty} x^n\)</td>
+          <td>\(1 + x + x^2 + x^3 + x^4 + \dots\)</td>
+          <td>\(R = 1, \;\; (-1, 1)\)</td>
+        </tr>
+        <tr>
+          <td>\(\displaystyle e^x\)</td>
+          <td>\(\displaystyle \sum_{n=0}^{\infty} \frac{x^n}{n!}\)</td>
+          <td>\(1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \frac{x^4}{4!} + \dots\)</td>
+          <td>\(R = \infty, \;\; (-\infty, \infty)\)</td>
+        </tr>
+        <tr>
+          <td>\(\displaystyle \sin(x)\)</td>
+          <td>\(\displaystyle \sum_{n=0}^{\infty} \frac{(-1)^n}{(2n+1)!} x^{2n+1}\)</td>
+          <td>\(x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \dots\) &nbsp;<em>(ímpares)</em></td>
+          <td>\(R = \infty, \;\; (-\infty, \infty)\)</td>
+        </tr>
+        <tr>
+          <td>\(\displaystyle \cos(x)\)</td>
+          <td>\(\displaystyle \sum_{n=0}^{\infty} \frac{(-1)^n}{(2n)!} x^{2n}\)</td>
+          <td>\(1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \dots\) &nbsp;<em>(pares)</em></td>
+          <td>\(R = \infty, \;\; (-\infty, \infty)\)</td>
+        </tr>
+        <tr>
+          <td>\(\displaystyle \text{arctg}(x)\)</td>
+          <td>\(\displaystyle \sum_{n=0}^{\infty} \frac{(-1)^n}{2n+1} x^{2n+1}\)</td>
+          <td>\(x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \dots\) &nbsp;<em>(sem fatorial!)</em></td>
+          <td>\(R = 1, \;\; [-1, 1]\)</td>
+        </tr>
+        <tr>
+          <td>\(\displaystyle \ln(1 + x)\)</td>
+          <td>\(\displaystyle \sum_{n=1}^{\infty} \frac{(-1)^{n-1}}{n} x^n\)</td>
+          <td>\(x - \frac{x^2}{2} + \frac{x^3}{3} - \frac{x^4}{4} + \dots\) &nbsp;<em>(sem fatorial!)</em></td>
+          <td>\(R = 1, \;\; (-1, 1]\)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- EXERCÍCIO 12 -->
+  <div class="exercise-card">
+    <div class="exercise-header">
+      <div>
+        <span class="exercise-num">Exercício 12</span>
+        <span class="exercise-tags">Contraexemplo de Cauchy • Série de Taylor vs. Função Analítica</span>
+      </div>
+      <span class="badge-libro">📖 Exercício Conceitual / Clássico</span>
+    </div>
+    <div class="enunciado-box">
+      <strong>Enunciado:</strong> Mostre que a série de Taylor da função
+      \[f(x) = \begin{cases} e^{-1/x^2} & \text{se } x \neq 0 \\ 0 & \text{se } x = 0 \end{cases}\]
+      em torno de \(x_0 = 0\) não converge para \(f\) em nenhuma vizinhança de \(0\).
+    </div>
+
+    <div class="subitem-block">
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(f(x) = \begin{cases} e^{-1/x^2}, & x \neq 0 \\ 0, & x = 0 \end{cases} \implies f'(0) = \lim_{x \to 0} \frac{f(x) - f(0)}{x - 0} = \lim_{x \to 0} \frac{e^{-1/x^2}}{x}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Para montar a Série de Taylor em x₀ = 0, precisamos das derivadas f^(n)(0). Pela definição de derivada no ponto 0 (Cálculo 1), montamos o limite da razão incremental.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\text{Fazendo } t = \frac{1}{x} \; (x \to 0^+ \implies t \to +\infty): \quad \lim_{t \to +\infty} \frac{t}{e^{t^2}} \stackrel{\text{L'H}}{=} \lim_{t \to +\infty} \frac{1}{2t e^{t^2}} = 0 \implies f'(0) = 0\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Trocamos 1/x por t para transformar em uma fração t / e^(t²). Pela Regra de L'Hôpital, a exponencial e^(t²) cresce infinitamente mais rápido que qualquer potência de t, dando limite 0!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\text{Por indução, para todo } n \ge 1: \;\; f^{(n)}(0) = \lim_{t \to \infty} P(t) e^{-t^2} = 0 \quad (\forall n = 0, 1, 2, 3, \dots)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Repetindo o processo para a 2ª, 3ª, ..., n-ésima derivada, em x ≠ 0 sempre aparece um polinômio em (1/x) multiplicado por e^(-1/x²), cujo limite em x → 0 é sempre ZERO!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(T(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(0)}{n!} x^n = 0 + 0x + 0x^2 + \dots = 0 \quad (\forall x \in \mathbb{R})\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Como TODAS as derivadas na origem valem zero (f^(n)(0) = 0), a Série de Taylor de f(x) centrada em x₀ = 0 é identicamente NULA: T(x) = 0 para todo x!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(\text{Para } x \neq 0, \;\; f(x) = e^{-1/x^2} > 0 \neq T(x) = 0 \implies \mathbf{T(x) \text{ NÃO converge para } f(x) \text{ se } x \neq 0!}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Embora a série T(x) = 0 convirja para 0 em toda a reta, a função original f(x) = e^(-1/x²) é estritamente positiva para todo x ≠ 0! Logo, T(x) só coincide com f(x) no único ponto x = 0, não convergindo para f em nenhuma vizinhança de 0.</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Conclusão: A série de Taylor em \(x_0 = 0\) é identicamente nula (\(T(x) = 0\)), que difere de \(f(x) = e^{-1/x^2} > 0\) para todo \(x \neq 0\).</div>
+    </div>
+  </div>
+
+  <!-- EXERCÍCIO 13 -->
+  <div class="exercise-card">
+    <div class="exercise-header">
+      <div>
+        <span class="exercise-num">Exercício 13</span>
+        <span class="exercise-tags">Séries de Maclaurin de \(e^x, \sin x, \cos x\) • Fórmula de Euler</span>
+      </div>
+      <span class="badge-prova">⭐ Provável na Prova</span>
+    </div>
+    <div class="enunciado-box">
+      <strong>Enunciado:</strong> Ache o desenvolvimento em série de Taylor para as funções \(e^x\), \(\sin(x)\), e \(\cos(x)\) em \(x_0 = 0\). Determine o raio de convergência das séries obtidas. Use as séries para mostrar a fórmula de Euler: \(e^{i\theta} = \cos(\theta) + i\sin(\theta)\). (Esta relação motiva a definição da exponencial complexa!).
+    </div>
+
+    <div class="subitem-block">
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(f(x) = e^x \implies f^{(n)}(x) = e^x \implies f^{(n)}(0) = e^0 = 1 \implies \mathbf{e^x = \sum_{n=0}^{\infty} \frac{x^n}{n!} = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \dots}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> 1) Série de Maclaurin de e^x: Como todas as derivadas de e^x são e^x, em x₀ = 0 todas valem e⁰ = 1. Pelo Teste da Razão, L = lim |x|/(n+1) = 0 < 1, logo R = ∞.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(g(x) = \sin(x): \;\; g(0)=0, \; g'(0)=\cos(0)=1, \; g''(0)=-\sin(0)=0, \; g'''(0)=-\cos(0)=-1, \; g^{(4)}(0)=0\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> 2) Série de Maclaurin de sen(x): As derivadas em x₀ = 0 repetem o ciclo (0, 1, 0, -1) de 4 em 4. Todos os termos de expoente PAR zeram, sobrando apenas os expoentes ÍMPARES (2n+1) com sinal alternado:</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\mathbf{\sin(x) = \sum_{n=0}^{\infty} \frac{(-1)^n}{(2n + 1)!} x^{2n+1} = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \dots} \quad (R = \infty)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Pelo Teste da Razão, L = lim x² / [(2n+3)(2n+2)] = 0 < 1 para todo x, logo o raio de convergência também é R = ∞.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(h(x) = \cos(x): \;\; h(0)=1, \; h'(0)=0, \; h''(0)=-1, \; h'''(0)=0 \implies \mathbf{\cos(x) = \sum_{n=0}^{\infty} \frac{(-1)^n}{(2n)!} x^{2n} = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \dots}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> 3) Série de Maclaurin de cos(x): Ciclo em x₀ = 0 é (1, 0, -1, 0). Todos os termos ímpares zeram, sobrando apenas os expoentes PARES (2n) com sinal alternado e R = ∞.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">05</td>
+            <td class="step-math">\(e^{i\theta} = 1 + (i\theta) + \frac{(i\theta)^2}{2!} + \frac{(i\theta)^3}{3!} + \frac{(i\theta)^4}{4!} + \frac{(i\theta)^5}{5!} + \dots\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> 4) Demonstração da Fórmula de Euler: Substituímos x = iθ na série de e^x. Lembrando das potências da unidade imaginária i (onde i² = -1): i³ = i²·i = -i, i⁴ = (i²)² = +1, i⁵ = i.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">06</td>
+            <td class="step-math">\(e^{i\theta} = \underbrace{\left(1 - \frac{\theta^2}{2!} + \frac{\theta^4}{4!} - \dots\right)}_{\cos\theta} + i\underbrace{\left(\theta - \frac{\theta^3}{3!} + \frac{\theta^5}{5!} - \dots\right)}_{\sin\theta} = \mathbf{\cos\theta + i\sin\theta}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Separando os termos reais (pares) dos termos multiplicados por i (ímpares), reconhecemos exatamente a série de Maclaurin de cos(θ) mais i vezes a série de sen(θ)! Fica provada a Identidade de Euler!</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Resposta Final: Séries de Maclaurin demonstradas com \(R = \infty\) para todas as três e Identidade de Euler \(e^{i\theta} = \cos\theta + i\sin\theta\) verificada!</div>
+    </div>
+  </div>
+
+  <!-- EXERCÍCIO 14 -->
+  <div class="exercise-card">
+    <div class="exercise-header">
+      <div>
+        <span class="exercise-num">Exercício 14</span>
+        <span class="exercise-tags">Manipulação de Séries • Integração e Derivação Termo a Termo</span>
+      </div>
+      <span class="badge-prova">⭐ Provável na Prova</span>
+    </div>
+    <div class="enunciado-box">
+      <strong>Enunciado:</strong><br>
+      (a) Use a série geométrica para mostrar que \(\displaystyle \frac{1}{1+x^2} = \sum_{n=0}^{\infty} (-1)^n x^{2n}, \;\; |x| < 1\).<br>
+      (b) Encontre uma expansão em série de potências para a função \(f(x) = \text{arctg}(x)\). (Dica: use o item anterior e integre termo a termo a série).<br>
+      (c) Expresse a função \(f(x) = \frac{1}{(1-x)^2}\) em série de potências. Qual é o raio de convergência? (Dica: use a série geométrica e derive termo a termo).
+    </div>
+
+    <div class="subitem-block">
+      <div class="subitem-title">Item (a) — Expansão de \(\displaystyle \frac{1}{1+x^2}\) via Série Geométrica</div>
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(\frac{1}{1 - r} = \sum_{n=0}^{\infty} r^n = 1 + r + r^2 + r^3 + \dots \quad (\text{válida para } |r| < 1)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Partimos da soma da Série Geométrica fundamental com primeiro termo 1 e razão r.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\frac{1}{1 + x^2} = \frac{1}{1 - (-x^2)} = \sum_{n=0}^{\infty} (-x^2)^n = \mathbf{\sum_{n=0}^{\infty} (-1)^n x^{2n} = 1 - x^2 + x^4 - x^6 + \dots}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Reescrevemos +x² no denominador como -(-x²), identificando a razão r = -x². Substituindo r = -x² na série geométrica (válida para |-x²| < 1 ⟺ |x| < 1), obtemos a expansão pedida!</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Conclusão (a): \(\frac{1}{1+x^2} = \sum_{n=0}^{\infty} (-1)^n x^{2n}\) para \(|x| < 1\).</div>
+    </div>
+
+    <div class="subitem-block">
+      <div class="subitem-title">Item (b) — Expansão de \(\text{arctg}(x)\) por Integração Termo a Termo</div>
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(\text{arctg}(x) = \int_{0}^{x} \frac{1}{1 + t^2} \, dt = \int_{0}^{x} \left(\sum_{n=0}^{\infty} (-1)^n t^{2n}\right) dt \quad (|x| < 1)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Do Cálculo 1, sabemos que a derivada de arctg(x) é 1/(1+x²) e que arctg(0) = 0. Pelo Teorema da Integração Termo a Termo de Séries de Potências, integramos cada potência t^(2n) dentro do raio R = 1:</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\int_{0}^{x} t^{2n} \, dt = \left[\frac{t^{2n+1}}{2n + 1}\right]_{0}^{x} = \frac{x^{2n+1}}{2n + 1}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> A integral da potência t^(2n) é simplesmente t^(2n+1) / (2n + 1).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\mathbf{\text{arctg}(x) = \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n+1}}{2n + 1} = x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \dots} \quad (R = 1)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Substituindo na somatória, obtemos a famosa Série de Gregory-Leibniz para o arco-tangente, com o mesmo raio de convergência R = 1!</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Resposta Final (b): \(\text{arctg}(x) = \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n+1}}{2n+1}\) (com \(R = 1\)).</div>
+    </div>
+
+    <div class="subitem-block">
+      <div class="subitem-title">Item (c) — Expansão de \(\displaystyle \frac{1}{(1-x)^2}\) por Derivação Termo a Termo</div>
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(g(x) = \frac{1}{1 - x} = \sum_{n=0}^{\infty} x^n = 1 + x + x^2 + x^3 + \dots \quad (|x| < 1, \; R = 1)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Note que a derivada de g(x) = (1 - x)^(-1) pela Regra da Cadeia é g'(x) = -1·(1 - x)^(-2)·(-1) = 1 / (1 - x)² = f(x)!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(f(x) = \frac{1}{(1 - x)^2} = \frac{d}{dx}\left(\frac{1}{1 - x}\right) = \frac{d}{dx}\left(\sum_{n=0}^{\infty} x^n\right) = \sum_{n=1}^{\infty} n x^{n-1}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Derivamos a série geométrica termo a termo em relação a x! A derivada da constante (n=0, termo 1) é zero, por isso a soma passa a começar em n = 1.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(\mathbf{\frac{1}{(1 - x)^2} = \sum_{n=1}^{\infty} n x^{n-1} = \sum_{n=0}^{\infty} (n + 1) x^n = 1 + 2x + 3x^2 + 4x^3 + \dots} \quad (\mathbf{R = 1})\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Se reindexarmos trocando n por n+1, podemos escrever como ∑(n+1)x^n para n ≥ 0. Pelo teorema de derivação de séries de potências, o raio de convergência permanece inalterado: R = 1.</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Resposta Final (c): \(\frac{1}{(1-x)^2} = \sum_{n=1}^{\infty} n x^{n-1} = \sum_{n=0}^{\infty} (n+1)x^n\), com raio de convergência \(R = 1\).</div>
+    </div>
+  </div>
+
+  <!-- EXERCÍCIO 15 -->
+  <div class="exercise-card">
+    <div class="exercise-header">
+      <div>
+        <span class="exercise-num">Exercício 15</span>
+        <span class="exercise-tags">Série de Taylor em \(x_0\) • Substituição e Raio de Convergência</span>
+      </div>
+      <span class="badge-prova">⭐ Provável na Prova</span>
+    </div>
+    <div class="enunciado-box">
+      <strong>Enunciado:</strong> Determine a série de Taylor das funções a seguir em torno do ponto \(x_0\) indicado, e determine o seu raio de convergência:<br>
+      (a) \(f(x) = \ln(x), \;\; x_0 = 1\) &nbsp;&nbsp;&nbsp; (b) \(f(x) = \cos(x^2), \;\; x_0 = 0\) &nbsp;&nbsp;&nbsp; (c) \(f(x) = \text{arctg}(x), \;\; x_0 = 0\)
+    </div>
+
+    <div class="subitem-block">
+      <div class="subitem-title">Item (a) — \(f(x) = \ln(x)\) em torno de \(x_0 = 1\)</div>
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(f(x) = \ln(x), \;\; x_0 = 1 \implies f(1) = \ln(1) = 0\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Método 1 (Pela tabela de derivadas em x₀ = 1): Calculamos as derivadas sucessivas de ln(x) e avaliamos no centro x₀ = 1:</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(f'(x) = x^{-1} \Rightarrow f'(1) = 1; \quad f''(x) = -x^{-2} \Rightarrow f''(1) = -1; \quad f'''(x) = 2x^{-3} \Rightarrow f'''(1) = 2!; \quad f^{(n)}(1) = (-1)^{n-1}(n - 1)!\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Observe o padrão para n ≥ 1: a n-ésima derivada em x = 1 vale (-1)^(n-1) · (n - 1)!.</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">03</td>
+            <td class="step-math">\(c_n = \frac{f^{(n)}(1)}{n!} = \frac{(-1)^{n-1}(n - 1)!}{n \cdot (n - 1)!} = \frac{(-1)^{n-1}}{n} \quad (n \ge 1)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Dividindo f^(n)(1) por n! = n·(n-1)!, os fatoriais (n-1)! se cancelam! (Nota: Você também poderia integrar 1/x = 1/[1+(x-1)] = ∑(-1)^n(x-1)^n).</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">04</td>
+            <td class="step-math">\(\mathbf{\ln(x) = \sum_{n=1}^{\infty} \frac{(-1)^{n-1}}{n} (x - 1)^n = (x - 1) - \frac{(x - 1)^2}{2} + \frac{(x - 1)^3}{3} - \dots} \quad (\mathbf{R = 1})\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Pelo Teste da Razão: L = lim |x - 1|·n/(n+1) = |x - 1| < 1 ⟹ Raio de convergência R = 1 (converge no intervalo (0, 2]).</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Resposta Final (a): \(\ln(x) = \sum_{n=1}^{\infty} \frac{(-1)^{n-1}}{n} (x - 1)^n\), com Raio de Convergência \(R = 1\) (e intervalo \((0, 2]\)).</div>
+    </div>
+
+    <div class="subitem-block">
+      <div class="subitem-title">Item (b) — \(f(x) = \cos(x^2)\) em torno de \(x_0 = 0\)</div>
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(\cos(u) = \sum_{n=0}^{\infty} \frac{(-1)^n}{(2n)!} u^{2n} = 1 - \frac{u^2}{2!} + \frac{u^4}{4!} - \dots \quad (\forall u \in \mathbb{R}, \; R = \infty)\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Dica de Ouro para Prova: NUNCA derive cos(x²) quatro ou seis vezes pela Regra da Cadeia! Use a série de Maclaurin de cos(u) que já conhecemos (Ex 13) e faça a substituição algébrica u = x²!</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(f(x) = \cos(x^2) = \sum_{n=0}^{\infty} \frac{(-1)^n}{(2n)!} (x^2)^{2n} = \mathbf{\sum_{n=0}^{\infty} \frac{(-1)^n}{(2n)!} x^{4n} = 1 - \frac{x^4}{2!} + \frac{x^8}{4!} - \frac{x^{12}}{6!} + \dots} \quad (\mathbf{R = \infty})\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Substituindo u = x², a potência (x²)^(2n) multiplica os expoentes: x^(4n). Como a série do cosseno converge para todo u ∈ ℝ, a série de cos(x²) também converge para todo x ∈ ℝ, logo R = ∞!</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Resposta Final (b): \(\cos(x^2) = \sum_{n=0}^{\infty} \frac{(-1)^n}{(2n)!} x^{4n}\), com Raio de Convergência \(R = \infty\).</div>
+    </div>
+
+    <div class="subitem-block">
+      <div class="subitem-title">Item (c) — \(f(x) = \text{arctg}(x)\) em torno de \(x_0 = 0\)</div>
+      <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Resolução Passo a Passo (Referencie pelo Nº da Linha)</span></div><table class="step-table"><tbody>
+<tr class="step-row">
+            <td class="line-num">01</td>
+            <td class="step-math">\(\frac{1}{1 + x^2} = \sum_{n=0}^{\infty} (-1)^n x^{2n} \quad (|x| < 1) \implies \text{arctg}(x) = \int_{0}^{x} \frac{dt}{1 + t^2}\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Conforme demonstramos passo a passo no Exercício 14(a)-(b), obtemos a série de Taylor de arctg(x) em x₀ = 0 integrando a série geométrica de 1/(1+t²):</td>
+        </tr>
+<tr class="step-row">
+            <td class="line-num">02</td>
+            <td class="step-math">\(\mathbf{\text{arctg}(x) = \sum_{n=0}^{\infty} \frac{(-1)^n}{2n + 1} x^{2n+1} = x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \dots} \quad (\mathbf{R = 1})\)</td>
+            <td class="step-comment"><span class="comment-prefix">//</span> Pelo Teste da Razão: L = lim |x^(2n+3)/x^(2n+1)| · (2n+1)/(2n+3) = x² < 1 ⟹ |x| < 1, confirmando o Raio de Convergência R = 1 (intervalo fechado [-1, 1], pois converge em x = ±1 por Leibniz).</td>
+        </tr>
+</tbody></table></div>
+      <div class="answer-pill">✅ Resposta Final (c): \(\text{arctg}(x) = \sum_{n=0}^{\infty} \frac{(-1)^n}{2n+1} x^{2n+1}\), com Raio de Convergência \(R = 1\).</div>
+    </div>
+  </div>
+
+  <!-- ALERTA DE TÓPICO EXCLUÍDO DA P2 -->
+  <div class="exercise-card" style="border: 2px solid #f43f5e; background: #fff1f2;">
+    <div class="exercise-header" style="background: #ffe4e6; border-bottom: 1px solid #fecdd3;">
+      <div>
+        <span class="exercise-num" style="color: #9f1239;">Tópico Extra: Resolução de EDOs usando Séries de Potências</span>
+        <span class="exercise-tags" style="color: #be123c;">Aviso Oficial da Professora</span>
+      </div>
+      <span class="badge-nao-cai">❌ Não Cai na P2 (Fica para a P3)</span>
+    </div>
+    <div class="enunciado-box" style="background: #ffffff; border-left-color: #e11d48; margin-top: 10px;">
+      <strong>Comunicado Oficial (Profa. Dra. Ana Gabriela Martínez):</strong><br>
+      <em>"O conteúdo da última aula (resolução de EDOs usando séries) será cobrado na terceira prova."</em><br><br>
+      Portanto, conforme nosso critério de estudo focado, <strong>não incluímos exercícios de resolução de EDOs por séries de potências neste caderno da P2</strong>. Na Lista 6 oficial, todos os 15 exercícios (1 ao 15) tratam exclusivamente de Séries Numéricas, Séries de Potências e Séries de Taylor, estando <strong>100% resolvidos acima</strong>!
+    </div>
+  </div>
+
+  <div class="recap-box">
+    <h4>💡 Resuminho &amp; Recapitulação — Tópico 6 (Fechamento da Lista 6)</h4>
+    <ul>
+      <li><strong>Três Caminhos para Achar a Série de Taylor sem Sofrer:</strong>
+        <ol>
+          <li><strong>Substituição Algébrica:</strong> Quer \(\cos(x^2)\), \(e^{-x^2}\) ou \(\frac{1}{1+x^2}\)? Pegue a série pronta de \(\cos(u)\), \(e^u\) ou \(\frac{1}{1-u}\) e troque \(u\) por \(x^2\) ou \(-x^2\)!</li>
+          <li><strong>Derivação Termo a Termo:</strong> Quer \(\frac{1}{(1-x)^2}\)? Derive a série de \(\frac{1}{1-x} = \sum x^n\)!</li>
+          <li><strong>Integração Termo a Termo:</strong> Quer \(\ln(1+x)\) ou \(\text{arctg}(x)\)? Integre as séries geométricas de \(\frac{1}{1+x}\) ou \(\frac{1}{1+x^2}\)!</li>
+        </ol>
+      </li>
+    </ul>
+  </div>
+</div>
+
+</div><!-- /page-wrapper -->
+</body>
+</html>
