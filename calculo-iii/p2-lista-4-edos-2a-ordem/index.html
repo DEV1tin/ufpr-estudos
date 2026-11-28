@@ -570,7 +570,85 @@
             margin: 12mm 10mm 12mm 10mm;
         }
 
+
+        html { scroll-behavior: smooth; }
+        .portal-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 9px 14px;
+            margin-bottom: 18px;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #1e3a8a;
+        }
+        .portal-nav a {
+            color: #1e40af;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .portal-nav a:hover { text-decoration: underline; }
+        .portal-nav-right { display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+        a.chk-topic-title { text-decoration: none; }
+        a.chk-topic-title:hover { color: var(--primary); text-decoration: underline; }
+        .chk-pill {
+            display: inline-block;
+            font-size: 10.5px;
+            font-weight: 700;
+            padding: 1px 7px;
+            border-radius: 999px;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+        .chk-pill.hot { background: #fef3c7; color: #92400e; border: 1px solid #f59e0b; }
+        .chk-pill.out { background: #f1f5f9; color: #64748b; border: 1px solid #cbd5e1; }
+
+        .raiox-box {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-left: 5px solid #1e40af;
+            border-radius: 0 8px 8px 0;
+            padding: 12px 16px;
+            margin-bottom: 14px;
+            break-inside: avoid;
+        }
+        .raiox-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: #1e3a8a;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .raiox-box p { margin: 0; font-size: 12.6px; color: #1e293b; line-height: 1.55; }
+
+        .errata-alert {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-left: 5px solid #dc2626;
+            border-radius: 0 8px 8px 0;
+            padding: 10px 14px;
+            margin-top: 8px;
+            margin-bottom: 10px;
+            font-size: 12.4px;
+            color: #7f1d1d;
+            break-inside: avoid;
+        }
+        .badge-extra { background: #ffedd5; color: #9a3412; border: 1px solid #fb923c; }
+        .recap-card > strong:first-child { color: #92400e; display: block; margin-bottom: 4px; }
+
         @media print {
+            .portal-nav { display: none !important; }
             body {
                 background: #ffffff;
                 padding: 0;
@@ -589,6 +667,7 @@
 </head>
 <body>
 <div class="container">
+    <div class="portal-nav"><a href="../">← Voltar para Cálculo III (CM314)</a><div class="portal-nav-right"><a href="../segunda-chamada/">🎯 Hub Segunda Chamada</a><span>CM314 · P2 · Lista 4</span></div></div>
     <!-- HEADER -->
     <div class="doc-header">
         <div class="badge-course">CM314 • Cálculo 4 • UFPR • Preparação Prova 2</div>
@@ -597,7 +676,7 @@
         <div class="header-meta">
             <span><strong>Aluno:</strong> Vitor Hugo D. Lima</span>
             <span><strong>Docente:</strong> Profa. Dra. Ana Gabriela Martínez</span>
-            <span><strong>Metodologia:</strong> Código Comentado Linha a Linha + Zero Pressuposição de Base</span>
+            <span><strong>Metodologia:</strong> Raio-X de Prova + Código Comentado Linha a Linha + Zero Pressuposição de Base</span>
         </div>
     </div>
 
@@ -615,7 +694,7 @@
         <p style="margin-bottom: 12px; color: #475569; font-size: 12.8px;">Use esta checklist no tablet para marcar cada bloco conforme avançar na leitura e revisão dos 25 exercícios resolvidos desta lista:</p>
         <div class="checklist-grid">
             <div class="chk-topic">
-                <div class="chk-topic-title">☐ Tópico 1: Soluções, PVI/PVC e T.E.U. (Ex. 1 a 3)</div>
+                <a class="chk-topic-title" href="#topico-1">☐ Tópico 1: Soluções, PVI/PVC e T.E.U. (Ex. 1 a 3)</a>
                 <ul class="chk-sublist">
                     <li>Derivação e substituição para verificar soluções</li>
                     <li>Diferença entre P.V.I. (mesmo ponto) e P.V.C. (contorno)</li>
@@ -623,7 +702,7 @@
                 </ul>
             </div>
             <div class="chk-topic">
-                <div class="chk-topic-title">☐ Tópico 2: L.I., Wronskiano e Superposição (Ex. 4 a 9)</div>
+                <a class="chk-topic-title" href="#topico-2">☐ Tópico 2: L.I., Wronskiano e Superposição (Ex. 4 a 9)</a>
                 <ul class="chk-sublist">
                     <li>Definição algébrica de Independência Linear (L.I.)</li>
                     <li>Cálculo do Determinante 2x2 e Wronskiano \(W(y_1, y_2)\)</li>
@@ -631,7 +710,7 @@
                 </ul>
             </div>
             <div class="chk-topic">
-                <div class="chk-topic-title">☐ Tópico 3: EDOs Homogêneas Coef. Constantes (Ex. 10 e 11)</div>
+                <a class="chk-topic-title" href="#topico-3">☐ Tópico 3: EDOs Homogêneas Coef. Constantes (Ex. 10 e 11) <span class="chk-pill hot">⭐ 2ª Chamada</span></a>
                 <ul class="chk-sublist">
                     <li>Equação Característica \(ar^2 + br + c = 0\)</li>
                     <li>Os 3 Casos: \(\Delta > 0\) (reais), \(\Delta = 0\) (dupla), \(\Delta < 0\) (complexas)</li>
@@ -639,7 +718,7 @@
                 </ul>
             </div>
             <div class="chk-topic">
-                <div class="chk-topic-title">☐ Tópico 4: Redução de Ordem (Ex. 12 e 13)</div>
+                <a class="chk-topic-title" href="#topico-4">☐ Tópico 4: Redução de Ordem (Ex. 12 e 13)</a>
                 <ul class="chk-sublist">
                     <li>Obtenção de \(y_2(x) = u(x)y_1(x)\) a partir de \(y_1(x)\) conhecida</li>
                     <li>Fórmula de Abel para encontrar \(y_2(x)\) rapidamente</li>
@@ -647,7 +726,7 @@
                 </ul>
             </div>
             <div class="chk-topic">
-                <div class="chk-topic-title">☐ Tópico 5: Limites, Sinal e Parâmetros (Ex. 14 a 18)</div>
+                <a class="chk-topic-title" href="#topico-5">☐ Tópico 5: Limites, Sinal e Parâmetros (Ex. 14 a 18)</a>
                 <ul class="chk-sublist">
                     <li>Reconstrução da EDO a partir da solução geral</li>
                     <li>Comportamento assintótico (\(\lim_{x\to\infty}\)) e Regra de L'Hôpital</li>
@@ -655,7 +734,7 @@
                 </ul>
             </div>
             <div class="chk-topic">
-                <div class="chk-topic-title">☐ Tópico 6: Coeficientes a Determinar (Ex. 19 a 21)</div>
+                <a class="chk-topic-title" href="#topico-6">☐ Tópico 6: Coeficientes a Determinar (Ex. 19 a 21) <span class="chk-pill hot">⭐ 2ª Chamada</span></a>
                 <ul class="chk-sublist">
                     <li>Estrutura \(y_{GNH} = y_h(x) + y_p(x)\)</li>
                     <li>Tabela de palpites para polinômios, exponenciais e sen/cos</li>
@@ -663,7 +742,7 @@
                 </ul>
             </div>
             <div class="chk-topic">
-                <div class="chk-topic-title">☐ Tópico 7: Variação dos Parâmetros (Ex. 22)</div>
+                <a class="chk-topic-title" href="#topico-7">☐ Tópico 7: Variação dos Parâmetros (Ex. 22) <span class="chk-pill hot">⭐ 2ª Chamada</span></a>
                 <ul class="chk-sublist">
                     <li>Quando o método dos coeficientes indeterminados não funciona</li>
                     <li>Fórmulas de \(u_1'(x)\) e \(u_2'(x)\) usando o Wronskiano</li>
@@ -671,7 +750,7 @@
                 </ul>
             </div>
             <div class="chk-topic">
-                <div class="chk-topic-title">☐ Tópico 8: Equações de Cauchy-Euler (Ex. 23 a 25)</div>
+                <a class="chk-topic-title" href="#topico-8">☐ Tópico 8: Equações de Cauchy-Euler (Ex. 23 a 25) <span class="chk-pill out">❌ Fora da 2ª Chamada</span></a>
                 <ul class="chk-sublist">
                     <li>Identificação da estrutura \(x^2y'' + bxy' + cy = 0\)</li>
                     <li>Equação Indicial \(r^2 + (b-1)r + c = 0\)</li>
@@ -684,7 +763,7 @@
     <!-- ================================================================= -->
     <!-- TÓPICO 1: VERIFICAÇÃO DE SOLUÇÕES, PVI/PVC E TEOREMA T.E.U.       -->
     <!-- ================================================================= -->
-    <div class="topic-section">
+    <div class="topic-section" id="topico-1">
         <div class="topic-banner">
             <h2>Tópico 1: Verificação de Soluções, P.V.I., P.V.C. e Existência/Unicidade (T.E.U.)</h2>
             <span class="topic-range">Exercícios 1, 2 e 3</span>
@@ -757,6 +836,10 @@
                 <span class="badge-type badge-book">Introdutório ao Tema</span>
             </div>
             <div class="exercise-body">
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>O comando testa se você diferencia <strong>P.V.I.</strong> (condições de \(y\) e \(y'\) no mesmo ponto \(x_0\)) de <strong>P.V.C.</strong> (condições em dois extremos \(a, b\)) e sabe substituir as derivadas na EDO sem errar a Regra da Cadeia.</p>
+                </div>
                 <div class="subitem-block">
                     <div class="subitem-enunciado">
                         <strong>1. (a)</strong> Verifique que a função \(y(x) = e^{2x} + e^{-2x}\) é solução do problema de valor inicial:
@@ -861,6 +944,10 @@
                 <span class="badge-type badge-book">Introdutório ao Tema</span>
             </div>
             <div class="exercise-body">
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Sempre que aparecer <em>'garanta existência e unicidade'</em>, você precisa colocar a EDO na forma padrão \(y'' + p(x)y' + q(x)y = f(x)\), listar onde \(p, q, f\) são contínuas e mostrar que o ponto inicial \(x_0\) mora dentro desse intervalo aberto.</p>
+                </div>
                 <div class="subitem-enunciado">
                     <strong>2.</strong> Verifique que a função \(y(x) = 3e^{2x} + e^{-2x} - 3x\) é solução do problema de valor inicial \(y'' - 4y = 12x, \quad y(0) = 4, \quad y'(0) = 1\). Esta solução é única? Justifique.
                 </div>
@@ -924,6 +1011,10 @@
             <div class="exercise-body">
                 <div class="enunciado-geral">
                     <strong>3.</strong> Encontre o maior intervalo onde a solução do problema de valor inicial a seguir existe e é única:
+                </div>
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Questão clássica do T.E.U.! Fatie a reta real com todos os pontos proibidos (onde zera o coeficiente de \(y''\), onde zera denominador ou onde logaritmo fica \(\le 0\)) e escolha <strong>apenas a fatia aberta que contém \(t_0\)</strong>.</p>
                 </div>
 
                 <div class="subitem-block">
@@ -1051,7 +1142,7 @@
     <!-- ================================================================= -->
     <!-- TÓPICO 2: INDEPENDÊNCIA LINEAR, WRONSKIANO E SUPERPOSIÇÃO         -->
     <!-- ================================================================= -->
-    <div class="topic-section">
+    <div class="topic-section" id="topico-2">
         <div class="topic-banner">
             <h2>Tópico 2: Independência Linear (L.I.), Wronskiano e Superposição</h2>
             <span class="topic-range">Exercícios 4, 5, 6, 7, 8 e 9</span>
@@ -1092,6 +1183,10 @@
                 <span class="badge-type badge-book">Introdutório ao Tema</span>
             </div>
             <div class="exercise-body">
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Pela definição algébrica, monte \(c_1 y_1(x) + c_2 y_2(x) = 0\) e avalie em pontos estratégicos (ou derive a identidade) para forçar \(c_1 = c_2 = 0\). Se existir \(c_1, c_2\) não todos nulos, são L.D.</p>
+                </div>
                 <div class="subitem-block">
                     <div class="subitem-enunciado">
                         <strong>4. (a)</strong> Sejam \(k_1, k_2 \in \mathbb{R}, k_1 \neq k_2\), mostre que \(e^{k_1 x}\) e \(e^{k_2 x}\) são linearmente independentes em \(\mathbb{R}\).
@@ -1228,6 +1323,10 @@
                 <span class="badge-type badge-star">Formato Provável de Prova</span>
             </div>
             <div class="exercise-body">
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Para provar Conjunto Fundamental de Soluções, você precisa de <strong>dois</strong> passos obrigatórios na prova: (1) verificar que \(y_1\) e \(y_2\) satisfazem a EDO homogênea, e (2) calcular o Wronskiano \(W(y_1, y_2)\) e mostrar que é \(\neq 0\) no intervalo.</p>
+                </div>
                 <div class="subitem-enunciado">
                     <strong>5.</strong> Mostre que as funções \(y_1(x) = x^{-1}\) e \(y_2(x) = x^{1/2}\) formam um conjunto fundamental de soluções da equação diferencial \(2x^2 y'' + 3xy' - y = 0\) (para \(x > 0\)). <em>[Deve verificar que satisfazem a E.D.O. e que são L.I.]</em>
                 </div>
@@ -1279,6 +1378,10 @@
                 <span class="badge-type badge-star">Formato Provável de Prova</span>
             </div>
             <div class="exercise-body">
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Pegadinha teórica clássica! Duas funções podem ser L.I. no intervalo inteiro e mesmo assim ter \(W(x) \equiv 0\) se NÃO forem soluções de uma mesma EDO linear com coeficientes contínuos (o que ocorre em \(x=0\) para \(x^2\) e \(x|x|\)).</p>
+                </div>
                 <div class="subitem-block">
                     <div class="subitem-enunciado">
                         <strong>6. (a)</strong> Mostre que para as funções \(f_1(x) = x^2\) e \(f_2(x) = x|x|\) o Wronskiano é sempre nulo em \(\mathbb{R}\).
@@ -1371,6 +1474,10 @@
                 <div class="enunciado-geral">
                     <strong>7.</strong> Volte a fazer a questão 4 (itens a, b, c), mas desta vez usando o Wronskiano.
                 </div>
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Mesmo problema da Q4, agora usando o atalho do determinante \(W(y_1, y_2) = y_1 y_2' - y_2 y_1'\): se der diferente de zero em pelo menos um ponto \(x_0\), garante L.I. no intervalo.</p>
+                </div>
 
                 <div class="subitem-block">
                     <div class="subitem-enunciado">
@@ -1460,6 +1567,10 @@
                 <span class="badge-type badge-book">Introdutório ao Tema</span>
             </div>
             <div class="exercise-body">
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Demonstração direta pela linearidade das derivadas: derive \(y = c_1 y_1 + c_2 y_2\), substitua na EDO e agrupe os termos de \(y_1\) e \(y_2\) para mostrar que ambos zeram.</p>
+                </div>
                 <div class="subitem-enunciado">
                     <strong>8.</strong> Mostre que se \(y_1(x), y_2(x)\) são duas soluções da equação diferencial linear homogênea de segunda ordem \(y'' + p(x)y' + q(x)y = 0\), então qualquer combinação linear \(y(x) = \alpha_1 y_1(x) + \alpha_2 y_2(x)\) (\(\alpha_1, \alpha_2 \in \mathbb{R}\)) é também solução.
                 </div>
@@ -1500,6 +1611,10 @@
                 <span class="badge-type badge-star">Formato Provável de Prova</span>
             </div>
             <div class="exercise-body">
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Cuidado com o ponto onde a EDO degenera (\(x = -3\))! Combine as soluções fundamentais verificando primeiro a continuidade e ajustando as constantes para bater as condições dadas.</p>
+                </div>
                 <div class="subitem-enunciado">
                     <strong>9.</strong> Considere a equação diferencial \((x + 3)y'' + (x + 2)y' - y = 0\). Determine para quais valores dos parâmetros \(r, a\) e \(b\), \(y_1(x) = e^{rx}\) e \(y_2(x) = ax + b\) são duas soluções fundamentais da equação. A função \(y_3(x) = 5e^{-x} + x + 2\) é solução da EDO? Responda sem substituir na equação.
                 </div>
@@ -1577,7 +1692,7 @@
     <!-- ================================================================= -->
     <!-- TÓPICO 3: EDOs HOMOGÊNEAS COM COEFICIENTES CONSTANTES (EX 10 E 11)-->
     <!-- ================================================================= -->
-    <div class="topic-section">
+    <div class="topic-section" id="topico-3">
         <div class="topic-banner">
             <h2>Tópico 3: EDOs Homogêneas com Coeficientes Constantes</h2>
             <span class="topic-range">Exercícios 10 e 11</span>
@@ -1650,6 +1765,10 @@
             <div class="exercise-body">
                 <div class="enunciado-geral">
                     <strong>10.</strong> Determine a solução geral para as seguintes equações diferenciais homogêneas de segunda ordem a coeficientes constantes:
+                </div>
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p><strong>⭐ Foco 2ª Chamada!</strong> Leia a equação característica \(ar^2+br+c=0\) de imediato e identifique o regime pelo discriminante \(\Delta = b^2 - 4ac\): \(\Delta > 0\) (exponenciais), \(\Delta = 0\) (fator \(x e^{rx}\)) ou \(\Delta < 0\) (\(e^{\alpha x}[c_1\cos(\beta x) + c_2\operatorname{sen}(\beta x)]\)).</p>
                 </div>
 
                 <div class="subitem-block">
@@ -1815,6 +1934,10 @@
             <div class="exercise-body">
                 <div class="enunciado-geral">
                     <strong>11.</strong> Resolva os problemas de valor inicial:
+                </div>
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p><strong>⭐ Foco 2ª Chamada!</strong> Em PVI de 2ª ordem homogênea: encontre primeiro a solução geral \(y(x)\) com \(c_1, c_2\), derive \(y'(x)\) usando a Regra do Produto com atenção aos sinais de seno/cosseno e só então substitua \(x_0\) para montar o sistema \(2\times 2\) em \(c_1, c_2\).</p>
                 </div>
 
                 <div class="subitem-block">
@@ -2008,7 +2131,7 @@
     <!-- ================================================================= -->
     <!-- TÓPICO 4: REDUÇÃO DE ORDEM - SEGUNDA SOLUÇÃO (EX 12 E 13)         -->
     <!-- ================================================================= -->
-    <div class="topic-section">
+    <div class="topic-section" id="topico-4">
         <div class="topic-banner">
             <h2>Tópico 4: Redução de Ordem — Obtendo uma Segunda Solução \(y_2(x)\)</h2>
             <span class="topic-range">Exercícios 12 e 13</span>
@@ -2072,6 +2195,10 @@
                 <span class="badge-type badge-star">Formato Provável de Prova</span>
             </div>
             <div class="exercise-body">
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Se o enunciado já deu \(y_1(x)\), proponha \(y_2(x) = u(x)y_1(x)\) (ou use a fórmula de Abel após normalizar para \(y'' + p(x)y' + q(x)y = 0\)). Lembre de revisar Frações Parciais na integral final!</p>
+                </div>
                 <div class="subitem-enunciado">
                     <strong>12.</strong> Determine a solução geral da equação \((1 - x^2)y'' - 2xy' + 2y = 0\) sabendo que uma solução particular é \(y_1(x) = x\).
                 </div>
@@ -2165,6 +2292,10 @@
             <div class="exercise-body">
                 <div class="enunciado-geral">
                     <strong>13.</strong> Mostre que, em cada caso, a função \(y_1(x)\) proposta é solução da E.D.O. Encontre uma segunda solução e escreva a solução geral:
+                </div>
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Mesmo roteiro da Q12: primeiro verifique que \(y_1(x)\) resolve a EDO (derivando e substituindo!), depois divida pelo coeficiente de \(y''\) para ler \(p(x)\) corretamente antes de aplicar a Redução de Ordem.</p>
                 </div>
 
                 <div class="subitem-block">
@@ -2293,7 +2424,7 @@
     <!-- ================================================================= -->
     <!-- TÓPICO 5: ENGENHARIA REVERSA, LIMITES E PARÂMETROS (EX 14 A 18)   -->
     <!-- ================================================================= -->
-    <div class="topic-section">
+    <div class="topic-section" id="topico-5">
         <div class="topic-banner">
             <h2>Tópico 5: Reconstrução de EDOs, Limites no Infinito e Parâmetros</h2>
             <span class="topic-range">Exercícios 14, 15, 16, 17 e 18</span>
@@ -2329,6 +2460,10 @@
             <div class="exercise-body">
                 <div class="enunciado-geral">
                     <strong>14.</strong> Determine a equação diferencial linear homogênea cuja solução geral é dada por:
+                </div>
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Engenharia reversa: leia as raízes \(r_1, r_2\) direto dos expoentes ou das frequências da solução dada, monte \((r - r_1)(r - r_2) = 0\) e traduza de volta para \(a y'' + b y' + c y = 0\).</p>
                 </div>
 
                 <div class="subitem-block">
@@ -2411,6 +2546,10 @@
                 <span class="badge-type badge-star">Formato Provável de Prova</span>
             </div>
             <div class="exercise-body">
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Resolva o PVI normalmente e depois analise \(\lim_{x\to\infty} y(x)\). Quando houver termos como \(x e^{-kx}\), explique a indeterminação \(\infty/\infty\) e aplique L'Hôpital (a professora cobra essa justificativa!).</p>
+                </div>
                 <div class="subitem-enunciado">
                     <strong>15.</strong> Mostre que a solução do problema de valor inicial \(y''(x) + 2y'(x) + y(x) = 0, \quad y(0) = a, \quad y'(0) = b\) se aproxima de uma constante quando \(x \to \infty\). Determine o valor dessa constante.
                 </div>
@@ -2472,6 +2611,10 @@
                 <span class="badge-type badge-star">Formato Provável de Prova</span>
             </div>
             <div class="exercise-body">
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Analise a equação característica \(r^2 + br + 1 = 0\) separando os três regimes conforme \(\Delta = b^2 - 4\): \(b > 2\) (duas raízes negativas), \(b = 2\) (raiz dupla \(-1\)) e verifique o decaimento exponencial.</p>
+                </div>
                 <div class="subitem-enunciado">
                     <strong>16.</strong> Mostre que se \(b \ge 2\) então toda solução da equação diferencial \(y'' + by' + y = 0\) se aproxima de zero quando \(x \to \infty\).
                 </div>
@@ -2522,6 +2665,10 @@
                 <div class="exercise-title">Exercício 17 — Estudo de Sinal da Solução de um P.V.I.</div>
             </div>
             <div class="exercise-body">
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Monte a solução explícita do PVI \(y(x)\), encontre onde ela cruza zero (se cruzar) ou analise os termos exponenciais para determinar em que intervalo \(y(x) > 0\) ou \(y(x) < 0\).</p>
+                </div>
                 <div class="subitem-enunciado">
                     <strong>17.</strong> Considere o problema de valor inicial \(y'' - 4y = 0, \quad y(0) = b > 0, \quad y'(0) = 0\). Mostre que \(y(x) > 0, \forall x \in \mathbb{R}\).
                 </div>
@@ -2568,6 +2715,10 @@
                 <span class="badge-type badge-star">Formato Muito Provável de Prova</span>
             </div>
             <div class="exercise-body">
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p>Discussão paramétrica clássica: o discriminante depende de \(\alpha\), logo você precisa abrir os 3 casos (\(\Delta > 0,\; \Delta = 0,\; \Delta < 0\)) em função dos valores críticos de \(\alpha\).</p>
+                </div>
                 <div class="subitem-enunciado">
                     <strong>18.</strong> Encontre a solução geral da equação \(y'' + 2y' + \alpha y = 0\), para \(\alpha > 1\), \(\alpha = 1\) e \(\alpha < 1\).
                 </div>
@@ -2649,7 +2800,7 @@
     <!-- ================================================================= -->
     <!-- TÓPICO 6: MÉTODO DOS COEFICIENTES A DETERMINAR (EX 19 A 21)       -->
     <!-- ================================================================= -->
-    <div class="topic-section">
+    <div class="topic-section" id="topico-6">
         <div class="topic-banner">
             <h2>Tópico 6: EDOs Não Homogêneas — Método dos Coeficientes a Determinar</h2>
             <span class="topic-range">Exercícios 19, 20 e 21</span>
@@ -2733,6 +2884,10 @@
                 <span class="badge-type badge-book">Introdutório ao Tema</span>
             </div>
             <div class="exercise-body">
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p><strong>⭐ Foco 2ª Chamada!</strong> Estrutura fundamental \(y(x) = y_h(x) + y_p(x)\). Primeiro ache \(y_h\) resolvendo a homogênea; depois proponha \(y_p\) combinando com \(g(x)\), checando sempre se há ressonância com \(y_h\)!</p>
+                </div>
                 <div class="subitem-block">
                     <div class="subitem-enunciado">
                         <strong>19. (a)</strong> Mostre que \(y_p(x) = x/4\) é uma solução particular da equação diferencial não homogênea \(y''(x) + 4y(x) = x\).
@@ -2884,6 +3039,10 @@
             <div class="exercise-body">
                 <div class="enunciado-geral">
                     <strong>20.</strong> Determine a solução geral das E.D.O. de segunda ordem a coeficientes constantes não homogêneas (Use o método dos coeficientes indeterminados para achar uma solução particular):
+                </div>
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p><strong>⭐ Foco 2ª Chamada!</strong> Aqui moram todas as armadilhas de Coeficientes Indeterminados: se \(g(x)\) tem parte que já aparece em \(y_h\) (ex: \(e^{2x}\) ou \(\cos x\)), você é obrigado a multiplicar o palpite inteiro daquele bloco por \(x\) (ou \(x^2\) se raiz dupla). Nunca esqueça da Regra do Produto ao derivar \(x e^{kx}\) ou \(x\cos(\beta x)\)!</p>
                 </div>
 
                 <div class="subitem-block">
@@ -3046,6 +3205,10 @@
                 <span class="badge-type badge-star">Formato Provável de Prova</span>
             </div>
             <div class="exercise-body">
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p><strong>⭐ Foco 2ª Chamada (PVI Completo)!</strong> Regra de ouro que evita o erro nº 1 da prova: <strong>NUNCA</strong> ache as constantes \(c_1, c_2\) usando só \(y_h(x)\)! Resolva primeiro \(y_h\), depois ache os coeficientes numéricos de \(y_p\), some \(y(x) = y_h(x) + y_p(x)\), e <strong>só no final</strong> aplique \(y(x_0)\) e \(y'(x_0)\).</p>
+                </div>
                 <div class="subitem-block">
                     <div class="subitem-enunciado">
                         <strong>21. (a)</strong> Encontre a solução geral da E.D.O. não homogênea \(y'' + 2y' + y = x^2\).
@@ -3151,7 +3314,7 @@
     <!-- ================================================================= -->
     <!-- TÓPICO 7: MÉTODO DA VARIAÇÃO DOS PARÂMETROS (EX 22)               -->
     <!-- ================================================================= -->
-    <div class="topic-section">
+    <div class="topic-section" id="topico-7">
         <div class="topic-banner">
             <h2>Tópico 7: EDOs Não Homogêneas — Método da Variação dos Parâmetros</h2>
             <span class="topic-range">Exercício 22 (Itens a, b, c)</span>
@@ -3226,6 +3389,10 @@
             <div class="exercise-body">
                 <div class="enunciado-geral">
                     <strong>22.</strong> Use o método da Variação dos Parâmetros para encontrar uma solução particular para as seguintes E.D.O. de segunda ordem:
+                </div>
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p><strong>⭐ Foco 2ª Chamada (Variação dos Parâmetros)!</strong> Obrigatório quando \(g(x)\) tem \(\operatorname{tg} x, \sec x, \operatorname{cotg} x\) ou quocientes. Três passos críticos: (1) se a EDO vier com \(a y''\), divida tudo por \(a\) para ler \(g(x)\) certo; (2) calcule \(W = y_1 y_2' - y_2 y_1'\); (3) atenção máxima aos sinais de \(u_1' = -\frac{y_2 g}{W}\) e \(u_2' = +\frac{y_1 g}{W}\)!</p>
                 </div>
 
                 <div class="subitem-block">
@@ -3393,7 +3560,7 @@
     <!-- ================================================================= -->
     <!-- TÓPICO 8: EQUAÇÕES DIFERENCIAIS DE CAUCHY-EULER (EX 23 A 25)      -->
     <!-- ================================================================= -->
-    <div class="topic-section">
+    <div class="topic-section" id="topico-8">
         <div class="topic-banner">
             <h2>Tópico 8: Equações Diferenciais de Cauchy-Euler</h2>
             <span class="topic-range">Exercícios 23, 24 e 25</span>
@@ -3460,6 +3627,10 @@
                 <span class="badge-type badge-book">Introdutório ao Tema</span>
             </div>
             <div class="exercise-body">
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p><em>(Fora da ementa da 2ª Chamada.)</em> Substitua \(y = x^r\) na equação de Cauchy-Euler para deduzir a equação indicial \(a r(r-1) + br + c = 0\).</p>
+                </div>
                 <div class="subitem-enunciado">
                     <strong>23.</strong> As equações de Euler são equações diferenciais que podem ser escritas na forma \(x^2 y'' + bxy' + cy = 0\), para \(b, c \in \mathbb{R}\). Mostre que existem valores de \(r\) tais que \(y(x) = x^r\) é solução da equação diferencial. Mostre também que \(x^r\) é solução se e somente se \(r\) é solução da equação indicial \(r^2 + (b - 1)r + c = 0\).
                 </div>
@@ -3507,6 +3678,10 @@
             <div class="exercise-body">
                 <div class="enunciado-geral">
                     <strong>24.</strong> Para as equações de Euler da questão anterior mostre que:
+                </div>
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p><em>(Fora da ementa da 2ª Chamada.)</em> Mudança \(x = e^t\) transforma Cauchy-Euler em EDO com coeficientes constantes em \(t = \ln x\), explicando de onde surgem \(x^r \ln x\) e \(\cos(\beta \ln x)\).</p>
                 </div>
 
                 <div class="subitem-block">
@@ -3594,6 +3769,10 @@
             <div class="exercise-body">
                 <div class="enunciado-geral">
                     <strong>25.</strong> Use o exercício anterior para encontrar a solução geral das equações (para \(x > 0\)):
+                </div>
+                <div class="raiox-box">
+                    <div class="raiox-title">🔍 Raio-X: Como Interpretar e Enxergar na Prova</div>
+                    <p><em>(Fora da ementa da 2ª Chamada.)</em> Aplicação prática direta da equação indicial de Cauchy-Euler nos três regimes de raízes.</p>
                 </div>
 
                 <div class="subitem-block">

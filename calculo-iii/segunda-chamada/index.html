@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estudos para Segunda Chamada — Cálculo III / IV (CM314) · UFPR</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '\\[', right: '\\]', display: true},
+        {left: '\\(', right: '\\)', display: false}
+      ],
+      throwOnError: false
+    });"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #1d4ed8;
+      --accent-soft: #eff6ff;
+      --indigo: #4338ca;
+      --indigo-soft: #eef2ff;
+      --teal: #0f766e;
+      --teal-soft: #f0fdfa;
+      --amber: #b45309;
+      --amber-soft: #fffbeb;
+      --green: #047857;
+      --green-soft: #ecfdf5;
+      --radius: 14px;
+      --shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    .topbar {
+      background: #0f172a;
+      color: #fff;
+      padding: 0.9rem 1.5rem;
+    }
+    .topbar-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .back-btn {
+      color: #e2e8f0;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .back-btn:hover { color: #fff; }
+    .tag {
+      background: #f59e0b;
+      color: #0f172a;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    main {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 1.8rem 1.5rem 3.5rem;
+    }
+    .hero-card {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: #ffffff;
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 1.25rem;
+      border-left: 6px solid #f59e0b;
+    }
+    .hero-pill {
+      display: inline-block;
+      background: rgba(245, 158, 11, 0.2);
+      color: #fde68a;
+      border: 1px solid rgba(245, 158, 11, 0.45);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+      margin-bottom: 0.6rem;
+    }
+    .hero-card h1 {
+      font-size: clamp(1.45rem, 2.5vw, 1.85rem);
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      line-height: 1.25;
+    }
+    .hero-card p { color: #cbd5e1; font-size: 0.94rem; }
+    .ementa-quote {
+      margin-top: 1rem;
+      background: rgba(255, 255, 255, 0.07);
+      border-left: 4px solid #38bdf8;
+      padding: 0.85rem 1.1rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.92rem;
+      color: #f8fafc;
+    }
+    .ementa-quote strong { color: #7dd3fc; }
+
+    /* Estratégia + Progresso */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.35rem;
+      box-shadow: var(--shadow);
+    }
+    .info-card h2 {
+      font-size: 1rem;
+      font-weight: 800;
+      margin-bottom: 0.55rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+    .info-card p, .info-card li {
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    .info-card ul { padding-left: 1.1rem; margin-top: 0.4rem; }
+    .info-card li { margin-bottom: 0.25rem; }
+
+    .progress-wrap {
+      margin-top: 0.75rem;
+      background: #e2e8f0;
+      height: 11px;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #1d4ed8, #0d9488);
+      transition: width 0.25s ease;
+    }
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.45rem;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .reset-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .reset-btn:hover { background: #f8fafc; color: var(--ink); }
+
+    /* Blocos Temáticos (A, B, C, D) */
+    .theme-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 1.25rem;
+      overflow: hidden;
+    }
+    .theme-head {
+      padding: 1.05rem 1.35rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .theme-head.indigo { background: var(--indigo-soft); border-left: 6px solid var(--indigo); }
+    .theme-head.blue { background: var(--accent-soft); border-left: 6px solid var(--accent); }
+    .theme-head.teal { background: var(--teal-soft); border-left: 6px solid var(--teal); }
+    .theme-head.slate { background: #f1f5f9; border-left: 6px solid #334155; }
+
+    .theme-title-group h2 {
+      font-size: 1.12rem;
+      font-weight: 800;
+      color: var(--ink);
+    }
+    .theme-title-group p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+    .theme-badges {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .diff-badge {
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 0.22rem 0.6rem;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      color: var(--ink);
+    }
+    .full-list-link {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      padding: 0.35rem 0.75rem;
+      border-radius: 8px;
+      background: #0f172a;
+      color: #ffffff;
+    }
+    .full-list-link:hover { background: #1e293b; }
+
+    .topic-rows {
+      divide-y: 1px solid var(--border);
+    }
+    .topic-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem 1.35rem;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.12s ease;
+    }
+    .topic-row:last-child { border-bottom: none; }
+    .topic-row:hover { background: #f8fafc; }
+    .topic-row.done { background: #f0fdf4; }
+
+    .topic-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      flex: 1;
+    }
+    .topic-check {
+      width: 18px;
+      height: 18px;
+      margin-top: 3px;
+      accent-color: #0d9488;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .topic-info strong {
+      display: block;
+      font-size: 0.93rem;
+      color: var(--ink);
+    }
+    .topic-info span {
+      display: block;
+      font-size: 0.83rem;
+      color: var(--muted);
+    }
+    .topic-row.done .topic-info strong {
+      text-decoration: line-through;
+      color: #047857;
+    }
+    .go-btn {
+      flex-shrink: 0;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid #bfdbfe;
+      padding: 0.42rem 0.85rem;
+      border-radius: 8px;
+      white-space: nowrap;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+    .go-btn:hover {
+      background: #dbeafe;
+      transform: translateY(-1px);
+    }
+
+    /* Card O que NÃO cai */
+    .skip-card {
+      background: #fffbeb;
+      border: 1px solid #fcd34d;
+      border-left: 5px solid #d97706;
+      border-radius: var(--radius);
+      padding: 1.15rem 1.35rem;
+      margin-top: 1.4rem;
+    }
+    .skip-card h2 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #92400e;
+      margin-bottom: 0.45rem;
+    }
+    .skip-card p {
+      font-size: 0.87rem;
+      color: #78350f;
+    }
+
+    @media (max-width: 720px) {
+      .meta-grid { grid-template-columns: 1fr; }
+      .topic-row { flex-direction: column; align-items: stretch; }
+      .go-btn { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="back-btn" href="../">← Voltar para Cálculo III (CM314)</a>
+      <span class="tag">CM314 · Segunda Chamada (Terça-feira)</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-card">
+      <span class="hero-pill">Roteiro Direcionador · Sem Conteúdo Duplicado</span>
+      <h1>Estudos para Segunda Chamada — CM314</h1>
+      <p>
+        Hub de navegação direta com os 4 grandes blocos cobrados pela Profa. Dra. Ana Gabriela Martínez. Clique em qualquer subtópico abaixo para ir direto para a seção exata da apostila já resolvida.
+      </p>
+      <div class="ementa-quote">
+        <strong>Ementa informada pela professora:</strong> "S: EDOs 1º ordem (separação de variáveis, Bernoulli e exatas). EDOs 2ª ordem lineares homogêneas e não homogêneas (variação dos parâmetros e coef. indeterminados). Transformada de Laplace. Sistemas de EDOs 1ª ordem lineares."
+      </div>
+    </section>
+
+    <section class="meta-grid">
+      <div class="info-card">
+        <h2>🎯 Raio-X da Prova e Dificuldade Provável</h2>
+        <p><strong>Nível estimado: Médio a Médio-Alto</strong> (prova operacional e extensa, fiel às listas).</p>
+        <ul>
+          <li>A professora cortou teoria pura (Picard, linha de fase, séries, Frobenius) e aplicações longas (Lista 2 e Lista 5).</li>
+          <li><strong>Espere:</strong> contas diretas ("resolva o PVI / EDO / sistema"), exigindo justificativa clara em cada passo (\(M_y = N_x\), Wronskiano, tabela de Laplace, autovetores).</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h2>📈 Seu Progresso na Revisão</h2>
+        <p>Marque os blocos já estudados (salvo automaticamente no navegador):</p>
+        <div class="progress-wrap"><div class="progress-fill" id="progFill"></div></div>
+        <div class="progress-meta">
+          <span id="progText">0 / 16 tópicos concluídos</span>
+          <button type="button" class="reset-btn" onclick="resetProgress()">Zerar checklist</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEMA A: LISTA 1 -->
+    <section class="theme-card">
+      <div class="theme-head indigo">
+        <div class="theme-title-group">
+          <h2>Tema A — EDOs de 1ª Ordem (Lista 1 · P1)</h2>
+          <p>Separação de variáveis, Exatas (+ Fator Integrante) e Bernoulli — todos com dropdowns por item.</p>
+        </div>
+        <div class="theme-badges">
+          <span class="diff-badge">Dificuldade: Fácil → Médio</span>
+          <a class="full-list-link" href="../p1-lista-1-edos-1a-ordem/">Abrir Lista 1 Completa →</a>
+        </div>
+      </div>
+      <div class="topic-rows">
+        <div class="topic-row">
+          <label class="topic-left">
+            <input type="checkbox" class="topic-check" data-id="sc-a1">
+            <span class="topic-info">
+              <strong>A1. Separação de Variáveis e PVIs (Q6, Q7, Q8)</strong>
+              <span>Atenção a \(\ln|y|\) negativo (Q7b), raiz com sinal do PVI e divisão por zero. Caiu na Q1(a) da P1!</span>
+            </span>
+          </label>
+          <a class="go-btn" href="../p1-lista-1-edos-1a-ordem/#topico-2">Ir para Tópico 2 →</a>
+        </div>
+        <div class="topic-row">
+          <label class="topic-left">
+            <input type="checkbox" class="topic-check" data-id="sc-a2">
+            <span class="topic-info">
+              <strong>A2. Lineares de 1ª Ordem / Fator Integrante \(\mu(x)\) (Q9–Q12)</strong>
+              <span>Pré-requisito obrigatório para finalizar qualquer questão de Bernoulli (inclui errata da Q10b).</span>
+            </span>
+          </label>
+          <a class="go-btn" href="../p1-lista-1-edos-1a-ordem/#topico-3">Ir para Tópico 3 →</a>
+        </div>
+        <div class="topic-row">
+          <label class="topic-left">
+            <input type="checkbox" class="topic-check" data-id="sc-a3">
+            <span class="topic-info">
+              <strong>A3. EDOs Exatas e Fatores Integrantes \(\mu(x), \mu(y)\) (Q13–Q15)</strong>
+              <span>Mostrar \(M_y = N_x\), montar \(\Psi(x,y)=C\) e PVI. Q14 tem o formato exato da Q2 da P1.</span>
+            </span>
+          </label>
+          <a class="go-btn" href="../p1-lista-1-edos-1a-ordem/#topico-4">Ir para Tópico 4 →</a>
+        </div>
+        <div class="topic-row">
+          <label class="topic-left">
+            <input type="checkbox" class="topic-check" data-id="sc-a4">
+            <span class="topic-info">
+              <strong>A4. Equação de Bernoulli — Mudança \(v = y^{1-\alpha}\) (Q18)</strong>
+              <span>Normalizar primeiro, atenção ao sinal de \((1-\alpha)\). Q18(c) caiu praticamente igual na Q1(b) da P1!</span>
+            </span>
+          </label>
+          <a class="go-btn" href="../p1-lista-1-edos-1a-ordem/#topico-5">Ir para Tópico 5 →</a>
+        </div>
+        <div class="topic-row">
+          <label class="topic-left">
+            <input type="checkbox" class="topic-check" data-id="sc-a5">
+            <span class="topic-info">
+              <strong>A5. PVIs Mistos — Treino Cego de Reconhecimento (Q19 a–c)</strong>
+              <span>Ótimo para testar se você reconhece rápido qual método usar (destaque para a pegadinha da Q19c).</span>
+            </span>
+          </label>
+          <a class="go-btn" href="../p1-lista-1-edos-1a-ordem/#topico-6">Ir para Tópico 6 →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEMA B: LISTA 4 -->
+    <section class="theme-card">
+      <div class="theme-head blue">
+        <div class="theme-title-group">
+          <h2>Tema B — EDOs de 2ª Ordem Lineares (Lista 4 · P2)</h2>
+          <p>Apenas os Tópicos 3, 6 e 7 (e base rápida de Wronskiano no Tópico 2). Cauchy-Euler não cai!</p>
+        </div>
+        <div class="theme-badges">
+          <span class="diff-badge">Dificuldade: Médio</span>
+          <a class="full-list-link" href="../p2-lista-4-edos-2a-ordem/">Abrir Lista 4 Completa →</a>
+        </div>
+      </div>
+      <div class="topic-rows">
+        <div class="topic-row">
+          <label class="topic-left">
+            <input type="checkbox" class="topic-check" data-id="sc-b1">
+            <span class="topic-info">
+              <strong>B1. Homogêneas com Coeficientes Constantes e PVIs (Q10 e Q11)</strong>
+              <span>Equação característica (\(\Delta > 0,\; \Delta = 0,\; \Delta < 0\)) e sistema \(2\times 2\) para C.I.</span>
+            </span>
+          </label>
+          <a class="go-btn" href="../p2-lista-4-edos-2a-ordem/#topico-3">Ir para Tópico 3 →</a>
+        </div>
+        <div class="topic-row">
+          <label class="topic-left">
+            <input type="checkbox" class="topic-check" data-id="sc-b2">
+            <span class="topic-info">
+              <strong>B2. Não-Homogêneas: Coeficientes a Determinar + Ressonância (Q19–Q21)</strong>
+              <span>Montagem do palpite \(y_p\), multiplicação por \(x^s\) na ressonância e aplicação de C.I. só em \(y_h+y_p\).</span>
+            </span>
+          </label>
+          <a class="go-btn" href="../p2-lista-4-edos-2a-ordem/#topico-6">Ir para Tópico 6 →</a>
+        </div>
+        <div class="topic-row">
+          <label class="topic-left">
+            <input type="checkbox" class="topic-check" data-id="sc-b3">
+            <span class="topic-info">
+              <strong>B3. Não-Homogêneas: Variação dos Parâmetros (Q22 a, b, c)</strong>
+              <span>Dividir pelo coeficiente de \(y''\), calcular Wronskiano \(W(y_1,y_2)\) e integrar \(u_1', u_2'\).</span>
+            </span>
+          </label>
+          <a class="go-btn" href="../p2-lista-4-edos-2a-ordem/#topico-7">Ir para Tópico 7 →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEMA C: LISTA 8 -->
+    <section class="theme-card">
+      <div class="theme-head teal">
+        <div class="theme-title-group">
+          <h2>Tema C — Transformada de Laplace (Lista 8 · P3)</h2>
+          <p>Lista inteira (Q1 a Q23) já no padrão completo. Maior peso de tempo e álgebra da prova!</p>
+        </div>
+        <div class="theme-badges">
+          <span class="diff-badge">Dificuldade: Médio-Alto</span>
+          <a class="full-list-link" href="../p3-lista-8-laplace/">Abrir Lista 8 Completa →</a>
+        </div>
+      </div>
+      <div class="topic-rows">
+        <div class="topic-row">
+          <label class="topic-left">
+            <input type="checkbox" class="topic-check" data-id="sc-c1">
+            <span class="topic-info">
+              <strong>C1. Definição por Integral Imprópria, Existência e Linearidade (Q1–Q3)</strong>
+              <span>Leitura rápida da tabela oficial, condição de ordem exponencial e cálculo pela definição.</span>
+            </span>
+          </label>
+          <a class="go-btn" href="../p3-lista-8-laplace/#topico-1">Ir para Tópico 1 →</a>
+        </div>
+        <div class="topic-row">
+          <label class="topic-left">
+            <input type="checkbox" class="topic-check" data-id="sc-c2">
+            <span class="topic-info">
+              <strong>C2. Transformada Inversa, Frações Parciais e 1º Deslocamento (Q4–Q7)</strong>
+              <span>Completar quadrado no denominador, \(e^{ct}f(t)\leftrightarrow F(s-c)\) e derivada \(F^{(n)}(s)\).</span>
+            </span>
+          </label>
+          <a class="go-btn" href="../p3-lista-8-laplace/#topico-2">Ir para Tópico 2 →</a>
+        </div>
+        <div class="topic-row">
+          <label class="topic-left">
+            <input type="checkbox" class="topic-check" data-id="sc-c3">
+            <span class="topic-info">
+              <strong>C3. Resolução de PVIs de 2ª e 3ª Ordem por Laplace (Q8–Q9)</strong>
+              <span>Algoritmo de 4 passos com \(\mathcal{L}\{y'\}\) e \(\mathcal{L}\{y''\}\) até isolar \(Y(s)\) e inverter.</span>
+            </span>
+          </label>
+          <a class="go-btn" href="../p3-lista-8-laplace/#topico-3">Ir para Tópico 3 →</a>
+        </div>
+        <div class="topic-row">
+          <label class="topic-left">
+            <input type="checkbox" class="topic-check" data-id="sc-c4">
+            <span class="topic-info">
+              <strong>C4. Função Degrau \(u_c(t)\), 2º Deslocamento e Funções por Partes (Q10–Q15)</strong>
+              <span>Altíssima probabilidade! Reescrever função por partes em \(u_c(t)\) e inverter \(e^{-cs}F(s)\).</span>
+            </span>
+          </label>
+          <a class="go-btn" href="../p3-lista-8-laplace/#topico-4">Ir para Tópico 4 →</a>
+        </div>
+        <div class="topic-row">
+          <label class="topic-left">
+            <input type="checkbox" class="topic-check" data-id="sc-c5">
+            <span class="topic-info">
+              <strong>C5. Convolução e Delta de Dirac \(\delta(t-c)\) (Q16–Q23)</strong>
+              <span>Teorema da Convolução (Tópico 5) e PVIs com impulso \(\delta(t-c)\) (Tópico 6).</span>
+            </span>
+          </label>
+          <a class="go-btn" href="../p3-lista-8-laplace/#topico-5">Ir para Tópico 5/6 →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEMA D: LISTA 9 -->
+    <section class="theme-card">
+      <div class="theme-head slate">
+        <div class="theme-title-group">
+          <h2>Tema D — Sistemas de EDOs de 1ª Ordem Lineares (Lista 9 · P3)</h2>
+          <p>Forma matricial, redução de ordem, matriz fundamental e sistemas homogêneos/não-homogêneos.</p>
+        </div>
+        <div class="theme-badges">
+          <span class="diff-badge">Dificuldade: Médio → Médio-Alto</span>
+          <a class="full-list-link" href="../p3-lista-9-sistemas-edos/">Abrir Lista 9 Completa →</a>
+        </div>
+      </div>
+      <div class="topic-rows">
+        <div class="topic-row">
+          <label class="topic-left">
+            <input type="checkbox" class="topic-check" data-id="sc-d1">
+            <span class="topic-info">
+              <strong>D1. Forma Matricial \(X'=AX+g\), Redução e Matriz Fundamental (Q1–Q9)</strong>
+              <span>Passar EDO de ordem \(n\) para sistema \(n\times n\) e verificar \(\Phi'(t) = A\Phi(t)\) com \(\det\Phi \neq 0\).</span>
+            </span>
+          </label>
+          <a class="go-btn" href="../p3-lista-9-sistemas-edos/#topico-1">Ir para Tópico 1/2 →</a>
+        </div>
+        <div class="topic-row">
+          <label class="topic-left">
+            <input type="checkbox" class="topic-check" data-id="sc-d2">
+            <span class="topic-info">
+              <strong>D2. Sistemas Homogêneos \(X'=AX\): Autovalores Reais, Repetidos e Complexos (Q10–Q12)</strong>
+              <span>Núcleo certo da prova! Atenção especial a <strong>autovetor generalizado</strong> \((A-\lambda I)w=v\) e Euler para complexos.</span>
+            </span>
+          </label>
+          <a class="go-btn" href="../p3-lista-9-sistemas-edos/#topico-3">Ir para Tópico 3 →</a>
+        </div>
+        <div class="topic-row">
+          <label class="topic-left">
+            <input type="checkbox" class="topic-check" data-id="sc-d3">
+            <span class="topic-info">
+              <strong>D3. Sistemas Não-Homogêneos \(X'=AX+g(t)\) (Q13 · Bloco Extra)</strong>
+              <span>Coeficientes a determinar vetorial e Variação dos Parâmetros com \(\Phi(t)^{-1}\).</span>
+            </span>
+          </label>
+          <a class="go-btn" href="../p3-lista-9-sistemas-edos/#topico-4">Ir para Tópico 4 →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="skip-card">
+      <h2>⛔ O que NÃO cai na Segunda Chamada (pode pular até terça!)</h2>
+      <p>
+        Pela ementa informada, ficam de fora: <strong>Lista 1 Q16–Q17</strong> (Homogêneas), <strong>Lista 2</strong> (Modelagem/Carbono-14/Newton), <strong>Lista 3</strong> (Picard, Linha de Fase, Campo de Direções), <strong>Lista 4 Tópico 8</strong> (Cauchy-Euler), <strong>Lista 5</strong> (Vibrações Mecânicas), <strong>Lista 6</strong> (Séries Numéricas/Taylor) e <strong>Lista 7</strong> (Séries de Potências / Frobenius).
+      </p>
+    </section>
+  </main>
+
+  <script>
+    const STORAGE_KEY = 'cm314_segunda_chamada_v1';
+    const checks = Array.from(document.querySelectorAll('.topic-check'));
+
+    function loadState() {
+      let saved = {};
+      try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch (e) {}
+      checks.forEach(cb => {
+        cb.checked = !!saved[cb.dataset.id];
+        cb.closest('.topic-row').classList.toggle('done', cb.checked);
+      });
+      updateProgress();
+    }
+
+    function saveState() {
+      const data = {};
+      checks.forEach(cb => { if (cb.checked) data[cb.dataset.id] = true; });
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (e) {}
+    }
+
+    function updateProgress() {
+      const total = checks.length;
+      const done = checks.filter(cb => cb.checked).length;
+      const pct = total ? Math.round((done / total) * 100) : 0;
+      document.getElementById('progFill').style.width = pct + '%';
+      document.getElementById('progText').textContent = `${done} / ${total} tópicos concluídos (${pct}%)`;
+    }
+
+    checks.forEach(cb => {
+      cb.addEventListener('change', () => {
+        cb.closest('.topic-row').classList.toggle('done', cb.checked);
+        saveState();
+        updateProgress();
+      });
+    });
+
+    function resetProgress() {
+      checks.forEach(cb => {
+        cb.checked = false;
+        cb.closest('.topic-row').classList.remove('done');
+      });
+      saveState();
+      updateProgress();
+    }
+
+    loadState();
+  </script>
+</body>
+</html>

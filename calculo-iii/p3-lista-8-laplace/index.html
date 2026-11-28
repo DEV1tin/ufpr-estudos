@@ -695,6 +695,14 @@
                 margin-top: 20px;
             }
         }
+            html { scroll-behavior: smooth; }
+        .portal-nav { flex-wrap: wrap; gap: 10px; }
+        .portal-nav-right { display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        a.chk-topic-title { text-decoration: none; }
+        a.chk-topic-title:hover { color: var(--primary); text-decoration: underline; }
+        .chk-pill { display: inline-block; font-size: 10.5px; font-weight: 700; padding: 1px 7px; border-radius: 999px; margin-left: 4px; vertical-align: middle; }
+        .chk-pill.hot { background: #fef3c7; color: #92400e; border: 1px solid #f59e0b; }
+        .chk-pill.sec { background: #ffedd5; color: #9a3412; border: 1px solid #fb923c; }
     </style>
 </head>
 <body>
@@ -729,7 +737,7 @@
         <p style="margin-bottom: 12px; color: #475569; font-size: 12.8px;">Todas as <strong>23 questões</strong> da Lista 8 pertencem ao núcleo central da <strong>Prova 3 (P3)</strong>. Cada questão abaixo traz um bloco único de <em>Raio-X de Prova</em> seguido da resolução completa linha a linha e alertas explícitos sobre todas as gralhas do gabarito oficial:</p>
         <div class="checklist-grid">
             <div class="chk-topic">
-                <div class="chk-topic-title">☐ Tópico 1: Definição, Existência e Linearidade (Q1, Q2, Q3)</div>
+                <a class="chk-topic-title" href="#topico-1">☐ Tópico 1: Definição, Existência e Linearidade (Q1, Q2, Q3) <span class="chk-pill hot">⭐ 2ª Chamada</span></a>
                 <ul class="chk-sublist">
                     <li>Integral imprópria \(\mathcal{L}\{f(t)\}(s)=\int_0^\infty f(t)e^{-st}\,dt\)</li>
                     <li>Continuidade por partes, ordem exponencial e \(\lim_{s\to\infty}F(s)=0\)</li>
@@ -737,7 +745,7 @@
                 </ul>
             </div>
             <div class="chk-topic">
-                <div class="chk-topic-title">☐ Tópico 2: Inversa, 1º Deslocamento, Escala e Derivada (Q4 a Q7)</div>
+                <a class="chk-topic-title" href="#topico-2">☐ Tópico 2: Inversa, 1º Deslocamento, Escala e Derivada (Q4 a Q7) <span class="chk-pill hot">⭐ 2ª Chamada</span></a>
                 <ul class="chk-sublist">
                     <li>Completar quadrado em denominadores irredutíveis</li>
                     <li>Frações parciais com fatores lineares repetidos e quadráticos</li>
@@ -745,7 +753,7 @@
                 </ul>
             </div>
             <div class="chk-topic">
-                <div class="chk-topic-title">☐ Tópico 3: PVIs de 2ª e 3ª Ordem e Solução Geral (Q8 a–g, Q9)</div>
+                <a class="chk-topic-title" href="#topico-3">☐ Tópico 3: PVIs de 2ª e 3ª Ordem e Solução Geral (Q8 a–g, Q9) <span class="chk-pill hot">⭐ 2ª Chamada</span></a>
                 <ul class="chk-sublist">
                     <li>Transformada das derivadas \(y', y'', y'''\) com condições iniciais</li>
                     <li>PVIs com raízes reais, complexas, cúbica \(s^3-8\) e termo \(\operatorname{senh} t\)</li>
@@ -753,7 +761,7 @@
                 </ul>
             </div>
             <div class="chk-topic">
-                <div class="chk-topic-title">☐ Tópico 4: Função Degrau \(u_c(t)\) e 2º Deslocamento (Q10 a Q15)</div>
+                <a class="chk-topic-title" href="#topico-4">☐ Tópico 4: Função Degrau \(u_c(t)\) e 2º Deslocamento (Q10 a Q15) <span class="chk-pill hot">⭐ 2ª Chamada</span></a>
                 <ul class="chk-sublist">
                     <li>Conversão de funções por partes e leitura de gráficos para degraus</li>
                     <li>2º Teorema do Deslocamento \(u_c(t)f(t-c)\leftrightarrow e^{-cs}F(s)\)</li>
@@ -761,7 +769,7 @@
                 </ul>
             </div>
             <div class="chk-topic">
-                <div class="chk-topic-title">☐ Tópico 5: Produto de Convolução e Aplicações (Q16–Q19, Q21)</div>
+                <a class="chk-topic-title" href="#topico-5">☐ Tópico 5: Produto de Convolução e Aplicações (Q16–Q19, Q21) <span class="chk-pill hot">⭐ 2ª Chamada</span></a>
                 <ul class="chk-sublist">
                     <li>Definição \((f*g)(t)=\int_0^t f(t-u)g(u)\,du\) e propriedades algébricas</li>
                     <li>Teorema da Convolução para inversas difíceis (ex.: \(\frac{s}{(s^2+a^2)^2}\))</li>
@@ -769,7 +777,7 @@
                 </ul>
             </div>
             <div class="chk-topic">
-                <div class="chk-topic-title">☐ Tópico 6: Delta de Dirac \(\delta(t-c)\) e Vibrações (Q20, Q22, Q23)</div>
+                <a class="chk-topic-title" href="#topico-6">☐ Tópico 6: Delta de Dirac \(\delta(t-c)\) e Vibrações (Q20, Q22, Q23) <span class="chk-pill hot">⭐ 2ª Chamada</span></a>
                 <ul class="chk-sublist">
                     <li>Impulso unitário \(\mathcal{L}\{\delta(t-c)\} = e^{-cs}\) e PVIs mistos (Q20 a–d)</li>
                     <li>Sistema massa-mola atingido por martelo no instante \(t=2\pi\) (Q22)</li>
@@ -825,7 +833,7 @@
     <!-- ================================================================= -->
     <!-- TÓPICO 1: DEFINIÇÃO, CONDIÇÕES DE EXISTÊNCIA E LINEARIDADE        -->
     <!-- ================================================================= -->
-    <div class="topic-section">
+    <div class="topic-section" id="topico-1">
         <div class="topic-banner">
             <h2>Tópico 1: Definição, Condições de Existência e Linearidade</h2>
             <span class="topic-range">Questões 1, 2 e 3</span>
@@ -1148,7 +1156,7 @@
     <!-- ================================================================= -->
     <!-- TÓPICO 2: TRANSFORMADA INVERSA, 1º DESLOCAMENTO E PROPRIEDADES    -->
     <!-- ================================================================= -->
-    <div class="topic-section">
+    <div class="topic-section" id="topico-2">
         <div class="topic-banner">
             <h2>Tópico 2: Transformada Inversa, 1º Deslocamento, Escala e Derivada da Transformada</h2>
             <span class="topic-range">Questões 4, 5, 6 e 7</span>
@@ -1660,7 +1668,7 @@
     <!-- ================================================================= -->
     <!-- TÓPICO 3: RESOLUÇÃO DE PVIs DE 2ª E 3ª ORDEM E SOLUÇÃO GERAL      -->
     <!-- ================================================================= -->
-    <div class="topic-section">
+    <div class="topic-section" id="topico-3">
         <div class="topic-banner">
             <h2>Tópico 3: Resolução de PVIs de 2ª e 3ª Ordem e Solução Geral</h2>
             <span class="topic-range">Questões 8 (a–g) e 9</span>
@@ -2059,7 +2067,7 @@
     <!-- ================================================================= -->
     <!-- TÓPICO 4: FUNÇÃO DEGRAU, 2º DESLOCAMENTO, GRÁFICOS E PERIÓDICAS   -->
     <!-- ================================================================= -->
-    <div class="topic-section">
+    <div class="topic-section" id="topico-4">
         <div class="topic-banner">
             <h2>Tópico 4: Função Degrau \(u_c(t)\), 2º Teorema do Deslocamento e Leitura de Gráficos</h2>
             <span class="topic-range">Questões 10, 11, 12, 13, 14 e 15</span>
@@ -2690,7 +2698,7 @@
     <!-- ================================================================= -->
     <!-- TÓPICO 5: PRODUTO DE CONVOLUÇÃO E APLICAÇÕES                      -->
     <!-- ================================================================= -->
-    <div class="topic-section">
+    <div class="topic-section" id="topico-5">
         <div class="topic-banner">
             <h2>Tópico 5: Produto de Convolução e Fórmula Integral em EDOs</h2>
             <span class="topic-range">Questões 16, 17, 18, 19 e 21</span>
@@ -3087,7 +3095,7 @@
     <!-- ================================================================= -->
     <!-- TÓPICO 6: FUNÇÃO DELTA DE DIRAC E VIBRAÇÕES MECÂNICAS             -->
     <!-- ================================================================= -->
-    <div class="topic-section">
+    <div class="topic-section" id="topico-6">
         <div class="topic-banner">
             <h2>Tópico 6: Função Delta de Dirac \(\delta(t - c)\), Impulso e Vibrações Mecânicas</h2>
             <span class="topic-range">Questões 20 (a–d), 22 e 23</span>

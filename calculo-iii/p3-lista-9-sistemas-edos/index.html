@@ -665,12 +665,20 @@
                 margin-top: 20px;
             }
         }
+            html { scroll-behavior: smooth; }
+        .portal-nav { flex-wrap: wrap; gap: 10px; }
+        .portal-nav-right { display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        a.chk-topic-title { text-decoration: none; }
+        a.chk-topic-title:hover { color: var(--primary); text-decoration: underline; }
+        .chk-pill { display: inline-block; font-size: 10.5px; font-weight: 700; padding: 1px 7px; border-radius: 999px; margin-left: 4px; vertical-align: middle; }
+        .chk-pill.hot { background: #fef3c7; color: #92400e; border: 1px solid #f59e0b; }
+        .chk-pill.sec { background: #ffedd5; color: #9a3412; border: 1px solid #fb923c; }
     </style>
 </head>
 <body>
 <div class="container">
 
-    <div class="portal-nav"><a href="../">← Voltar para Cálculo III (CM314)</a><span>CM314 · P3 · Lista 9</span></div>
+    <div class="portal-nav"><a href="../">← Voltar para Cálculo III (CM314)</a><div class="portal-nav-right"><a href="../segunda-chamada/">🎯 Hub Segunda Chamada</a><span>CM314 · P3 · Lista 9</span></div></div>
 
     <!-- HEADER -->
     <div class="doc-header">
@@ -698,7 +706,7 @@
         <p style="margin-bottom: 12px; color: #475569; font-size: 12.8px;">Todas as <strong>13 questões (Q1 a Q13)</strong> da Lista 9 estão resolvidas item a item abaixo, com alertas explícitos de gralhas do gabarito oficial e revisão completa dos pré-requisitos de Álgebra Linear e Cálculo:</p>
         <div class="checklist-grid">
             <div class="chk-topic">
-                <div class="chk-topic-title">☐ Tópico 1: Conceito, Forma Matricial e Redução de Ordem (Q1 a Q7)</div>
+                <a class="chk-topic-title" href="#topico-1">☐ Tópico 1: Conceito, Forma Matricial e Redução de Ordem (Q1 a Q7) <span class="chk-pill hot">⭐ 2ª Chamada</span></a>
                 <ul class="chk-sublist">
                     <li>Identificação de sistemas lineares vs. não-lineares (\(X' = A(t)X + g(t)\))</li>
                     <li>Verificação de solução vetorial por substituição direta</li>
@@ -706,7 +714,7 @@
                 </ul>
             </div>
             <div class="chk-topic">
-                <div class="chk-topic-title">☐ Tópico 2: Superposição e Matriz Fundamental (Q8 e Q9)</div>
+                <a class="chk-topic-title" href="#topico-2">☐ Tópico 2: Superposição e Matriz Fundamental (Q8 e Q9) <span class="chk-pill hot">⭐ 2ª Chamada</span></a>
                 <ul class="chk-sublist">
                     <li>Demonstração formal do Princípio da Superposição para \(X' = A(t)X\)</li>
                     <li>Verificação de Matriz Fundamental \(\Phi(t)\): \(\Phi'(t) = A\Phi(t)\)</li>
@@ -714,7 +722,7 @@
                 </ul>
             </div>
             <div class="chk-topic">
-                <div class="chk-topic-title">☐ Tópico 3: Sistemas Homogêneos \(X' = AX\) — 3 Regimes (Q10 a Q12)</div>
+                <a class="chk-topic-title" href="#topico-3">☐ Tópico 3: Sistemas Homogêneos \(X' = AX\) — 3 Regimes (Q10 a Q12) <span class="chk-pill hot">⭐ 2ª Chamada</span></a>
                 <ul class="chk-sublist">
                     <li>Autovalores reais distintos e PVIs \(2\times 2\) e \(3\times 3\)</li>
                     <li>Autovalores repetidos com defeito geométrico (autovetor generalizado \((A-\lambda I)w = v\))</li>
@@ -722,7 +730,7 @@
                 </ul>
             </div>
             <div class="chk-topic">
-                <div class="chk-topic-title">☐ Tópico 4: Bloco Extra — Sistemas Não-Homogêneos (Q13 a, b, c)</div>
+                <a class="chk-topic-title" href="#topico-4">☐ Tópico 4: Bloco Extra — Sistemas Não-Homogêneos (Q13 a, b, c) <span class="chk-pill sec">⚠️ Extra</span></a>
                 <ul class="chk-sublist">
                     <li>⚠️ Prioridade secundária: cai apenas se avançado em sala até o fim da ementa</li>
                     <li>Método dos Coeficientes a Determinar vetorial</li>
@@ -735,7 +743,7 @@
     <!-- ================================================================= -->
     <!-- TÓPICO 1: MODELAGEM, LINEARIDADE E REDUÇÃO DE ORDEM (Q1 A Q7)     -->
     <!-- ================================================================= -->
-    <div class="topic-section">
+    <div class="topic-section" id="topico-1">
         <div class="topic-banner">
             <h2>Tópico 1: Linearidade, Forma Matricial e Redução para 1ª Ordem</h2>
             <span class="topic-range">Exercícios 1 a 7</span>
@@ -1285,7 +1293,7 @@
     <!-- ================================================================= -->
     <!-- TÓPICO 2: SUPERPOSIÇÃO E MATRIZ FUNDAMENTAL (Q8 E Q9)             -->
     <!-- ================================================================= -->
-    <div class="topic-section">
+    <div class="topic-section" id="topico-2">
         <div class="topic-banner">
             <h2>Tópico 2: Princípio da Superposição e Matriz Fundamental</h2>
             <span class="topic-range">Exercícios 8 e 9</span>
@@ -1455,7 +1463,7 @@
     <!-- ================================================================= -->
     <!-- TÓPICO 3: SISTEMAS LINEARES HOMOGÊNEOS X' = AX (Q10 A Q12)        -->
     <!-- ================================================================= -->
-    <div class="topic-section">
+    <div class="topic-section" id="topico-3">
         <div class="topic-banner">
             <h2>Tópico 3: Sistemas Homogêneos \(X'(t) = AX(t)\) com Coeficientes Constantes</h2>
             <span class="topic-range">Exercícios 10, 11 e 12</span>
@@ -2104,7 +2112,7 @@
     <!-- ================================================================= -->
     <!-- TÓPICO 4 — BLOCO EXTRA: SISTEMAS NÃO-HOMOGÊNEOS (Q13 a, b, c)     -->
     <!-- ================================================================= -->
-    <div class="topic-section">
+    <div class="topic-section" id="topico-4">
         <div class="topic-banner">
             <h2>Tópico 4 (Bloco Extra): Sistemas Lineares Não-Homogêneos \(X'(t) = AX(t) + g(t)\)</h2>
             <span class="topic-range">⚠️ Extra / Prioridade Secundária · Q13</span>

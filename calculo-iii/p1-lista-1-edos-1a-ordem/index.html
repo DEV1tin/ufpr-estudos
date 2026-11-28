@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apostila de Estudo - Lista 1: EDOs de 1ª Ordem (CM314 - UFPR)</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '\\[', right: '\\]', display: true},
+                {left: '\\(', right: '\\)', display: false}
+            ],
+            throwOnError: false
+        });"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --primary: #4338ca;
+            --primary-light: #e0e7ff;
+            --primary-border: #a5b4fc;
+            --accent: #4f46e5;
+            --warn: #b45309;
+            --warn-light: #fef3c7;
+            --warn-border: #fcd34d;
+            --prereq-bg: #f3e8ff;
+            --prereq-border: #c084fc;
+            --prereq-text: #581c87;
+            --border-color: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.6;
+            font-size: 13.5px;
+            padding: 20px;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 32px 36px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Portal Navigation Bar */
+        .portal-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            background: #eef2ff;
+            border: 1px solid #c7d2fe;
+            border-radius: 8px;
+            padding: 9px 14px;
+            margin-bottom: 18px;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #312e81;
+        }
+
+        .portal-nav a {
+            color: #4338ca;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .portal-nav a:hover { text-decoration: underline; }
+
+        .portal-nav-right {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* Cover / Header */
+        .doc-header {
+            background: linear-gradient(135deg, #3730a3 0%, #0f172a 100%);
+            color: #ffffff;
+            padding: 28px 32px;
+            border-radius: 12px;
+            margin-bottom: 22px;
+            border-left: 8px solid #818cf8;
+        }
+
+        .doc-header .badge-course {
+            display: inline-block;
+            background: rgba(129, 140, 248, 0.22);
+            color: #c7d2fe;
+            font-weight: 700;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(129, 140, 248, 0.45);
+        }
+
+        .doc-header h1 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            line-height: 1.25;
+        }
+
+        .doc-header .subtitle {
+            font-size: 13.5px;
+            color: #cbd5e1;
+            margin-bottom: 16px;
+        }
+
+        .header-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 12px;
+            color: #e2e8f0;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 12px;
+        }
+
+        /* Legend Box */
+        .legend-box {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-bottom: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            font-size: 12.2px;
+        }
+
+        .legend-title { font-weight: 700; color: #1e293b; margin-right: 4px; }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #ffffff;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            font-weight: 500;
+        }
+
+        /* Dropdown Global Toolbar */
+        .dropdown-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-bottom: 22px;
+        }
+
+        .toolbar-hint {
+            font-size: 12.2px;
+            color: #475569;
+            font-weight: 500;
+        }
+
+        .toolbar-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .ctrl-btn {
+            appearance: none;
+            border: 1px solid #c7d2fe;
+            background: #ffffff;
+            color: #3730a3;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+        }
+
+        .ctrl-btn:hover {
+            background: #eef2ff;
+            border-color: #6366f1;
+        }
+
+        .ctrl-btn.primary {
+            background: #4338ca;
+            color: #ffffff;
+            border-color: #4338ca;
+        }
+
+        .ctrl-btn.primary:hover {
+            background: #3730a3;
+        }
+
+        /* Checklist Section */
+        .checklist-card {
+            background: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+        }
+
+        .checklist-card h2 {
+            font-size: 17px;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 8px;
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .chk-topic {
+            break-inside: avoid;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 14px;
+        }
+
+        .chk-topic-title {
+            font-weight: 700;
+            color: #0f172a;
+            font-size: 13px;
+            margin-bottom: 6px;
+            display: block;
+            text-decoration: none;
+        }
+
+        a.chk-topic-title:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .chk-pill {
+            display: inline-block;
+            font-size: 10.5px;
+            font-weight: 700;
+            padding: 1px 7px;
+            border-radius: 999px;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+
+        .chk-pill.hot { background: #fef3c7; color: #92400e; border: 1px solid #f59e0b; }
+        .chk-pill.req { background: #e0e7ff; color: #3730a3; border: 1px solid #818cf8; }
+        .chk-pill.out { background: #f1f5f9; color: #64748b; border: 1px solid #cbd5e1; }
+
+        .chk-sublist {
+            list-style: none;
+            padding-left: 20px;
+            font-size: 12px;
+            color: #475569;
+        }
+
+        .chk-sublist li { margin-bottom: 3px; position: relative; }
+
+        .chk-sublist li::before {
+            content: "☐";
+            position: absolute;
+            left: -16px;
+            color: #64748b;
+            font-weight: bold;
+        }
+
+        /* Topic Header Banner */
+        .topic-section {
+            margin-top: 34px;
+            margin-bottom: 28px;
+        }
+
+        .topic-banner {
+            background: linear-gradient(90deg, #3730a3 0%, #4f46e5 100%);
+            color: #ffffff;
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            break-after: avoid;
+        }
+
+        .topic-banner.muted-banner {
+            background: linear-gradient(90deg, #334155 0%, #475569 100%);
+        }
+
+        .topic-banner h2 { font-size: 18px; font-weight: 800; }
+
+        .topic-banner .topic-range {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* Theory, Prereq & Raio-X Boxes */
+        .theory-box {
+            background: #eff6ff;
+            border-left: 5px solid #2563eb;
+            border-top: 1px solid #bfdbfe;
+            border-right: 1px solid #bfdbfe;
+            border-bottom: 1px solid #bfdbfe;
+            border-radius: 0 8px 8px 0;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+        }
+
+        .theory-box h3 {
+            color: #1e3a8a;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theory-box p, .theory-box ul, .theory-box ol { margin-bottom: 8px; color: #1e293b; }
+        .theory-box ul, .theory-box ol { padding-left: 22px; }
+
+        .prereq-box {
+            background: var(--prereq-bg);
+            border-left: 5px solid #9333ea;
+            border-top: 1px solid #e9d5ff;
+            border-right: 1px solid #e9d5ff;
+            border-bottom: 1px solid #e9d5ff;
+            border-radius: 0 8px 8px 0;
+            padding: 15px 20px;
+            margin-bottom: 16px;
+            break-inside: avoid;
+        }
+
+        .prereq-box h3 {
+            color: var(--prereq-text);
+            font-size: 14.5px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prereq-box ul, .prereq-box ol { padding-left: 22px; }
+
+        .raiox-box {
+            background: #eef2ff;
+            border: 1px solid #c7d2fe;
+            border-left: 5px solid #4338ca;
+            border-radius: 0 8px 8px 0;
+            padding: 12px 16px;
+            margin-bottom: 14px;
+            break-inside: avoid;
+        }
+
+        .raiox-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: #312e81;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .raiox-box p { margin: 0; font-size: 12.6px; color: #1e293b; line-height: 1.55; }
+
+        .errata-alert {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-left: 5px solid #dc2626;
+            border-radius: 0 8px 8px 0;
+            padding: 10px 14px;
+            margin-top: 8px;
+            margin-bottom: 10px;
+            font-size: 12.4px;
+            color: #7f1d1d;
+            break-inside: avoid;
+        }
+
+        /* Formula Table */
+        .formula-card {
+            background: #ffffff;
+            border: 2px solid #4338ca;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            break-inside: avoid;
+        }
+
+        .formula-card-header {
+            background: #4338ca;
+            color: #ffffff;
+            padding: 8px 16px;
+            font-weight: 700;
+            font-size: 13.5px;
+        }
+
+        .formula-table { width: 100%; border-collapse: collapse; font-size: 12.6px; }
+
+        .formula-table th {
+            background: #eef2ff;
+            color: #312e81;
+            text-align: left;
+            padding: 8px 12px;
+            border-bottom: 1px solid #c7d2fe;
+            font-weight: 700;
+        }
+
+        .formula-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: middle;
+        }
+
+        .formula-table tr:last-child td { border-bottom: none; }
+
+        /* Exercise Card */
+        .exercise-card {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            margin-bottom: 22px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+
+        .exercise-header {
+            background: #f1f5f9;
+            padding: 12px 18px;
+            border-bottom: 1px solid #cbd5e1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            break-after: avoid;
+        }
+
+        .exercise-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: #0f172a;
+            display: block;
+        }
+
+        .badge-type {
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+
+        .badge-star { background: #fef3c7; color: #92400e; border: 1px solid #f59e0b; }
+        .badge-book { background: #dbeafe; color: #1e40af; border: 1px solid #60a5fa; }
+        .badge-extra { background: #ffedd5; color: #9a3412; border: 1px solid #fb923c; }
+        .badge-out { background: #f1f5f9; color: #475569; border: 1px solid #94a3b8; }
+
+        .exercise-body { padding: 16px 18px; }
+
+        .enunciado-geral {
+            background: #f8fafc;
+            border-left: 4px solid #64748b;
+            padding: 10px 14px;
+            margin-bottom: 14px;
+            font-weight: 500;
+            color: #1e293b;
+            border-radius: 0 6px 6px 0;
+        }
+
+        /* Item Dropdowns (<details>) */
+        details.item-dropdown {
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            background: #ffffff;
+            overflow: hidden;
+            transition: border-color 0.15s ease;
+        }
+
+        details.item-dropdown[open] {
+            border-color: #818cf8;
+            box-shadow: 0 2px 10px rgba(67, 56, 202, 0.08);
+        }
+
+        summary.item-summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 10px 14px;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            user-select: none;
+            transition: background 0.15s ease;
+        }
+
+        summary.item-summary::-webkit-details-marker { display: none; }
+
+        summary.item-summary:hover { background: #eef2ff; }
+
+        details.item-dropdown[open] > summary.item-summary {
+            background: #eef2ff;
+            border-bottom: 1px solid #c7d2fe;
+        }
+
+        .item-chevron {
+            font-size: 13px;
+            font-weight: 800;
+            color: #4338ca;
+            transition: transform 0.15s ease;
+            display: inline-block;
+            width: 14px;
+            text-align: center;
+        }
+
+        details.item-dropdown[open] .item-chevron {
+            transform: rotate(90deg);
+        }
+
+        .item-badge {
+            background: #4338ca;
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11.5px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .item-prio {
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        .item-enunc {
+            flex: 1 1 280px;
+            font-weight: 600;
+            color: #0f172a;
+            font-size: 13.2px;
+        }
+
+        .item-diag {
+            font-size: 11.3px;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+
+        .diag-hot { background: #fef3c7; color: #92400e; border: 1px solid #f59e0b; }
+        .diag-base { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+        .diag-hard { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+        .diag-trap { background: #ffedd5; color: #9a3412; border: 1px solid #fdba74; }
+        .diag-out { background: #f1f5f9; color: #64748b; border: 1px solid #cbd5e1; }
+
+        .item-content {
+            padding: 14px 14px 12px;
+            background: #ffffff;
+        }
+
+        /* Code-Style Resolution Table */
+        .code-resolution {
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            background: #ffffff;
+        }
+
+        .code-header {
+            background: #1e293b;
+            color: #cbd5e1;
+            padding: 6px 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            break-after: avoid;
+        }
+
+        .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+        .dot.red { background: #ef4444; }
+        .dot.yellow { background: #f59e0b; }
+        .dot.green { background: #10b981; }
+        .code-title { margin-left: 6px; font-weight: 500; color: #94a3b8; }
+
+        .step-table { width: 100%; border-collapse: collapse; }
+
+        .step-row {
+            border-bottom: 1px solid #e2e8f0;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .step-row:nth-child(even) { background-color: #f8fafc; }
+        .step-row:last-child { border-bottom: none; }
+
+        .line-num {
+            width: 38px;
+            min-width: 38px;
+            text-align: right;
+            padding: 8px 8px 8px 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #64748b;
+            background: #f1f5f9;
+            border-right: 2px solid #cbd5e1;
+            vertical-align: middle;
+            user-select: none;
+        }
+
+        .step-math {
+            width: 52%;
+            padding: 8px 12px;
+            vertical-align: middle;
+            font-size: 13.3px;
+            color: #0f172a;
+            overflow-x: auto;
+        }
+
+        .step-comment {
+            width: 44%;
+            padding: 8px 12px;
+            vertical-align: middle;
+            font-family: 'Inter', sans-serif;
+            font-size: 12.2px;
+            color: #065f46;
+            background: rgba(236, 253, 245, 0.55);
+            border-left: 1px dashed #6ee7b7;
+            line-height: 1.45;
+        }
+
+        .comment-prefix {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: #059669;
+            margin-right: 4px;
+        }
+
+        .final-answer {
+            background: #ecfdf5;
+            border: 1.5px solid #10b981;
+            border-radius: 6px;
+            padding: 8px 14px;
+            font-weight: 600;
+            color: #065f46;
+            font-size: 13px;
+            margin-top: 6px;
+            break-inside: avoid;
+        }
+
+        /* Recapitulation Box */
+        .recap-box {
+            background: #fffbeb;
+            border: 2px solid #f59e0b;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            break-inside: avoid;
+        }
+
+        .recap-box h3 {
+            color: #b45309;
+            font-size: 15.5px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .recap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+        .recap-card {
+            background: #ffffff;
+            border: 1px solid #fde68a;
+            border-radius: 6px;
+            padding: 10px 12px;
+            font-size: 12.5px;
+        }
+
+        .recap-card > strong:first-child { color: #92400e; display: block; margin-bottom: 4px; }
+
+        @media (max-width: 720px) {
+            body { padding: 10px; }
+            .container { padding: 18px 16px; }
+            .checklist-grid, .recap-grid { grid-template-columns: 1fr; }
+            .step-math, .step-comment { display: block; width: 100%; border-left: none; }
+            .line-num { display: none; }
+        }
+
+        @page { size: A4 portrait; margin: 12mm 10mm 12mm 10mm; }
+
+        @media print {
+            .portal-nav, .dropdown-toolbar { display: none !important; }
+            body { background: #ffffff; padding: 0; font-size: 12px; }
+            .container { max-width: 100%; padding: 0; box-shadow: none; }
+            .topic-section { margin-top: 20px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="portal-nav">
+        <a href="../">← Voltar para Cálculo III (CM314)</a>
+        <div class="portal-nav-right">
+            <a href="../segunda-chamada/">🎯 Hub Segunda Chamada</a>
+            <span>CM314 · P1 · Lista 1 Integral</span>
+        </div>
+    </div>
+
+    <div class="doc-header">
+        <div class="badge-course">CM314 • Cálculo 4 • UFPR • Lista 1 Integral (Padrão P3)</div>
+        <h1>Caderno de Resolução Integral e Teoria — Lista Nº 1</h1>
+        <div class="subtitle">Equações Diferenciais Ordinárias de 1ª Ordem: Classificação, Separação de Variáveis, Lineares (Fator Integrante), Exatas, Bernoulli, Homogêneas e PVIs Mistos (Q1 a Q19)</div>
+        <div class="header-meta">
+            <span><strong>Aluno:</strong> Vitor Hugo D. Lima</span>
+            <span><strong>Docente:</strong> Profa. Dra. Ana Gabriela Martínez</span>
+            <span><strong>Metodologia:</strong> Dropdowns Inteligentes por Item + Código Comentado Linha a Linha + Zero Pressuposição</span>
+        </div>
+    </div>
+
+    <div class="legend-box">
+        <span class="legend-title">Legenda dos Dropdowns e Questões:</span>
+        <div class="legend-item"><span>⭐</span> <strong>Provável em prova / 2ª Chamada</strong></div>
+        <div class="legend-item"><span>⚠️</span> <strong>Supertrabalhosa ou Pegadinha Clássica</strong></div>
+        <div class="legend-item"><span>📖</span> <strong>Introdutória / Base rápida</strong></div>
+        <div class="legend-item"><span>❌</span> <strong>Fora da 2ª Chamada (Homogêneas)</strong></div>
+    </div>
+
+    <div class="dropdown-toolbar">
+        <span class="toolbar-hint">💡 Os itens começam <strong>recolhidos</strong> com um resumo curto para não poluir a tela. Clique no item desejado ou use os atalhos:</span>
+        <div class="toolbar-btns">
+            <button type="button" class="ctrl-btn primary" onclick="openStarOnly()">⭐ Abrir só Alta Chance (2ª Chamada)</button>
+            <button type="button" class="ctrl-btn" onclick="toggleAll(true)">📂 Expandir Tudo</button>
+            <button type="button" class="ctrl-btn" onclick="toggleAll(false)">📁 Recolher Tudo</button>
+        </div>
+    </div>
+
+    <div class="checklist-card">
+        <h2>📋 Introdução à Lista 1 — Checklist Navegável (Q1 a Q19)</h2>
+        <p style="margin-bottom: 12px; color: #475569; font-size: 12.8px;">Todas as <strong>19 questões (com todos os subitens de (a) a (h))</strong> estão resolvidas abaixo. Clique no título do tópico para pular direto até ele:</p>
+        <div class="checklist-grid">
+            <div class="chk-topic">
+                <a class="chk-topic-title" href="#topico-1">☐ Tópico 1: Fundamentos, Classificação e PVIs (Q1 a Q5) <span class="chk-pill">📖 Base</span></a>
+                <ul class="chk-sublist">
+                    <li>Ordem vs. linearidade e checagem de soluções por substituição</li>
+                    <li>Ajuste de constante em PVI e verificação de validade</li>
+                </ul>
+            </div>
+            <div class="chk-topic">
+                <a class="chk-topic-title" href="#topico-2">☐ Tópico 2: Separação de Variáveis (Q6 a Q8) <span class="chk-pill hot">⭐ 2ª Chamada</span></a>
+                <ul class="chk-sublist">
+                    <li>Q6(a–h), Q7(a–c) e Q8(a–d) com domínio, módulo no \(\ln|y|\) e partes</li>
+                    <li>Atenção especial: Q6(c), Q6(e), Q6(f), Q6(h) e Q7(b, c)</li>
+                </ul>
+            </div>
+            <div class="chk-topic">
+                <a class="chk-topic-title" href="#topico-3">☐ Tópico 3: EDOs Lineares — Fator Integrante (Q9 a Q12) <span class="chk-pill req">🔧 Base p/ Bernoulli</span></a>
+                <ul class="chk-sublist">
+                    <li>Forma padrão \(y' + p(x)y = q(x)\) e \(\mu(x) = e^{\int p(x)\,dx}\)</li>
+                    <li>Q9, Q10(a–g) (com errata da Q10b!), Q11 e Q12</li>
+                </ul>
+            </div>
+            <div class="chk-topic">
+                <a class="chk-topic-title" href="#topico-4">☐ Tópico 4: EDOs Exatas e Fator Integrante Especial (Q13 a Q15) <span class="chk-pill hot">⭐ 2ª Chamada</span></a>
+                <ul class="chk-sublist">
+                    <li>Condição \(M_y = N_x\) e construção da função potencial \(\Psi(x,y)=C\)</li>
+                    <li>Fatores integrantes \(\mu(x)\) e \(\mu(y)\) (Q14 é molde exato da P1!)</li>
+                </ul>
+            </div>
+            <div class="chk-topic">
+                <a class="chk-topic-title" href="#topico-5">☐ Tópico 5: Equação de Bernoulli (Q18) <span class="chk-pill hot">⭐ 2ª Chamada</span></a>
+                <ul class="chk-sublist">
+                    <li>Substituição \(v = y^{1-\alpha}\) reduzindo à EDO linear de 1ª ordem</li>
+                    <li>Q18(a–d) completas (Q18c caiu praticamente igual na P1!)</li>
+                </ul>
+            </div>
+            <div class="chk-topic">
+                <a class="chk-topic-title" href="#topico-6">☐ Tópico 6: PVIs Mistos (Q19) e Homogêneas (Q16–Q17) <span class="chk-pill hot">⭐ Q19</span> <span class="chk-pill out">❌ Q16–17</span></a>
+                <ul class="chk-sublist">
+                    <li>Q19(a–c): treino cego de reconhecimento de método + PVI</li>
+                    <li>Q16–Q17: EDOs homogêneas (\(v=y/x\)) completas, mas fora da 2ª chamada</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+<div class="topic-section" id="topico-1"><div class="topic-banner"><h2>Tópico 1: Fundamentos, Classificação e Verificação de Soluções</h2><span class="topic-range">Exercícios 1 a 5</span></div><div class="prereq-box"><h3>🧠 Pré-Requisitos de Cálculo 1 (Zero Pressuposição)</h3><ul><li><strong>Derivada da Função Composta (Regra da Cadeia) e Produto:</strong> Em \(y = \frac{c}{\cos x} = c(\cos x)^{-1}\), derivar exige Regra da Cadeia ou Quociente: \(\left(\frac{1}{\cos x}\right)' = -\frac{(-\operatorname{sen} x)}{\cos^2 x} = \frac{\operatorname{sen} x}{\cos^2 x}\). Em \((t+k)e^{-3t}\), usamos a Regra do Produto \((fg)' = f'g + fg'\).</li><li><strong>Derivada Logarítmica:</strong> \(\frac{d}{dt}(\ln|u(t)|) = \frac{u'(t)}{u(t)}\). Esse passo aparece direto na Questão 4!</li></ul></div><div class="theory-box"><h3>📘 Ordem, Linearidade e Verificação</h3><p>A <strong>ordem</strong> de uma EDO é a ordem da maior derivada presente (\(y', y'', y''', \dots\)). Ela é <strong>linear</strong> se a função incógnita \(y\) e todas as suas derivadas aparecem apenas no 1º grau (sem \(y^2\), \((y')^3\), \(y\cdot y'', \cos(y)\)), multiplicadas apenas por funções de \(x\).</p></div><div class="formula-card"><div class="formula-card-header">📐 Checklist Rápido — Classificação de EDOs</div><table class="formula-table"><thead><tr><th>Critério</th><th>Linear (Permitido)</th><th>Não-Linear (Proibido)</th></tr></thead><tbody><tr><td>Potências de \(y\) ou derivadas</td><td>\(y, y', y''\) sempre com expoente 1</td><td>\(y^2, (y')^3, \sqrt{y}\)</td></tr><tr><td>Produtos envolvendo \(y\)</td><td>\(x^3 y', \cos(2\pi x) y, (\operatorname{sen} x) y'\)</td><td>\(y \cdot y'', y \cdot y^{(4)}, x y y'\)</td></tr><tr><td>Funções transcendentes</td><td>\(\ln(x^2+1)\cdot y, e^{2x}\)</td><td>\(\cos(xy), \operatorname{sen}(y), e^y\)</td></tr></tbody></table></div><div class="exercise-card"><div class="exercise-header"><div class="exercise-title"><span>📖</span> Exercício 1 — Classificação: Ordem e Linearidade</div><span class="badge-type badge-book">Introdutório</span></div><div class="exercise-body"><div class="enunciado-geral"><strong>1.</strong> Classifique as seguintes equações segundo a ordem e a linearidade:</div>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(a)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\(x^2 y'' + 5xy = 3x(y')^3\)</span>
+            <span class="item-diag diag-base">Aquecimento · Potência em y'</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q1(a)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(\text{Maior derivada: } y'' \implies \text{Ordem } 2\)</td><td class="step-comment"><span class="comment-prefix">//</span> Olhamos o maior índice de derivação de \(y\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(\text{Termo } 3x(y')^3 \text{ tem } (y')^3 \implies \text{Não-linear}\)</td><td class="step-comment"><span class="comment-prefix">//</span> A derivada primeira está elevada ao cubo (expoente \(\neq 1\)).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q1(a): <strong>Ordem 2, Não-linear</strong>.</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(b)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\(y' + 3x^3 y + y'' = \cos(xy)\)</span>
+            <span class="item-diag diag-base">Aquecimento · Função de xy</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q1(b)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(\text{Maior derivada: } y'' \implies \text{Ordem } 2\)</td><td class="step-comment"><span class="comment-prefix">//</span> A maior derivada que aparece é a segunda.</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(\text{Termo } \cos(xy) \implies \text{Não-linear}\)</td><td class="step-comment"><span class="comment-prefix">//</span> O argumento do cosseno contém a variável dependente \(y\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q1(b): <strong>Ordem 2, Não-linear</strong>.</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(c)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\(y\dfrac{d^4 y}{dx^4} + \ln(x^2 + 1)y = 0\)</span>
+            <span class="item-diag diag-trap">Pegadinha leve · Produto y·y⁽⁴⁾</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q1(c)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(\text{Maior derivada: } \dfrac{d^4 y}{dx^4} \implies \text{Ordem } 4\)</td><td class="step-comment"><span class="comment-prefix">//</span> Derivada de 4ª ordem determina a ordem da EDO.</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(y \cdot \dfrac{d^4 y}{dx^4} \implies \text{Não-linear}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Apesar de \(\ln(x^2+1)\) ser permitido, o produto da incógnita \(y\) pela derivada quebra a linearidade.</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q1(c): <strong>Ordem 4, Não-linear</strong>.</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(d)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\(x^3(x^2 - 1)y' + \cos(2\pi x)y = 0\)</span>
+            <span class="item-diag diag-base">Linear · Coefs só em x</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q1(d)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(\text{Maior derivada: } y' \implies \text{Ordem } 1\)</td><td class="step-comment"><span class="comment-prefix">//</span> Só há derivada primeira.</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(a_1(x)=x^3(x^2-1),\; a_0(x)=\cos(2\pi x) \implies \text{Linear}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Os coeficientes não-lineares envolvem apenas \(x\), nunca \(y\) ou \(y'\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q1(d): <strong>Ordem 1, Linear</strong>.</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(e)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\((y + y^2)\dfrac{d^2y}{dx^2} + x^3\dfrac{dy}{dx} = e^{2x}\)</span>
+            <span class="item-diag diag-base">Aquecimento · Coeficiente em y</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q1(e)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(\text{Maior derivada: } y'' \implies \text{Ordem } 2\)</td><td class="step-comment"><span class="comment-prefix">//</span> Segunda derivada presente.</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\((y + y^2)y'' \implies \text{Não-linear}\)</td><td class="step-comment"><span class="comment-prefix">//</span> O coeficiente de \(y''\) depende de \(y\) (gera \(y y''\) e \(y^2 y''\)).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q1(e): <strong>Ordem 2, Não-linear</strong>.</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(f)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\(\cos x^3\, y'' - 3x y''' - x^2 y = y'\operatorname{sen} x\)</span>
+            <span class="item-diag diag-trap">Pegadinha leve · Ordem fora de ordem</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q1(f)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(\text{Maior derivada: } -3x y''' \implies \text{Ordem } 3\)</td><td class="step-comment"><span class="comment-prefix">//</span> Cuidado: \(y'''\) aparece no meio, não no primeiro termo!</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(-3x y''' + \cos(x^3)y'' - (\operatorname{sen} x)y' - x^2 y = 0\)</td><td class="step-comment"><span class="comment-prefix">//</span> Todos os coeficientes dependem exclusivamente de \(x\); \(y, y', y'', y'''\) estão no 1º grau.</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q1(f): <strong>Ordem 3, Linear</strong>.</div>
+        </div>
+    </details></div></div><div class="exercise-card"><div class="exercise-header"><div class="exercise-title"><span>📖</span> Exercício 2 — Verificação de Soluções e Parâmetro</div><span class="badge-type badge-book">Introdutório</span></div><div class="exercise-body"><div class="enunciado-geral"><strong>2.</strong> Verifique que as seguintes funções são soluções das EDOs correspondentes (e determine \(m\) no item c):</div>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(a)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\(y(x)=\dfrac{c}{\cos x}\) em \(y' - y\operatorname{tg}(x)=0\)</span>
+            <span class="item-diag diag-base">Derivada simples · Quociente</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q2(a)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(y(x) = c(\cos x)^{-1}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Reescrevemos como potência para aplicar a Regra da Cadeia.</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(y'(x) = -c(\cos x)^{-2}\cdot(-\operatorname{sen} x) = \dfrac{c\operatorname{sen} x}{\cos^2 x}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Derivada de \(\cos x\) é \(-\operatorname{sen} x\); os sinais negativos se anulam.</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(y' - y\operatorname{tg}(x) = \dfrac{c\operatorname{sen} x}{\cos^2 x} - \dfrac{c}{\cos x}\cdot\dfrac{\operatorname{sen} x}{\cos x} = 0\)</td><td class="step-comment"><span class="comment-prefix">//</span> Substituindo \(\operatorname{tg} x = \frac{\operatorname{sen} x}{\cos x}\), os termos cancelam identicamente.</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Conclusão Q2(a): Verificado! \(y(x) = \frac{c}{\cos x}\) é solução para todo \(x\) com \(\cos x \neq 0\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(b)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\(x(t)=(t+k)e^{-3t}\) em \(x'(t)+3x(t)=e^{-3t}\)</span>
+            <span class="item-diag diag-base">Regra do Produto</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q2(b)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(x'(t) = 1\cdot e^{-3t} + (t+k)\cdot(-3e^{-3t}) = (1 - 3t - 3k)e^{-3t}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Aplicamos a Regra do Produto e a Regra da Cadeia em \(e^{-3t}\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(x'(t) + 3x(t) = (1 - 3t - 3k)e^{-3t} + 3(t+k)e^{-3t}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Substituímos \(x'(t)\) e \(x(t)\) no lado esquerdo da EDO.</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(= (1 - 3t - 3k + 3t + 3k)e^{-3t} = e^{-3t}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Os termos em \(t\) e \(k\) se cancelam, sobrando exatamente \(e^{-3t}\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Conclusão Q2(b): Verificado! \(x(t) = (t+k)e^{-3t}\) resolve a EDO para qualquer \(k \in \mathbb{R}\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(c)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\(y(x)=x^m\) em \(x^2 y'' + x y' - 4y = 0\)</span>
+            <span class="item-diag diag-base">Polinômio característico</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q2(c)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(y'(x) = m x^{m-1}, \qquad y''(x) = m(m-1)x^{m-2}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Calculamos as duas primeiras derivadas pela Regra do Tombo.</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(x^2[m(m-1)x^{m-2}] + x[m x^{m-1}] - 4x^m = 0\)</td><td class="step-comment"><span class="comment-prefix">//</span> Substituímos na EDO (para \(x > 0\)) e somamos os expoentes.</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\([m(m-1) + m - 4]x^m = (m^2 - 4)x^m = 0\)</td><td class="step-comment"><span class="comment-prefix">//</span> Como \(x^m \neq 0\) para \(x > 0\), devemos ter \(m^2 - 4 = 0\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q2(c): \(m = 2\) ou \(m = -2\) (equação de Cauchy-Euler!).</div>
+        </div>
+    </details></div></div><div class="exercise-card"><div class="exercise-header"><div class="exercise-title"><span>📖</span> Exercício 3 — Problemas de Valor Inicial (Usando Q2)</div><span class="badge-type badge-book">Introdutório</span></div><div class="exercise-body"><div class="enunciado-geral"><strong>3.</strong> Utilize as soluções gerais do Exercício 2 para determinar a solução particular de cada P.V.I.:</div>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(a)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\(y' - y\operatorname{tg}(x)=0,\quad y(0)=3\)</span>
+            <span class="item-diag diag-base">PVI direto · Determinar c</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q3(a)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(y(x) = \dfrac{c}{\cos x}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Tomamos a família de soluções verificada em Q2(a).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(y(0) = \dfrac{c}{\cos 0} = \dfrac{c}{1} = 3 \implies c = 3\)</td><td class="step-comment"><span class="comment-prefix">//</span> Aplicamos \(x=0, y=3\) para encontrar a constante.</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q3(a): \(y(x) = \dfrac{3}{\cos x}\) (no intervalo \((-\pi/2, \pi/2)\) contendo \(0\)).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(b)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\(x'(t)+3x(t)=e^{-3t},\quad x(1)=1\)</span>
+            <span class="item-diag diag-base">PVI direto · Determinar k</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q3(b)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(x(t) = (t + k)e^{-3t}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Tomamos a solução de Q2(b).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(x(1) = (1 + k)e^{-3} = 1 \implies 1 + k = e^3 \implies k = e^3 - 1\)</td><td class="step-comment"><span class="comment-prefix">//</span> Isolamos \(k\) multiplicando ambos os lados por \(e^3\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q3(b): \(x(t) = (t + e^3 - 1)e^{-3t}\).</div>
+        </div>
+    </details></div></div><div class="exercise-card"><div class="exercise-header"><div class="exercise-title"><span>⚠️</span> Exercício 4 — Solução Implícita vs. Condição Inicial</div><span class="badge-type badge-extra">Atenção Conceitual</span></div><div class="exercise-body"><div class="enunciado-geral"><strong>4.</strong> Considere \(e^{f(t)} = e^t + 2\) e \(g(t) = \ln|e^t + e - 1|\). (a) Verifique que ambas resolvem \(y'(t) = e^{t-y}\). (b) Ambas resolvem o P.V.I. com \(y(0)=1\)?</div>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(a)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">Verificar \(f\) e \(g\) em \(y'(t)=e^{t-y}\)</span>
+            <span class="item-diag diag-base">Derivação implícita / ln</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q4(a)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(f(t) = \ln(e^t + 2) \implies f'(t) = \dfrac{e^t}{e^t + 2}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Como \(e^t+2 > 0\), isolamos \(f(t)\) com \(\ln\) e derivamos pela Regra da Cadeia.</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(e^{t - f(t)} = \dfrac{e^t}{e^{f(t)}} = \dfrac{e^t}{e^t + 2} = f'(t)\)</td><td class="step-comment"><span class="comment-prefix">//</span> Substituindo \(e^{f(t)} = e^t+2\), os dois lados da EDO coincidem.</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(g'(t) = \dfrac{e^t}{e^t + e - 1}, \qquad e^{t - g(t)} = \dfrac{e^t}{e^t + e - 1}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Para \(e^t + e - 1 > 0\), \(|e^t+e-1| = e^t+e-1\) e \(e^{g(t)} = e^t+e-1\). Identidade verificada!</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Conclusão Q4(a): Tanto \(f(t)\) quanto \(g(t)\) satisfazem a EDO \(y'(t) = e^{t-y}\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(b)</span>
+            <span class="item-prio" title="Classificação">⚠️</span>
+            <span class="item-enunc">Checar P.V.I. \(y(0) = 1\) para \(f\) e \(g\)</span>
+            <span class="item-diag diag-trap">Pegadinha · Testar C.I.</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q4(b)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(f(0) = \ln(e^0 + 2) = \ln(3) \approx 1{,}0986 \neq 1\)</td><td class="step-comment"><span class="comment-prefix">//</span> Testando \(t=0\) em \(f\): \(\ln 3 \neq 1\), logo \(f\) NÃO passa pelo ponto \((0,1)\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(g(0) = \ln|e^0 + e - 1| = \ln|e| = 1\)</td><td class="step-comment"><span class="comment-prefix">//</span> Testando \(t=0\) em \(g\): dá exatamente \(1\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Conclusão Q4(b): <strong>Apenas \(g(t)\)</strong> resolve o P.V.I. (satisfazer a EDO não basta; precisa bater a condição inicial!).</div>
+        </div>
+    </details></div></div><div class="exercise-card"><div class="exercise-header"><div class="exercise-title"><span>📖</span> Exercício 5 — Triagem de Soluções</div><span class="badge-type badge-book">Introdutório</span></div><div class="exercise-body"><div class="enunciado-geral"><strong>5.</strong> Determine qual ou quais de \(y_1(x)=x^2,\; y_2(x)=x^3,\; y_3(x)=e^{-x}\) resolvem \((x+3)y'' + (x+2)y' - y = 0\).</div>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">Único</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">Testar \(y_1=x^2,\; y_2=x^3,\; y_3=e^{-x}\)</span>
+            <span class="item-diag diag-base">Substituição direta</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q5</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(y_1=x^2:\; (x+3)(2) + (x+2)(2x) - x^2 = x^2 + 6x + 6 \not\equiv 0\)</td><td class="step-comment"><span class="comment-prefix">//</span> Não anula identicamente para todo \(x\) \(\implies\) não é solução.</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(y_2=x^3:\; (x+3)(6x) + (x+2)(3x^2) - x^3 = 2x^3 + 12x^2 + 18x \not\equiv 0\)</td><td class="step-comment"><span class="comment-prefix">//</span> Não anula identicamente \(\implies\) não é solução.</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(y_3=e^{-x},\; y_3'=-e^{-x},\; y_3''=e^{-x}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Calculamos as derivadas de \(e^{-x}\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\((x+3)e^{-x} - (x+2)e^{-x} - e^{-x} = (x+3-x-2-1)e^{-x} = 0\)</td><td class="step-comment"><span class="comment-prefix">//</span> Os coeficientes se anulam identicamente (\(0 = 0\)).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q5: <strong>Apenas \(y_3(x) = e^{-x}\)</strong> é solução.</div>
+        </div>
+    </details></div></div><div class="recap-box"><h3>📌 Resuminho do Tópico 1 — Regras de Bolso</h3><div class="recap-grid"><div class="recap-card"><strong>1. Linearidade é sobre \(y\), nunca sobre \(x\)</strong>Não se assuste com \(\cos(x^3)\) ou \(\ln(x^2+1)\) multiplicando \(y\). O que torna não-linear é \(y^2\), \((y')^3\), \(y\cdot y'\) ou \(\cos(xy)\).</div><div class="recap-card"><strong>2. PVI exige dois testes</strong>Para dizer que uma função resolve um PVI, ela precisa: (1) satisfazer a EDO e (2) bater exatamente o valor inicial \(y(t_0) = y_0\).</div></div></div></div><div class="topic-section" id="topico-2"><div class="topic-banner"><h2>Tópico 2: Separação de Variáveis e PVIs</h2><span class="topic-range">⭐ CAI NA 2ª CHAMADA · Q6 a Q8</span></div><div class="prereq-box"><h3>🧠 Pré-Requisitos de Cálculo 1 e 2 (Zero Pressuposição)</h3><ul><li><strong>Integrais Fundamentais:</strong> \(\int \frac{du}{u} = \ln|u| + C\) (sempre com módulo!), \(\int \frac{dx}{1+x^2} = \operatorname{arctg}(x) + C\), \(\int e^{ku}\,du = \frac{1}{k}e^{ku} + C\).</li><li><strong>Substituição Simples (\(u\)-sub):</strong> Em \(\int \frac{e^x}{1+e^x}dx\), fazemos \(u=1+e^x \implies du = e^x dx\), obtendo \(\ln(1+e^x)+C\).</li><li><strong>Integração por Partes (\(\int u\,dv = uv - \int v\,du\)):</strong> Aparece em <strong>Q6(g)</strong>! Dica LIATE: escolha \(u\) como o polinômio para que ele desapareça ao derivar.</li><li><strong>Cuidado com Divisão por Zero (Soluções Constantes):</strong> Ao passar \(g(y)\) dividindo (\(\frac{dy}{g(y)} = f(x)dx\)), você exclui \(g(y)=0\). Sempre cheque se as raízes \(y = y^*\) de \(g(y)=0\) também são soluções constantes da EDO!</li></ul></div><div class="theory-box"><h3>📘 Roteiro da Separação de Variáveis</h3><p>Uma EDO é <strong>separável</strong> quando pode ser escrita como \(y' = f(x)g(y)\) ou \(M(x)\,dx + N(y)\,dy = 0\). Isolamos tudo que tem \(y\) (com \(dy\)) de um lado e tudo que tem \(x\) (com \(dx\)) do outro, integramos ambos os lados colocando a constante \(C\) apenas em um lado, e — se houver PVI — aplicamos a condição inicial antes ou logo após isolar \(y\).</p></div><div class="formula-card"><div class="formula-card-header">📐 Armadilhas Clássicas que Tiram Ponto na Prova (Obs. Oficial da Lista)</div><table class="formula-table"><thead><tr><th>Armadilha</th><th>Como Evitar na Prova</th></tr></thead><tbody><tr><td>Esquecer o módulo em \(\ln|y|\)</td><td>Se o PVI tem \(y(\pi) = -3\) (negativo!), \(|y| = -y\). Usar \(\ln(y)\) sem módulo quebraria o logaritmo!</td></tr><tr><td>Errar o sinal da raiz quadrada \(\pm\sqrt{\dots}\)</td><td>Em \(y^2 = h(x)\), ao tirar a raiz, escolha \(+\) se \(y(x_0) > 0\) ou \(-\) se \(y(x_0) < 0\).</td></tr><tr><td>Esquecer \(y = c\) ao dividir por \(g(y)\)</td><td>Antes de dividir por \(y\) ou \(e^y-1\), cheque se \(y=0\) resolve a EDO original.</td></tr></tbody></table></div><div class="exercise-card"><div class="exercise-header"><div class="exercise-title"><span>⭐</span> Exercício 6 — Separação de Variáveis (Técnica Pura + PVIs)</div><span class="badge-type badge-star">Alta Chance · Molde da P1 Q1(a)</span></div><div class="exercise-body"><div class="enunciado-geral"><strong>6.</strong> Use a técnica da separação de variáveis para resolver as seguintes equações e/ou P.V.I.:</div><div class="raiox-box"><div class="raiox-title">🔍 Raio-X: Como Enxergar na Prova</div><p>Na P1 oficial da Profa. Ana Gabriela, a Q1(a) foi exatamente uma separável do nível de 6(d)–6(f). Separe mentalmente \(\frac{dy}{dx}\) em diferenciais, verifique rapidamente se algum denominador pode zerar e preste atenção redobrada nas integrais por substituição (6f, 6g) e manipulação de exponenciais (6c, 6h).</p></div>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(a)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\(y'(x) = a\,y(x),\quad a \in \mathbb{R}\)</span>
+            <span class="item-diag diag-base">Aquecimento · Decaimento/Crescimento</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q6(a)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(y = 0 \text{ é solução constante (trivial)}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Analisamos \(y=0\) antes de dividir por \(y\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(\text{Para } y \neq 0:\; \dfrac{1}{y}\,dy = a\,dx\)</td><td class="step-comment"><span class="comment-prefix">//</span> Separamos as variáveis \(y\) e \(x\).</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\int \dfrac{1}{y}\,dy = \int a\,dx \implies \ln|y| = ax + C_1\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integramos ambos os lados.</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(|y| = e^{C_1}e^{ax} \implies y = c e^{ax},\; c = \pm e^{C_1} \text{ ou } c=0\)</td><td class="step-comment"><span class="comment-prefix">//</span> Absorvemos o \(\pm e^{C_1}\) e o caso \(y=0\) em uma constante real \(c\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q6(a): \(y(x) = c e^{ax}\), com \(c \in \mathbb{R}\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(b)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\(y'(x) = x\,y(x)\)</span>
+            <span class="item-diag diag-base">Aquecimento · Gaussiana simples</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q6(b)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(y = 0 \text{ é solução constante}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Caso \(y=0\) verificado à parte.</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(\dfrac{1}{y}\,dy = x\,dx \implies \int \dfrac{1}{y}\,dy = \int x\,dx\)</td><td class="step-comment"><span class="comment-prefix">//</span> Separamos \(y\) e \(x\) para \(y \neq 0\).</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\ln|y| = \dfrac{x^2}{2} + C_1 \implies y(x) = c e^{x^2/2}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Exponenciamos e incluímos \(c=0\) para abarcar \(y=0\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q6(b): \(y(x) = c e^{x^2/2}\), com \(c \in \mathbb{R}\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown" data-star="true">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(c)</span>
+            <span class="item-prio" title="Classificação">⚠️</span>
+            <span class="item-enunc">\(e^{-y}(1 + y') = 1\)</span>
+            <span class="item-diag diag-trap">Pegadinha · Módulo no ln</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q6(c)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(1 + y' = e^y \implies \dfrac{dy}{dx} = e^y - 1\)</td><td class="step-comment"><span class="comment-prefix">//</span> Multiplicamos por \(e^y\) para isolar \(y'\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(\text{Note que } e^y - 1 = 0 \iff y = 0 \text{ é solução constante}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Analisamos o caso em que o denominador zera.</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\dfrac{1}{e^y - 1}\,dy = dx \implies \dfrac{e^{-y}}{1 - e^{-y}}\,dy = dx\)</td><td class="step-comment"><span class="comment-prefix">//</span> Truque algébrico: dividimos numerador e denominador por \(e^y\)!</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(u = 1 - e^{-y} \implies du = e^{-y}\,dy\)</td><td class="step-comment"><span class="comment-prefix">//</span> A substituição torna a integral imediata.</td></tr><tr class="step-row"><td class="line-num">05</td><td class="step-math">\(\ln|1 - e^{-y}| = x + C_1 \implies |1 - e^{-y}| = e^{C_1}e^x \implies 1 - e^{-y} = k e^x\)</td><td class="step-comment"><span class="comment-prefix">//</span> Exponenciamos ambos os lados.</td></tr><tr class="step-row"><td class="line-num">06</td><td class="step-math">\(e^{-y} = 1 - k e^x \implies -y = \ln(1 - k e^x) \implies y = -\ln|1 - c e^x|\)</td><td class="step-comment"><span class="comment-prefix">//</span> Tomando \(\ln\) (ou invertendo \(e^y = \frac{1}{1-ce^x}\)), obtemos a forma da lista.</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q6(c): \(y(x) = -\ln|1 - c e^x|\) (além da solução constante \(y=0\), correspondente a \(c=0\)).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(d)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\(y'(t) = \dfrac{t^2 + 1}{y^2 + 1}\)</span>
+            <span class="item-diag diag-base">Polinomial limpa · Forma implícita</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q6(d)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\((y^2 + 1)\,dy = (t^2 + 1)\,dt\)</td><td class="step-comment"><span class="comment-prefix">//</span> Como \(y^2+1 \ge 1 > 0\), nunca zera; multiplicamos cruzado direto.</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(\int (y^2 + 1)\,dy = \int (t^2 + 1)\,dt \implies \dfrac{y^3}{3} + y = \dfrac{t^3}{3} + t + C_1\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integramos termo a termo.</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(y^3 + 3y = t^3 + 3t + c \quad (c = 3C_1)\)</td><td class="step-comment"><span class="comment-prefix">//</span> Multiplicamos tudo por \(3\) para limpar frações.</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q6(d): \(y^3 + 3y = t^3 + 3t + c\) (solução implícita).</div>
+        </div>
+    </details>
+    <details class="item-dropdown" data-star="true">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(e)</span>
+            <span class="item-prio" title="Classificação">⭐</span>
+            <span class="item-enunc">\((1 + x^2)\,dy + y\,dx = 0;\quad y(1) = 1\)</span>
+            <span class="item-diag diag-hot">Alta chance · PVI com arctg</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q6(e)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(\dfrac{1}{y}\,dy = -\dfrac{1}{1 + x^2}\,dx\)</td><td class="step-comment"><span class="comment-prefix">//</span> Separamos \(y\) (não-nulo perto de \(y(1)=1\)) e \(x\); \(1+x^2 > 0\) sempre.</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(\int \dfrac{1}{y}\,dy = -\int \dfrac{1}{1 + x^2}\,dx \implies \ln|y| = -\operatorname{arctg}(x) + C\)</td><td class="step-comment"><span class="comment-prefix">//</span> Lembrando que \(\int \frac{dx}{1+x^2} = \operatorname{arctg}(x)\).</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\ln|1| = -\operatorname{arctg}(1) + C \implies 0 = -\dfrac{\pi}{4} + C \implies C = \dfrac{\pi}{4}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Aplicamos \(x=1, y=1\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(\ln y = -\operatorname{arctg}(x) + \dfrac{\pi}{4} \implies y(x) = e^{-(\operatorname{arctg}(x) - \pi/4)}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Como \(y(1)=1>0\), \(|y|=y\); aplicamos a exponencial.</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q6(e): \(y(x) = e^{-(\operatorname{arctg}(x) - \pi/4)}\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown" data-star="true">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(f)</span>
+            <span class="item-prio" title="Classificação">⭐</span>
+            <span class="item-enunc">\((1 + e^x)\,y\,y' = e^x;\quad y(0) = 1\)</span>
+            <span class="item-diag diag-hot">Alta chance · PVI + u-sub</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q6(f)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(y\,dy = \dfrac{e^x}{1 + e^x}\,dx\)</td><td class="step-comment"><span class="comment-prefix">//</span> Dividimos por \(1+e^x > 0\) e separamos as variáveis.</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(\int y\,dy = \int \dfrac{e^x}{1 + e^x}\,dx \implies \dfrac{y^2}{2} = \ln(1 + e^x) + c\)</td><td class="step-comment"><span class="comment-prefix">//</span> No lado direito, \(u = 1+e^x \implies du = e^x dx\).</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\dfrac{1^2}{2} = \ln(1 + e^0) + c \implies \dfrac{1}{2} = \ln 2 + c \implies c = 0{,}5 - \ln 2\)</td><td class="step-comment"><span class="comment-prefix">//</span> Substituímos \(x=0, y=1\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(y^2 = 2[\ln(1 + e^x) + c] \implies y(x) = \sqrt{2\ln(1+e^x) + 1 - 2\ln 2}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Como \(y(0)=1>0\), escolhemos a raiz positiva.</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q6(f): \(y^2 = 2[\ln(1+e^x) + c]\), com \(c = 0{,}5 - \ln 2\) (ou \(y(x) = \sqrt{2\ln\left(\frac{1+e^x}{2}\right)+1}\)).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(g)</span>
+            <span class="item-prio" title="Classificação">⚠️</span>
+            <span class="item-enunc">\(e^{t^2 + y^2}\,y\,y' = t + 2t^3\)</span>
+            <span class="item-diag diag-hard">Supertrabalhosa · Substituição + Partes</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q6(g)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(e^{t^2} \cdot e^{y^2}\,y\,dy = (t + 2t^3)\,dt\)</td><td class="step-comment"><span class="comment-prefix">//</span> Quebramos \(e^{t^2+y^2} = e^{t^2}e^{y^2}\) pela propriedade de potências.</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(e^{y^2}\,y\,dy = (t + 2t^3)e^{-t^2}\,dt\)</td><td class="step-comment"><span class="comment-prefix">//</span> Passamos \(e^{t^2}\) dividindo (vira \(e^{-t^2}\)).</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\int e^{y^2}\,y\,dy = \frac{1}{2}e^{y^2}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Substituição \(w = y^2 \implies dw = 2y\,dy\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(\text{Na direita, } s = t^2,\; ds = 2t\,dt \implies \int (t + 2t^3)e^{-t^2}\,dt = \frac{1}{2}\int (1 + 2s)e^{-s}\,ds\)</td><td class="step-comment"><span class="comment-prefix">//</span> Transformamos \(t\) em \(s=t^2\) antes de integrar por partes!</td></tr><tr class="step-row"><td class="line-num">05</td><td class="step-math">\(u = 1+2s,\; dv = e^{-s}ds \implies \int (1+2s)e^{-s}ds = -(1+2s)e^{-s} - 2e^{-s} = -(3+2s)e^{-s}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integração por partes: \(uv - \int v\,du = -(1+2s)e^{-s} + \int 2e^{-s}ds\).</td></tr><tr class="step-row"><td class="line-num">06</td><td class="step-math">\(\frac{1}{2}e^{y^2} = -\frac{1}{2}(3 + 2t^2)e^{-t^2} + C_1 \implies e^{y^2} = c - (3+2t^2)e^{-t^2}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Multiplicamos por \(2\) e voltamos \(s = t^2\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q6(g): \(y^2 = \ln\left|c - (3 + 2t^2)e^{-t^2}\right|\) (para \(c - (3+2t^2)e^{-t^2} \ge 1\)).</div>
+        </div>
+    </details>
+    <details class="item-dropdown" data-star="true">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(h)</span>
+            <span class="item-prio" title="Classificação">⭐</span>
+            <span class="item-enunc">\(e^{t + y}\,y' = e^{2t - y}\)</span>
+            <span class="item-diag diag-hot">Alta chance · Álgebra de exponenciais</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q6(h)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(e^t e^y \dfrac{dy}{dt} = e^{2t} e^{-y}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Fatoramos as exponenciais de soma/subtração.</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(e^{2y}\,dy = \dfrac{e^{2t}}{e^t}\,dt = e^t\,dt\)</td><td class="step-comment"><span class="comment-prefix">//</span> Passamos \(e^{-y}\) multiplicando à esquerda e \(e^t\) dividindo à direita.</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\int e^{2y}\,dy = \int e^t\,dt \implies \dfrac{1}{2}e^{2y} = e^t + C_1\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integramos ambos os lados.</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(e^{2y} = 2e^t + c \implies 2y = \ln|2e^t + c| \implies y(t) = \dfrac{1}{2}\ln|2e^t + c|\)</td><td class="step-comment"><span class="comment-prefix">//</span> Multiplicamos por \(2\) e aplicamos \(\ln\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q6(h): \(y(t) = \dfrac{1}{2}\ln|2e^t + c|\).</div>
+        </div>
+    </details></div></div><div class="exercise-card"><div class="exercise-header"><div class="exercise-title"><span>⭐</span> Exercício 7 — PVIs Clássicos com Raiz e Módulo Negativo</div><span class="badge-type badge-star">Alta Chance de Prova</span></div><div class="exercise-body"><div class="enunciado-geral"><strong>7.</strong> Resolva cada um dos Problemas de Valor Inicial a seguir:</div><div class="raiox-box"><div class="raiox-title">🔍 Raio-X: Como Enxergar na Prova</div><p>Todos os três itens treinam a parte mais cobrada após a separação: <strong>escolher o sinal correto do módulo/raiz</strong> com base no ponto inicial. O item (b) tem \(y(\pi) = -3\) negativo de propósito para derrubar quem esquece do módulo em \(\ln|y|\)!</p></div>
+    <details class="item-dropdown" data-star="true">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(a)</span>
+            <span class="item-prio" title="Classificação">⭐</span>
+            <span class="item-enunc">\(2y\dfrac{dy}{dx} = -x^2;\quad y(0) = 2\)</span>
+            <span class="item-diag diag-hot">PVI clássico · Escolha da raiz +</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q7(a)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(2y\,dy = -x^2\,dx \implies \int 2y\,dy = -\int x^2\,dx\)</td><td class="step-comment"><span class="comment-prefix">//</span> Já está quase separado; passamos \(dx\) multiplicando.</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(y^2 = -\dfrac{x^3}{3} + C\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integramos os dois lados.</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(2^2 = -\dfrac{0^3}{3} + C \implies C = 4\)</td><td class="step-comment"><span class="comment-prefix">//</span> Aplicamos \(x=0, y=2\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(y^2 = 4 - \dfrac{x^3}{3} \implies y(x) = +\sqrt{4 - \dfrac{x^3}{3}}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Como \(y(0)=2 > 0\), escolhemos a raiz positiva; válida para \(x < \sqrt[3]{12}\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q7(a): \(y(x) = \sqrt{4 - \dfrac{x^3}{3}}\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown" data-star="true">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(b)</span>
+            <span class="item-prio" title="Classificação">⚠️</span>
+            <span class="item-enunc">\(\dfrac{dy}{dx} = y\operatorname{sen} x;\quad y(\pi) = -3\)</span>
+            <span class="item-diag diag-trap">Pegadinha · Módulo com y(π) = -3</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q7(b)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(\dfrac{1}{y}\,dy = \operatorname{sen} x\,dx \quad (y \neq 0)\)</td><td class="step-comment"><span class="comment-prefix">//</span> Como \(y(\pi) = -3 \neq 0\), podemos dividir por \(y\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(\ln|y| = -\cos x + C\)</td><td class="step-comment"><span class="comment-prefix">//</span> Primitiva de \(\operatorname{sen} x\) é \(-\cos x\).</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\ln|-3| = -\cos(\pi) + C \implies \ln 3 = -(-1) + C \implies C = \ln 3 - 1\)</td><td class="step-comment"><span class="comment-prefix">//</span> ATENÇÃO: \(|-3| = 3\)! Sem módulo daria erro de domínio.</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(|y| = e^{-\cos x + \ln 3 - 1} = 3 e^{-(1 + \cos x)}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Como \(y(\pi) = -3 < 0\), o sinal é negativo: \(y = -|y|\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q7(b): \(y(x) = -3 e^{-(1 + \cos x)}\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown" data-star="true">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(c)</span>
+            <span class="item-prio" title="Classificação">⚠️</span>
+            <span class="item-enunc">\(\dfrac{dy}{dx} = 2\sqrt{y+1}\cos x;\quad y(\pi) = 0\)</span>
+            <span class="item-diag diag-trap">Pegadinha · Raiz e domínio</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q7(c)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(\dfrac{1}{\sqrt{y+1}}\,dy = 2\cos x\,dx \quad (y > -1)\)</td><td class="step-comment"><span class="comment-prefix">//</span> Como \(y(\pi)=0 > -1\), dividimos por \(\sqrt{y+1}\) (note que \(y=-1\) é solução singular!).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(\int (y+1)^{-1/2}\,dy = \int 2\cos x\,dx \implies 2\sqrt{y+1} = 2\operatorname{sen} x + C\)</td><td class="step-comment"><span class="comment-prefix">//</span> Primitiva de \((y+1)^{-1/2}\) é \(2(y+1)^{1/2}\); dividindo por 2: \(\sqrt{y+1} = \operatorname{sen} x + c\).</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\sqrt{0+1} = \operatorname{sen}(\pi) + c \implies 1 = 0 + c \implies c = 1\)</td><td class="step-comment"><span class="comment-prefix">//</span> Aplicamos \(x=\pi, y=0\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(\sqrt{y+1} = \operatorname{sen} x + 1 \implies y(x) = (\operatorname{sen} x + 1)^2 - 1\)</td><td class="step-comment"><span class="comment-prefix">//</span> Como \(\operatorname{sen} x + 1 \ge 0\) sempre, podemos elevar ao quadrado sem violar \(\sqrt{y+1} \ge 0\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q7(c): \(y(x) = (\operatorname{sen} x + 1)^2 - 1\) (para \(x\) onde \(\operatorname{sen} x > -1\)).</div>
+        </div>
+    </details></div></div><div class="exercise-card"><div class="exercise-header"><div class="exercise-title"><span>📖</span> Exercício 8 — PVIs Lineares/Separáveis de 1ª Ordem</div><span class="badge-type badge-book">Base Rápida</span></div><div class="exercise-body"><div class="enunciado-geral"><strong>8.</strong> Encontre a solução dos Problemas de Valor Inicial a seguir (todos resolvíveis por separação direta \(dy/(ay+b) = dx\)):</div><div class="raiox-box"><div class="raiox-title">🔍 Raio-X: Padrão dos 4 Itens</div><p>Todos são da forma \(y' = ay + b\) com \(y(0)=1\). Se \(ay+b \neq 0\), integramos \(\int \frac{dy}{ay+b} = \frac{1}{a}\ln|ay+b| = x + C\), o que dá \(ay+b = k e^{ax}\). Uma boa forma de checar rapidamente o sinal!</p></div>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(a)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\(y'(x) = y - 2;\quad y(0) = 1\)</span>
+            <span class="item-diag diag-base">Base rápida · Equilíbrio y=2</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q8(a)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(\dfrac{dy}{y - 2} = dx \implies \ln|y - 2| = x + C_1 \implies y - 2 = k e^x\)</td><td class="step-comment"><span class="comment-prefix">//</span> Como \(y(0)=1 \neq 2\), separamos e exponenciamos.</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(1 - 2 = k e^0 \implies k = -1 \implies y(x) = 2 - e^x\)</td><td class="step-comment"><span class="comment-prefix">//</span> Aplicamos \(y(0)=1\) e isolamos \(y\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q8(a): \(y(x) = 2 - e^x\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(b)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\(y'(x) = y + 2;\quad y(0) = 1\)</span>
+            <span class="item-diag diag-base">Base rápida · Equilíbrio y=-2</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q8(b)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(\dfrac{dy}{y + 2} = dx \implies \ln|y + 2| = x + C_1 \implies y + 2 = k e^x\)</td><td class="step-comment"><span class="comment-prefix">//</span> Separamos e exponenciamos.</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(1 + 2 = k e^0 \implies k = 3 \implies y(x) = 3e^x - 2\)</td><td class="step-comment"><span class="comment-prefix">//</span> Aplicamos \(y(0)=1\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q8(b): \(y(x) = 3e^x - 2\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(c)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\(y'(x) = 2y - 4;\quad y(0) = 1\)</span>
+            <span class="item-diag diag-base">Base rápida · Fator 2</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q8(c)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(\dfrac{dy}{2(y - 2)} = dx \implies \dfrac{dy}{y - 2} = 2\,dx\)</td><td class="step-comment"><span class="comment-prefix">//</span> Colocamos \(2\) em evidência para evitar errar o fator \(\frac{1}{2}\) na integral.</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(\ln|y - 2| = 2x + C_1 \implies y - 2 = k e^{2x}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Exponenciamos.</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(1 - 2 = k \implies k = -1 \implies y(x) = -e^{2x} + 2\)</td><td class="step-comment"><span class="comment-prefix">//</span> Aplicamos \(y(0)=1\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q8(c): \(y(x) = -e^{2x} + 2\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(d)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\(y'(x) = 2y + 4;\quad y(0) = 1\)</span>
+            <span class="item-diag diag-base">Base rápida · Fator 2</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q8(d)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(\dfrac{dy}{y + 2} = 2\,dx \implies \ln|y + 2| = 2x + C_1 \implies y + 2 = k e^{2x}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Fatoramos \(2(y+2)\) e integramos.</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(1 + 2 = k \implies k = 3 \implies y(x) = 3e^{2x} - 2\)</td><td class="step-comment"><span class="comment-prefix">//</span> Aplicamos \(y(0)=1\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q8(d): \(y(x) = 3e^{2x} - 2\).</div>
+        </div>
+    </details></div></div><div class="recap-box"><h3>📌 Resuminho do Tópico 2 — Separação de Variáveis</h3><div class="recap-grid"><div class="recap-card"><strong>1. Ordem dos Passos</strong>(1) Checar zeros do divisor \(g(y)=0\); (2) Separar \(h(y)dy = f(x)dx\); (3) Integrar colocando \(+C\) só de um lado; (4) Se for PVI, achar \(C\) e conferir sinal do módulo / raiz.</div><div class="recap-card"><strong>2. Onde mais se perde ponto</strong>Esquecer o módulo em \(\ln|y|\) quando \(y(x_0) < 0\) (Q7b) e esquecer o fator \(\frac{1}{2}\) em \(\int e^{2y}dy\) ou \(\int \frac{dy}{2y-4}\).</div></div></div></div><div class="topic-section" id="topico-3"><div class="topic-banner"><h2>Tópico 3: EDOs Lineares de 1ª Ordem — Fator Integrante</h2><span class="topic-range">🔧 Pré-Requisito de Bernoulli · Q9 a Q12</span></div><div class="prereq-box"><h3>🧠 Por que revisar este bloco se a ementa citou Bernoulli?</h3><ul><li><strong>Conexão Obrigatória:</strong> Toda equação de Bernoulli (\(y'+p(x)y=q(x)y^\alpha\)) se transforma, pela mudança \(v=y^{1-\alpha}\), exatamente em uma <strong>EDO Linear de 1ª Ordem</strong> em \(v(x)\)! Se você não dominar o Fator Integrante aqui, trava na metade da questão de Bernoulli.</li><li><strong>Propriedade Chave de Logaritmo:</strong> \(e^{k\ln x} = e^{\ln(x^k)} = x^k\) (para \(x>0\)). E cuidado com sinais negativos: \(e^{-2\ln x} = x^{-2} = \frac{1}{x^2}\).</li><li><strong>Integração por Partes (aparece em Q9 e Q10e!):</strong> \(\int x\cos x\,dx = x\operatorname{sen} x + \cos x + C\) e \(\int x\operatorname{sen} x\,dx = \operatorname{sen} x - x\cos x + C\).</li></ul></div><div class="theory-box"><h3>📘 Método do Fator Integrante em 4 Passos</h3><p>1. Coloque na <strong>forma padrão</strong> (coeficiente de \(y'\) igual a 1!): \(y' + p(x)y = q(x)\).<br>2. Calcule o fator integrante: \(\mu(x) = e^{\int p(x)\,dx}\) (não precisa colocar \(+C\) aqui).<br>3. Multiplique a forma padrão por \(\mu(x)\): o lado esquerdo vira automaticamente a derivada do produto \((\mu(x)y)' = \mu(x)q(x)\).<br>4. Integre dos dois lados: \(\mu(x)y = \int \mu(x)q(x)\,dx + C \implies y(x) = \frac{1}{\mu(x)}\left[\int \mu(x)q(x)\,dx + C\right]\).</p></div><div class="exercise-card"><div class="exercise-header"><div class="exercise-title"><span>📖</span> Exercício 9 — Fator Integrante com Integração por Partes</div><span class="badge-type badge-book">Clássico</span></div><div class="exercise-body"><div class="enunciado-geral"><strong>9.</strong> Encontre a solução geral da EDO linear para \(x > 0\): \(xy' + 2y = \cos x\).</div>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">Único</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\(x y' + 2y = \cos x,\quad x > 0\)</span>
+            <span class="item-diag diag-base">Normalizar por x + Partes</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q9</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(y' + \dfrac{2}{x}y = \dfrac{\cos x}{x}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Dividimos tudo por \(x > 0\) para deixar na forma padrão \(y'+p(x)y=q(x)\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(\mu(x) = e^{\int \frac{2}{x}\,dx} = e^{2\ln x} = x^2\)</td><td class="step-comment"><span class="comment-prefix">//</span> Calculamos o fator integrante (como \(x>0\), \(|x|=x\)).</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\dfrac{d}{dx}(x^2 y) = x^2 \cdot \dfrac{\cos x}{x} = x\cos x\)</td><td class="step-comment"><span class="comment-prefix">//</span> Multiplicando por \(\mu(x)=x^2\), o lado esquerdo fecha como derivada do produto.</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(x^2 y = \int x\cos x\,dx = x\operatorname{sen} x - \int \operatorname{sen} x\,dx = x\operatorname{sen} x + \cos x + C\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integração por partes com \(u=x,\; dv=\cos x\,dx\).</td></tr><tr class="step-row"><td class="line-num">05</td><td class="step-math">\(y(x) = \dfrac{x\operatorname{sen} x + \cos x + C}{x^2}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Dividimos tudo por \(x^2\) (nunca esqueça de dividir a constante \(C\) também!).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q9: \(y(x) = \dfrac{x\operatorname{sen} x + \cos x + C}{x^2}\).</div>
+        </div>
+    </details></div></div><div class="exercise-card"><div class="exercise-header"><div class="exercise-title"><span>⭐</span> Exercício 10 — Bateria Completa de EDOs Lineares</div><span class="badge-type badge-star">Treino de Fator Integrante (P/ Bernoulli)</span></div><div class="exercise-body"><div class="enunciado-geral"><strong>10.</strong> Encontre a solução geral das seguintes EDOs lineares de primeira ordem:</div><div class="raiox-box"><div class="raiox-title">🔍 Raio-X: Foco Cirúrgico</div><p>Preste atenção redobrada em <strong>(b), (d), (f) e (g)</strong>: divisão para normalizar, fator integrante com sinal negativo (\(x^{-2}\) ou \(x^{-1}(x-1)\)), e <strong>atenção à gralha do gabarito no item (b)</strong>.</p></div>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(a)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\(xy' + 2y = x^2 - x + 1\)</span>
+            <span class="item-diag diag-base">Normalização + Polinômio</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q10(a)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(y' + \dfrac{2}{x}y = x - 1 + \dfrac{1}{x}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Dividimos por \(x \neq 0\) para atingir a forma padrão.</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(\mu(x) = e^{\int \frac{2}{x}\,dx} = x^2\)</td><td class="step-comment"><span class="comment-prefix">//</span> Fator integrante idêntico ao da Q9.</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\((x^2 y)' = x^2\left(x - 1 + \dfrac{1}{x}\right) = x^3 - x^2 + x\)</td><td class="step-comment"><span class="comment-prefix">//</span> Multiplicamos o lado direito por \(x^2\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(x^2 y = \dfrac{x^4}{4} - \dfrac{x^3}{3} + \dfrac{x^2}{2} + c\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integramos o polinômio termo a termo.</td></tr><tr class="step-row"><td class="line-num">05</td><td class="step-math">\(y(x) = \dfrac{x^2}{4} - \dfrac{x}{3} + \dfrac{1}{2} + \dfrac{c}{x^2}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Dividimos todos os termos (inclusive \(c\)) por \(x^2\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q10(a): \(y(x) = \dfrac{x^2}{4} - \dfrac{x}{3} + \dfrac{1}{2} + \dfrac{c}{x^2}\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown" data-star="true">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(b)</span>
+            <span class="item-prio" title="Classificação">⚠️</span>
+            <span class="item-enunc">\(y' - \dfrac{2}{x}y = x,\quad (x > 0)\)</span>
+            <span class="item-diag diag-trap">ERRATA no gabarito oficial!</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q10(b)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(p(x) = -\dfrac{2}{x} \implies \mu(x) = e^{\int -\frac{2}{x}\,dx} = e^{-2\ln x} = x^{-2}\)</td><td class="step-comment"><span class="comment-prefix">//</span> ATENÇÃO ao sinal negativo em \(p(x)\)! O fator integrante é \(\frac{1}{x^2}\), não \(x^2\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\((x^{-2} y)' = x^{-2}\cdot x = \dfrac{1}{x}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Multiplicamos os dois lados por \(x^{-2}\); o lado direito vira \(\frac{1}{x}\).</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(x^{-2} y = \int \dfrac{1}{x}\,dx = \ln x + c\)</td><td class="step-comment"><span class="comment-prefix">//</span> Como \(x > 0\), \(\ln|x| = \ln x\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(y(x) = x^2(\ln x + c) = x^2\ln x + c x^2\)</td><td class="step-comment"><span class="comment-prefix">//</span> Multiplicamos tudo por \(x^2\) para isolar \(y(x)\).</td></tr></tbody></table></div>
+            <div class="errata-alert"><strong>⚠️ Alerta de Gralha no Gabarito Oficial (Q10b):</strong> O PDF da Lista 1 imprimiu \(y(x) = x^2\ln x + c/x^2\), mas ao multiplicar \(x^{-2}y = \ln x + c\) por \(x^2\), a constante fica multiplicada por \(x^2\) (\(cx^2\)), nunca dividida por \(x^2\)! (Derivando \(c/x^2\) sobraria \(-4c/x^3 \neq 0\)).</div>
+            <div class="final-answer">Resposta Q10(b): \(y(x) = x^2\ln x + c x^2\) (para \(x > 0\)).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(c)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\((x^2 + 9)y' + xy = 0\)</span>
+            <span class="item-diag diag-base">Homogênea · Pode ser separável</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q10(c)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(y' + \dfrac{x}{x^2 + 9}y = 0\)</td><td class="step-comment"><span class="comment-prefix">//</span> Forma padrão dividindo por \(x^2+9 > 0\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(\mu(x) = e^{\int \frac{x}{x^2+9}\,dx} = e^{\frac{1}{2}\ln(x^2+9)} = (x^2+9)^{1/2}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Substituição \(u=x^2+9 \implies du=2x\,dx\).</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\left[(x^2+9)^{1/2} y\right]' = 0 \implies (x^2+9)^{1/2} y = c\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integral de zero é constante.</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(y(x) = c(x^2 + 9)^{-1/2}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Isolamos \(y(x)\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q10(c): \(y(x) = c(x^2 + 9)^{-1/2}\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(d)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\(y' + \dfrac{4}{x}y = \dfrac{2}{x^3}\)</span>
+            <span class="item-diag diag-base">Fator integrante x⁴</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q10(d)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(\mu(x) = e^{\int \frac{4}{x}\,dx} = e^{4\ln|x|} = x^4\)</td><td class="step-comment"><span class="comment-prefix">//</span> Já está na forma padrão; \(\mu(x) = x^4\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\((x^4 y)' = x^4 \cdot \dfrac{2}{x^3} = 2x\)</td><td class="step-comment"><span class="comment-prefix">//</span> O lado direito simplifica para \(2x\).</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(x^4 y = \int 2x\,dx = x^2 + c \implies y(x) = x^{-2} + c x^{-4}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integramos e dividimos por \(x^4\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q10(d): \(y(x) = x^{-2} + c x^{-4}\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(e)</span>
+            <span class="item-prio" title="Classificação">⭐</span>
+            <span class="item-enunc">\(xy' + 2y = \operatorname{sen} x\)</span>
+            <span class="item-diag diag-hot">Clássica · Partes na trigonométrica</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q10(e)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(y' + \dfrac{2}{x}y = \dfrac{\operatorname{sen} x}{x},\quad \mu(x) = x^2\)</td><td class="step-comment"><span class="comment-prefix">//</span> Dividimos por \(x\) e calculamos \(\mu(x)=x^2\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\((x^2 y)' = x\operatorname{sen} x\)</td><td class="step-comment"><span class="comment-prefix">//</span> Lado direito vira \(x\operatorname{sen} x\).</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(x^2 y = \int x\operatorname{sen} x\,dx = -x\cos x + \int \cos x\,dx = \operatorname{sen} x - x\cos x + c\)</td><td class="step-comment"><span class="comment-prefix">//</span> Por partes: \(u=x,\; dv=\operatorname{sen} x\,dx \implies v=-\cos x\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(y(x) = \dfrac{1}{x^2}(\operatorname{sen} x - x\cos x + c)\)</td><td class="step-comment"><span class="comment-prefix">//</span> Dividimos por \(x^2\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q10(e): \(y(x) = \dfrac{1}{x^2}(\operatorname{sen} x - x\cos x + c)\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(f)</span>
+            <span class="item-prio" title="Classificação">⚠️</span>
+            <span class="item-enunc">\(x(x - 1)y' + y = x^2(2x - 1)\)</span>
+            <span class="item-diag diag-hard">Trabalhosa · Frações parciais em μ(x)</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q10(f)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(y' + \dfrac{1}{x(x - 1)}y = \dfrac{x^2(2x - 1)}{x(x - 1)} = \dfrac{x(2x - 1)}{x - 1}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Dividimos por \(x(x-1)\) (supondo \(x \neq 0, 1\)).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(\dfrac{1}{x(x-1)} = \dfrac{1}{x-1} - \dfrac{1}{x}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Frações parciais para integrar \(p(x)\)!</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\mu(x) = e^{\ln|x-1| - \ln|x|} = \dfrac{x - 1}{x}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Aplicamos \(e^{\ln A - \ln B} = A/B\) (tomando o sinal no intervalo).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(\left(\dfrac{x - 1}{x} y\right)' = \dfrac{x - 1}{x} \cdot \dfrac{x(2x - 1)}{x - 1} = 2x - 1\)</td><td class="step-comment"><span class="comment-prefix">//</span> Mágica do fator integrante: tudo no denominador cancela!</td></tr><tr class="step-row"><td class="line-num">05</td><td class="step-math">\(\dfrac{x - 1}{x} y = \int (2x - 1)\,dx = x^2 - x + c \implies y = \dfrac{x^3 - x^2 + cx}{x - 1}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Multiplicamos por \(\frac{x}{x-1}\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q10(f): \(y(x) = \dfrac{x^3 - x^2 + cx}{x - 1}\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(g)</span>
+            <span class="item-prio" title="Classificação">⭐</span>
+            <span class="item-enunc">\(y' + 3x^2 y = e^{-x^3 + x}\)</span>
+            <span class="item-diag diag-hot">Clássica · Cancelamento exponencial</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q10(g)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(\mu(x) = e^{\int 3x^2\,dx} = e^{x^3}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Já está na forma padrão; \(\int 3x^2 dx = x^3\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\((e^{x^3} y)' = e^{x^3} \cdot e^{-x^3 + x} = e^x\)</td><td class="step-comment"><span class="comment-prefix">//</span> Multiplicando por \(e^{x^3}\), o expoente \(-x^3\) cancela!</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(e^{x^3} y = \int e^x\,dx = e^x + c \implies y(x) = e^{-x^3}(e^x + c)\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integramos \(e^x\) e multiplicamos por \(e^{-x^3}\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q10(g): \(y(x) = e^{-x^3}(e^x + c)\).</div>
+        </div>
+    </details></div></div><div class="exercise-card"><div class="exercise-header"><div class="exercise-title"><span>📖</span> Exercícios 11 e 12 — Demonstrações de Linearidade</div><span class="badge-type badge-book">Teoria Linear</span></div><div class="exercise-body"><div class="enunciado-geral"><strong>11 &amp; 12.</strong> Propriedades fundamentais do operador linear \(L[y] = y' + p(x)y\): superposição na homogênea vs. estrutura \(c y_1 + y_p\) na não-homogênea.</div>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">11(a)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">Superposição em \(y' + p(x)y = 0\)</span>
+            <span class="item-diag diag-base">Demonstração direta</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q11(a)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(y = c_1 y_1 + c_2 y_2 \implies y' = c_1 y_1' + c_2 y_2'\)</td><td class="step-comment"><span class="comment-prefix">//</span> Derivada é linear.</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(y' + p(x)y = c_1(y_1' + p y_1) + c_2(y_2' + p y_2) = c_1\cdot 0 + c_2\cdot 0 = 0\)</td><td class="step-comment"><span class="comment-prefix">//</span> Como \(y_1, y_2\) resolvem a homogênea, os dois parênteses zeram.</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Conclusão Q11(a): Toda combinação linear \(c_1 y_1 + c_2 y_2\) também é solução da homogênea.</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">11(b)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">Vale para a não-homogênea \(y'+p(x)y=g(x)\)?</span>
+            <span class="item-diag diag-base">Contraexemplo / Conta</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q11(b)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\((c_1 y_1 + c_2 y_2)' + p(x)(c_1 y_1 + c_2 y_2) = c_1 g(x) + c_2 g(x) = (c_1 + c_2)g(x)\)</td><td class="step-comment"><span class="comment-prefix">//</span> Substituindo \(y_1'+py_1=g\) e \(y_2'+py_2=g\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\((c_1 + c_2)g(x) \neq g(x)\; (\text{em geral, ex: } c_1=c_2=1 \implies 2g(x))\)</td><td class="step-comment"><span class="comment-prefix">//</span> Só coincide se \(c_1 + c_2 = 1\) (ou \(g \equiv 0\)).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Conclusão Q11(b): <strong>NÃO</strong> é válido em geral para \(g(x) \neq 0\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">12</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">Qualquer solução da não-homogênea é \(c y_1(x) + y_p(x)\)</span>
+            <span class="item-diag diag-base">Prova estrutural</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q12</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(\text{Seja } y(x) \text{ qualquer solução de } y'+py=q(x).\; \text{Defina } w = y - y_p\)</td><td class="step-comment"><span class="comment-prefix">//</span> Analisamos a diferença entre duas soluções da não-homogênea.</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(w' + p w = (y'+py) - (y_p'+py_p) = q(x) - q(x) = 0\)</td><td class="step-comment"><span class="comment-prefix">//</span> Logo \(w\) resolve a homogênea \(w'+pw=0\)!</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\text{Como a homogênea tem solução geral } c y_1(x) \implies w = c y_1 \implies y = c y_1 + y_p\)</td><td class="step-comment"><span class="comment-prefix">//</span> Isolando \(y = w + y_p\), concluímos a demonstração.</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Conclusão Q12: Toda solução da EDO não-homogênea se escreve como \(y(x) = c y_1(x) + y_p(x)\).</div>
+        </div>
+    </details></div></div><div class="recap-box"><h3>📌 Resuminho do Tópico 3 — Fator Integrante</h3><div class="recap-grid"><div class="recap-card"><strong>1. Nunca esqueça de normalizar!</strong>Antes de ler \(p(x)\), deixe o coeficiente de \(y'\) igual a 1 dividindo toda a EDO pelo termo que o multiplica.</div><div class="recap-card"><strong>2. Checagem instantânea</strong>Ao multiplicar por \(\mu(x)\), sempre derive mentalmente \((\mu y)' = \mu y' + \mu' y\) para confirmar que bate exatamente com a EDO multiplicada.</div></div></div></div><div class="topic-section" id="topico-4"><div class="topic-banner"><h2>Tópico 4: EDOs Exatas e Fator Integrante Especial</h2><span class="topic-range">⭐ CAI NA 2ª CHAMADA · Q13 a Q15</span></div><div class="prereq-box"><h3>🧠 Pré-Requisitos de Cálculo 2 e 3 (Zero Pressuposição)</h3><ul><li><strong>Derivadas Parciais (\(\frac{\partial M}{\partial y}\) e \(\frac{\partial N}{\partial x}\)):</strong> Ao derivar \(M(x,y)\) em relação a \(y\), trate todo \(x\) como uma <em>constante comum</em> (ex: \(\frac{\partial}{\partial y}(2xy - \operatorname{sen} x) = 2x - 0 = 2x\)).</li><li><strong>Integração Parcial + Função Arbitrária \(h(y)\):</strong> Quando integramos \(\frac{\partial \Psi}{\partial x} = M(x,y)\) em relação a \(x\), a "constante de integração" pode ser qualquer função que dependa só de \(y\), por isso escrevemos \(+ h(y)\)!</li><li><strong>Integração por Partes (aparece em Q15a!):</strong> \(\int y^2 e^y\,dy\) exige aplicar integração por partes duas vezes (ou método tabular).</li></ul></div><div class="theory-box"><h3>📘 Método das Exatas e Fatores Integrantes \(\mu(x)\) / \(\mu(y)\)</h3><p>Escreva a equação na forma diferencial \(M(x,y)\,dx + N(x,y)\,dy = 0\) (lembrando que \(y' = \frac{dy}{dx}\), então o que multiplica \(y'\) é \(N(x,y)\)!).<br><strong>Teste de Exatidão:</strong> Calcule \(M_y = \frac{\partial M}{\partial y}\) e \(N_x = \frac{\partial N}{\partial x}\). Se \(M_y = N_x\), a EDO é exata e existe \(\Psi(x,y) = C\) tal que \(\Psi_x = M\) e \(\Psi_y = N\).</p></div><div class="formula-card"><div class="formula-card-header">📐 Fórmulas de Fator Integrante quando \(M_y \neq N_x\)</div><table class="formula-table"><thead><tr><th>Condição</th><th>Fator Integrante</th><th>Observação de Prova</th></tr></thead><tbody><tr><td>\(\dfrac{M_y - N_x}{N}\) depende <strong>só de \(x\)</strong></td><td>\(\mu(x) = \exp\!\left(\int \dfrac{M_y - N_x}{N}\,dx\right)\)</td><td>Multiplique \(M\,dx + N\,dy = 0\) por \(\mu(x)\) e teste de novo!</td></tr><tr><td>\(\dfrac{N_x - M_y}{M}\) depende <strong>só de \(y\)</strong></td><td>\(\mu(y) = \exp\!\left(\int \dfrac{N_x - M_y}{M}\,dy\right)\)</td><td>Atenção à ordem da subtração: agora é \(N_x - M_y\) sobre \(M\)!</td></tr></tbody></table></div><div class="exercise-card"><div class="exercise-header"><div class="exercise-title"><span>⭐</span> Exercício 13 — Verificação de Exatas e Função Potencial</div><span class="badge-type badge-star">Alta Chance · Molde da P1 Q2(a)</span></div><div class="exercise-body"><div class="enunciado-geral"><strong>13.</strong> Mostre que as seguintes equações são Exatas e encontre a solução geral:</div><div class="raiox-box"><div class="raiox-title">🔍 Raio-X: O Passo Obrigatório da Professora</div><p>Na P1 oficial (Q2a), a professora pediu explicitamente para <strong>mostrar que é exata</strong> antes de resolver. Nunca pule a linha escrevendo \(M_y = \dots\) e \(N_x = \dots\)! Na conclusão, lembre-se de escrever \(\Psi(x,y) = C\) (com o \(= C\)).</p></div>
+    <details class="item-dropdown" data-star="true">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(a)</span>
+            <span class="item-prio" title="Classificação">⭐</span>
+            <span class="item-enunc">\(2xy - \operatorname{sen} x + (x^2 + e^y)\dfrac{dy}{dx} = 0\)</span>
+            <span class="item-diag diag-hot">Clássica · Trigonométrica + eʸ</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q13(a)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(M = 2xy - \operatorname{sen} x,\quad N = x^2 + e^y\)</td><td class="step-comment"><span class="comment-prefix">//</span> Identificamos \(M\) (sem \(y'\)) e \(N\) (que multiplica \(y'\)).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(\dfrac{\partial M}{\partial y} = 2x,\qquad \dfrac{\partial N}{\partial x} = 2x \implies M_y = N_x\)</td><td class="step-comment"><span class="comment-prefix">//</span> Como são iguais, a EDO é exata!</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\Psi(x,y) = \int (2xy - \operatorname{sen} x)\,dx = x^2 y + \cos x + h(y)\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integramos \(M\) em relação a \(x\) (\(\int (-\operatorname{sen} x)dx = \cos x\)).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(\dfrac{\partial \Psi}{\partial y} = x^2 + h'(y) = x^2 + e^y \implies h'(y) = e^y \implies h(y) = e^y\)</td><td class="step-comment"><span class="comment-prefix">//</span> Igualamos \(\Psi_y\) a \(N\) para achar \(h(y)\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q13(a): \(x^2 y + \cos x + e^y = C\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(b)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\(3x^2 + 4xy + (2x^2 + 2y)y' = 0\)</span>
+            <span class="item-diag diag-base">Polinomial limpa</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q13(b)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(M = 3x^2 + 4xy,\quad N = 2x^2 + 2y\)</td><td class="step-comment"><span class="comment-prefix">//</span> Separamos \(M\) e \(N\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(M_y = 4x,\qquad N_x = 4x \implies \text{Exata!}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Derivadas parciais mistas coincidem.</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\Psi(x,y) = \int (3x^2 + 4xy)\,dx = x^3 + 2x^2 y + h(y)\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integramos \(M\) em \(x\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(\Psi_y = 2x^2 + h'(y) = 2x^2 + 2y \implies h'(y) = 2y \implies h(y) = y^2\)</td><td class="step-comment"><span class="comment-prefix">//</span> Determinamos \(h(y)\) igualando a \(N\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q13(b): \(x^3 + 2x^2 y + y^2 = C\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown" data-star="true">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(c)</span>
+            <span class="item-prio" title="Classificação">⭐</span>
+            <span class="item-enunc">\(y^2 + \cos x + (2xy + e^y)\dfrac{dy}{dx} = 0\)</span>
+            <span class="item-diag diag-hot">Clássica · Molde direto da P1</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q13(c)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(M = y^2 + \cos x,\quad N = 2xy + e^y\)</td><td class="step-comment"><span class="comment-prefix">//</span> Identificamos \(M\) e \(N\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(M_y = 2y,\qquad N_x = 2y \implies \text{Exata!}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Verificação formal obrigatória.</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\Psi(x,y) = \int (y^2 + \cos x)\,dx = xy^2 + \operatorname{sen} x + h(y)\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integramos \(M\) em relação a \(x\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(\Psi_y = 2xy + h'(y) = 2xy + e^y \implies h'(y) = e^y \implies h(y) = e^y\)</td><td class="step-comment"><span class="comment-prefix">//</span> Igualamos a \(N\) e integramos em \(y\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q13(c): \(xy^2 + \operatorname{sen} x + e^y = C\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(d)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\(2xy + y^3 + (x^2 + 3xy^2)y' = 0\)</span>
+            <span class="item-diag diag-base">Polinomial cúbica</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q13(d)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(M = 2xy + y^3,\quad N = x^2 + 3xy^2\)</td><td class="step-comment"><span class="comment-prefix">//</span> Identificamos \(M\) e \(N\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(M_y = 2x + 3y^2,\qquad N_x = 2x + 3y^2 \implies \text{Exata!}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Teste de exatidão satisfeito.</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\Psi(x,y) = \int (2xy + y^3)\,dx = x^2 y + xy^3 + h(y)\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integramos \(M\) em \(x\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(\Psi_y = x^2 + 3xy^2 + h'(y) = x^2 + 3xy^2 \implies h'(y) = 0 \implies h(y) = 0\)</td><td class="step-comment"><span class="comment-prefix">//</span> Todos os termos já aparecem em \(\Psi_y\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q13(d): \(x^2 y + xy^3 = C\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown" data-star="true">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(e)</span>
+            <span class="item-prio" title="Classificação">⭐</span>
+            <span class="item-enunc">\(2\left(xy^2 - \dfrac{1}{x^3}\right) + \left(2x^2 y - \dfrac{1}{y^2}\right)\dfrac{dy}{dx} = 0\)</span>
+            <span class="item-diag diag-hot">Alta chance · Potências negativas</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q13(e)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(M = 2xy^2 - 2x^{-3},\quad N = 2x^2 y - y^{-2}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Distribuímos o \(2\) em \(M\) e escrevemos as frações como expoentes negativos!</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(M_y = 4xy,\qquad N_x = 4xy \implies \text{Exata!}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Derivada de \(x^{-3}\) em \(y\) é \(0\); derivada de \(y^{-2}\) em \(x\) é \(0\).</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\Psi(x,y) = \int (2xy^2 - 2x^{-3})\,dx = x^2 y^2 - 2\dfrac{x^{-2}}{-2} + h(y) = x^2 y^2 + \dfrac{1}{x^2} + h(y)\)</td><td class="step-comment"><span class="comment-prefix">//</span> Cuidado com o sinal: \(-2 \cdot (-\frac{1}{2}) = +1\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(\Psi_y = 2x^2 y + h'(y) = 2x^2 y - y^{-2} \implies h'(y) = -y^{-2} \implies h(y) = \dfrac{1}{y}\)</td><td class="step-comment"><span class="comment-prefix">//</span> \(\int (-y^{-2})dy = -\frac{y^{-1}}{-1} = +\frac{1}{y}\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q13(e): \(x^2 y^2 + \dfrac{1}{x^2} + \dfrac{1}{y} = C\).</div>
+        </div>
+    </details></div></div><div class="exercise-card"><div class="exercise-header"><div class="exercise-title"><span>⭐</span> Exercício 14 — EDO Não-Exata + Fator Integrante + PVI</div><span class="badge-type badge-star">Altíssima Chance · Perfil da Professora</span></div><div class="exercise-body"><div class="enunciado-geral"><strong>14.</strong> Considere a equação \(e^{x^3} + \operatorname{sen} y + \dfrac{x}{3}\cos(y)y' = 0\).</div><div class="raiox-box"><div class="raiox-title">🔍 Raio-X: Questão Completa em 3 Etapas</div><p>Este formato dividido em (a) testar/provar \(\mu\), (b) achar a solução geral e (c) aplicar o PVI em \((1,\pi)\) é a cara da prova da Profa. Ana Gabriela (igualzinho à Q2a+Q2b da P1!).</p></div>
+    <details class="item-dropdown" data-star="true">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(a)</span>
+            <span class="item-prio" title="Classificação">⭐</span>
+            <span class="item-enunc">Provar que não é exata e que \(\mu(x)=x^2\) é fator integrante</span>
+            <span class="item-diag diag-hot">Teste M_y ≠ N_x + Verificação</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q14(a)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(M = e^{x^3} + \operatorname{sen} y,\quad N = \dfrac{x}{3}\cos y\)</td><td class="step-comment"><span class="comment-prefix">//</span> Identificamos \(M\) e \(N\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(M_y = \cos y,\qquad N_x = \dfrac{1}{3}\cos y \implies M_y \neq N_x\)</td><td class="step-comment"><span class="comment-prefix">//</span> Como \(\cos y \neq \frac{1}{3}\cos y\), a equação original NÃO é exata.</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\text{Multiplicando por } \mu(x)=x^2:\; \tilde{M} = x^2 e^{x^3} + x^2\operatorname{sen} y,\quad \tilde{N} = \dfrac{x^3}{3}\cos y\)</td><td class="step-comment"><span class="comment-prefix">//</span> Construímos a nova EDO multiplicada por \(x^2\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(\tilde{M}_y = x^2\cos y,\qquad \tilde{N}_x = x^2\cos y \implies \tilde{M}_y = \tilde{N}_x\)</td><td class="step-comment"><span class="comment-prefix">//</span> Agora as derivadas coincidem (e também \(\frac{M_y-N_x}{N} = \frac{\frac{2}{3}\cos y}{\frac{x}{3}\cos y} = \frac{2}{x} \implies \mu = x^2\))!</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Conclusão Q14(a): Não é exata originalmente, e \(\mu(x)=x^2\) a torna exata.</div>
+        </div>
+    </details>
+    <details class="item-dropdown" data-star="true">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(b)</span>
+            <span class="item-prio" title="Classificação">⭐</span>
+            <span class="item-enunc">Encontrar a solução geral da equação</span>
+            <span class="item-diag diag-hot">Integral com u = x³</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q14(b)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(\Psi(x,y) = \int (x^2 e^{x^3} + x^2\operatorname{sen} y)\,dx\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integramos \(\tilde{M}\) em relação a \(x\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(\int x^2 e^{x^3}\,dx = \dfrac{1}{3}e^{x^3}\; (u=x^3,\; du=3x^2 dx)\)</td><td class="step-comment"><span class="comment-prefix">//</span> Substituição simples para a exponencial.</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\Psi(x,y) = \dfrac{e^{x^3}}{3} + \dfrac{x^3}{3}\operatorname{sen} y + h(y)\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integramos também \(x^2\operatorname{sen} y\) em \(x\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(\Psi_y = \dfrac{x^3}{3}\cos y + h'(y) = \tilde{N} = \dfrac{x^3}{3}\cos y \implies h'(y) = 0\)</td><td class="step-comment"><span class="comment-prefix">//</span> Logo \(h(y) = 0\) (constante absorvida em \(C\)).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q14(b): \(\dfrac{e^{x^3}}{3} + \dfrac{x^3}{3}\operatorname{sen}(y) = C\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown" data-star="true">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(c)</span>
+            <span class="item-prio" title="Classificação">⭐</span>
+            <span class="item-enunc">Solução particular que passa por \((1, \pi)\)</span>
+            <span class="item-diag diag-hot">PVI direto</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q14(c)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(\dfrac{e^{1^3}}{3} + \dfrac{1^3}{3}\operatorname{sen}(\pi) = C\)</td><td class="step-comment"><span class="comment-prefix">//</span> Substituímos \(x = 1\) e \(y = \pi\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(\dfrac{e}{3} + 0 = C \implies C = \dfrac{e}{3}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Como \(\operatorname{sen}(\pi) = 0\), achamos \(C = e/3\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q14(c): \(\dfrac{e^{x^3}}{3} + \dfrac{x^3}{3}\operatorname{sen}(y) = \dfrac{e}{3}\).</div>
+        </div>
+    </details></div></div><div class="exercise-card"><div class="exercise-header"><div class="exercise-title"><span>⚠️</span> Exercício 15 — Descobrir o Fator Integrante e Resolver</div><span class="badge-type badge-extra">Trabalhosa · Dedução de μ</span></div><div class="exercise-body"><div class="enunciado-geral"><strong>15.</strong> Determine o fator integrante que transforma as EDOs em Exatas e calcule a solução geral:</div><div class="raiox-box"><div class="raiox-title">🔍 Raio-X: Como Escolher entre μ(x) e μ(y)</div><p>Calcule \(M_y - N_x\). Teste primeiro dividir por \(N\): se sobrar \(y\) sem cancelar, tente dividir \((N_x - M_y)\) por \(M\) para ver se sobra só \(y\)!</p></div>
+    <details class="item-dropdown" data-star="true">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(a)</span>
+            <span class="item-prio" title="Classificação">⚠️</span>
+            <span class="item-enunc">\(y + (2x - y e^y)y' = 0\)</span>
+            <span class="item-diag diag-hard">Supertrabalhosa · μ(y) + Partes 2x</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q15(a)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(M = y,\; N = 2x - y e^y \implies M_y = 1,\; N_x = 2\)</td><td class="step-comment"><span class="comment-prefix">//</span> Não é exata pois \(1 \neq 2\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(\dfrac{M_y - N_x}{N} = \dfrac{-1}{2x - ye^y}\; (\text{depende de } x \text{ e } y)\)</td><td class="step-comment"><span class="comment-prefix">//</span> Não serve \(\mu(x)\). Testamos \(\mu(y)\)!</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\dfrac{N_x - M_y}{M} = \dfrac{2 - 1}{y} = \dfrac{1}{y} \implies \mu(y) = e^{\int \frac{1}{y}dy} = y\)</td><td class="step-comment"><span class="comment-prefix">//</span> Depende só de \(y\)! Logo \(\mu(y) = y\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(\tilde{M} = y^2,\quad \tilde{N} = 2xy - y^2 e^y \implies \tilde{M}_y = 2y = \tilde{N}_x\)</td><td class="step-comment"><span class="comment-prefix">//</span> Multiplicamos por \(y\); agora é exata!</td></tr><tr class="step-row"><td class="line-num">05</td><td class="step-math">\(\Psi(x,y) = \int y^2\,dx = xy^2 + h(y) \implies \Psi_y = 2xy + h'(y) = 2xy - y^2 e^y\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integramos \(\tilde{M}\) em \(x\) e derivamos em \(y\).</td></tr><tr class="step-row"><td class="line-num">06</td><td class="step-math">\(h(y) = -\int y^2 e^y\,dy = -\left[y^2 e^y - 2y e^y + 2e^y\right]\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integração por partes duas vezes: \((y^2 - 2y + 2)e^y\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q15(a): \(\mu(y)=y\) e solução \(y^2 x - y^2 e^y + 2ye^y - 2e^y = C\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown" data-star="true">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(b)</span>
+            <span class="item-prio" title="Classificação">⚠️</span>
+            <span class="item-enunc">\(1 - x^2 y + x^2(y - x)y' = 0\)</span>
+            <span class="item-diag diag-hard">Trabalhosa · μ(x) = 1/x²</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q15(b)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(M = 1 - x^2 y,\; N = x^2 y - x^3 \implies M_y = -x^2,\; N_x = 2xy - 3x^2\)</td><td class="step-comment"><span class="comment-prefix">//</span> Calculamos \(M_y\) e \(N_x\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(\dfrac{M_y - N_x}{N} = \dfrac{-x^2 - 2xy + 3x^2}{x^2(y - x)} = \dfrac{2x(x - y)}{x^2(y - x)} = -\dfrac{2}{x}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Fatoramos \(2x(x-y) = -2x(y-x)\) e cancelamos \((y-x)\)!</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\mu(x) = e^{\int -\frac{2}{x}dx} = x^{-2} = \dfrac{1}{x^2}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Depende só de \(x\), logo \(\mu(x) = 1/x^2\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(\tilde{M} = \dfrac{1}{x^2} - y,\quad \tilde{N} = y - x \implies \tilde{M}_y = -1 = \tilde{N}_x\)</td><td class="step-comment"><span class="comment-prefix">//</span> Multiplicando por \(1/x^2\), vira exata!</td></tr><tr class="step-row"><td class="line-num">05</td><td class="step-math">\(\Psi(x,y) = \int \left(x^{-2} - y\right)dx = -\dfrac{1}{x} - xy + h(y)\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integramos \(\tilde{M}\) em \(x\).</td></tr><tr class="step-row"><td class="line-num">06</td><td class="step-math">\(\Psi_y = -x + h'(y) = y - x \implies h'(y) = y \implies h(y) = \dfrac{y^2}{2}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Igualamos a \(\tilde{N}\) e integramos.</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q15(b): \(\mu(x) = \dfrac{1}{x^2}\) e solução \(\dfrac{y^2}{2} - \dfrac{1}{x} - xy = C\).</div>
+        </div>
+    </details></div></div><div class="recap-box"><h3>📌 Resuminho do Tópico 4 — EDOs Exatas</h3><div class="recap-grid"><div class="recap-card"><strong>1. Ordem dos termos</strong>\(M\) é quem acompanha \(dx\) (sem \(y'\)); \(N\) é quem acompanha \(dy\) (junto de \(y'\)). Inverta os sinais com cuidado se a EDO vier igualada a algo do outro lado!</div><div class="recap-card"><strong>2. Nunca integre \(M\) e \(N\) somando os resultados</strong>Integre \(M\) em \(x\) (ganha \(+h(y)\)), derive o resultado em \(y\) e compare com \(N\) para achar \(h'(y)\). Isso evita contar termos mistos como \(x^2y\) duas vezes!</div></div></div></div><div class="topic-section" id="topico-5"><div class="topic-banner"><h2>Tópico 5: Equação de Bernoulli</h2><span class="topic-range">⭐ CAI NA 2ª CHAMADA (P1 Q1b) · Q18</span></div><div class="prereq-box"><h3>🧠 Pré-Requisitos (Zero Pressuposição)</h3><ul><li><strong>Regra da Cadeia para \(v(x) = [y(x)]^{1-\alpha}\):</strong> Derivando em relação a \(x\): \(v' = (1-\alpha)y^{-\alpha} y'\). É exatamente essa relação que faz o \(y^\alpha\) sumir da equação!</li><li><strong>Integral de \(\ln x\):</strong> Aparece em Q18(b) e Q18(c)! Use substituição \(u = \ln x \implies du = \frac{1}{x}dx\), logo \(\int \frac{\ln x}{x}dx = \frac{(\ln x)^2}{2} + C\) e \(\int \frac{1}{x}dx = \ln x + C\).</li><li><strong>Expoente Negativo / Inverso:</strong> Se \(v = y^{-3}\) e você achou \(v(x) = \dots\), então \(y(x) = [v(x)]^{-1/3}\).</li></ul></div><div class="theory-box"><h3>📘 Algoritmo Infalível de 5 Passos para Bernoulli</h3><p>1. Coloque na forma padrão \(y' + p(x)y = q(x)y^\alpha\) (divida pelo coeficiente de \(y'\), se houver!).<br>2. Identifique \(\alpha\) e faça a substituição \(v = y^{1-\alpha}\) (dica que a Profa. Ana Gabriela inclusive forneceu na P1!).<br>3. Multiplique a equação por \((1-\alpha)y^{-\alpha}\): ela vira \(v' + (1-\alpha)p(x)v = (1-\alpha)q(x)\) — uma <strong>EDO Linear</strong>!<br>4. Resolva para \(v(x)\) usando o Fator Integrante \(\mu(x)\).<br>5. Volte para \(y(x) = v(x)^{\frac{1}{1-\alpha}}\) (além de notar que \(y \equiv 0\) é solução se \(\alpha > 0\)).</p></div><div class="exercise-card"><div class="exercise-header"><div class="exercise-title"><span>⭐</span> Exercício 18 — Equações de Bernoulli (Todos os 4 Casos)</div><span class="badge-type badge-star">Altíssima Chance · Q18(c) caiu na P1!</span></div><div class="exercise-body"><div class="enunciado-geral"><strong>18.</strong> Resolva as seguintes equações diferenciais de Bernoulli usando a mudança \(v = y^{1-\alpha}\):</div><div class="raiox-box"><div class="raiox-title">🔍 Raio-X: O Que Mais Derruba em Bernoulli</div><p>Dois erros respondem por 90% das notas perdidas aqui: (1) esquecer de dividir pelo coeficiente de \(y'\) antes de multiplicar por \((1-\alpha)\) — veja <strong>18(b)</strong> e <strong>18(d)</strong>! — e (2) esquecer de multiplicar \(p(x)\) e \(q(x)\) por \((1-\alpha)\) (inclusive com o sinal negativo quando \(1-\alpha < 0\)!).</p></div>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(a)</span>
+            <span class="item-prio" title="Classificação">📖</span>
+            <span class="item-enunc">\(y' + 3y = 5y^3\)</span>
+            <span class="item-diag diag-base">Aquecimento · Coeficientes constantes</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q18(a)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(\alpha = 3 \implies v = y^{1-3} = y^{-2} \implies v' = -2 y^{-3} y'\)</td><td class="step-comment"><span class="comment-prefix">//</span> Já está normalizada. Definimos \(v = y^{-2}\) e derivamos.</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(-2 y^{-3} y' - 6 y^{-2} = -10 \implies v' - 6v = -10\)</td><td class="step-comment"><span class="comment-prefix">//</span> Multiplicamos toda a EDO por \(-2y^{-3}\); vira linear em \(v\)!</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\mu(x) = e^{\int -6\,dx} = e^{-6x} \implies (e^{-6x}v)' = -10e^{-6x}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Fator integrante da linear em \(v\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(e^{-6x}v = \dfrac{10}{6}e^{-6x} + c = \dfrac{5}{3}e^{-6x} + c \implies v = \dfrac{5}{3} + c e^{6x}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integramos \(-10e^{-6x}\) e isolamos \(v(x)\).</td></tr><tr class="step-row"><td class="line-num">05</td><td class="step-math">\(y^{-2} = \dfrac{5}{3} + c e^{6x} \implies y(x) = \left[\dfrac{5}{3} + c e^{6x}\right]^{-1/2}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Voltamos para \(y\) elevando a \(-1/2\) (e \(y \equiv 0\) também resolve).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q18(a): \(y(x) = \left[\dfrac{5}{3} + c e^{6x}\right]^{-1/2}\) (ou \(\pm\) conforme C.I.).</div>
+        </div>
+    </details>
+    <details class="item-dropdown" data-star="true">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(b)</span>
+            <span class="item-prio" title="Classificação">⭐</span>
+            <span class="item-enunc">\(xy' + y = xy^2\ln x\)</span>
+            <span class="item-diag diag-hot">Alta chance · Normalizar por x + ln x</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q18(b)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(y' + \dfrac{1}{x}y = y^2\ln x \qquad (\alpha = 2)\)</td><td class="step-comment"><span class="comment-prefix">//</span> 1º Passo: dividimos por \(x > 0\)! Agora \(p(x)=1/x,\; q(x)=\ln x\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(v = y^{1-2} = y^{-1} \implies v' = -y^{-2} y'\)</td><td class="step-comment"><span class="comment-prefix">//</span> Definimos \(v = y^{-1}\).</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(-y^{-2}y' - \dfrac{1}{x}y^{-1} = -\ln x \implies v' - \dfrac{1}{x}v = -\ln x\)</td><td class="step-comment"><span class="comment-prefix">//</span> Multiplicamos por \(-y^{-2}\) para obter a linear em \(v\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(\mu(x) = e^{\int -\frac{1}{x}dx} = x^{-1} = \dfrac{1}{x}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Fator integrante \(\mu(x) = 1/x\).</td></tr><tr class="step-row"><td class="line-num">05</td><td class="step-math">\(\left(\dfrac{v}{x}\right)' = -\dfrac{\ln x}{x} \implies \dfrac{v}{x} = -\dfrac{(\ln x)^2}{2} + c\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integral por substituição \(u=\ln x,\; du=\frac{1}{x}dx\).</td></tr><tr class="step-row"><td class="line-num">06</td><td class="step-math">\(v = x\left[c - \dfrac{1}{2}(\ln x)^2\right] \implies y(x) = \left[x\left(c - 0{,}5(\ln x)^2\right)\right]^{-1}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Como \(v = y^{-1}\), invertemos \(y = v^{-1}\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q18(b): \(y(x) = \left[x\left(c - 0{,}5(\ln x)^2\right)\right]^{-1}\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown" data-star="true">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(c)</span>
+            <span class="item-prio" title="Classificação">⭐</span>
+            <span class="item-enunc">\(y' + \dfrac{y}{x} = x^2 y^4\)</span>
+            <span class="item-diag diag-hot">Molde EXATO da P1 Q1(b)!</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q18(c)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(\alpha = 4 \implies v = y^{1-4} = y^{-3} \implies v' = -3 y^{-4} y'\)</td><td class="step-comment"><span class="comment-prefix">//</span> Já está normalizada; substituição \(v = y^{-3}\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(-3 y^{-4} y' - \dfrac{3}{x} y^{-3} = -3x^2 \implies v' - \dfrac{3}{x}v = -3x^2\)</td><td class="step-comment"><span class="comment-prefix">//</span> Multiplicamos por \(-3y^{-4}\); atenção aos sinais negativos!</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\mu(x) = e^{\int -\frac{3}{x}dx} = e^{-3\ln x} = x^{-3}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Fator integrante \(\mu(x) = 1/x^3\) (para \(x>0\)).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\((x^{-3} v)' = -3x^2 \cdot x^{-3} = -\dfrac{3}{x}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Os expoentes simplificam para \(-\frac{3}{x}\)!</td></tr><tr class="step-row"><td class="line-num">05</td><td class="step-math">\(x^{-3} v = -3\ln x + c = c - \ln(x^3) \implies v = x^3(c - \ln(x^3))\)</td><td class="step-comment"><span class="comment-prefix">//</span> Usamos \(3\ln x = \ln(x^3)\) e multiplicamos por \(x^3\).</td></tr><tr class="step-row"><td class="line-num">06</td><td class="step-math">\(y(x) = \left[x^3(c - \ln(x^3))\right]^{-1/3}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Voltamos de \(v = y^{-3}\) para \(y = v^{-1/3}\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q18(c): \(y(x) = \left[x^3(c - \ln(x^3))\right]^{-1/3}\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown" data-star="true">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(d)</span>
+            <span class="item-prio" title="Classificação">⚠️</span>
+            <span class="item-enunc">\(4xy' + 3y = -e^x x^4 y^5\)</span>
+            <span class="item-diag diag-hard">Trabalhosa · Normalizar por 4x</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q18(d)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(y' + \dfrac{3}{4x}y = -\dfrac{1}{4}e^x x^3 y^5 \qquad (\alpha = 5)\)</td><td class="step-comment"><span class="comment-prefix">//</span> 1º Passo: dividimos tudo por \(4x\)!</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(v = y^{1-5} = y^{-4} \implies v' = -4 y^{-5} y'\)</td><td class="step-comment"><span class="comment-prefix">//</span> Substituição \(v = y^{-4}\).</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(-4 y^{-5} y' - \dfrac{3}{x} y^{-4} = e^x x^3 \implies v' - \dfrac{3}{x}v = x^3 e^x\)</td><td class="step-comment"><span class="comment-prefix">//</span> Ao multiplicar por \(-4\), o \(4\) dos denominadores cancela perfeitamente!</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(\mu(x) = e^{\int -\frac{3}{x}dx} = x^{-3}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Fator integrante \(\mu(x) = x^{-3}\).</td></tr><tr class="step-row"><td class="line-num">05</td><td class="step-math">\((x^{-3} v)' = x^{-3}\cdot x^3 e^x = e^x \implies x^{-3}v = e^x + c\)</td><td class="step-comment"><span class="comment-prefix">//</span> O \(x^3\) cancela com \(x^{-3}\), sobrando apenas \(\int e^x dx = e^x + c\)!</td></tr><tr class="step-row"><td class="line-num">06</td><td class="step-math">\(v = x^3(c + e^x) \implies y(x) = \left[x^3(c + e^x)\right]^{-1/4}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Voltamos de \(v = y^{-4}\) para \(y = v^{-1/4}\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q18(d): \(y(x) = \left[x^3(c + e^x)\right]^{-1/4}\).</div>
+        </div>
+    </details></div></div><div class="recap-box"><h3>📌 Resuminho do Tópico 5 — Bernoulli</h3><div class="recap-grid"><div class="recap-card"><strong>1. Ordem sagrada</strong>Divida pelo coeficiente de \(y'\) PRIMEIRO, só depois multiplique por \((1-\alpha)y^{-\alpha}\).</div><div class="recap-card"><strong>2. Sinal de \((1-\alpha)\)</strong>Como quase sempre \(\alpha \ge 2\), \((1-\alpha)\) é NEGATIVO. Multiplique tanto \(p(x)\) quanto \(q(x)\) por \((1-\alpha)\) com seu sinal!</div></div></div></div><div class="topic-section" id="topico-6"><div class="topic-banner"><h2>Tópico 6: PVIs Mistos (Q19) e EDOs Homogêneas (Q16–Q17)</h2><span class="topic-range">⭐ Q19 Treino Misto | ❌ Q16–17 Fora da 2ª Chamada</span></div><div class="prereq-box"><h3>🧠 Treino Cego de Reconhecimento (Q19) + Nota sobre Q16–17</h3><ul><li><strong>Na prova, o método nem sempre vem escrito:</strong> A Q19 mistura técnicas para treinar seu olho: olhar para a equação e decidir em 10 segundos se ela é <em>Separável</em>, <em>Linear</em> (em \(y\) ou até em \(x\)!), <em>Exata</em> ou <em>Bernoulli</em>.</li><li><strong>Sobre Q16 e Q17 (Homogêneas):</strong> A ementa da 2ª chamada citou explicitamente <em>"(separação de variáveis, Bernoulli e exatas)"</em> — deixando EDOs homogêneas de fora. Mantivemos Q16 e Q17 resolvidas abaixo para a Lista 1 ficar 100% completa, mas marcadas com ❌ para você não perder tempo antes de terça.</li></ul></div><div class="exercise-card"><div class="exercise-header"><div class="exercise-title"><span>⭐</span> Exercício 19 — Problemas de Valor Inicial Mistos (Treino de Prova)</div><span class="badge-type badge-star">Alta Chance · Sem Dica de Método</span></div><div class="exercise-body"><div class="enunciado-geral"><strong>19.</strong> Resolva os seguintes Problemas de Valor Inicial (identifique primeiro a melhor técnica):</div><div class="raiox-box"><div class="raiox-title">🔍 Raio-X: Como Classificar Rápido</div><p><strong>19(a):</strong> Linear de 1ª ordem em \(y\) (e também Exata já pronta!). <strong>19(b):</strong> Separável imediata (exige integração por partes em \(x e^x\)). <strong>19(c):</strong> Pegadinha genial — não é linear em \(y\), mas invertendo para \(\frac{dx}{dy}\) ela vira uma Linear em \(x(y)\) (ou Exata com fator integrante \(\mu(y)=1/y\))!</p></div>
+    <details class="item-dropdown" data-star="true">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(a)</span>
+            <span class="item-prio" title="Classificação">⭐</span>
+            <span class="item-enunc">\(x + y\cos x = -y'\operatorname{sen} x;\quad y(\pi/2) = 2\)</span>
+            <span class="item-diag diag-hot">Alta chance · Exata / Linear trig.</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q19(a)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\((x + y\cos x)\,dx + \operatorname{sen} x\,dy = 0\)</td><td class="step-comment"><span class="comment-prefix">//</span> Passando \(-y'\operatorname{sen} x\) para a esquerda, ela já está na forma diferencial!</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(M_y = \cos x,\qquad N_x = \cos x \implies \text{É EXATA!}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Testamos exatidão: bate direto sem precisar normalizar por \(\operatorname{sen} x\)!</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\Psi(x,y) = \int (x + y\cos x)\,dx = \dfrac{x^2}{2} + y\operatorname{sen} x + h(y)\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integramos \(M\) em relação a \(x\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(\Psi_y = \operatorname{sen} x + h'(y) = \operatorname{sen} x \implies h'(y) = 0 \implies \dfrac{x^2}{2} + y\operatorname{sen} x = C\)</td><td class="step-comment"><span class="comment-prefix">//</span> Achamos a solução geral implícita.</td></tr><tr class="step-row"><td class="line-num">05</td><td class="step-math">\(\dfrac{(\pi/2)^2}{2} + 2\operatorname{sen}(\pi/2) = C \implies C = \dfrac{\pi^2}{8} + 2\)</td><td class="step-comment"><span class="comment-prefix">//</span> Aplicamos \(x=\pi/2,\; y=2\).</td></tr><tr class="step-row"><td class="line-num">06</td><td class="step-math">\(y\operatorname{sen} x = \dfrac{\pi^2}{8} + 2 - \dfrac{x^2}{2} \implies y(x) = \dfrac{-4x^2 + 16 + \pi^2}{8\operatorname{sen} x}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Colocando no denominador comum \(8\) e isolando \(y\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q19(a): \(y(x) = \dfrac{-4x^2 + 16 + \pi^2}{8\operatorname{sen}(x)}\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown" data-star="true">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(b)</span>
+            <span class="item-prio" title="Classificação">⭐</span>
+            <span class="item-enunc">\(x + y e^{-x} y' = 0;\quad y(0) = 1\)</span>
+            <span class="item-diag diag-hot">Alta chance · Separável + Partes</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q19(b)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(y\,dy = -x e^x\,dx\)</td><td class="step-comment"><span class="comment-prefix">//</span> Separamos as variáveis passando \(x\) para a direita e dividindo por \(e^{-x}\) (vira \(e^x\)).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(\int y\,dy = -\int x e^x\,dx \implies \dfrac{y^2}{2} = -(x e^x - e^x) + c\)</td><td class="step-comment"><span class="comment-prefix">//</span> Por partes: \(\int x e^x dx = x e^x - e^x\).</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(y^2 = 2e^x - 2xe^x + C\)</td><td class="step-comment"><span class="comment-prefix">//</span> Multiplicamos tudo por \(2\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(1^2 = 2e^0 - 0 + C \implies C = -1\)</td><td class="step-comment"><span class="comment-prefix">//</span> Aplicamos \(x=0, y=1\).</td></tr><tr class="step-row"><td class="line-num">05</td><td class="step-math">\(y(x) = +\sqrt{2e^x - 2xe^x - 1}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Como \(y(0)=1>0\), escolhemos a raiz positiva.</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q19(b): \(y(x) = \sqrt{2e^x - 2xe^x - 1}\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown" data-star="true">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">(c)</span>
+            <span class="item-prio" title="Classificação">⚠️</span>
+            <span class="item-enunc">\(y' = \dfrac{y^3}{1 - 2xy^2};\quad y(0) = 1\)</span>
+            <span class="item-diag diag-trap">Pegadinha genial · Inverter dx/dy ou μ(y)</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q19(c)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(\dfrac{dy}{dx} = \dfrac{y^3}{1 - 2xy^2} \implies \dfrac{dx}{dy} = \dfrac{1 - 2xy^2}{y^3} = \dfrac{1}{y^3} - \dfrac{2}{y}x\)</td><td class="step-comment"><span class="comment-prefix">//</span> Como \(y(0)=1 \neq 0\), invertemos para enxergar \(x\) como função de \(y\)!</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(\dfrac{dx}{dy} + \dfrac{2}{y}x = y^{-3}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Virou uma EDO Linear de 1ª ordem em \(x(y)\) com \(p(y)=\frac{2}{y}\)!</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\mu(y) = e^{\int \frac{2}{y}dy} = y^2 \implies (y^2 x)' = y^2 \cdot y^{-3} = \dfrac{1}{y}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Fator integrante \(\mu(y)=y^2\) em \(y\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(y^2 x = \ln|y| + c\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integramos \(\frac{1}{y}\) em relação a \(y\).</td></tr><tr class="step-row"><td class="line-num">05</td><td class="step-math">\(1^2 \cdot 0 = \ln(1) + c \implies c = 0 \implies xy^2 = \ln y\)</td><td class="step-comment"><span class="comment-prefix">//</span> Aplicando \(x=0,\; y=1\): \(c=0\) e \(y>0\) perto de \(y=1\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q19(c): \(\ln y - xy^2 = 0\) (equivalente a \(x = \frac{\ln y}{y^2}\)).</div>
+        </div>
+    </details></div></div><div class="exercise-card"><div class="exercise-header"><div class="exercise-title"><span>❌</span> Exercícios 16 e 17 — Funções e EDOs Homogêneas (Fora da 2ª Chamada)</div><span class="badge-type badge-out">❌ Não cai na 2ª Chamada</span></div><div class="exercise-body"><div class="enunciado-geral"><strong>16 &amp; 17.</strong> Verificação de grau de homogeneidade \(f(tx,ty)=t^n f(x,y)\) e resolução via \(y = vx\). <em>(Deixados recolhidos para completar 100% a Lista 1.)</em></div>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">16(a)</span>
+            <span class="item-prio" title="Classificação">❌</span>
+            <span class="item-enunc">\(f(x,y) = x^2 + y^2 - xy\)</span>
+            <span class="item-diag diag-out">Fora da 2ª chamada · Grau 2</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q16(a)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(f(tx,ty) = (tx)^2 + (ty)^2 - (tx)(ty) = t^2(x^2 + y^2 - xy) = t^2 f(x,y)\)</td><td class="step-comment"><span class="comment-prefix">//</span> Fatoramos \(t^2\) de todos os termos.</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Conclusão Q16(a): Homogênea de grau \(n = 2\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">16(b)</span>
+            <span class="item-prio" title="Classificação">❌</span>
+            <span class="item-enunc">\(f(x,y) = x + y\)</span>
+            <span class="item-diag diag-out">Fora da 2ª chamada · Grau 1</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q16(b)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(f(tx,ty) = tx + ty = t^1(x + y) = t^1 f(x,y)\)</td><td class="step-comment"><span class="comment-prefix">//</span> Fatoramos \(t^1\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Conclusão Q16(b): Homogênea de grau \(n = 1\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">16(c)</span>
+            <span class="item-prio" title="Classificação">❌</span>
+            <span class="item-enunc">\(f(x,y) = x^3 + 2xy^2 + 2y^3\)</span>
+            <span class="item-diag diag-out">Fora da 2ª chamada · Grau 3</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q16(c)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(f(tx,ty) = t^3 x^3 + 2(tx)(t^2 y^2) + 2t^3 y^3 = t^3(x^3 + 2xy^2 + 2y^3)\)</td><td class="step-comment"><span class="comment-prefix">//</span> Todos os monômios têm grau total 3.</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Conclusão Q16(c): Homogênea de grau \(n = 3\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">17(a)</span>
+            <span class="item-prio" title="Classificação">❌</span>
+            <span class="item-enunc">\(y' = \dfrac{2xy}{3x^2 - y^2}\)</span>
+            <span class="item-diag diag-out">Fora da 2ª chamada · v = y/x</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q17(a)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(y = vx \implies y' = v + x v' = \dfrac{2v}{3 - v^2}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Dividimos numerador e denominador por \(x^2\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(x\dfrac{dv}{dx} = \dfrac{2v}{3-v^2} - v = \dfrac{v^3 - v}{3 - v^2} \implies \dfrac{3 - v^2}{v(v^2-1)}dv = \dfrac{dx}{x}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Separamos \(v\) e \(x\).</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\left(-\dfrac{3}{v} + \dfrac{1}{v-1} + \dfrac{1}{v+1}\right)dv = \dfrac{dx}{x}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Frações parciais no integrando em \(v\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(\ln\left|\dfrac{v^2 - 1}{v^3}\right| = \ln|x| + c_1 \implies \dfrac{1}{v} - \dfrac{1}{v^3} = cx\)</td><td class="step-comment"><span class="comment-prefix">//</span> Exponenciamos e voltamos \(v = y/x\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q17(a): \(\left(\dfrac{x}{y}\right)^3 - \dfrac{x}{y} = cx\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">17(b)</span>
+            <span class="item-prio" title="Classificação">❌</span>
+            <span class="item-enunc">\(4x - 3y + y'(2y - 3x) = 0\)</span>
+            <span class="item-diag diag-out">Fora da 2ª chamada · v = y/x (ou Exata)</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q17(b)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(y = vx \implies 4 - 3v + (2v - 3)(v + xv') = 0\)</td><td class="step-comment"><span class="comment-prefix">//</span> Substituímos \(y=vx\) e dividimos por \(x\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(2v^2 - 6v + 4 + x(2v - 3)v' = 0 \implies \dfrac{2v - 3}{v^2 - 3v + 2}dv = -\dfrac{2}{x}dx\)</td><td class="step-comment"><span class="comment-prefix">//</span> Separamos as variáveis (notando \((v^2-3v+2)' = 2v-3\)!).</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\ln|v^2 - 3v + 2| = -2\ln|x| + c_1 \implies x^2\left(\dfrac{y^2}{x^2} - \dfrac{3y}{x} + 2\right) = k\)</td><td class="step-comment"><span class="comment-prefix">//</span> Exponenciamos e multiplicamos por \(x^2\).</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(y^2 - 3xy + 2x^2 = k \iff (2y - 3x)^2 = x^2 + c\)</td><td class="step-comment"><span class="comment-prefix">//</span> Completando quadrado, equivale à resposta da lista.</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q17(b): \((2y - 3x)^2 = x^2 + c\) (ou \(2x^2 - 3xy + y^2 = k\)).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">17(c)</span>
+            <span class="item-prio" title="Classificação">❌</span>
+            <span class="item-enunc">\(4x^2 - xy + y^2 = y'(xy - x^2 - 4y^2)\)</span>
+            <span class="item-diag diag-out">Fora da 2ª chamada · v = y/x + Frações Parciais</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q17(c)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\((4 - v + v^2) + (1 - v + 4v^2)(v + xv') = 0\)</td><td class="step-comment"><span class="comment-prefix">//</span> Substituímos \(y=vx\) após dividir por \(x^2\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(4(1 + v^3) + x(4v^2 - v + 1)v' = 0 \implies \dfrac{4v^2 - v + 1}{4(1+v^3)}dv = -\dfrac{dx}{x}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Fatoramos \(1+v^3 = (v+1)(v^2-v+1)\).</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\left[\dfrac{1}{2(v+1)} + \dfrac{2v - 1}{4(v^2 - v + 1)}\right]dv = -\dfrac{dx}{x}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Frações parciais limpas: cada derivada do denominador está exatamente no numerador!</td></tr><tr class="step-row"><td class="line-num">04</td><td class="step-math">\(\dfrac{1}{2}\ln|v+1| + \dfrac{1}{4}\ln(v^2-v+1) = -\ln|x| + C\)</td><td class="step-comment"><span class="comment-prefix">//</span> Multiplicamos por \(4\) e aplicamos exponencial.</td></tr><tr class="step-row"><td class="line-num">05</td><td class="step-math">\((v+1)^2(v^2-v+1)x^4 = c \implies (y+x)^2(y^2 - xy + x^2) = c\)</td><td class="step-comment"><span class="comment-prefix">//</span> Voltamos \(v = y/x\) multiplicando por \(x^4\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q17(c): \((x+y)^2(x^2 - xy + y^2) = c\).</div>
+        </div>
+    </details>
+    <details class="item-dropdown">
+        <summary class="item-summary">
+            <span class="item-chevron" aria-hidden="true">▸</span>
+            <span class="item-badge">17(d)</span>
+            <span class="item-prio" title="Classificação">❌</span>
+            <span class="item-enunc">\(2xy'(x^2 + y^2) = y(y^2 + 2x^2)\)</span>
+            <span class="item-diag diag-out">Fora da 2ª chamada · v = y/x</span>
+        </summary>
+        <div class="item-content">
+            <div class="code-resolution"><div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Q17(d)</span></div><table class="step-table"><tbody><tr class="step-row"><td class="line-num">01</td><td class="step-math">\(v + x v' = \dfrac{v(v^2 + 2)}{2(1 + v^2)} \implies x v' = \dfrac{v^3 + 2v - 2v - 2v^3}{2(1+v^2)} = -\dfrac{v^3}{2(1+v^2)}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Substituímos \(y=vx\) e subtraímos \(v\).</td></tr><tr class="step-row"><td class="line-num">02</td><td class="step-math">\(-2\left(\dfrac{1}{v^3} + \dfrac{1}{v}\right)dv = \dfrac{dx}{x}\)</td><td class="step-comment"><span class="comment-prefix">//</span> Separamos as variáveis e quebramos a fração.</td></tr><tr class="step-row"><td class="line-num">03</td><td class="step-math">\(\dfrac{1}{v^2} - 2\ln|v| = \ln|x| + c \implies \dfrac{x^2}{y^2} = \ln\left|\dfrac{y^2}{x}\right| + c\)</td><td class="step-comment"><span class="comment-prefix">//</span> Integramos termo a termo e substituímos \(v = y/x\).</td></tr></tbody></table></div>
+            
+            <div class="final-answer">Resposta Q17(d): \(\dfrac{x^2}{y^2} - \ln\left|\dfrac{y^2}{x}\right| = c\) (ou \(x^2 = y^2\ln|ky^2/x|\)).</div>
+        </div>
+    </details></div></div><div class="recap-box"><h3>📌 Resuminho Final — Tabela de Decisão para a Prova (Lista 1)</h3><div class="recap-grid"><div class="recap-card"><strong>1. Separável vs. Linear vs. Bernoulli</strong>Conseguiu isolar \(y\) de um lado e \(x\) do outro? Use <strong>Separável</strong>. Está na forma \(y'+p(x)y=q(x)\)? Use <strong>Fator Integrante</strong>. Tem um \(y^\alpha\) (\(\alpha \neq 0,1\)) multiplicando \(q(x)\)? Use <strong>Bernoulli</strong> (\(v = y^{1-\alpha}\)).</div><div class="recap-card"><strong>2. Exata vs. Inverter \(dx/dy\)</strong>Veio na forma \(M + N y' = 0\) com potências mistas de \(x\) e \(y\)? Teste \(M_y = N_x\) primeiro (<strong>Exata</strong>). Se não bater, teste \(\mu(x)\) ou \(\mu(y)\). Se \(x\) aparecer só uma vez, tente inverter para \(\frac{dx}{dy}\)!</div></div></div></div>
+</div>
+<script>
+    function toggleAll(openState) {
+        document.querySelectorAll('details.item-dropdown').forEach(d => {
+            d.open = openState;
+        });
+    }
+    function openStarOnly() {
+        let firstStar = null;
+        document.querySelectorAll('details.item-dropdown').forEach(d => {
+            const isStar = d.dataset.star === 'true';
+            d.open = isStar;
+            if (isStar && !firstStar) firstStar = d;
+        });
+        if (firstStar) {
+            firstStar.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+</script>
+</body>
+</html>
